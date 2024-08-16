@@ -14,11 +14,11 @@ export default function EditAddPane({ action, dataPoint, dataPointType, optionLi
 
     let dataTypeNames = [
         "String/Word",
+        "Multiple select",
         "Number",
-        "Date",
         "List",
-        "Choice",
-        "Multiple select"
+        "Date",
+        "Choice"
     ];
 
     let dataTypeOptions = dataTypeNames.map((item, index) => {
@@ -41,15 +41,15 @@ export default function EditAddPane({ action, dataPoint, dataPointType, optionLi
 
                         <form className="row g-3">
                             <div className="col-md-6">
-                                <label for="name" className="form-label">Name</label>
+                                <label htmlFor="name" className="form-label">Name</label>
                                 <input type="text" className="form-control" id="name" defaultValue={dataPoint} />
                             </div>
                             <div className="col-md-6">
-                                <label for="inputState" className="form-label">Type</label>
+                                <label htmlFor="inputState" className="form-label">Type</label>
                                 <select on id="inputState" className="form-select"
                                     onChange={(e) => {
                                         setDataPointType_([e.target.value]);
-                                        
+
                                     }}
                                 >
                                     {dataTypeOptions}
@@ -58,6 +58,8 @@ export default function EditAddPane({ action, dataPoint, dataPointType, optionLi
                         </form>
 
                         {dataPointType_ == "List" && <DataPointOptionList optionList={optionList} />}
+                        {dataPointType_ == "Choice" && <DataPointOptionList optionList={optionList} />}
+                        {dataPointType_ == "Multiple select" && <DataPointOptionList optionList={optionList} />}
 
                     </div>
                     <div className="modal-footer">
