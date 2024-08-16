@@ -1,6 +1,8 @@
 import Data_Table from "../../../../lib/components/table/data-table";
-import PredefinedTable from "./PredefinedDataPointTable";
-import CustomDataPointTable from "./CustomDatapointTable";
+import PredefinedTable from "./utils/PredefinedDataPointTable";
+import CustomDataPointTable from "./utils/CustomDatapointTable";
+import EditAddPane from "./utils/EditAddDataPointPane";
+
 
 export default function DataPointSetting() {
     return (
