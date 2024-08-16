@@ -32,7 +32,7 @@ export default function CustomDataPointTable() {
                             <tr>
                                 <th scope="row">1</th>
                                 <td>Status</td>
-                                <td>Choice</td>
+                                <td>List</td>
                                 <td>Tom</td>
                                 <td>2016-05-25</td>
                                 <td>
@@ -40,8 +40,8 @@ export default function CustomDataPointTable() {
                                         data-bs-target="#editAddPane"
                                         onClick={() => {
                                             setAction("Edit");
-                                            setdataPoint("Religion");
-                                            setDataPointType("List");
+                                            setdataPoint("Status");
+                                            setDataPointType("Choice");
                                             setOptionList(["Single", "Married", "Divorced", "others"]);
                                         }}
                                     ><i className="bi bi-pencil-square"></i></button>
@@ -60,7 +60,7 @@ export default function CustomDataPointTable() {
                                         onClick={() => {
                                             setAction("Edit");
                                             setdataPoint("Religion");
-                                            setDataPointType("List");
+                                            setDataPointType("Choice");
                                             setOptionList(["Christianity", "Muslim", "Budhist", "Pagan", "Others"]);
                                         }}
                                     ><i className="bi bi-pencil-square"></i></button>
@@ -116,8 +116,8 @@ export default function CustomDataPointTable() {
                                         data-bs-target="#editAddPane"
                                         onClick={() => {
                                             setAction("Edit");
-                                            setdataPoint("Race");
-                                            setDataPointType("List");
+                                            setdataPoint("Choice");
+                                            setDataPointType("Choice");
                                             setOptionList(["African", "White", "Black American", "Asian", "Others"]);
                                         }}>
                                         <i className="bi bi-pencil-square"></i>
