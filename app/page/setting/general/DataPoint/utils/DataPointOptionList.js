@@ -5,6 +5,14 @@ export default function DataPointOptionList(optionList) {
     return (
         <div style={{ marginTop: "10px" }} className="card">
             <div className="card-body">
+                <div className="row">
+                    <div className="col-md-6">
+                        <input type="text" className="form-control" placeholder="Name" />
+                    </div>
+                    <div className="col-md-6">
+                        <button type="button" className="btn btn-primary">Add new</button>
+                    </div>
+                </div>
                 <h5 className="card-title">Option List</h5>
 
                 <table className="table table-striped table-bordered">
