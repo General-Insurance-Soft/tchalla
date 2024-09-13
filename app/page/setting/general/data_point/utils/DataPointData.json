@@ -5,7 +5,7 @@
                 "name": "Status",
                 "type": "List",
                 "editor": "Tom",
-                "timestamp": "2016-05-25",
+                "edited": "2016-05-25",
                 "options": [
                     [
                         "Single",
@@ -19,7 +19,7 @@
                 "name": "Religion",
                 "type": "List",
                 "editor": "Edward",
-                "timestamp": "2016-05-25",
+                "edited": "2016-05-25",
                 "options": [
                     "Christianity",
                     "Muslim",
@@ -32,21 +32,21 @@
                 "name": "Home Address",
                 "type": "String/Word",
                 "editor": "Nancy",
-                "timestamp": "2016-05-25",
+                "edited": "2016-05-25",
                 "options": []
             },
             {
                 "name": "Dependants",
                 "type": "Number",
                 "editor": "Edward",
-                "timestamp": "2016-05-25",
+                "edited": "2016-05-25",
                 "options": []
             },
             {
                 "name": "Race",
                 "type": "List",
                 "editor": "Edward",
-                "timestamp": "2016-05-25",
+                "edited": "2016-05-25",
                 "options": [
                     "African",
                     "White",
@@ -61,19 +61,17 @@
                 "name": "Renewal Needed",
                 "type": "Choice",
                 "editor": "Tom",
-                "timestamp": "2016-05-25",
+                "edited": "2016-05-25",
                 "options": [
-                    [
-                        "Yes",
-                        "No"
-                    ]
+                    "Yes",
+                    "No"
                 ]
             },
             {
                 "name": "Important",
                 "type": "List",
                 "editor": "Edward",
-                "timestamp": "2016-05-25",
+                "edited": "2016-05-25",
                 "options": [
                     "Yes",
                     "No"
@@ -83,12 +81,10 @@
                 "name": "ETC",
                 "type": "String/Word",
                 "editor": "Nancy",
-                "timestamp": "2016-05-25",
+                "edited": "2016-05-25",
                 "options": []
             }
         ]
     },
-    "predefined_data": {
-
-    }
+    "predefined_data": {}
 }

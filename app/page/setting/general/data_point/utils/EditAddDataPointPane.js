@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import DataPointOptionList from './DataPointOptionList';
 
-export default function EditAddPane({ action, dataPoint, dataPointType, optionList }) {
+export default function EditAddPane({ action, dataPoint, dataPointType, optionList, paneId }) {
 
     const [dataPointType_, setDataPointType_] = useState(dataPointType);
 
@@ -30,7 +30,7 @@ export default function EditAddPane({ action, dataPoint, dataPointType, optionLi
     });
 
     return (
-        <div className="modal fade" id="editAddPane" tabIndex="-1">
+        <div className="modal fade" id={paneId} tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
