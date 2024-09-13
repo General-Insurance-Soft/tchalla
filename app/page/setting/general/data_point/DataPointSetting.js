@@ -17,7 +17,7 @@ export default function DataPointSetting() {
                         </h2>
                         <div id="collapsedataPointOne" className="accordion-collapse collapse show" aria-labelledby="headingdataPointOne" data-bs-parent="#dataPoint">
                             <PredefinedTable />
-                            <CustomDataPointTable tableData={dbData.demo_data}/>
+                            <CustomDataPointTable tableData={dbData.custom_data.demo_data}/>
                         </div>
                     </div>
                     <div className="accordion-item">

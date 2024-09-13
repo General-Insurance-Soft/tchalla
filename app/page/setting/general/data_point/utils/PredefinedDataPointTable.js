@@ -1,4 +1,4 @@
-export default function PredefinedTable() {
+export default function PredefinedTable(tableData) {
     return (
         <div className="card">
             <div className="card-body">
