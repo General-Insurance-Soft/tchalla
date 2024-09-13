@@ -1,6 +1,7 @@
 'use client'
 
-import DataPointSetting from "./DataPoint/DataPointSetting";
+import DataPointSetting from "./data_point/DataPointSetting";
+import PolicySetting from "./policy/policy_setting";
 
 export default function GeneralSetting() {
     return (
@@ -48,7 +49,7 @@ export default function GeneralSetting() {
                                     <DataPointSetting/>
                                 </div>
                                 <div className="tab-pane fade" id="bordered-justified-policy" role="tabpanel" aria-labelledby="policy-tab">
-                                    Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+                                    <PolicySetting/>
                                 </div>
                                 <div className="tab-pane fade" id="bordered-justified-claim" role="tabpanel" aria-labelledby="claim-tab">
                                     Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.

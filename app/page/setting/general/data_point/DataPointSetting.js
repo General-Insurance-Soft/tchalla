@@ -2,7 +2,7 @@ import Data_Table from "../../../../lib/components/table/data-table";
 import PredefinedTable from "./utils/PredefinedDataPointTable";
 import CustomDataPointTable from "./utils/CustomDatapointTable";
 import EditAddPane from "./utils/EditAddDataPointPane";
-
+import * as dbData from "./utils/DataPointData.json";
 
 export default function DataPointSetting() {
     return (
@@ -16,8 +16,8 @@ export default function DataPointSetting() {
                             </button>
                         </h2>
                         <div id="collapsedataPointOne" className="accordion-collapse collapse show" aria-labelledby="headingdataPointOne" data-bs-parent="#dataPoint">
-                            <PredefinedTable/>
-                            <CustomDataPointTable/>
+                            <PredefinedTable />
+                            <CustomDataPointTable tableData={dbData.demo_data}/>
                         </div>
                     </div>
                     <div className="accordion-item">
@@ -27,9 +27,8 @@ export default function DataPointSetting() {
                             </button>
                         </h2>
                         <div id="collapsedataPointTwo" className="accordion-collapse collapse" aria-labelledby="headingdataPointTwo" data-bs-parent="#dataPoint">
-                            <div className="accordion-body">
-                                <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
+                            <PredefinedTable />
+                            <CustomDataPointTable />
                         </div>
                     </div>
                     <div className="accordion-item">
@@ -39,9 +38,8 @@ export default function DataPointSetting() {
                             </button>
                         </h2>
                         <div id="collapsedataPointThree" className="accordion-collapse collapse" aria-labelledby="headingdataPointThree" data-bs-parent="#dataPoint">
-                            <div className="accordion-body">
-                                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
+                            <PredefinedTable />
+                            <CustomDataPointTable />
                         </div>
                     </div>
 
@@ -52,9 +50,8 @@ export default function DataPointSetting() {
                             </button>
                         </h2>
                         <div id="collapsedataPointFour" className="accordion-collapse collapse" aria-labelledby="headingdataPointFour" data-bs-parent="#dataPoint">
-                            <div className="accordion-body">
-                                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
+                            <PredefinedTable />
+                            <CustomDataPointTable />
                         </div>
                     </div>
 

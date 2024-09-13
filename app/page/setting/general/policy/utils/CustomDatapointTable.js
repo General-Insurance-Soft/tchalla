@@ -16,7 +16,7 @@ export default function CustomDataPointTable() {
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Custom Datapoints</h5>
-
+                    <button type="button" style={{marginBottom : "4px"}} className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAddPane">Add New Data Point</button>
                     <table className="table table-striped table-bordered">
                         <thead>
                             <tr>

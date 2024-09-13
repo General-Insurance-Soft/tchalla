@@ -1,0 +1,89 @@
+{
+    "demo_data": [
+        {
+            "name": "Status",
+            "type": "List",
+            "editor": "Tom",
+            "timestamp": "2016-05-25",
+            "options": [
+                [
+                    "Single",
+                    "Married",
+                    "Divorced",
+                    "others"
+                ]
+            ]
+        },
+        {
+            "name": "Religion",
+            "type": "List",
+            "editor": "Edward",
+            "timestamp": "2016-05-25",
+            "options": [
+                "Christianity",
+                "Muslim",
+                "Budhist",
+                "Pagan",
+                "Others"
+            ]
+        },
+        {
+            "name": "Home Address",
+            "type": "String/Word",
+            "editor": "Nancy",
+            "timestamp": "2016-05-25",
+            "options": []
+        },
+        {
+            "name": "Dependants",
+            "type": "Number",
+            "editor": "Edward",
+            "timestamp": "2016-05-25",
+            "options": []
+        },
+        {
+            "name": "Race",
+            "type": "List",
+            "editor": "Edward",
+            "timestamp": "2016-05-25",
+            "options": [
+                "African",
+                "White",
+                "Black American",
+                "Asian",
+                "Others"
+            ]
+        }
+    ],
+    "policy_data": [
+        {
+            "name": "Renewal Needed",
+            "type": "Choice",
+            "editor": "Tom",
+            "timestamp": "2016-05-25",
+            "options": [
+                [
+                    "Yes",
+                    "No"
+                ]
+            ]
+        },
+        {
+            "name": "Important",
+            "type": "List",
+            "editor": "Edward",
+            "timestamp": "2016-05-25",
+            "options": [
+                "Yes",
+                "No"
+            ]
+        },
+        {
+            "name": "ETC",
+            "type": "String/Word",
+            "editor": "Nancy",
+            "timestamp": "2016-05-25",
+            "options": []
+        }
+    ]
+}
