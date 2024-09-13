@@ -129,6 +129,56 @@
                 "edited": "2016-05-25",
                 "options": []
             }
+        ],
+        "policy_data":[
+            {
+                "name": "Policy Type",
+                "type": "List",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": [
+                    "Life",
+                    "Health",
+                    "Motor",
+                    "Travel",
+                    "Others"
+                ]
+            },
+            {
+                "name": "Certificate No",
+                "type": "String/Word",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": []
+            },
+            {
+                "name": "Start Date",
+                "type": "Date",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": []
+            },
+            {
+                "name": "End Date",
+                "type": "Date",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": []
+            },
+            {
+                "name": "Company",
+                "type": "String/Word",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": []
+            },
+            {
+                "name": "Policy No",
+                "type": "String/Word",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": []
+            }
         ]
     }
 }

@@ -27,7 +27,7 @@ export default function DataPointSetting() {
                             </button>
                         </h2>
                         <div id="collapsedataPointTwo" className="accordion-collapse collapse" aria-labelledby="headingdataPointTwo" data-bs-parent="#dataPoint">
-                            <PredefinedTable />
+                            <PredefinedTable tableData={dbData.predefined_data.policy_data}/>
                             <CustomDataPointTable tableData={dbData.custom_data.policy_data} paneId="proposalPane"/>
                         </div>
                     </div>
