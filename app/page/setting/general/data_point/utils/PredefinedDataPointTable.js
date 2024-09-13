@@ -1,4 +1,6 @@
-export default function PredefinedTable(tableData) {
+export default function PredefinedTable({tableData}) {
+    console.log("predefined data passed Table");
+    console.log(tableData);
     return (
         <div className="card">
             <div className="card-body">
@@ -15,48 +17,21 @@ export default function PredefinedTable(tableData) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>First Name</td>
-                            <td>String/Word</td>
-                            <td>System</td>
-                            <td>2016-05-25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Second Name</td>
-                            <td>String/Word</td>
-                            <td>System</td>
-                            <td>2016-05-25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Date of Birth</td>
-                            <td>Date</td>
-                            <td>System</td>
-                            <td>2016-05-25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>Location</td>
-                            <td>List</td>
-                            <td>System</td>
-                            <td>2016-05-25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>Phone Number</td>
-                            <td>Number</td>
-                            <td>System</td>
-                            <td>2016-05-25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>Gender</td>
-                            <td>Choice</td>
-                            <td>System</td>
-                            <td>2016-05-25</td>
-                        </tr>
+                        {
+                            (tableData !== undefined)
+                            &&
+                            tableData.map((data, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <th scope="row">{index + 1}</th>
+                                        <td>{data.name}</td>
+                                        <td>{data.type}</td>
+                                        <td>{data.editor}</td>
+                                        <td>{data.edited}</td>
+                                    </tr>
+                                );
+                            })
+                        }
                     </tbody>
                 </table>
 

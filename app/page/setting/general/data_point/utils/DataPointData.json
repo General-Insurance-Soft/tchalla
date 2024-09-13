@@ -86,5 +86,49 @@
             }
         ]
     },
-    "predefined_data": {}
+    "predefined_data": {
+        "demo_data": [
+            {
+                "name": "First Name",
+                "type": "String/Word",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": []
+            },
+            {
+                "name": "Second Name",
+                "type": "String/Word",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": []
+            },
+            {
+                "name": "Date of Birth",
+                "type": "Date",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": []
+            },
+            {
+                "name": "Location",
+                "type": "List",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": [
+                    "Lagos",
+                    "Abuja",
+                    "Port Harcourt",
+                    "Kano",
+                    "Others"
+                ]
+            },
+            {
+                "name": "Phone Number",
+                "type": "Number",
+                "editor": "System",
+                "edited": "2016-05-25",
+                "options": []
+            }
+        ]
+    }
 }
