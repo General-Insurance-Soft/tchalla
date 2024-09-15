@@ -3,6 +3,7 @@
 import DataPointSetting from "./data_point/DataPointSetting";
 import PolicySetting from "./policy/policy_setting";
 import ClaimSetting from "./claim/claim_setting";
+import ProposalSetting from "./proposal/proposal_setting";
 
 export default function GeneralSetting() {
     return (
@@ -53,7 +54,7 @@ export default function GeneralSetting() {
                                     <DataPointSetting />
                                 </div>
                                 <div className="tab-pane fade" id="bordered-justified-proposal" role="tabpanel" aria-labelledby="proposal-tab">
-                                    Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+                                    <ProposalSetting /> 
                                 </div>
                                 <div className="tab-pane fade" id="bordered-justified-policy" role="tabpanel" aria-labelledby="policy-tab">
                                     <PolicySetting />
