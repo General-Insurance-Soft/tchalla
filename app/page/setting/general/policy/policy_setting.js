@@ -1,9 +1,3 @@
-import Data_Table from "../../../../lib/components/table/data-table";
-import PredefinedTable from "./utils/PredefinedDataPointTable";
-import CustomDataPointTable from "./utils/CustomDatapointTable";
-import EditAddPane from "./utils/EditAddDataPointPane";
-
-
 export default function PolicySetting() {
     let cardHeaderStyle = {
         color: "blue",
