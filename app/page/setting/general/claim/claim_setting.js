@@ -2,6 +2,28 @@ export default function ClaimSetting() {
 
     return (
         <div style={{ marginTop: "10px" }} className="row">
+
+            {/* Notofication setting */}
+            <div className="col-xl-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="tc-card-header">Notifications</h6>
+                        <hr />
+                        <div className="row mb-3">
+                            <form>
+                                <div class="row mb-3">
+                                    <label for="firstAlert" class="col-sm-9 col-form-label">Remind me via SMS claims longer than this number of days:</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="firstAlert" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* end notification setting */}
+
             {/* Storage settings */}
 
             <div className="col-xl-6">

@@ -1,4 +1,4 @@
-export default function ClaimSetting() {
+export default function PolicySetting() {
 
 
     return (
@@ -66,7 +66,7 @@ export default function ClaimSetting() {
                         <hr />
                         <form>
                             <div class="row mb-3">
-                                <label for="#" class="col-sm-9 col-form-label">Number of days to store policy files:</label>
+                                <label for="#" class="col-sm-9 col-form-label">Number of days to store attached policy files:</label>
                                 <div class="col-sm-3">
                                     <input style={{marginBottom: "5px"}} type="text" class="form-control" id="fileStoegaeLength" />
                                     <div class="form-check">
