@@ -1,7 +1,5 @@
-export default function PolicySetting() {
-    let cardHeaderStyle = {
-        color: "blue",
-    }
+export default function ClaimSetting() {
+
 
     return (
         <div style={{ marginTop: "10px" }} className="row">
@@ -10,7 +8,7 @@ export default function PolicySetting() {
             <div className="col-xl-6">
                 <div class="card">
                     <div class="card-body">
-                        <h6 style={cardHeaderStyle} class="card-title/">Notifications</h6>
+                        <h6  class="tc-card-header">Notifications</h6>
                         <hr />
                         <div className="row mb-3">
                             <form>
@@ -64,7 +62,7 @@ export default function PolicySetting() {
             <div className="col-xl-6">
                 <div class="card">
                     <div class="card-body">
-                        <h6 style={cardHeaderStyle} class="card-title/">Storage</h6>
+                        <h6 class="tc-card-header">Storage</h6>
                         <hr />
                         <form>
                             <div class="row mb-3">
