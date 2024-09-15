@@ -2,6 +2,7 @@
 
 import DataPointSetting from "./data_point/DataPointSetting";
 import PolicySetting from "./policy/policy_setting";
+import ClaimSetting from "./claim/claim_setting";
 
 export default function GeneralSetting() {
     return (
@@ -26,6 +27,9 @@ export default function GeneralSetting() {
                                     <button className="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-data" type="button" role="tab" aria-controls="data" aria-selected="true">Data points</button>
                                 </li>
                                 <li className="nav-item flex-fill" role="presentation">
+                                    <button className="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-proposal" type="button" role="tab" aria-controls="proposal" aria-selected="false">Proposal</button>
+                                </li>
+                                <li className="nav-item flex-fill" role="presentation">
                                     <button className="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-policy" type="button" role="tab" aria-controls="policy" aria-selected="false">Policy</button>
                                 </li>
                                 <li className="nav-item flex-fill" role="presentation">
@@ -46,13 +50,16 @@ export default function GeneralSetting() {
                             </ul>
                             <div className="tab-content pt-2" id="borderedTabJustifiedContent">
                                 <div className="tab-pane fade show active" id="bordered-justified-data" role="tabpanel" aria-labelledby="data-tab">
-                                    <DataPointSetting/>
+                                    <DataPointSetting />
+                                </div>
+                                <div className="tab-pane fade" id="bordered-justified-proposal" role="tabpanel" aria-labelledby="proposal-tab">
+                                    Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
                                 </div>
                                 <div className="tab-pane fade" id="bordered-justified-policy" role="tabpanel" aria-labelledby="policy-tab">
-                                    <PolicySetting/>
+                                    <PolicySetting />
                                 </div>
                                 <div className="tab-pane fade" id="bordered-justified-claim" role="tabpanel" aria-labelledby="claim-tab">
-                                    Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+                                    <ClaimSetting />
                                 </div>
                                 <div className="tab-pane fade" id="bordered-justified-sms" role="tabpanel" aria-labelledby="sms-tab">
                                     Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
