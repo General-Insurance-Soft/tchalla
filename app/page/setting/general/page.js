@@ -6,6 +6,7 @@ import ClaimSetting from "./claim/claim_setting";
 import ProposalSetting from "./proposal/proposal_setting";
 import SmsSetting from "./sms/sms_setting";
 import PaymentSetting from "./payment/payment_setting";
+import EventCalendarSetting from "./event_calendar/event_calendar_setting";
 
 export default function GeneralSetting() {
     return (
@@ -71,7 +72,7 @@ export default function GeneralSetting() {
                                     <PaymentSetting />
                                 </div>
                                 <div className="tab-pane fade" id="bordered-justified-event" role="tabpanel" aria-labelledby="event-tab">
-                                    Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+                                    <EventCalendarSetting/>
                                 </div>
                                 <div className="tab-pane fade" id="bordered-justified-report" role="tabpanel" aria-labelledby="report-tab">
                                     Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
