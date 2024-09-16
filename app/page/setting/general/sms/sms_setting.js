@@ -21,9 +21,9 @@ export default function SmsSetting() {
                                     <div class="row mb-3">
                                         <label for="subsequentAlert" class="col-sm-7 col-form-label">Time of day to send SMS:</label>
                                         <div class="col-sm-5">
-                                            Between:
+                                            From:
                                             <input type="text" class="form-control" id="subsequentAlert" />
-                                            -
+                                            To:
                                             <input type="text" class="form-control" />
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@ export default function SmsSetting() {
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#smsTemplates">
                                     <div class="accordion-body">
 
-                                        <form class="row g-3">
+                                        <form action="#"  class="row g-3">
 
                                             <div className="col-sm-2">
                                                 <label for="inputName56" class="form-label">Template Name:</label>
@@ -131,7 +131,7 @@ export default function SmsSetting() {
                                                 </div>
                                             </div>
                                             <div class="text-center">
-                                                <button type="#" class="btn btn-primary">Add</button>
+                                                <button class="btn btn-primary">Add</button>
                                                 <button type="reset" class="btn btn-secondary">Reset</button>
                                             </div>
 
@@ -170,7 +170,7 @@ export default function SmsSetting() {
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#smsTemplates">
                                     <div class="accordion-body">
 
-                                        <form class="row g-3 mb-3">
+                                        <form action="#" class="row g-3 mb-3">
 
                                             <div className="col-sm-2">
                                                 <label for="inputName56" class="form-label">Template Name:</label>
@@ -189,7 +189,7 @@ export default function SmsSetting() {
                                             </div>
 
                                             <div class="text-center">
-                                                <button type="#" class="btn btn-primary">Add</button>
+                                                <button  class="btn btn-primary">Add</button>
                                                 <button type="reset" class="btn btn-secondary">Reset</button>
                                             </div>
 
