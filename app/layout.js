@@ -13,7 +13,7 @@ import PolicySubMenu from "./lib/components/ui/menu/policy/index";
 import ProposalSubMenu from "./lib/components/ui/menu/proposal/index";
 import SettingSubMenu from "./lib/components/ui/menu/setting/index";
 import ReportSubMenu from "./lib/components/ui/menu/report/index";
-
+import PaymentSubMenu from "./lib/components/ui/menu/payment/index"; 
 
 export const metadata = {
   title: "Gisca Insure: Insurance Agent Platform",
@@ -313,25 +313,29 @@ export default function RootLayout({ children }) {
             </li>
             {/* <!-- End Dashboard Nav --> */}
 
-            <ProposalSubMenu/>
+            <ProposalSubMenu />
 
             {/* <!-- End Components Nav --> */}
 
-            <PolicySubMenu/>
+            <PolicySubMenu />
 
             {/* <!-- End Forms Nav --> */}
 
-            <ClaimSubMenu/>
+            <ClaimSubMenu />
 
             {/* <!-- End Tables Nav --> */}
 
-            <CRMSubMenu/>
+            <PaymentSubMenu />
+
+            {/* <!-- End Tables Nav --> */}
+
+            <CRMSubMenu />
 
             {/* <!-- End Charts Nav --> */}
 
-            <ReportSubMenu/>
+            <ReportSubMenu />
 
-            <SettingSubMenu/>
+            <SettingSubMenu />
 
             <li className="nav-heading">Advance</li>
 
