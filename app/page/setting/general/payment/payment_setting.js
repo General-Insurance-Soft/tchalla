@@ -31,89 +31,109 @@ export default function PaymentSetting() {
             {/* Receipt template settings */}
             <div className="row">
 
-
-                <div className="col-sm-6">
+                <div className="col-sm-12">
 
                     <div className="card">
                         <div className="card-body">
                             <h6 className="tc-card-header">Choose Receipt template to use</h6>
                             <hr />
-                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
-                            <Image
-                                src="/img/receipt_template.jpg"
-                                // layout="responsive"
-                                width={200}  // Aspect ratio width
-                                height={400}  // Aspect ratio height
-                                className="card-img-top"
-                                alt="receipt template"
-                            />
-                            <hr />
-                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
+
+                            <div className='row'>
+                                {/* Template */}
+                                <div className="col-sm-6">
+
+                                    <div className="card">
+                                        <div className="card-body">
+
+                                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
+                                            <Image
+                                                src="/img/receipt_template.jpg"
+                                                // layout="responsive"
+                                                width={200}  // Aspect ratio width
+                                                height={400}  // Aspect ratio height
+                                                className="card-img-top"
+                                                alt="receipt template"
+                                            />
+                                            <hr />
+                                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Template */}
+
+                                {/* Template */}
+                                <div className="col-sm-6">
+
+                                    <div className="card">
+                                        <div className="card-body">
+
+                                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
+                                            <Image
+                                                src="/img/receipt_template.jpg"
+                                                // layout="responsive"
+                                                width={200}  // Aspect ratio width
+                                                height={400}  // Aspect ratio height
+                                                className="card-img-top"
+                                                alt="receipt template"
+                                            />
+                                            <hr />
+                                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Template */}
+
+
+                                {/* Template */}
+                                <div className="col-sm-6">
+
+                                    <div className="card">
+                                        <div className="card-body">
+
+                                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
+                                            <Image
+                                                src="/img/receipt_template.jpg"
+                                                // layout="responsive"
+                                                width={200}  // Aspect ratio width
+                                                height={400}  // Aspect ratio height
+                                                className="card-img-top"
+                                                alt="receipt template"
+                                            />
+                                            <hr />
+                                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Template */}
+
+
+                                {/* Template */}
+                                <div className="col-sm-6">
+
+                                    <div className="card">
+                                        <div className="card-body">
+
+                                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
+                                            <Image
+                                                src="/img/receipt_template.jpg"
+                                                // layout="responsive"
+                                                width={200}  // Aspect ratio width
+                                                height={400}  // Aspect ratio height
+                                                className="card-img-top"
+                                                alt="receipt template"
+                                            />
+                                            <hr />
+                                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Template */}
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
-
-
-                <div className="col-sm-6">
-
-                    <div className="card">
-                        <div className="card-body">
-                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
-                            <Image
-                                src="/img/receipt_template.jpg"
-                                // layout="responsive"
-                                width={200}  // Aspect ratio width
-                                height={400}  // Aspect ratio height
-                                className="card-img-top"
-                                alt="receipt template"
-                            />
-                            <hr />
-                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div className="col-sm-6">
-
-                    <div className="card">
-                        <div className="card-body">
-                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
-                            <Image
-                                src="/img/receipt_template.jpg"
-                                // layout="responsive"
-                                width={200}  // Aspect ratio width
-                                height={400}  // Aspect ratio height
-                                className="card-img-top"
-                                alt="receipt template"
-                            />
-                            <hr />
-                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div className="col-sm-6">
-
-                    <div className="card">
-                        <div className="card-body">
-                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
-                            <Image
-                                src="/img/receipt_template.jpg"
-                                // layout="responsive"
-                                width={200}  // Aspect ratio width
-                                height={400}  // Aspect ratio height
-                                className="card-img-top"
-                                alt="receipt template"
-                            />
-                            <hr />
-                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
             {/* End receipt template settings */}
 
