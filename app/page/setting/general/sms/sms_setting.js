@@ -113,7 +113,7 @@ export default function SmsSetting() {
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#smsTemplates">
                                     <div class="accordion-body">
 
-                                        <form action="#"  class="row g-3">
+                                        <form  class="row g-3">
 
                                             <div className="col-sm-2">
                                                 <label for="inputName56" class="form-label">Template Name:</label>
@@ -130,9 +130,11 @@ export default function SmsSetting() {
                                                     [x_name], [x_name], [x_name]
                                                 </div>
                                             </div>
-                                            <div class="text-center">
-                                                <button class="btn btn-primary">Add</button>
-                                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                            <div class="text-center mb-3">
+                                                <div class="d-flex justify-content-center">
+                                                    <button class="btn btn-primary me-2">Add</button>
+                                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                                </div>
                                             </div>
 
                                         </form>
@@ -189,7 +191,7 @@ export default function SmsSetting() {
                                             </div>
 
                                             <div class="text-center">
-                                                <button  class="btn btn-primary">Add</button>
+                                                <button class="btn btn-primary">Add</button>
                                                 <button type="reset" class="btn btn-secondary">Reset</button>
                                             </div>
 
