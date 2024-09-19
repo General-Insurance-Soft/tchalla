@@ -190,9 +190,11 @@ export default function SmsSetting() {
                                                 </div>
                                             </div>
 
-                                            <div class="text-center">
-                                                <button class="btn btn-primary">Add</button>
-                                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                            <div class="text-center mb-3">
+                                                <div class="d-flex justify-content-center">
+                                                    <button class="btn btn-primary me-2">Add</button>
+                                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                                </div>
                                             </div>
 
                                         </form>
