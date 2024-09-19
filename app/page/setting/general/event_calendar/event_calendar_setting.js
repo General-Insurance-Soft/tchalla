@@ -6,7 +6,7 @@ export default function EventCalendarSetting() {
         <>
             <div style={{ marginTop: "10px" }} className="row">
                 {/* event config  */}
-                <div className="col-xl-6">
+                <div className="col-xl-8">
                     <div className="card">
                         <div className="card-body">
                             <h6 className="tc-card-header">Event Setup</h6>
