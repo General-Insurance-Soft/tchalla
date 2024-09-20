@@ -2,7 +2,7 @@ import Data_Table from "../../../../lib/components/table/data-table";
 import PredefinedTable from "./utils/PredefinedDataPointTable";
 import CustomDataPointTable from "./utils/CustomDatapointTable";
 import EditAddPane from "./utils/EditAddDataPointPane";
-import * as dbData from "./utils/DataPointData.json";
+import * as dbData from "../../../../../public/DataPointData.json"
 
 export default function DataPointSetting() {
     return (
