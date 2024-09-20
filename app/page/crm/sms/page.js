@@ -58,7 +58,7 @@ export default function Page() {
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header" id="headingOne">
                                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                            SMS template for events
+                                                            <h5>SMS template for events</h5>
                                                         </button>
                                                     </h2>
                                                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#smsTemplates">
@@ -81,7 +81,7 @@ export default function Page() {
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <label for="inputName5" class="form-label">SMS template birthdays day:</label>
+                                                                    <label for="inputName5" class="form-label">SMS template for event:</label>
                                                                     <textarea id="inputName5" class="form-control" name="w3review" rows="4" cols="8"></textarea>
                                                                 </div>
                                                                 <div className="col-sm-6">
@@ -128,7 +128,7 @@ export default function Page() {
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header" id="headingTwo">
                                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                            SMS template for client birthdays
+                                                            <h5>SMS template for client birthdays</h5>
                                                         </button>
                                                     </h2>
                                                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#smsTemplates">
@@ -141,7 +141,7 @@ export default function Page() {
                                                                     <input type="text" class="form-control" id="inputName56" />
                                                                 </div>
                                                                 <div class="col-sm-7">
-                                                                    <label for="inputName5" class="form-label">SMS template for event:</label>
+                                                                    <label for="inputName5" class="form-label">SMS template birthdays day:</label>
                                                                     <textarea id="inputName5" class="form-control" name="w3review" rows="4" cols="8"></textarea>
                                                                 </div>
                                                                 <div className="col-sm-3">
