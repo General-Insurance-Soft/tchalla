@@ -48,9 +48,7 @@ export default function GeneralSetting() {
                                 <li className="nav-item flex-fill" role="presentation">
                                     <button className="nav-link w-100" id="events-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-event" type="button" role="tab" aria-controls="event" aria-selected="false">Events & Calendar</button>
                                 </li>
-                                <li className="nav-item flex-fill" role="presentation">
-                                    <button className="nav-link w-100" id="reports-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-report" type="button" role="tab" aria-controls="report" aria-selected="false">Reports</button>
-                                </li>
+                
                             </ul>
                             <div className="tab-content pt-2" id="borderedTabJustifiedContent">
                                 <div className="tab-pane fade show active" id="bordered-justified-data" role="tabpanel" aria-labelledby="data-tab">
@@ -74,9 +72,7 @@ export default function GeneralSetting() {
                                 <div className="tab-pane fade" id="bordered-justified-event" role="tabpanel" aria-labelledby="event-tab">
                                     <EventCalendarSetting/>
                                 </div>
-                                <div className="tab-pane fade" id="bordered-justified-report" role="tabpanel" aria-labelledby="report-tab">
-                                    Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
-                                </div>
+                                
                             </div>
 
                         </div>
