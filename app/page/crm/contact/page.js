@@ -74,9 +74,10 @@ export default function Page() {
                                 <button className="btn btn-secondary">Cancel</button>
                             </div>
                         </div>
+                        <hr />
                     </form>
 
-
+                    <h5 className="card-title">Manage Customers</h5>
                     <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
