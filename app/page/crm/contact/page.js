@@ -78,6 +78,10 @@ export default function Page() {
                     </form>
 
                     <h5 className="card-title">Manage Customers</h5>
+                    <div className="row">
+                        <div className="col-sm-6">Total Customers: 600</div>
+                    </div>
+
                     <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
