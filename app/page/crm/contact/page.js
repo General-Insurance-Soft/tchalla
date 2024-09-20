@@ -98,12 +98,12 @@ export default function Page() {
                                 </thead>
                                 <tbody>
 
-                                    {/* {
-                                        (tableData !== undefined)
+                                    {
+                                        (combinedDataArry !== undefined)
 
                                         &&
 
-                                        tableData.map((data, index) => {
+                                        combinedDataArry.map((data, index) => {
                                             return (
                                                 <tr key={index}>
                                                     <th scope="row">{index + 1}</th>
@@ -115,13 +115,13 @@ export default function Page() {
                                                 </tr>
                                             );
                                         })
-                                    } */}
+                                    }
 
                                 </tbody>
                             </table>
 
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
