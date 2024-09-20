@@ -63,6 +63,10 @@ export default function Page() {
                                 <option>Nairobi</option>
                             </select>
                         </div>
+                        <div className="col-md-4">
+                            <label for="img">Select passport image:</label>
+                            <input type="file" id="img" name="img" accept="image/*" className="form-control" />
+                        </div>
 
                         <div className="text-center mb-3">
                             <div className="d-flex justify-content-center">
