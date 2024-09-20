@@ -6,7 +6,7 @@ export default function PaymentSubMenu() {
   return (
     <li className="nav-item">
       <a className="nav-link collapsed" data-bs-target="#payments-nav" data-bs-toggle="collapse" href="#">
-      <i className="bi bi-wallet2"></i><span>Pyaments</span><i className="bi bi-chevron-down ms-auto"></i>
+      <i className="bi bi-wallet2"></i><span>Payments</span><i className="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul id="payments-nav" className="nav-content collapse" data-bs-parent="#sidebar-nav">
         <li>
