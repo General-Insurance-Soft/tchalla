@@ -15,16 +15,6 @@ export default function CRMSubMenu() {
                     </Link>
                 </li>
                 <li>
-                    <Link className="nav-link" href="/page/crm/sales">
-                        <i className="bi bi-circle"></i><span>Sales Management</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link className="nav-link" href="/page/crm/customer">
-                        <i className="bi bi-circle"></i><span>Customer Service</span>
-                    </Link>
-                </li>
-                <li>
                     <Link className="nav-link" href="/page/crm/sms">
                         <i className="bi bi-circle"></i><span>SMS</span>
                     </Link>
