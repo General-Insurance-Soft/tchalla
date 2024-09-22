@@ -30,7 +30,7 @@ export default function SmsSetting() {
                                     <div class="row mb-3">
                                         <label for="maxAlert" class="col-sm-7 col-form-label">Send SMS on special events?</label>
                                         <div class="col-sm-5">
-                                            <input class="form-check-input" type="checkbox" id="checkSMS" />
+                                            <input class="form-check-input" type="checkbox" id="checkSMS1" />
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -40,9 +40,15 @@ export default function SmsSetting() {
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="maxAlert" class="col-sm-7 col-form-label">Send happy birthdya SMS to clients?</label>
+                                        <label for="maxAlert" class="col-sm-7 col-form-label">Send happy birthday SMS to clients?</label>
                                         <div class="col-sm-5">
                                             <input class="form-check-input" type="checkbox" id="checkSMS" />
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="maxAlert" class="col-sm-7 col-form-label">Send policy expire SMS to clients?</label>
+                                        <div class="col-sm-5">
+                                            <input class="form-check-input" type="checkbox" id="checkPolicyExpire" />
                                         </div>
                                     </div>
 
