@@ -1,4 +1,5 @@
 import DataPointModal from "../../../lib/utils/data_point_modal";
+import Image from 'next/image';
 
 export default function Page() {
     return (
@@ -27,12 +28,104 @@ export default function Page() {
                     <div className="col-md-2">
                         <label for="img">Select Scanned copies:</label>
                     </div>
-                    <div className="col-md-5">
+                    <div className="col-md-4">
                         <input type="file" id="img" name="img" accept="image/*" className="form-control" />
                     </div>
                     <div className="col-md-5">
                         <input type="text" className="form-control" placeholder="Scanned copy name" />
                     </div>
+                    <div className="col-md-1">
+                        <button type="button" className="btn btn-primary">Add image</button>
+                    </div>
+
+
+
+                    <div className="row mt-3">
+
+                        <div className="col-sm-12">
+
+                            <div className="card">
+                                <div className="card-body">
+                                    <h6 className="tc-card-header">All added scanned copies</h6>
+                                    <hr />
+
+                                    <div className='row'>
+                                        {/* Template */}
+                                        <div className="col-sm-6">
+
+                                            <div className="card">
+                                                <div className="card-body">
+
+                                                    <h6 class="card-subtitle mb-2 text-muted">Proposal</h6>
+                                                    <Image
+                                                        src="/img/receipt_template.jpg"
+                                                        // layout="responsive"
+                                                        width={200}  // Aspect ratio width
+                                                        height={400}  // Aspect ratio height
+                                                        className="card-img-top"
+                                                        alt="receipt template"
+                                                    />
+                                                    <hr />
+                                                    <p class="card-text"><a class="btn btn-info">Preview</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Template */}
+
+                                        {/* Template */}
+                                        <div className="col-sm-6">
+
+                                            <div className="card">
+                                                <div className="card-body">
+
+                                                    <h6 class="card-subtitle mb-2 text-muted">National ID</h6>
+                                                    <Image
+                                                        src="/img/receipt_template.jpg"
+                                                        // layout="responsive"
+                                                        width={200}  // Aspect ratio width
+                                                        height={400}  // Aspect ratio height
+                                                        className="card-img-top"
+                                                        alt="receipt template"
+                                                    />
+                                                    <hr />
+                                                    <p class="card-text"><a class="btn btn-info">Preview</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Template */}
+
+
+                                        {/* Template */}
+                                        <div className="col-sm-6">
+
+                                            <div className="card">
+                                                <div className="card-body">
+
+                                                    <h6 class="card-subtitle mb-2 text-muted">KRA PIN</h6>
+                                                    <Image
+                                                        src="/img/receipt_template.jpg"
+                                                        // layout="responsive"
+                                                        width={200}  // Aspect ratio width
+                                                        height={400}  // Aspect ratio height
+                                                        className="card-img-top"
+                                                        alt="receipt template"
+                                                    />
+                                                    <hr />
+                                                    <p class="card-text"><a class="btn btn-info">Preview</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Template */}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
 
                     <div className="text-center mb-3">
                         <div className="d-flex justify-content-center">
