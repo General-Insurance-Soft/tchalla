@@ -110,6 +110,7 @@ export default function Page() {
                                                                                 <th scope="col">Event Name</th>
                                                                                 <th scope="col">Last Editor</th>
                                                                                 <th scope="col">Last Edited</th>
+                                                                                <th scope="col">Enable Sending SMS</th>
                                                                                 <th scope="col">Action</th>
                                                                             </tr>
                                                                         </thead>
