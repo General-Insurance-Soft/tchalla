@@ -136,53 +136,74 @@ export default function Page() {
 
                                                             <form action="#" class="row g-3 mb-3">
 
-                                                                <div className="col-sm-2">
-                                                                    <label for="inputName56" class="form-label">Template Name:</label>
-                                                                    <input type="text" class="form-control" id="inputName56" />
-                                                                </div>
-                                                                <div class="col-sm-7">
+                                                                <div class="col-sm-8">
                                                                     <label for="inputName5" class="form-label">SMS template birthdays day:</label>
-                                                                    <textarea id="inputName5" class="form-control" name="w3review" rows="4" cols="8"></textarea>
+                                                                    <textarea id="inputName5" class="form-control" name="w3review" rows="4" cols="8">
+                                                                        Dear [first_name] [last_name], we wish you a happy birthday. May you have a great day and a wonderful year ahead.
+                                                                    </textarea>
                                                                 </div>
-                                                                <div className="col-sm-3">
+                                                                <div className="col-sm-4">
                                                                     <label for="#" class="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
-                                                                        [x_name], [x_name], [x_name]
+                                                                        [x_name], [x_name], [x_name] [policy_expiry_date]
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="text-center mb-3">
                                                                     <div class="d-flex justify-content-center">
-                                                                        <button class="btn btn-primary me-2">Add</button>
-                                                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                                                        <button class="btn btn-primary me-2">Update</button>
                                                                     </div>
                                                                 </div>
 
                                                             </form>
-                                                            <div className="row mb-3">
-                                                                <div className="col-sm-12">
-                                                                    <table className="table table-striped table-bordered">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th scope="col">#</th>
-                                                                                <th scope="col">Name</th>
-                                                                                <th scope="col">Template</th>
-                                                                                <th scope="col">Last Editor</th>
-                                                                                <th scope="col">Last Edited</th>
-                                                                                <th scope="col">Action</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
 
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
 
                                                         </div>
                                                     </div>
                                                 </div>
+
+
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingTwo">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                            <h5>SMS template for policy renewal</h5>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#smsTemplates">
+                                                        <div class="accordion-body">
+
+                                                            <form action="#" class="row g-3 mb-3">
+
+
+                                                                <div class="col-sm-8">
+                                                                    <label for="inputName5" class="form-label">SMS template birthdays day:</label>
+                                                                    <textarea id="inputName5" class="form-control" name="w3review" rows="4" cols="8">
+                                                                        Dear [first_name], we wish to remind you that your policy is due for renewal on [policy_expiry_date]. Kindly visit our offices for more information.
+                                                                    </textarea>
+                                                                </div>
+                                                                <div className="col-sm-4">
+                                                                    <label for="#" class="form-label">Placeholders:</label>
+                                                                    <div>
+                                                                        [first_name], [last_name], [middle_name], [x_name],  [x_name],
+                                                                        [x_name], [x_name], [x_name] [policy_expiry_date]
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="text-center mb-3">
+                                                                    <div class="d-flex justify-content-center">
+                                                                        <button class="btn btn-primary me-2">Update</button>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
 
                                             </div>
 
