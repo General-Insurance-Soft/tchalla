@@ -49,7 +49,7 @@ export default function Page() {
                                 <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>Paid</td>
+                                <td>New</td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
@@ -207,6 +207,16 @@ export default function Page() {
                                 <div className="row">
                                     <div className="col-md-4">
                                         Claim date: <input type="date" className="form-control" value="2024-09-11" />
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div>--</div>
+                                        <select id="inputState" className="form-select">
+                                            <option>Claim status...</option>
+                                            <option>New</option>
+                                            <option>In Progress</option>
+                                            <option>Cancelled</option>
+                                            <option>Paid</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
