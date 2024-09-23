@@ -8,7 +8,7 @@ export default function Page() {
                 <h5 className="card-title">Manage Policy Details</h5>
                 <div>
                     <div className="row mb-2">
-                        <div className="col-sm-6">Total Customers: 600</div>
+                        <div className="col-sm-6">Total Customers: 300</div>
                         <div className="col-sm-6">
                             <input type="text" className="form-control" placeholder="Search customer" />
                         </div>
