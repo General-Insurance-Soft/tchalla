@@ -11,17 +11,27 @@ export default function Page() {
                     data-bs-target="#paneId">Add new field</button>
 
                 <form className="row g-3">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <input type="text" className="form-control" placeholder="Search customer" />
                     </div>
 
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <select id="inputState" className="form-select">
                             <option defaultValue>Select insurance...</option>
                             <option>Britam</option>
                             <option>Old mutual</option>
                             <option>Jubilee</option>
                             <option>CIC</option>
+                        </select>
+                    </div>
+
+                    <div className="col-md-4">
+                        <select id="inputState" className="form-select">
+                            <option defaultValue>Select policy type...</option>
+                            <option>Fire/Bulgary</option>
+                            <option>Health</option>
+                            <option>Car</option>
+                            <option>Life insurance</option>
                         </select>
                     </div>
 

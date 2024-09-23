@@ -149,16 +149,25 @@ export default function Page() {
                             data-bs-target="#paneId">Add new field</button>
 
                         <form className="row g-3">
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <input type="text" className="form-control" placeholder="Tom Lee" />
                             </div>
 
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <select id="inputState" className="form-select">
                                     <option defaultValue>Jubilee</option>
                                     <option>Britam</option>
                                     <option>Old mutual</option>
                                     <option>CIC</option>
+                                </select>
+                            </div>
+
+                            <div className="col-md-4">
+                                <select id="inputState" className="form-select">
+                                    <option defaultValue>Health</option>
+                                    <option>Fire/Bulgary</option>
+                                    <option>Car</option>
+                                    <option>Life insurance</option>
                                 </select>
                             </div>
 
