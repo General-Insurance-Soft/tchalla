@@ -241,169 +241,168 @@ export default function Page() {
 
                                 <div className="col-sm-12">
 
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <h6 className="tc-card-header">All added scanned copies</h6>
-                                            <hr />
 
-                                            <div className='row'>
-                                                {/* Template */}
-                                                <div className="col-sm-6">
+                                    <h6 className="tc-card-header">All added scanned copies</h6>
+                                    <hr />
 
-                                                    <div className="card">
-                                                        <div className="card-body">
+                                    <div className='row'>
+                                        {/* Template */}
+                                        <div className="col-sm-6">
 
-                                                            <h6 class="card-subtitle mb-2 text-muted">Claim form</h6>
-                                                            <Image
-                                                                src="/img/receipt_template.jpg"
-                                                                // layout="responsive"
-                                                                width={200}  // Aspect ratio width
-                                                                height={400}  // Aspect ratio height
-                                                                className="card-img-top"
-                                                                alt="receipt template"
-                                                            />
-                                                            <hr />
-                                                            <div className="d-flex">
-                                                                <button type="button" className="btn btn-primary me-2">Preview</button>
-                                                                <button type="button" className="btn btn-secondary">Delete</button>
-                                                            </div>
-                                                        </div>
+                                            <div className="card">
+                                                <div className="card-body">
+
+                                                    <h6 class="card-subtitle mb-2 text-muted">Claim form</h6>
+                                                    <Image
+                                                        src="/img/receipt_template.jpg"
+                                                        // layout="responsive"
+                                                        width={200}  // Aspect ratio width
+                                                        height={400}  // Aspect ratio height
+                                                        className="card-img-top"
+                                                        alt="receipt template"
+                                                    />
+                                                    <hr />
+                                                    <div className="d-flex">
+                                                        <button type="button" className="btn btn-primary me-2">Preview</button>
+                                                        <button type="button" className="btn btn-secondary">Delete</button>
                                                     </div>
                                                 </div>
-                                                {/* Template */}
-
-
-                                                {/* Template */}
-                                                <div className="col-sm-6">
-
-                                                    <div className="card">
-                                                        <div className="card-body">
-
-                                                            <h6 class="card-subtitle mb-2 text-muted">National ID</h6>
-                                                            <Image
-                                                                src="/img/receipt_template.jpg"
-                                                                // layout="responsive"
-                                                                width={200}  // Aspect ratio width
-                                                                height={400}  // Aspect ratio height
-                                                                className="card-img-top"
-                                                                alt="receipt template"
-                                                            />
-                                                            <hr />
-                                                            <div className="d-flex">
-                                                                <button type="button" className="btn btn-primary me-2">Preview</button>
-                                                                <button type="button" className="btn btn-secondary">Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/* Template */}
-
-
-                                                {/* Template */}
-                                                <div className="col-sm-6">
-
-                                                    <div className="card">
-                                                        <div className="card-body">
-
-                                                            <h6 class="card-subtitle mb-2 text-muted">KRA Pin</h6>
-                                                            <Image
-                                                                src="/img/receipt_template.jpg"
-                                                                // layout="responsive"
-                                                                width={200}  // Aspect ratio width
-                                                                height={400}  // Aspect ratio height
-                                                                className="card-img-top"
-                                                                alt="receipt template"
-                                                            />
-                                                            <hr />
-                                                            <div className="d-flex">
-                                                                <button type="button" className="btn btn-primary me-2">Preview</button>
-                                                                <button type="button" className="btn btn-secondary">Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/* Template */}
-
-
-                                                {/* Template */}
-                                                <div className="col-sm-6">
-
-                                                    <div className="card">
-                                                        <div className="card-body">
-
-                                                            <h6 class="card-subtitle mb-2 text-muted">Accident image 1</h6>
-                                                            <Image
-                                                                src="/img/receipt_template.jpg"
-                                                                // layout="responsive"
-                                                                width={200}  // Aspect ratio width
-                                                                height={400}  // Aspect ratio height
-                                                                className="card-img-top"
-                                                                alt="receipt template"
-                                                            />
-                                                            <hr />
-                                                            <div className="d-flex">
-                                                                <button type="button" className="btn btn-primary me-2">Preview</button>
-                                                                <button type="button" className="btn btn-secondary">Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/* Template */}
-
-                                                {/* Template */}
-                                                <div className="col-sm-6">
-
-                                                    <div className="card">
-                                                        <div className="card-body">
-
-                                                            <h6 class="card-subtitle mb-2 text-muted">Accident image 2</h6>
-                                                            <Image
-                                                                src="/img/receipt_template.jpg"
-                                                                // layout="responsive"
-                                                                width={200}  // Aspect ratio width
-                                                                height={400}  // Aspect ratio height
-                                                                className="card-img-top"
-                                                                alt="receipt template"
-                                                            />
-                                                            <hr />
-                                                            <div className="d-flex">
-                                                                <button type="button" className="btn btn-primary me-2">Preview</button>
-                                                                <button type="button" className="btn btn-secondary">Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/* Template */}
-
-                                                {/* Template */}
-                                                <div className="col-sm-6">
-
-                                                    <div className="card">
-                                                        <div className="card-body">
-
-                                                            <h6 class="card-subtitle mb-2 text-muted">Accident image 3</h6>
-                                                            <Image
-                                                                src="/img/receipt_template.jpg"
-                                                                // layout="responsive"
-                                                                width={200}  // Aspect ratio width
-                                                                height={400}  // Aspect ratio height
-                                                                className="card-img-top"
-                                                                alt="receipt template"
-                                                            />
-                                                            <hr />
-                                                            <div className="d-flex">
-                                                                <button type="button" className="btn btn-primary me-2">Preview</button>
-                                                                <button type="button" className="btn btn-secondary">Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/* Template */}
-
                                             </div>
-
                                         </div>
+                                        {/* Template */}
+
+
+                                        {/* Template */}
+                                        <div className="col-sm-6">
+
+                                            <div className="card">
+                                                <div className="card-body">
+
+                                                    <h6 class="card-subtitle mb-2 text-muted">National ID</h6>
+                                                    <Image
+                                                        src="/img/receipt_template.jpg"
+                                                        // layout="responsive"
+                                                        width={200}  // Aspect ratio width
+                                                        height={400}  // Aspect ratio height
+                                                        className="card-img-top"
+                                                        alt="receipt template"
+                                                    />
+                                                    <hr />
+                                                    <div className="d-flex">
+                                                        <button type="button" className="btn btn-primary me-2">Preview</button>
+                                                        <button type="button" className="btn btn-secondary">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Template */}
+
+
+                                        {/* Template */}
+                                        <div className="col-sm-6">
+
+                                            <div className="card">
+                                                <div className="card-body">
+
+                                                    <h6 class="card-subtitle mb-2 text-muted">KRA Pin</h6>
+                                                    <Image
+                                                        src="/img/receipt_template.jpg"
+                                                        // layout="responsive"
+                                                        width={200}  // Aspect ratio width
+                                                        height={400}  // Aspect ratio height
+                                                        className="card-img-top"
+                                                        alt="receipt template"
+                                                    />
+                                                    <hr />
+                                                    <div className="d-flex">
+                                                        <button type="button" className="btn btn-primary me-2">Preview</button>
+                                                        <button type="button" className="btn btn-secondary">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Template */}
+
+
+                                        {/* Template */}
+                                        <div className="col-sm-6">
+
+                                            <div className="card">
+                                                <div className="card-body">
+
+                                                    <h6 class="card-subtitle mb-2 text-muted">Accident image 1</h6>
+                                                    <Image
+                                                        src="/img/receipt_template.jpg"
+                                                        // layout="responsive"
+                                                        width={200}  // Aspect ratio width
+                                                        height={400}  // Aspect ratio height
+                                                        className="card-img-top"
+                                                        alt="receipt template"
+                                                    />
+                                                    <hr />
+                                                    <div className="d-flex">
+                                                        <button type="button" className="btn btn-primary me-2">Preview</button>
+                                                        <button type="button" className="btn btn-secondary">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Template */}
+
+                                        {/* Template */}
+                                        <div className="col-sm-6">
+
+                                            <div className="card">
+                                                <div className="card-body">
+
+                                                    <h6 class="card-subtitle mb-2 text-muted">Accident image 2</h6>
+                                                    <Image
+                                                        src="/img/receipt_template.jpg"
+                                                        // layout="responsive"
+                                                        width={200}  // Aspect ratio width
+                                                        height={400}  // Aspect ratio height
+                                                        className="card-img-top"
+                                                        alt="receipt template"
+                                                    />
+                                                    <hr />
+                                                    <div className="d-flex">
+                                                        <button type="button" className="btn btn-primary me-2">Preview</button>
+                                                        <button type="button" className="btn btn-secondary">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Template */}
+
+                                        {/* Template */}
+                                        <div className="col-sm-6">
+
+                                            <div className="card">
+                                                <div className="card-body">
+
+                                                    <h6 class="card-subtitle mb-2 text-muted">Accident image 3</h6>
+                                                    <Image
+                                                        src="/img/receipt_template.jpg"
+                                                        // layout="responsive"
+                                                        width={200}  // Aspect ratio width
+                                                        height={400}  // Aspect ratio height
+                                                        className="card-img-top"
+                                                        alt="receipt template"
+                                                    />
+                                                    <hr />
+                                                    <div className="d-flex">
+                                                        <button type="button" className="btn btn-primary me-2">Preview</button>
+                                                        <button type="button" className="btn btn-secondary">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/* Template */}
+
                                     </div>
+
+
+
                                 </div>
                             </div>
 
