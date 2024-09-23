@@ -261,7 +261,7 @@ export default function Page() {
 
                             <div className="text-center mb-3">
                                 <div className="d-flex justify-content-center">
-                                    <button className="btn btn-primary me-2">Save</button>
+                                    <button className="btn btn-primary me-2">Update</button>
                                     <button className="btn btn-secondary">Cancel</button>
                                 </div>
                             </div>
