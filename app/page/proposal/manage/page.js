@@ -24,9 +24,11 @@ export default function Page() {
                                 <th scope="col">Country</th>
                                 <th scope="col">County</th>
                                 <th scope="col">Address</th>
+                                <th scope="col">Latest proposal date</th>
+                                <th scope="col">Total number of proposals</th>
                                 <th scope="col">Last Editor</th>
                                 <th scope="col">Last Edited</th>
-                                <th scope="col">Total number of proposals</th>
+
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -40,9 +42,10 @@ export default function Page() {
                                 <td>Kenya</td>
                                 <td>Nakuru</td>
                                 <td>First avenue shababa</td>
+                                <td>2024-08-11</td>
+                                <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>3</td>
 
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
@@ -73,9 +76,10 @@ export default function Page() {
                                 <td>Kenya</td>
                                 <td>Nakuru</td>
                                 <td>First avenue shababa</td>
+                                <td>2024-08-11</td>
+                                <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>3</td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
@@ -89,9 +93,10 @@ export default function Page() {
                                 <td>Kenya</td>
                                 <td>Nakuru</td>
                                 <td>First avenue shababa</td>
+                                <td>2024-08-11</td>
+                                <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>3</td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
@@ -105,9 +110,10 @@ export default function Page() {
                                 <td>Kenya</td>
                                 <td>Nakuru</td>
                                 <td>First avenue shababa</td>
+                                <td>2024-08-11</td>
+                                <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>3</td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
@@ -121,9 +127,10 @@ export default function Page() {
                                 <td>Kenya</td>
                                 <td>Nakuru</td>
                                 <td>First avenue shababa</td>
+                                <td>2024-08-11</td>
+                                <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>3</td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
