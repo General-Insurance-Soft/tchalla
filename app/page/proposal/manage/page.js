@@ -215,8 +215,9 @@ export default function Page() {
                                                             <hr />
 
                                                             <div className="d-flex">
-                                                                <button type="button" className="btn btn-primary me-2">Preview</button>
-                                                                <button type="button" className="btn btn-secondary">Delete</button>
+                                                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
+                                                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
+                                                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
