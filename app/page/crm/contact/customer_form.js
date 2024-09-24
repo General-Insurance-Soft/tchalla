@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function CustomerForm() {
+export default function CustomerForm({ action }) {
     return (
         <>
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -10,41 +10,72 @@ export default function CustomerForm() {
                 </div>
 
                 <div>
-                    <button class="btn btn-primary me-2">Save</button>
+                    <button class="btn btn-primary me-2">{action === 'edit' ? 'Update' : 'Save'}</button>
                     <button class="btn btn-secondary">Cancel</button>
                 </div>
             </div>
 
             <form className="row g-3">
                 <div className="col-md-4">
-                    <input type="text" className="form-control" placeholder="First Name" />
+
+                    {action === "add" ?
+                        <input type="text" className="form-control" placeholder="First Name" />
+                        :
+                        <input type="text" className="form-control" placeholder="Tom" />
+                    }
+
                 </div>
                 <div className="col-md-4">
-                    <input type="text" className="form-control" placeholder="Second Name" />
+
+                    {action === "add" ?
+                        <input type="text" className="form-control" placeholder="Second Name" />
+                        :
+                        <input type="text" className="form-control" placeholder="Lopy" />
+                    }
+
                 </div>
                 <div className="col-md-4">
-                    <input type="text" className="form-control" placeholder="Third Name" />
+
+                    {action === "add" ?
+                        <input type="text" className="form-control" placeholder="Third Name" />
+                        :
+                        <input type="text" className="form-control" placeholder="Lee" />
+                    }
+
                 </div>
                 <div className="col-md-4">
-                    <input type="text" className="form-control" placeholder="Phone Number" />
+                    {action === "add" ?
+                        <input type="text" className="form-control" placeholder="Phone Number" />
+                        :
+                        <input type="text" className="form-control" placeholder="07200200200" />
+                    }
                 </div>
                 <div className="col-md-4">
-                    <input type="email" className="form-control" placeholder="Email" />
+
+                    {action === "add" ?
+                        <input type="email" className="form-control" placeholder="Email" />
+                        :
+                        <input type="email" className="form-control" placeholder="email@gmail.com" />
+                    }
                 </div>
                 <div className="col-md-4">
                     <select id="inputState" className="form-select">
-                        <option defaultValue>Gender...</option>
-                        <option>Male</option>
+                        {action === "add" ? [<option defaultValue>Gender...</option>, <option>Male</option>] : <option>Male</option>}
                         <option>Female</option>
                     </select>
                 </div>
                 <div className="col-md-4">
-                    <input type="text" className="form-control" placeholder="Address" />
+
+                    {action === "add" ?
+                        <input type="text" className="form-control" placeholder="Address" />
+                        :
+                        <input type="text" className="form-control" placeholder="First avenue shababa" />
+                    }
+
                 </div>
                 <div className="col-md-4">
                     <select id="inputState" className="form-select">
-                        <option defaultValue>Country...</option>
-                        <option>Kenya</option>
+                        {action === "add" ? [<option defaultValue>Country...</option>, <option>Kenya</option>] : <option>Kenya</option>}
                         <option>Uganda</option>
                         <option>Zambia</option>
                         <option>Rwanda</option>
@@ -52,8 +83,9 @@ export default function CustomerForm() {
                 </div>
                 <div className="col-md-4">
                     <select id="inputState" className="form-select">
-                        <option defaultValue>County...</option>
-                        <option>Nakuru</option>
+
+                        {action === "add" ? [<option defaultValue>County...</option>, <option>Nakuru</option>] : <option>Nakuru</option>}
+
                         <option>Kericho</option>
                         <option>Mombasa</option>
                         <option>Nairobi</option>
@@ -136,7 +168,7 @@ export default function CustomerForm() {
 
                 <div className="text-center mb-3">
                     <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary me-2">Save</button>
+                        <button className="btn btn-primary me-2">{action === 'edit' ? 'Update' : 'Save'}</button>
                         <button className="btn btn-secondary">Cancel</button>
                     </div>
                 </div>
