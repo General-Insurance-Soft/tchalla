@@ -49,7 +49,7 @@ export default function Page() {
                                 <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>New</td>
+                                <td><span class="badge bg-info">New</span></td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
@@ -67,7 +67,7 @@ export default function Page() {
                                 <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>In progress</td>
+                                <td><span class="badge bg-secondary">In progress</span></td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
@@ -85,7 +85,7 @@ export default function Page() {
                                 <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>Review</td>
+                                <td><span class="badge bg-warning">Review</span></td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
@@ -103,7 +103,7 @@ export default function Page() {
                                 <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>Cancelled</td>
+                                <td><span class="badge bg-danger">Cancelled</span></td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
@@ -121,7 +121,7 @@ export default function Page() {
                                 <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>Obsolete</td>
+                                <td><span class="badge bg-danger">Cancelled</span></td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
@@ -139,7 +139,7 @@ export default function Page() {
                                 <td>3</td>
                                 <td>Lucy</td>
                                 <td>2024-09-11</td>
-                                <td>Paid</td>
+                                <td><span class="badge bg-success">Paid</span></td>
                                 <td>
                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
