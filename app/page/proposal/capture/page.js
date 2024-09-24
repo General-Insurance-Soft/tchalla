@@ -54,40 +54,36 @@ export default function Page() {
 
                         <div className="col-sm-12">
 
-                            <div className="card">
-                                <div className="card-body">
-                                    <h6 className="tc-card-header">All added scanned copies</h6>
-                                    <hr />
+                            <h6 className="tc-card-header">All added scanned copies</h6>
+                            <hr />
 
-                                    <div className='row'>
-                                        {/* Template */}
-                                        <div className="col-sm-6">
+                            <div className='row'>
+                                {/* Template */}
+                                <div className="col-sm-6">
 
-                                            <div className="card">
-                                                <div className="card-body">
+                                    <div className="card">
+                                        <div className="card-body">
 
-                                                    <h6 class="card-subtitle mb-2 text-muted">Proposal</h6>
-                                                    <Image
-                                                        src="/img/receipt_template.jpg"
-                                                        // layout="responsive"
-                                                        width={200}  // Aspect ratio width
-                                                        height={400}  // Aspect ratio height
-                                                        className="card-img-top"
-                                                        alt="receipt template"
-                                                    />
-                                                    <hr />
-                                                    <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                    <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                    <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
-                                                </div>
-                                            </div>
+                                            <h6 class="card-subtitle mb-2 text-muted">Proposal</h6>
+                                            <Image
+                                                src="/img/receipt_template.jpg"
+                                                // layout="responsive"
+                                                width={200}  // Aspect ratio width
+                                                height={400}  // Aspect ratio height
+                                                className="card-img-top"
+                                                alt="receipt template"
+                                            />
+                                            <hr />
+                                            <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
+                                            <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
+                                            <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
                                         </div>
-                                        {/* Template */}
-
                                     </div>
-
                                 </div>
+                                {/* Template */}
+
                             </div>
+
                         </div>
                     </div>
 
