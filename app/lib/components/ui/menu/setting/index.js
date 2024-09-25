@@ -15,12 +15,12 @@ export default function SettingSubMenu() {
                     </Link>
                 </li>
                 <li>
-                    <Link className="nav-link" href="/page/claim/capture">
+                    <Link className="nav-link" href="/page/roles">
                         <i className="bi bi-circle"></i><span>Roles</span>
                     </Link>
                 </li>
                 <li>
-                    <Link className="nav-link" href="/page/claim/manage">
+                    <Link className="nav-link" href="/page/users">
                         <i className="bi bi-circle"></i><span>Users</span>
                     </Link>
                 </li>

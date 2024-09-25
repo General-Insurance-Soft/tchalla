@@ -10,12 +10,12 @@ export default function ReportSubMenu() {
             </a>
             <ul id="ReportSubMenu-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <Link className="nav-link" href="/page/setting/general">
+                    <Link className="nav-link" href="/page/report/standard">
                         <i className="bi bi-circle"></i><span>Standard</span>
                     </Link>
                 </li>
                 <li>
-                    <Link className="nav-link" href="/page/claim/capture">
+                    <Link className="nav-link" href="/page/report/adhoc">
                         <i className="bi bi-circle"></i><span>Ad hoc</span>
                     </Link>
                 </li>
