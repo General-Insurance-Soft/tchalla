@@ -45,9 +45,9 @@ export default function CustomerForm({ action }) {
                 </div>
                 <div className="col-md-4">
                     {action === "add" ?
-                        <input type="text" className="form-control" placeholder="Phone Number" />
+                        <input key={1}  type="text" className="form-control" placeholder="Phone Number" />
                         :
-                        <input type="text" className="form-control" placeholder="07200200200" />
+                        <input key={2}  type="text" className="form-control" placeholder="07200200200" />
                     }
                 </div>
                 <div className="col-md-4">
@@ -60,7 +60,7 @@ export default function CustomerForm({ action }) {
                 </div>
                 <div className="col-md-4">
                     <select id="inputState" className="form-select">
-                        {action === "add" ? [<option defaultValue>Gender...</option>, <option>Male</option>] : <option>Male</option>}
+                        {action === "add" ? [<option key={1}  defaultValue>Gender...</option>, <option key={2}>Male</option>] : <option>Male</option>}
                         <option>Female</option>
                     </select>
                 </div>
@@ -75,7 +75,7 @@ export default function CustomerForm({ action }) {
                 </div>
                 <div className="col-md-4">
                     <select id="inputState" className="form-select">
-                        {action === "add" ? [<option defaultValue>Country...</option>, <option>Kenya</option>] : <option>Kenya</option>}
+                        {action === "add" ? [<option key={1}  defaultValue>Country...</option>, <option key={2}>Kenya</option>] : <option>Kenya</option>}
                         <option>Uganda</option>
                         <option>Zambia</option>
                         <option>Rwanda</option>
@@ -84,7 +84,7 @@ export default function CustomerForm({ action }) {
                 <div className="col-md-4">
                     <select id="inputState" className="form-select">
 
-                        {action === "add" ? [<option defaultValue>County...</option>, <option>Nakuru</option>] : <option>Nakuru</option>}
+                        {action === "add" ? [<option key={1} defaultValue>County...</option>, <option key={2} >Nakuru</option>] : <option>Nakuru</option>}
 
                         <option>Kericho</option>
                         <option>Mombasa</option>

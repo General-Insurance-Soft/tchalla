@@ -10,11 +10,11 @@ export default function Page() {
     combinedDataArry = combinedDataArry.concat(dataPointData.predefined_data.demo_data).concat(dataPointData.predefined_data.policy_data);
     return (
         <>
-
             <div className="pagetitle">
                 <h1>CRM</h1>
                 <nav>
                     <ol className="breadcrumb">
+                        <li className="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li className="breadcrumb-item"><a href="index.html">CRM</a></li>
                         <li className="breadcrumb-item active">Contact Management</li>
                     </ol>
@@ -37,7 +37,7 @@ export default function Page() {
                         <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
                             <h5 className="card-title">Capture Customer Details</h5>
 
-                            <CustomerForm action = "add"/>
+                            <CustomerForm action="add" />
                         </div>
 
                         {/* manage customers */}
@@ -160,7 +160,7 @@ export default function Page() {
                             </table>
                             <hr />
                             <h5 className="card-title">Edit Customer</h5>
-                            <CustomerForm action = "edit"/>
+                            <CustomerForm action="edit" />
 
                         </div>
                         {/* End manage customers */}

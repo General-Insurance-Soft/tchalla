@@ -144,3 +144,6 @@ lerna-debug.log*
 # vercel
 .vercel
 
+# other
+.vscode/
+

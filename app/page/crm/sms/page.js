@@ -2,13 +2,17 @@ export default function Page() {
     return (
         <>
             <div className="pagetitle">
+                <h1>CRM</h1>
                 <nav>
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item">crm</li>
-                        <li className="breadcrumb-item active">sms</li>
+                        <li className="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li className="breadcrumb-item"><a href="index.html">CRM</a></li>
+                        <li className="breadcrumb-item active">SMS</li>
                     </ol>
                 </nav>
             </div>
+            
+
             <div className="row">
                 <div className="col-sm-12">
                     <div className="card">
@@ -22,7 +26,7 @@ export default function Page() {
                                 <li className="nav-item flex-fill" role="presentation">
                                     <button className="nav-link w-100" id="schedule-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-schedule" type="button" role="tab" aria-controls="schedule" aria-selected="false">Schedule SMS</button>
                                 </li>
-                               
+
                                 <li className="nav-item flex-fill" role="presentation">
                                     <button className="nav-link w-100" id="sms-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-sms" type="button" role="tab" aria-controls="sma" aria-selected="false">SMS Templates</button>
                                 </li>
@@ -39,7 +43,7 @@ export default function Page() {
                                 <div className="tab-pane fade" id="bordered-justified-schedule" role="tabpanel" aria-labelledby="schedule-tab">
 
                                 </div>
-                               
+
                                 <div className="tab-pane fade" id="bordered-justified-sms" role="tabpanel" aria-labelledby="sms-tab">
                                     <div class="card">
                                         <div class="card-body">

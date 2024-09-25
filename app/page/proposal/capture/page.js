@@ -3,104 +3,118 @@ import Image from 'next/image';
 
 export default function Page() {
     return (
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Capture Proposal Details</h5>
+        <>
+            <div className="pagetitle">
+                <h1>Proposal</h1>
+                <nav>
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li className="breadcrumb-item"><a href="index.html">Proposal</a></li>
+                        <li className="breadcrumb-item active">Capture</li>
+                    </ol>
+                </nav>
+            </div>
 
-                <button type="button" style={{ marginBottom: "4px" }} className="btn btn-primary mb-3" data-bs-toggle="modal"
-                    data-bs-target="#paneId">Add new field</button>
+            <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">Capture Proposal Details</h5>
 
-                <form className="row g-3">
-                    <div className="col-md-4">
-                        <input type="text" className="form-control" placeholder="Search customer" />
-                    </div>
+                    <button type="button" style={{ marginBottom: "4px" }} className="btn btn-primary mb-3" data-bs-toggle="modal"
+                        data-bs-target="#paneId">Add new field</button>
 
-                    <div className="col-md-4">
-                        <select id="inputState" className="form-select">
-                            <option defaultValue>Select insurance...</option>
-                            <option>Britam</option>
-                            <option>Old mutual</option>
-                            <option>Jubilee</option>
-                            <option>CIC</option>
-                        </select>
-                    </div>
+                    <form className="row g-3">
+                        <div className="col-md-4">
+                            <input type="text" className="form-control" placeholder="Search customer" />
+                        </div>
 
-                    <div className="col-md-4">
-                        <select id="inputState" className="form-select">
-                            <option defaultValue>Select policy type...</option>
-                            <option>Fire/Bulgary</option>
-                            <option>Health</option>
-                            <option>Car</option>
-                            <option>Life insurance</option>
-                        </select>
-                    </div>
+                        <div className="col-md-4">
+                            <select id="inputState" className="form-select">
+                                <option defaultValue>Select insurance...</option>
+                                <option>Britam</option>
+                                <option>Old mutual</option>
+                                <option>Jubilee</option>
+                                <option>CIC</option>
+                            </select>
+                        </div>
 
-                    <div className="col-md-2">
-                        <label for="img">Select Scanned copies:</label>
-                    </div>
-                    <div className="col-md-4">
-                        <input type="file" id="img" name="img" accept="image/*" className="form-control" />
-                    </div>
-                    <div className="col-md-5">
-                        <input type="text" className="form-control" placeholder="Scanned copy name" />
-                    </div>
-                    <div className="col-md-1">
-                        <button type="button" className="btn btn-primary">Add image</button>
-                    </div>
+                        <div className="col-md-4">
+                            <select id="inputState" className="form-select">
+                                <option defaultValue>Select policy type...</option>
+                                <option>Fire/Bulgary</option>
+                                <option>Health</option>
+                                <option>Car</option>
+                                <option>Life insurance</option>
+                            </select>
+                        </div>
+
+                        <div className="col-md-2">
+                            <label for="img">Select Scanned copies:</label>
+                        </div>
+                        <div className="col-md-4">
+                            <input type="file" id="img" name="img" accept="image/*" className="form-control" />
+                        </div>
+                        <div className="col-md-5">
+                            <input type="text" className="form-control" placeholder="Scanned copy name" />
+                        </div>
+                        <div className="col-md-1">
+                            <button type="button" className="btn btn-primary">Add image</button>
+                        </div>
 
 
 
-                    <div className="row mt-3">
+                        <div className="row mt-3">
 
-                        <div className="col-sm-12">
+                            <div className="col-sm-12">
 
-                            <h6 className="tc-card-header">All added scanned copies</h6>
-                            <hr />
+                                <h6 className="tc-card-header">All added scanned copies</h6>
+                                <hr />
 
-                            <div className='row'>
-                                {/* Template */}
-                                <div className="col-sm-6">
+                                <div className='row'>
+                                    {/* Template */}
+                                    <div className="col-sm-6">
 
-                                    <div className="card">
-                                        <div className="card-body">
+                                        <div className="card">
+                                            <div className="card-body">
 
-                                            <h6 class="card-subtitle mb-2 text-muted">Proposal</h6>
-                                            <Image
-                                                src="/img/receipt_template.jpg"
-                                                // layout="responsive"
-                                                width={200}  // Aspect ratio width
-                                                height={400}  // Aspect ratio height
-                                                className="card-img-top"
-                                                alt="receipt template"
-                                            />
-                                            <hr />
-                                            <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                            <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                            <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                <h6 class="card-subtitle mb-2 text-muted">Proposal</h6>
+                                                <Image
+                                                    src="/img/receipt_template.jpg"
+                                                    // layout="responsive"
+                                                    width={200}  // Aspect ratio width
+                                                    height={400}  // Aspect ratio height
+                                                    className="card-img-top"
+                                                    alt="receipt template"
+                                                />
+                                                <hr />
+                                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
+                                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
+                                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                            </div>
                                         </div>
                                     </div>
+                                    {/* Template */}
+
                                 </div>
-                                {/* Template */}
 
                             </div>
-
                         </div>
-                    </div>
 
 
-                    <div className="text-center mb-3">
-                        <div className="d-flex justify-content-center">
-                            <button className="btn btn-primary me-2">Save</button>
-                            <button className="btn btn-secondary">Cancel</button>
+                        <div className="text-center mb-3">
+                            <div className="d-flex justify-content-center">
+                                <button className="btn btn-primary me-2">Save</button>
+                                <button className="btn btn-secondary">Cancel</button>
+                            </div>
                         </div>
-                    </div>
-                    <hr />
-                </form>
+                        <hr />
+                    </form>
 
-                {/* Modal */}
-                <DataPointModal />
+                    {/* Modal */}
+                    <DataPointModal />
 
+                </div>
             </div>
-        </div>
+        </>
+
     );
 }
