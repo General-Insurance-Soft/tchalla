@@ -157,8 +157,17 @@ export default function Page() {
                         <div className="card-body">
                             <h5 className="card-title">Edit Tom Lee policy from date: 2024-08-11</h5>
 
-                            <button type="button" style={{ marginBottom: "4px" }} className="btn btn-primary mb-3" data-bs-toggle="modal"
-                                data-bs-target="#paneId">Add new field</button>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <button type="button" className="btn btn-primary mb-3" data-bs-toggle="modal"
+                                        data-bs-target="#paneId">Add new field</button>
+                                </div>
+
+                                <div>
+                                    <button class="btn btn-primary me-2">Update</button>
+                                    <button class="btn btn-secondary">Cancel</button>
+                                </div>
+                            </div>
 
                             <form className="row g-3">
                                 <div className="col-md-4">
@@ -194,7 +203,7 @@ export default function Page() {
                                     <input type="text" className="form-control" placeholder="Scanned copy name" />
                                 </div>
                                 <div className="col-md-1">
-                                    <button type="button" className="btn btn-primary">Add image</button>
+                                    <button type="button" className="btn btn-info">Add image</button>
                                 </div>
 
 
