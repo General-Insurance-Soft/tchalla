@@ -267,7 +267,9 @@ export default function Page() {
 
                             <div class="d-flex justify-content-between align-items-center mt-2">
                                 <div>
-                                    {/* <h5 className="card-title">Manage customer contacts groups</h5> */}
+                                    {
+                                        showGroupCustomerList ? <h5 className="card-title">New Group</h5> : ""
+                                    }
                                 </div>
 
                                 <div>
