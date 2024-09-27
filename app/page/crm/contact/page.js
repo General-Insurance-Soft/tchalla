@@ -31,6 +31,9 @@ export default function Page() {
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Manage Contacts</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="customer_group-tab" data-bs-toggle="tab" data-bs-target="#bordered-customer_group" type="button" role="tab" aria-controls="customer_group" aria-selected="false">Contacts Groups</button>
+                        </li>
 
                     </ul>
                     <div class="tab-content pt-2" id="borderedTabContent">
@@ -164,6 +167,14 @@ export default function Page() {
 
                         </div>
                         {/* End manage customers */}
+
+                        {/* Customer group */}
+                        <div class="tab-pane fade show active" id="bordered-customer_group" role="tabpanel" aria-labelledby="customer_group-tab">
+                            <h5 className="card-title">Manage Customer groups</h5>
+
+
+                        </div>
+                        {/* end customer group */}
 
                     </div>
 
