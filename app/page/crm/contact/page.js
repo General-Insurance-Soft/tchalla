@@ -9,13 +9,15 @@ export default function Page() {
 
     let combinedDataArry = dataPointData.custom_data.demo_data.concat(dataPointData.predefined_data.policy_data);
     combinedDataArry = combinedDataArry.concat(dataPointData.predefined_data.demo_data).concat(dataPointData.predefined_data.policy_data);
-    const [groupCustomerList, setGroupCustomerList] = useState(false);
+    const [showGroupCustomerList, setShowGroupCustomerList] = useState(false);
+    const [actionBtnLabel, setActionBtnLabel] = useState("Add new");
+    const [isContactsGroupTab, setIsContactsGroupTab] = useState(false);
 
-  
-    useEffect(() => {}, [groupCustomerList]);
+    useEffect(() => { }, [showGroupCustomerList, isContactsGroupTab]);
 
     const toggleCustomerTable = () => {
-        setGroupCustomerList(!groupCustomerList);
+        setShowGroupCustomerList(!showGroupCustomerList);
+        setActionBtnLabel(showGroupCustomerList ? "Add new": "Cancel" );
     };
 
     let customerTable = [
@@ -35,7 +37,18 @@ export default function Page() {
                         <th scope="col">Address</th>
                         <th scope="col">Last Editor</th>
                         <th scope="col">Last Edited</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">
+                            {
+                                isContactsGroupTab ?
+
+                                    <td>
+                                        <input id="selectAll" type="checkbox" /> Select all
+                                    </td>
+                                    :
+                                    "Action"
+                            }
+
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,10 +63,19 @@ export default function Page() {
                         <td>First avenue shababa</td>
                         <td>Lucy</td>
                         <td>2024-09-11</td>
-                        <td>
-                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                        </td>
+                        {
+                            isContactsGroupTab ?
+
+                                <td>
+                                    <input type="checkbox" />
+                                </td>
+                                :
+                                <td>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                </td>
+                        }
+
                     </tr>
                     <tr>
                         <td>#</td>
@@ -65,10 +87,18 @@ export default function Page() {
                         <td>First avenue shababa</td>
                         <td>Lucy</td>
                         <td>2024-09-11</td>
-                        <td>
-                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                        </td>
+                        {
+                            isContactsGroupTab ?
+
+                                <td>
+                                    <input type="checkbox" />
+                                </td>
+                                :
+                                <td>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                </td>
+                        }
                     </tr>
                     <tr>
                         <td>#</td>
@@ -80,10 +110,18 @@ export default function Page() {
                         <td>First avenue shababa</td>
                         <td>Lucy</td>
                         <td>2024-09-11</td>
-                        <td>
-                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                        </td>
+                        {
+                            isContactsGroupTab ?
+
+                                <td>
+                                    <input type="checkbox" />
+                                </td>
+                                :
+                                <td>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                </td>
+                        }
                     </tr>
                     <tr>
                         <td>#</td>
@@ -95,10 +133,18 @@ export default function Page() {
                         <td>First avenue shababa</td>
                         <td>Lucy</td>
                         <td>2024-09-11</td>
-                        <td>
-                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                        </td>
+                        {
+                            isContactsGroupTab ?
+
+                                <td>
+                                    <input type="checkbox" />
+                                </td>
+                                :
+                                <td>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                </td>
+                        }
                     </tr>
                     <tr>
                         <td>#</td>
@@ -110,10 +156,18 @@ export default function Page() {
                         <td>First avenue shababa</td>
                         <td>Lucy</td>
                         <td>2024-09-11</td>
-                        <td>
-                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                        </td>
+                        {
+                            isContactsGroupTab ?
+
+                                <td>
+                                    <input type="checkbox" />
+                                </td>
+                                :
+                                <td>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                </td>
+                        }
                     </tr>
                     <tr>
                         <td>#</td>
@@ -125,10 +179,18 @@ export default function Page() {
                         <td>First avenue shababa</td>
                         <td>Lucy</td>
                         <td>2024-09-11</td>
-                        <td>
-                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                        </td>
+                        {
+                            isContactsGroupTab ?
+
+                                <td>
+                                    <input type="checkbox" />
+                                </td>
+                                :
+                                <td>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                </td>
+                        }
                     </tr>
 
                 </tbody>
@@ -155,13 +217,20 @@ export default function Page() {
 
                     <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">New Customer</button>
+                            <button class="nav-link active" id="home-tab"
+                                onClick={() => setIsContactsGroupTab(false)}
+                                data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">New Customer</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Manage Contacts</button>
+                            <button class="nav-link" id="profile-tab"
+                                onClick={() => setIsContactsGroupTab(false)}
+                                data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Manage Contacts</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="customer_group-tab" data-bs-toggle="tab" data-bs-target="#bordered-customer_group" type="button" role="tab" aria-controls="customer_group" aria-selected="false">Contacts Groups</button>
+                            <button class="nav-link" id="customer_group-tab" data-bs-toggle="tab" data-bs-target="#bordered-customer_group"
+                                type="button" role="tab" aria-controls="customer_group" aria-selected="false"
+                                onClick={() => setIsContactsGroupTab(true)}
+                            >Contacts Groups</button>
                         </li>
 
                     </ul>
@@ -192,17 +261,17 @@ export default function Page() {
 
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
-                                    <h5 className="card-title">Manage Customer groups</h5>
+                                    <h5 className="card-title">Manage customer contacts groups</h5>
                                 </div>
 
                                 <div>
-                                    <button onClick={()=> toggleCustomerTable()} class="btn btn-primary me-2"><i class="bi bi-plus-lg"></i> Add new</button>
+                                    <button onClick={() => toggleCustomerTable()} class="btn btn-primary me-2"><i class="bi bi-plus-lg"></i> {actionBtnLabel} </button>
 
                                 </div>
                             </div>
 
-                            {groupCustomerList ? customerTable : ""
-
+                            {
+                                showGroupCustomerList ? customerTable : ""
                             }
 
                             <div className="row">
