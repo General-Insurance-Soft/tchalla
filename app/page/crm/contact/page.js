@@ -170,7 +170,79 @@ export default function Page() {
 
                         {/* Customer group */}
                         <div class="tab-pane fade show active" id="bordered-customer_group" role="tabpanel" aria-labelledby="customer_group-tab">
-                            <h5 className="card-title">Manage Customer groups</h5>
+
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h5 className="card-title">Manage Customer groups</h5>
+                                </div>
+
+                                <div>
+                                    <button class="btn btn-primary me-2"><i class="bi bi-plus-lg"></i> Add new</button>
+
+                                </div>
+                            </div>
+
+                            <div className="row">
+                                <div className="col-sm-6">Total Customers: 600</div>
+                            </div>
+
+                            <table className="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Total members</th>
+                                        <th scope="col">Created date</th>
+                                        <th scope="col">Created by</th>
+                                        <th scope="col">Last Editor</th>
+                                        <th scope="col">Last Edited</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Car insurance Group</td>
+                                        <td>30</td>
+                                        <td>2024-09-11</td>
+                                        <td>Lucy</td>
+                                        <td>Tom</td>
+                                        <td>2024-09-11</td>
+                                        <td>
+                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Life insurance</td>
+                                        <td>35</td>
+                                        <td>2024-09-11</td>
+                                        <td>Lucy</td>
+                                        <td>Kevin</td>
+                                        <td>2024-09-11</td>
+                                        <td>
+                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>High value</td>
+                                        <td>20</td>
+                                        <td>2024-09-13</td>
+                                        <td>George</td>
+                                        <td>Tom</td>
+                                        <td>2024-09-11</td>
+                                        <td>
+                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
 
 
                         </div>
