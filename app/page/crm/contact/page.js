@@ -3,11 +3,140 @@
 import * as dataPointData from "../../../../public/DataPointData.json";
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import CustomerForm from "./customer_form";
+import { useState, useEffect } from "react";
 
 export default function Page() {
 
     let combinedDataArry = dataPointData.custom_data.demo_data.concat(dataPointData.predefined_data.policy_data);
     combinedDataArry = combinedDataArry.concat(dataPointData.predefined_data.demo_data).concat(dataPointData.predefined_data.policy_data);
+    const [groupCustomerList, setGroupCustomerList] = useState(false);
+
+  
+    useEffect(() => {}, [groupCustomerList]);
+
+    const toggleCustomerTable = () => {
+        setGroupCustomerList(!groupCustomerList);
+    };
+
+    let customerTable = [
+        <>
+            <div className="row">
+                <div className="col-sm-6">Total Customers: 600</div>
+            </div>
+            <table className="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">County</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Last Editor</th>
+                        <th scope="col">Last Edited</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>#</td>
+                        <td>Tom Lee</td>
+                        <td>0700123789</td>
+                        <td>tmlee@gmail.com</td>
+                        <td>Kenya</td>
+                        <td>Nakuru</td>
+                        <td>First avenue shababa</td>
+                        <td>Lucy</td>
+                        <td>2024-09-11</td>
+                        <td>
+                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#</td>
+                        <td>Tom Lee</td>
+                        <td>0700123789</td>
+                        <td>tmlee@gmail.com</td>
+                        <td>Kenya</td>
+                        <td>Nakuru</td>
+                        <td>First avenue shababa</td>
+                        <td>Lucy</td>
+                        <td>2024-09-11</td>
+                        <td>
+                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#</td>
+                        <td>Tom Lee</td>
+                        <td>0700123789</td>
+                        <td>tmlee@gmail.com</td>
+                        <td>Kenya</td>
+                        <td>Nakuru</td>
+                        <td>First avenue shababa</td>
+                        <td>Lucy</td>
+                        <td>2024-09-11</td>
+                        <td>
+                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#</td>
+                        <td>Tom Lee</td>
+                        <td>0700123789</td>
+                        <td>tmlee@gmail.com</td>
+                        <td>Kenya</td>
+                        <td>Nakuru</td>
+                        <td>First avenue shababa</td>
+                        <td>Lucy</td>
+                        <td>2024-09-11</td>
+                        <td>
+                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#</td>
+                        <td>Tom Lee</td>
+                        <td>0700123789</td>
+                        <td>tmlee@gmail.com</td>
+                        <td>Kenya</td>
+                        <td>Nakuru</td>
+                        <td>First avenue shababa</td>
+                        <td>Lucy</td>
+                        <td>2024-09-11</td>
+                        <td>
+                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#</td>
+                        <td>Tom Lee</td>
+                        <td>0700123789</td>
+                        <td>tmlee@gmail.com</td>
+                        <td>Kenya</td>
+                        <td>Nakuru</td>
+                        <td>First avenue shababa</td>
+                        <td>Lucy</td>
+                        <td>2024-09-11</td>
+                        <td>
+                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </>
+
+    ];
+
     return (
         <>
             <div className="pagetitle">
@@ -47,120 +176,9 @@ export default function Page() {
 
                         <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
                             <h5 className="card-title">Manage Customers</h5>
-                            <div className="row">
-                                <div className="col-sm-6">Total Customers: 600</div>
-                            </div>
 
-                            <table className="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Country</th>
-                                        <th scope="col">County</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">Last Editor</th>
-                                        <th scope="col">Last Edited</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
 
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Tom Lee</td>
-                                        <td>0700123789</td>
-                                        <td>tmlee@gmail.com</td>
-                                        <td>Kenya</td>
-                                        <td>Nakuru</td>
-                                        <td>First avenue shababa</td>
-                                        <td>Lucy</td>
-                                        <td>2024-09-11</td>
-                                        <td>
-                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Tom Lee</td>
-                                        <td>0700123789</td>
-                                        <td>tmlee@gmail.com</td>
-                                        <td>Kenya</td>
-                                        <td>Nakuru</td>
-                                        <td>First avenue shababa</td>
-                                        <td>Lucy</td>
-                                        <td>2024-09-11</td>
-                                        <td>
-                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Tom Lee</td>
-                                        <td>0700123789</td>
-                                        <td>tmlee@gmail.com</td>
-                                        <td>Kenya</td>
-                                        <td>Nakuru</td>
-                                        <td>First avenue shababa</td>
-                                        <td>Lucy</td>
-                                        <td>2024-09-11</td>
-                                        <td>
-                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Tom Lee</td>
-                                        <td>0700123789</td>
-                                        <td>tmlee@gmail.com</td>
-                                        <td>Kenya</td>
-                                        <td>Nakuru</td>
-                                        <td>First avenue shababa</td>
-                                        <td>Lucy</td>
-                                        <td>2024-09-11</td>
-                                        <td>
-                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Tom Lee</td>
-                                        <td>0700123789</td>
-                                        <td>tmlee@gmail.com</td>
-                                        <td>Kenya</td>
-                                        <td>Nakuru</td>
-                                        <td>First avenue shababa</td>
-                                        <td>Lucy</td>
-                                        <td>2024-09-11</td>
-                                        <td>
-                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Tom Lee</td>
-                                        <td>0700123789</td>
-                                        <td>tmlee@gmail.com</td>
-                                        <td>Kenya</td>
-                                        <td>Nakuru</td>
-                                        <td>First avenue shababa</td>
-                                        <td>Lucy</td>
-                                        <td>2024-09-11</td>
-                                        <td>
-                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
+                            {customerTable}
                             <hr />
                             <h5 className="card-title">Edit Customer</h5>
                             <CustomerForm action="edit" />
@@ -178,15 +196,18 @@ export default function Page() {
                                 </div>
 
                                 <div>
-                                    <button class="btn btn-primary me-2"><i class="bi bi-plus-lg"></i> Add new</button>
+                                    <button onClick={()=> toggleCustomerTable()} class="btn btn-primary me-2"><i class="bi bi-plus-lg"></i> Add new</button>
 
                                 </div>
                             </div>
 
-                            <div className="row">
-                                <div className="col-sm-6">Total Customers: 600</div>
-                            </div>
+                            {groupCustomerList ? customerTable : ""
 
+                            }
+
+                            <div className="row">
+                                <div className="col-sm-6">Total groups: 3</div>
+                            </div>
                             <table className="table table-striped table-bordered">
                                 <thead>
                                     <tr>
@@ -243,6 +264,7 @@ export default function Page() {
 
                                 </tbody>
                             </table>
+
 
 
                         </div>
