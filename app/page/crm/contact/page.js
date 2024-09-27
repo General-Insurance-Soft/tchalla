@@ -25,7 +25,7 @@ export default function Page() {
 
                 {
                     isContactsGroupTab ?
-                        <div className="col-sm-6">Total Customers selected: 20</div>
+                        <div className="col-sm-6 text-info">Total Customers selected: 20</div>
 
                         :
                         <div className="col-sm-6">Total Customers: 600</div>
@@ -268,7 +268,14 @@ export default function Page() {
                             <div class="d-flex justify-content-between align-items-center mt-2">
                                 <div>
                                     {
-                                        showGroupCustomerList ? <h5 className="card-title">New Group</h5> : ""
+                                        showGroupCustomerList ?
+                                            <>
+                                                <h5 className="card-title fw-bold">New Group</h5>
+
+                                            </>
+
+                                            :
+                                            ""
                                     }
                                 </div>
 
@@ -292,9 +299,38 @@ export default function Page() {
                                 showGroupCustomerList ?
                                     <>
                                         <div className="row mb-3">
-                                            <form className="row">
-                                                <div className="col-md-4"><input type="text" className="form-control" placeholder="Group Name" /></div>
-                                            </form>
+                                            <div className="col-md-4"><input type="text" className="form-control" placeholder="Group Name" /></div>
+                                        </div>
+                                        <div class="d-flex  mt-2 mb-2">
+                                            <div>
+                                                <select id="inputState" className="form-select">
+                                                    <option defaultValue>Policy type...</option>
+                                                    <option>Fire/Bulgary</option>
+                                                    <option>Health</option>
+                                                    <option>Car</option>
+                                                    <option>Life insurance</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <select id="inputState" className="form-select">
+                                                    <option defaultValue>Country...</option>
+                                                    <option>Kenya</option>
+                                                    <option>Uganda</option>
+                                                    <option>Tanzania</option>
+                                                    <option>Rwanda</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <select id="inputState" className="form-select">
+                                                    <option defaultValue>County...</option>
+                                                    <option>Nairobi</option>
+                                                    <option>Kisumu</option>
+                                                    <option>Nakuru</option>
+                                                    <option>Nyandarua</option>
+                                                </select>
+                                            </div>
                                         </div>
                                         {customerTable}
                                         <hr />
@@ -304,8 +340,8 @@ export default function Page() {
                             }
 
                             <div className="row">
-                                <h4 >Group List</h4>
-                                <div >Total groups: 3</div>
+                                <h4 className="fw-bold">Group List</h4>
+                                <div>Total groups: 3</div>
                             </div>
                             <table className="table table-striped table-bordered">
                                 <thead>

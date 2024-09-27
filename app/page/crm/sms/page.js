@@ -14,7 +14,7 @@ export default function Page() {
                     </ol>
                 </nav>
             </div>
-            
+
 
             <div className="row">
                 <div className="col-sm-12">
@@ -41,11 +41,139 @@ export default function Page() {
                             </ul>
                             <div className="tab-content pt-2" id="borderedTabJustifiedContent">
                                 <div className="tab-pane fade show active" id="bordered-justified-bulk" role="tabpanel" aria-labelledby="bulk-tab">
-                                  <Data_Table />
-                                </div>
-                                <div className="tab-pane fade" id="bordered-justified-schedule" role="tabpanel" aria-labelledby="schedule-tab">
+                                    {/* bulk sms */}
+
+
+                                    <div className="card">
+                                        <div className="card-body">
+                                            {/* <h5 className="card-title">Capture policy Details</h5> */}
+
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <div>
+                                                    <button type="button" className="btn btn-primary mb-3" data-bs-toggle="modal"
+                                                        data-bs-target="#paneId">Add new field</button>
+                                                </div>
+
+                                                <div>
+                                                    <button class="btn btn-primary me-2">Save</button>
+                                                    <button class="btn btn-secondary">Cancel</button>
+                                                </div>
+                                            </div>
+
+                                            <Data_Table />
+                                        </div>
+                                    </div>
 
                                 </div>
+
+                                {/* schedule sms */}
+                                <div className="tab-pane fade" id="bordered-justified-schedule" role="tabpanel" aria-labelledby="schedule-tab">
+
+
+                                    {/*  New schedule */}
+
+                                    <ul class="nav nav-underline " id="borderedTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="schedule-tab" data-bs-toggle="tab" data-bs-target="#bordered-schedule" type="button" role="tab" aria-controls="schedule" aria-selected="true">New Schedule</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="schedule_list-tab" data-bs-toggle="tab" data-bs-target="#bordered-schedule_list" type="button" role="tab" aria-controls="schedule_list" aria-selected="false">Schedule List</button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content pt-2" id="borderedTabContent">
+                                        <div class="tab-pane fade show active" id="bordered-schedule" role="tabpanel" aria-labelledby="schedule-tab">
+
+
+                                            <div className="col-xl-8">
+                                                <div className="card">
+                                                    <div className="card-body">
+                                                        <h6 className="tc-card-header">Create scheduled SMS</h6>
+                                                        <hr />
+
+                                                        <form>
+                                                            <div className="row mb-3">
+                                                                <label htmlFor="inputText" className="col-sm-2 col-form-label">Schdule Name</label>
+                                                                <div className="col-sm-10">
+                                                                    <input type="text" className="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <div className="row mb-3">
+                                                                <label htmlFor="inputEmail" className="col-sm-2 col-form-label">Description</label>
+                                                                <div className="col-sm-10">
+                                                                    <textarea className="form-control" rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="row mb-3">
+                                                                <label htmlFor="inputDate" className="col-sm-2 col-form-label">Start date:</label>
+                                                                <div className="col-sm-4">
+                                                                    <input type="date" className="form-control" />
+                                                                </div>
+
+                                                                <label htmlFor="inputTime" className="col-sm-2 col-form-label">Time:</label>
+                                                                <div className="col-sm-4">
+                                                                    <input type="time" className="form-control" />
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="row mb-3">
+                                                                <label htmlFor="" className="col-sm-2 col-form-label">End date:</label>
+                                                                <div className="col-sm-4">
+                                                                    <input type="date" className="form-control" />
+                                                                </div>
+
+                                                                <label htmlFor="inputTime" className="col-sm-2 col-form-label">Time:</label>
+                                                                <div className="col-sm-4">
+                                                                    <input type="time" className="form-control" />
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="row mb-3">
+
+                                                                <label htmlFor="" className="col-sm-2 col-form-label">No End:</label>
+                                                                <div className="col-sm-4">
+                                                                    <input className="form-check-input" type="checkbox" />
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="row mb-3">
+                                                                <div class="col-sm-6">
+                                                                    <label for="inputName5" class="form-label">SMS template for event:</label>
+                                                                    <textarea id="inputName5" class="form-control" name="w3review" rows="4" cols="8"></textarea>
+                                                                </div>
+                                                                <div className="col-sm-6">
+                                                                    <label for="#" class="form-label">Placeholders:</label>
+                                                                    <div>
+                                                                        [first_name], [last_name], [middle_name], [x_name],  [x_name],
+                                                                        [x_name], [x_name], [x_name]
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <hr />
+                                                            <div class="text-center mb-3">
+                                                                <div class="d-flex justify-content-center">
+                                                                    <button class="btn btn-primary me-2">Add</button>
+                                                                    <button class="btn btn-secondary">Reset</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {/* end new schedule */}
+
+
+                                        </div>
+                                        <div class="tab-pane fade" id="bordered-schedule_list" role="tabpanel" aria-labelledby="schedule_list-tab">
+                                            Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                {/* end schedule SMS */}
+
 
                                 <div className="tab-pane fade" id="bordered-justified-sms" role="tabpanel" aria-labelledby="sms-tab">
                                     <div class="card">
