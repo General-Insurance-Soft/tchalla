@@ -1,3 +1,6 @@
+import Data_Table from '../../../lib/components/table/data-table';
+
+
 export default function Page() {
     return (
         <>
@@ -38,7 +41,7 @@ export default function Page() {
                             </ul>
                             <div className="tab-content pt-2" id="borderedTabJustifiedContent">
                                 <div className="tab-pane fade show active" id="bordered-justified-bulk" role="tabpanel" aria-labelledby="bulk-tab">
-
+                                  <Data_Table />
                                 </div>
                                 <div className="tab-pane fade" id="bordered-justified-schedule" role="tabpanel" aria-labelledby="schedule-tab">
 
