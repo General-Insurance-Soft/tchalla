@@ -92,6 +92,15 @@ export default function CustomerForm({ action }) {
                     </select>
                 </div>
                 <div className="col-md-4">
+                    <label for="customer-group">Select customer group:</label>
+                    <select id="customer-group" className="form-select">
+
+                        {action === "add" ? [<option key={1} defaultValue>None...</option>, <option key={2} >Group 1</option>] : <option>Group 1</option>}
+                        <option>Group 2</option>
+                        <option>Group 3</option>
+                    </select>
+                </div>
+                <div className="col-md-4">
                     <label for="img">Select passport/ID image:</label>
                     <input type="file" id="img" name="img" accept="image/*" className="form-control" />
                 </div>
