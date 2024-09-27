@@ -17,13 +17,19 @@ export default function Page() {
 
     const toggleCustomerTable = () => {
         setShowGroupCustomerList(!showGroupCustomerList);
-        setActionBtnLabel(showGroupCustomerList ? "Add new": "Cancel" );
     };
 
     let customerTable = [
         <>
             <div className="row">
-                <div className="col-sm-6">Total Customers: 600</div>
+
+                {
+                    isContactsGroupTab ?
+                        <div className="col-sm-6">Total Customers selected: 20</div>
+
+                        :
+                        <div className="col-sm-6">Total Customers: 600</div>
+                }
             </div>
             <table className="table table-striped table-bordered">
                 <thead>
@@ -259,23 +265,45 @@ export default function Page() {
                         <div class="tab-pane fade show active" id="bordered-customer_group" role="tabpanel" aria-labelledby="customer_group-tab">
 
 
-                            <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex justify-content-between align-items-center mt-2">
                                 <div>
-                                    <h5 className="card-title">Manage customer contacts groups</h5>
+                                    {/* <h5 className="card-title">Manage customer contacts groups</h5> */}
                                 </div>
 
                                 <div>
-                                    <button onClick={() => toggleCustomerTable()} class="btn btn-primary me-2"><i class="bi bi-plus-lg"></i> {actionBtnLabel} </button>
+                                    {
+                                        showGroupCustomerList ?
+                                            [
+                                                <>
+                                                    <button class="btn btn-primary me-2"><i class="bi bi-floppy"></i> Save </button>
+                                                    <button onClick={() => toggleCustomerTable()} class="btn btn-secondary me-2"><i class="bi bi-x"></i> Cancel </button>
+                                                </>
+                                            ]
+                                            :
+                                            [<button onClick={() => toggleCustomerTable()} class="btn btn-primary me-2"><i class="bi bi-plus-lg"></i> Add new </button>]
+                                    }
 
                                 </div>
                             </div>
 
                             {
-                                showGroupCustomerList ? customerTable : ""
+                                showGroupCustomerList ?
+                                    <>
+                                        <div className="row mb-3">
+                                            <form className="row">
+                                                <div className="col-md-4"><input type="text" className="form-control" placeholder="Group Name" /></div>
+                                            </form>
+                                        </div>
+                                        {customerTable}
+                                        <hr />
+                                    </>
+                                    :
+                                    ""
                             }
 
                             <div className="row">
-                                <div className="col-sm-6">Total groups: 3</div>
+                                <h4 >Group List</h4>
+                                <div >Total groups: 3</div>
                             </div>
                             <table className="table table-striped table-bordered">
                                 <thead>
