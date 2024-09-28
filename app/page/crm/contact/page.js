@@ -301,7 +301,7 @@ export default function Page() {
                                         <div className="row mb-3">
                                             <div className="col-md-4"><input type="text" className="form-control" placeholder="Group Name" /></div>
                                         </div>
-                                        <div class="d-flex  mt-2 mb-2">
+                                        <div class="d-flex  mt-2 mb-2 gap-3">
                                             <div>
                                                 <select id="inputState" className="form-select">
                                                     <option defaultValue>Policy type...</option>
@@ -311,7 +311,27 @@ export default function Page() {
                                                     <option>Life insurance</option>
                                                 </select>
                                             </div>
-
+                                            |
+                                            <div className="d-flex gap-1">
+                                                <label for="age" class="col-form-label">Age: </label>
+                                                <select id="age" className="form-select">
+                                                    <option>equals</option>
+                                                    <option>greater than</option>
+                                                    <option>less than</option>
+                                                </select>
+                                                <input type="number" class="form-control" min="-1" style={{ width: '80px' }}></input>
+                                            </div>
+                                            |
+                                            <div className="d-flex gap-1">
+                                                <label for="age" class="col-form-label">Name: </label>
+                                                <select id="age" className="form-select">
+                                                    <option>starts with</option>
+                                                    <option>contains</option>
+                                                    <option>ends with</option>
+                                                </select>
+                                                <input type="text" class="form-control" min="-1"></input>
+                                            </div>
+                                            |
                                             <div>
                                                 <select id="inputState" className="form-select">
                                                     <option defaultValue>Country...</option>
