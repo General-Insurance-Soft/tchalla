@@ -48,15 +48,15 @@ export default function Page() {
                                         <div className="card-body">
                                             {/* <h5 className="card-title">Capture policy Details</h5> */}
 
-                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div className="d-flex justify-content-between align-items-center mb-3">
                                                 <div>
                                                     <button type="button" className="btn btn-primary mb-3" data-bs-toggle="modal"
                                                         data-bs-target="#paneId">Add new field</button>
                                                 </div>
 
                                                 <div>
-                                                    <button class="btn btn-primary me-2">Save</button>
-                                                    <button class="btn btn-secondary">Cancel</button>
+                                                    <button className="btn btn-primary me-2">Save</button>
+                                                    <button className="btn btn-secondary">Cancel</button>
                                                 </div>
                                             </div>
 
@@ -72,16 +72,16 @@ export default function Page() {
 
                                     {/*  New schedule */}
 
-                                    <ul class="nav nav-underline " id="borderedTab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link active" id="schedule-tab" data-bs-toggle="tab" data-bs-target="#bordered-schedule" type="button" role="tab" aria-controls="schedule" aria-selected="true">New Schedule</button>
+                                    <ul className="nav nav-underline " id="borderedTab" role="tablist">
+                                        <li className="nav-item" role="presentation">
+                                            <button className="nav-link active" id="schedule-tab" data-bs-toggle="tab" data-bs-target="#bordered-schedule" type="button" role="tab" aria-controls="schedule" aria-selected="true">New Schedule</button>
                                         </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="schedule_list-tab" data-bs-toggle="tab" data-bs-target="#bordered-schedule_list" type="button" role="tab" aria-controls="schedule_list" aria-selected="false">Schedule List</button>
+                                        <li className="nav-item" role="presentation">
+                                            <button className="nav-link" id="schedule_list-tab" data-bs-toggle="tab" data-bs-target="#bordered-schedule_list" type="button" role="tab" aria-controls="schedule_list" aria-selected="false">Schedule List</button>
                                         </li>
                                     </ul>
-                                    <div class="tab-content pt-2" id="borderedTabContent">
-                                        <div class="tab-pane fade show active" id="bordered-schedule" role="tabpanel" aria-labelledby="schedule-tab">
+                                    <div className="tab-content pt-2" id="borderedTabContent">
+                                        <div className="tab-pane fade show active" id="bordered-schedule" role="tabpanel" aria-labelledby="schedule-tab">
 
 
                                             <div className="col-xl-8">
@@ -137,12 +137,12 @@ export default function Page() {
                                                             </div>
 
                                                             <div className="row mb-3">
-                                                                <div class="col-sm-6">
-                                                                    <label for="inputName5" class="form-label">SMS template for event:</label>
-                                                                    <textarea id="inputName5" class="form-control" name="w3review" rows="4" cols="8"></textarea>
+                                                                <div className="col-sm-6">
+                                                                    <label for="inputName5" className="form-label">SMS template for event:</label>
+                                                                    <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8"></textarea>
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <label for="#" class="form-label">Placeholders:</label>
+                                                                    <label for="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name]
@@ -150,11 +150,32 @@ export default function Page() {
                                                                 </div>
                                                             </div>
 
+                                                            <div className="row">
+                                                                <div className='col-sm-6'>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <label for="inputName5" class="form-label me-2">Contact group:</label>
+                                                                        <select class="form-select" multiple aria-label="multiple select example">
+                                                                            <option selected>Open this select menu</option>
+                                                                            <option value="1">One</option>
+                                                                            <option value="2">Two</option>
+                                                                            <option value="3">Three</option>
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div className='col-sm-6'>
+                                                                    or: <button className="btn btn-info">choose contact(s)</button>
+                                                                </div>
+
+                                                            </div>
+
+
+
                                                             <hr />
-                                                            <div class="text-center mb-3">
-                                                                <div class="d-flex justify-content-center">
-                                                                    <button class="btn btn-primary me-2">Add</button>
-                                                                    <button class="btn btn-secondary">Reset</button>
+                                                            <div className="text-center mb-3">
+                                                                <div className="d-flex justify-content-center">
+                                                                    <button className="btn btn-primary me-2">Add</button>
+                                                                    <button className="btn btn-secondary">Reset</button>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -165,7 +186,7 @@ export default function Page() {
 
 
                                         </div>
-                                        <div class="tab-pane fade" id="bordered-schedule_list" role="tabpanel" aria-labelledby="schedule_list-tab">
+                                        <div className="tab-pane fade" id="bordered-schedule_list" role="tabpanel" aria-labelledby="schedule_list-tab">
                                             Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
                                         </div>
                                     </div>
@@ -176,31 +197,31 @@ export default function Page() {
 
 
                                 <div className="tab-pane fade" id="bordered-justified-sms" role="tabpanel" aria-labelledby="sms-tab">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="tc-card-header">SMS Template</h6>
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <h6 className="tc-card-header">SMS Template</h6>
                                             <hr />
 
-                                            <div class="accordion" id="smsTemplates">
+                                            <div className="accordion" id="smsTemplates">
 
 
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingOne">
-                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <div className="accordion-item">
+                                                    <h2 className="accordion-header" id="headingOne">
+                                                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                             <h5>SMS template for events</h5>
                                                         </button>
                                                     </h2>
-                                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#smsTemplates">
-                                                        <div class="accordion-body">
+                                                    <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#smsTemplates">
+                                                        <div className="accordion-body">
 
-                                                            <form class="row g-3">
+                                                            <form className="row g-3">
 
                                                                 <div className="col-sm-6">
-                                                                    <label for="inputName56" class="form-label">Template Name:</label>
-                                                                    <input type="text" class="form-control" id="inputName56" />
+                                                                    <label for="inputName56" className="form-label">Template Name:</label>
+                                                                    <input type="text" className="form-control" id="inputName56" />
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <label for="inputState" class="form-label">Select Event:</label>
+                                                                    <label for="inputState" className="form-label">Select Event:</label>
                                                                     <select id="inputState" className="form-select">
                                                                         {/* <option defaultValue>Gender...</option> */}
                                                                         <option>Company anniversary</option>
@@ -209,21 +230,21 @@ export default function Page() {
                                                                         <option>Christmas</option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-sm-6">
-                                                                    <label for="inputName5" class="form-label">SMS template for event:</label>
-                                                                    <textarea id="inputName5" class="form-control" name="w3review" rows="4" cols="8"></textarea>
+                                                                <div className="col-sm-6">
+                                                                    <label for="inputName5" className="form-label">SMS template for event:</label>
+                                                                    <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8"></textarea>
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <label for="#" class="form-label">Placeholders:</label>
+                                                                    <label for="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name]
                                                                     </div>
                                                                 </div>
-                                                                <div class="text-center mb-3">
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <button class="btn btn-primary me-2">Add</button>
-                                                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                                                <div className="text-center mb-3">
+                                                                    <div className="d-flex justify-content-center">
+                                                                        <button className="btn btn-primary me-2">Add</button>
+                                                                        <button type="reset" className="btn btn-secondary">Reset</button>
                                                                     </div>
                                                                 </div>
 
@@ -255,34 +276,34 @@ export default function Page() {
                                                     </div>
                                                 </div>
 
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingTwo">
-                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                <div className="accordion-item">
+                                                    <h2 className="accordion-header" id="headingTwo">
+                                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                             <h5>SMS template for client birthdays</h5>
                                                         </button>
                                                     </h2>
-                                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#smsTemplates">
-                                                        <div class="accordion-body">
+                                                    <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#smsTemplates">
+                                                        <div className="accordion-body">
 
-                                                            <form action="#" class="row g-3 mb-3">
+                                                            <form action="#" className="row g-3 mb-3">
 
-                                                                <div class="col-sm-8">
-                                                                    <label for="inputName5" class="form-label">SMS template birthdays day:</label>
-                                                                    <textarea id="inputName5" class="form-control" name="w3review" rows="4" cols="8">
+                                                                <div className="col-sm-8">
+                                                                    <label for="inputName5" className="form-label">SMS template birthdays day:</label>
+                                                                    <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8">
                                                                         Dear [first_name] [last_name], we wish you a happy birthday. May you have a great day and a wonderful year ahead.
                                                                     </textarea>
                                                                 </div>
                                                                 <div className="col-sm-4">
-                                                                    <label for="#" class="form-label">Placeholders:</label>
+                                                                    <label for="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name] [policy_expiry_date]
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="text-center mb-3">
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <button class="btn btn-primary me-2">Update</button>
+                                                                <div className="text-center mb-3">
+                                                                    <div className="d-flex justify-content-center">
+                                                                        <button className="btn btn-primary me-2">Update</button>
                                                                     </div>
                                                                 </div>
 
@@ -294,35 +315,35 @@ export default function Page() {
                                                 </div>
 
 
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingTwo">
-                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                <div className="accordion-item">
+                                                    <h2 className="accordion-header" id="headingTwo">
+                                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                             <h5>SMS template for policy renewal</h5>
                                                         </button>
                                                     </h2>
-                                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#smsTemplates">
-                                                        <div class="accordion-body">
+                                                    <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#smsTemplates">
+                                                        <div className="accordion-body">
 
-                                                            <form action="#" class="row g-3 mb-3">
+                                                            <form action="#" className="row g-3 mb-3">
 
 
-                                                                <div class="col-sm-8">
-                                                                    <label for="inputName5" class="form-label">SMS template birthdays day:</label>
-                                                                    <textarea id="inputName5" class="form-control" name="w3review" rows="4" cols="8">
+                                                                <div className="col-sm-8">
+                                                                    <label for="inputName5" className="form-label">SMS template birthdays day:</label>
+                                                                    <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8">
                                                                         Dear [first_name], we wish to remind you that your policy is due for renewal on [policy_expiry_date]. Kindly visit our offices for more information.
                                                                     </textarea>
                                                                 </div>
                                                                 <div className="col-sm-4">
-                                                                    <label for="#" class="form-label">Placeholders:</label>
+                                                                    <label for="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name] [policy_expiry_date]
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="text-center mb-3">
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <button class="btn btn-primary me-2">Update</button>
+                                                                <div className="text-center mb-3">
+                                                                    <div className="d-flex justify-content-center">
+                                                                        <button className="btn btn-primary me-2">Update</button>
 
                                                                     </div>
                                                                 </div>
