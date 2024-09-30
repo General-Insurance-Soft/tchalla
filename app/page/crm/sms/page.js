@@ -154,23 +154,17 @@ export default function Page() {
                                                                 <div className='col-sm-6'>
                                                                     <div class="d-flex align-items-center">
                                                                         <label for="inputName5" class="form-label me-2">Contact group:</label>
-                                                                        <select class="form-select" multiple aria-label="multiple select example">
-                                                                            <option selected>Open this select menu</option>
-                                                                            <option value="1">One</option>
-                                                                            <option value="2">Two</option>
-                                                                            <option value="3">Three</option>
+                                                                        <select id="inputState" class="form-select">
+                                                                            <option value="1">Car Third party group</option>
+                                                                            <option value="2">Life insurance group</option>
+                                                                            <option value="3">Health insutance group</option>
                                                                         </select>
-
                                                                     </div>
                                                                 </div>
                                                                 <div className='col-sm-6'>
-                                                                    or: <button className="btn btn-info">choose contact(s)</button>
+                                                                    or: <button className="btn btn-primary">choose contact(s)</button>
                                                                 </div>
-
                                                             </div>
-
-
-
                                                             <hr />
                                                             <div className="text-center mb-3">
                                                                 <div className="d-flex justify-content-center">
