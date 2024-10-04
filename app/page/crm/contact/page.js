@@ -59,7 +59,7 @@ export default function Page() {
                 </thead>
                 <tbody>
 
-                    <tr>
+                    <tr key={1}>
                         <td>#</td>
                         <td>Tom Lee</td>
                         <td>0700123789</td>
@@ -83,7 +83,7 @@ export default function Page() {
                         }
 
                     </tr>
-                    <tr>
+                    <tr key={2}>
                         <td>#</td>
                         <td>Tom Lee</td>
                         <td>0700123789</td>
@@ -106,7 +106,7 @@ export default function Page() {
                                 </td>
                         }
                     </tr>
-                    <tr>
+                    <tr key={3}>
                         <td>#</td>
                         <td>Tom Lee</td>
                         <td>0700123789</td>
@@ -129,7 +129,7 @@ export default function Page() {
                                 </td>
                         }
                     </tr>
-                    <tr>
+                    <tr key={3}>
                         <td>#</td>
                         <td>Tom Lee</td>
                         <td>0700123789</td>
@@ -152,7 +152,7 @@ export default function Page() {
                                 </td>
                         }
                     </tr>
-                    <tr>
+                    <tr key={4}>
                         <td>#</td>
                         <td>Tom Lee</td>
                         <td>0700123789</td>
@@ -175,7 +175,7 @@ export default function Page() {
                                 </td>
                         }
                     </tr>
-                    <tr>
+                    <tr key={5}>
                         <td>#</td>
                         <td>Tom Lee</td>
                         <td>0700123789</td>
