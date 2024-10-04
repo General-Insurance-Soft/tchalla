@@ -129,7 +129,7 @@ export default function Page() {
                                 </td>
                         }
                     </tr>
-                    <tr key={3}>
+                    <tr key={30}>
                         <td>#</td>
                         <td>Tom Lee</td>
                         <td>0700123789</td>
@@ -283,13 +283,13 @@ export default function Page() {
                                     {
                                         showGroupCustomerList ?
                                             [
-                                                <>
+                                                <React.Fragment key="group-buttons">
                                                     <button class="btn btn-primary me-2"><i class="bi bi-floppy"></i> Save </button>
                                                     <button onClick={() => toggleCustomerTable()} class="btn btn-secondary me-2"><i class="bi bi-x"></i> Cancel </button>
-                                                </>
+                                                </React.Fragment>
                                             ]
                                             :
-                                            [<button onClick={() => toggleCustomerTable()} class="btn btn-primary me-2"><i class="bi bi-plus-lg"></i> Add new </button>]
+                                            [<button key="add-new-btn" onClick={() => toggleCustomerTable()} class="btn btn-primary me-2"><i class="bi bi-plus-lg"></i> Add new </button>]
                                     }
 
                                 </div>
