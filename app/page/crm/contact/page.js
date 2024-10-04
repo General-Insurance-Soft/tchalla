@@ -1,5 +1,6 @@
 'use client'
 
+import React from "react";
 import * as dataPointData from "../../../../public/DataPointData.json";
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import CustomerForm from "./customer_form";
