@@ -372,14 +372,46 @@ export default function Page() {
             {/* bulk sms modal */}
 
             <div class="modal fade" id="bulkSMSModal" tabindex="-1" aria-labelledby="bulkSMSModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="bulkSMSModalLabel">New Bulk SMS</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ...
+
+                            <form>
+                                <div className="row mb-3">
+                                    <div className="col-sm-6">
+                                        <label for="inputName5" className="form-label">SMS template:</label>
+                                        <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8"></textarea>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <label for="#" className="form-label">Placeholders:</label>
+                                        <div>
+                                            [first_name], [last_name], [middle_name], [x_name],  [x_name],
+                                            [x_name], [x_name], [x_name]
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className='col-sm-6'>
+                                        <div class="d-flex align-items-center">
+                                            <label for="inputName5" class="form-label me-2">Contact group:</label>
+                                            <select id="inputState" class="form-select">
+                                                <option value="1">Car Third party group</option>
+                                                <option value="2">Life insurance group</option>
+                                                <option value="3">Health insutance group</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className='col-sm-6'>
+                                        <span>or: </span> <button className="btn btn-info">choose contact(s)</button>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
