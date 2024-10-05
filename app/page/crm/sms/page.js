@@ -1,5 +1,6 @@
 import Data_Table from '../../../lib/components/table/data-table';
 import BulkSmsTblContent from './bulk-sms-tbl-content';
+import ScheduleSmsTblContent from './schedule-sms-tbl-content';
 
 export default function Page() {
     return (
@@ -62,7 +63,7 @@ export default function Page() {
                                             </div>
                                             <hr />
                                             <h5 className="card-title">Recent bulk SMS</h5>
-                                            <Data_Table table_content={BulkSmsTblContent} />
+                                            <Data_Table table_content={BulkSmsTblContent} tableId={'bulkSmsTbl'}/>
                                         </div>
                                     </div>
 
@@ -86,7 +87,7 @@ export default function Page() {
                                         <div className="tab-pane fade show active" id="bordered-schedule" role="tabpanel" aria-labelledby="schedule-tab">
 
 
-                                            <div className="col-xl-8">
+                                            <div className="col-xl-10">
                                                 <div className="card">
                                                     <div className="card-body">
                                                         <h6 className="tc-card-header">Create scheduled SMS</h6>
@@ -183,7 +184,31 @@ export default function Page() {
 
                                         </div>
                                         <div className="tab-pane fade" id="bordered-schedule_list" role="tabpanel" aria-labelledby="schedule_list-tab">
-                                            Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    {/* <h5 className="card-title">Capture policy Details</h5> */}
+
+                                                    <div className="d-flex justify-content-between align-items-center">
+                                                        <div>
+
+                                                            <span >
+                                                                <span class="badge bg-dark"><i class="bi bi-folder me-1"></i> In progress: 1</span> |
+                                                                <span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> Pending: 1</span> |
+                                                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Completed: 20</span> |
+                                                                <span class="badge bg-warning text-dark"><i class="bi bi-exclamation-triangle me-1"></i> Cancelled: 2</span> |
+                                                                <span class="badge bg-primary"><i class="bi bi-star me-1"></i> Total: 23</span>
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            {/* <button className="btn btn-primary me-2">Save</button> */}
+                                                            {/* <button className="btn btn-secondary">Cancel</button> */}
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    <h5 className="card-title">Recent scheduled SMS</h5>
+                                                    <Data_Table table_content={ScheduleSmsTblContent} tableId={'sheduleTbl'}/>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -415,7 +440,7 @@ export default function Page() {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary">Send SMS</button>
                         </div>
                     </div>
                 </div>
