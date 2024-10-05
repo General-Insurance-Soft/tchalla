@@ -48,19 +48,21 @@ export default function Page() {
                                         <div className="card-body">
                                             {/* <h5 className="card-title">Capture policy Details</h5> */}
 
-                                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                            <div className="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <button type="button" className="btn btn-primary mb-3" data-bs-toggle="modal"
-                                                        data-bs-target="#paneId">Add new field</button>
-                                                </div>
 
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bulkSMSModal">
+                                                        New Bulk SMS
+                                                    </button>
+                                                </div>
                                                 <div>
-                                                    <button className="btn btn-primary me-2">Save</button>
-                                                    <button className="btn btn-secondary">Cancel</button>
+                                                    {/* <button className="btn btn-primary me-2">Save</button> */}
+                                                    {/* <button className="btn btn-secondary">Cancel</button> */}
                                                 </div>
                                             </div>
-
-                                            <Data_Table table_content={BulkSmsTblContent}/>
+                                            <hr />
+                                            <h5 className="card-title">Recent bulk SMS</h5>
+                                            <Data_Table table_content={BulkSmsTblContent} />
                                         </div>
                                     </div>
 
@@ -366,6 +368,28 @@ export default function Page() {
                     </div>
                 </div>
             </div>
+
+            {/* bulk sms modal */}
+
+            <div class="modal fade" id="bulkSMSModal" tabindex="-1" aria-labelledby="bulkSMSModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="bulkSMSModalLabel">New Bulk SMS</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* end bulk sms modal */}
         </>
     );
 }
