@@ -9,18 +9,25 @@ export default function Data_Table({ table_content, tableId }) {
     let tableEl = tableId || "tableEl";
 
     useEffect(() => {
-        let tbl = new DataTable(`#${tableEl}`);
-    }, []);
+        // Only initialize if the table is available
+        if (document.querySelector(`#${tableEl}`)) {
+            let tbl = new DataTable(`#${tableEl}`);
+        }
+    }, [tableEl]);
+
 
     return (
         <>
             {
                 table_content ?
 
-                    <></>
+                    <table id={tableEl} className="table table-borderless datatable">
+                        {table_content}
+                    </table>
+
                     :
 
-                    <table key="key1" id='tableEl' className="table table-borderless datatable">
+                    <table key="key1" id={tableEl} className="table table-borderless datatable">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>

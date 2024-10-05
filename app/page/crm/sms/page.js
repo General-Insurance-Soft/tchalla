@@ -1,5 +1,5 @@
 import Data_Table from '../../../lib/components/table/data-table';
-
+import BulkSmsTblContent from './bulk-sms-tbl-content';
 
 export default function Page() {
     return (
@@ -60,7 +60,7 @@ export default function Page() {
                                                 </div>
                                             </div>
 
-                                            <Data_Table />
+                                            <Data_Table table_content={BulkSmsTblContent}/>
                                         </div>
                                     </div>
 
