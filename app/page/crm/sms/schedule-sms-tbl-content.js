@@ -22,7 +22,7 @@ const ScheduleSmsTblContent =
                 <td>2024-10-02 11:08</td>
                 <td>50% (250/500)</td>
                 <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 60%</span></td>
-                <td><span className="badge bg-success">In Progress</span></td>
+                <td><span className="badge bg-dark">In Progress</span></td>
                 <td>
                     <button className="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
                     <button className="btn btn-sm btn-warning"><i class="bi bi-x-lg"></i></button>
@@ -49,7 +49,7 @@ const ScheduleSmsTblContent =
                 <td>2024-10-02 11:08</td>
                 <td>95% (550/600)</td>
                 <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 70%</span></td>
-                <td><span className="badge bg-danger">Cancelled</span></td>
+                <td><span className="badge bg-warning">Cancelled</span></td>
                 <td>
                     <button className="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
                 </td>
