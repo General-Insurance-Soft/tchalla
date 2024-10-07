@@ -97,12 +97,6 @@ export default function Page() {
                             </div>
                         </div>
 
-
-
-
-
-
-
                         <div className="col-sm-12">
                             <div className="row d-flex align-items-end">
                                 <div className="col-md-4">
@@ -110,8 +104,15 @@ export default function Page() {
                                     <input type="file" id="img" name="img" accept="image/*" className="form-control" />
                                 </div>
                                 <div className="col-md-5">
-                                    <label htmlFor="copyName">Scanned copy name:</label>
-                                    <input id="copyName" type="text" className="form-control" />
+                                    <label htmlFor="copyName">Document type:</label>
+                                    <select id="policy" className="form-select">
+                                        <option defaultValue>None...</option>
+                                        <option>ID/Passort</option>
+                                        <option>Proposal</option>
+                                        <option>Accident form</option>
+                                        <option>Policy</option>
+                                        <option>Police Abstract</option>
+                                    </select>
                                 </div>
                                 <div className="col-md-3">
                                     <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
