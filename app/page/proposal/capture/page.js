@@ -1,7 +1,20 @@
+"use client"
+
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import Image from 'next/image';
+import NewCustomerForm from "./new_customer_form";
+import { use, useEffect, useState } from "react";
 
 export default function Page() {
+
+    let [customerState, setCutomerState] = useState("existing");
+
+    useEffect(() => { }, [customerState]);
+
+    let handleCustomerState = (value) => {
+        setCutomerState(value);
+    };
+
     return (
         <>
             <div className="pagetitle">
@@ -20,10 +33,24 @@ export default function Page() {
                     <h5 className="card-title">Capture Proposal Details</h5>
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
+
                         <div>
-                            <button type="button" className="btn btn-primary mb-3" data-bs-toggle="modal"
-                                data-bs-target="#paneId">Add new field</button>
+                            <div class="d-flex">
+                                <div className="me-3">
+                                    <select onChange={(e) => handleCustomerState(e.target.value)} id="inputState" className="form-select">
+                                        <option value="existing">Existing Customer</option>
+                                        <option value="new">New Customer</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <button type="button" className="btn btn-primary mb-3" data-bs-toggle="modal"
+                                        data-bs-target="#paneId">Add new field</button>
+                                </div>
+                            </div>
+
                         </div>
+
 
                         <div>
                             <button class="btn btn-primary me-2">Save</button>
@@ -31,49 +58,71 @@ export default function Page() {
                         </div>
                     </div>
 
+                    {
+                        customerState === "new" ? <NewCustomerForm action="add" /> : ""
+                    }
+
                     <form className="row g-3">
-                        <div className="col-md-4">
-                            <input type="text" className="form-control" placeholder="Search customer" />
+
+                        <div className="col-sm-12">
+                            <div className="row d-flex align-items-end">
+                                {
+                                    customerState === "new" ? ""
+                                        :
+                                        <div className="col-md-4">
+                                            <label for="search">Search customer - Name, car, policy, certificate, ID/Passport:</label>
+                                            <input id="search" type="text" className="form-control" placeholder="" />
+                                        </div>
+                                }
+                                <div className="col-md-4">
+                                    <label for="insurance">Select insurance:</label>
+                                    <select id="insurance" className="form-select">
+                                        <option defaultValue>None...</option>
+                                        <option>Britam</option>
+                                        <option>Old mutual</option>
+                                        <option>Jubilee</option>
+                                        <option>CIC</option>
+                                    </select>
+                                </div>
+                                <div className="col-md-4">
+                                    <label for="policy">Select policy:</label>
+                                    <select id="policy" className="form-select">
+                                        <option defaultValue>None...</option>
+                                        <option>Fire/Bulgary</option>
+                                        <option>Health</option>
+                                        <option>Car</option>
+                                        <option>Life insurance</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="col-md-4">
-                            <select id="inputState" className="form-select">
-                                <option defaultValue>Select insurance...</option>
-                                <option>Britam</option>
-                                <option>Old mutual</option>
-                                <option>Jubilee</option>
-                                <option>CIC</option>
-                            </select>
-                        </div>
 
-                        <div className="col-md-4">
-                            <select id="inputState" className="form-select">
-                                <option defaultValue>Select policy type...</option>
-                                <option>Fire/Bulgary</option>
-                                <option>Health</option>
-                                <option>Car</option>
-                                <option>Life insurance</option>
-                            </select>
-                        </div>
 
-                        <div className="col-md-2">
-                            <label for="img">Select Scanned copies:</label>
-                        </div>
-                        <div className="col-md-4">
-                            <input type="file" id="img" name="img" accept="image/*" className="form-control" />
-                        </div>
-                        <div className="col-md-5">
-                            <input type="text" className="form-control" placeholder="Scanned copy name" />
-                        </div>
-                        <div className="col-md-1">
-                            <button type="button" className="btn btn-info">Add image</button>
+
+
+
+
+                        <div className="col-sm-12">
+                            <div className="row d-flex align-items-end">
+                                <div className="col-md-4">
+                                    <label htmlFor="img">Select Scanned copies:</label>
+                                    <input type="file" id="img" name="img" accept="image/*" className="form-control" />
+                                </div>
+                                <div className="col-md-5">
+                                    <label htmlFor="copyName">Scanned copy name:</label>
+                                    <input id="copyName" type="text" className="form-control" />
+                                </div>
+                                <div className="col-md-3">
+                                    <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="col-md-2">
                             <label for="proposal_tag">Tag Proposal:</label>
                             <input id="proposal_tag" type="text" className="form-control" placeholder="#ref_xyz_2024_09_26" />
                         </div>
-
 
 
                         <div className="row mt-3">
