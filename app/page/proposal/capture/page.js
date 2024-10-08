@@ -64,6 +64,8 @@ export default function Page() {
                         </div>
                     </div>
 
+                    <hr/>
+
                     <div class="d-flex justify-content-start mb-3">
                         <div className="">
                             <button type="button" className="btn btn-primary mb-3 me-3" data-bs-toggle="modal"
