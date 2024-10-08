@@ -32,30 +32,44 @@ export default function Page() {
                 <div className="card-body">
                     <h5 className="card-title">Capture Proposal Details</h5>
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex justify-content-start align-items-center mb-3">
 
-                        <div>
-                            <div class="d-flex">
-                                <div className="me-3">
-                                    <select onChange={(e) => handleCustomerState(e.target.value)} id="inputState" className="form-select">
-                                        <option value="existing">Existing Customer</option>
-                                        <option value="new">New Customer</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <button type="button" className="btn btn-primary mb-3" data-bs-toggle="modal"
-                                        data-bs-target="#paneId">Add new field</button>
-                                </div>
-                            </div>
-
+                        <div className="me-3">
+                            <select onChange={(e) => handleCustomerState(e.target.value)} id="inputState" className="form-select">
+                                <option value="existing">Existing Customer</option>
+                                <option value="new">New Customer</option>
+                            </select>
                         </div>
 
+                        {
+                            customerState === "new" ? ""
+                                :
+                                <div className="flex-grow-1 me-5" style={{ maxWidth: "500px" }}>
+                                    {/* <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" /> */}
 
-                        <div>
+
+                                    <div className="input-group">
+                                        <span className="input-group-text" id="search-icon">
+                                            <i className="bi bi-search"></i>
+                                        </span>
+                                        <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" aria-label="Search" aria-describedby="search-icon" />
+
+                                    </div>
+                                </div>
+                        }
+
+                        <div className="ms-auto">
                             <button class="btn btn-primary me-2">Save</button>
-                            <button class="btn btn-secondary">Cancel</button>
+                            <button class="btn btn-secondary">Reset</button>
                         </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-sm-12">
+                            <button type="button" className="btn btn-primary mb-3 me-3" data-bs-toggle="modal"
+                                data-bs-target="#paneId">Add new field</button>
+                        </div>
+
                     </div>
 
                     {
@@ -66,14 +80,7 @@ export default function Page() {
 
                         <div className="col-sm-12">
                             <div className="row d-flex align-items-end">
-                                {
-                                    customerState === "new" ? ""
-                                        :
-                                        <div className="col-md-4">
-                                            <label for="search">Search customer - Name, car, policy, certificate, ID/Passport:</label>
-                                            <input id="search" type="text" className="form-control" placeholder="" />
-                                        </div>
-                                }
+
                                 <div className="col-md-4">
                                     <label for="insurance">Select insurance:</label>
                                     <select id="insurance" className="form-select">
