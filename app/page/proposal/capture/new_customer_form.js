@@ -2,7 +2,7 @@
 export default function NewCustomerForm({ action }) {
     return (
 
-        <form className="row g-3 mb-3">
+        <>
             <div className="col-md-4">
                 <label for="firstName">Enter first name:</label>
                 {action === "add" ?
@@ -104,6 +104,6 @@ export default function NewCustomerForm({ action }) {
             </div>
 
 
-        </form>
+        </>
     );
 }
