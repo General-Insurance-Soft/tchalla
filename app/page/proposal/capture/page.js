@@ -117,11 +117,15 @@ export default function Page() {
                                 <div className="col-md-3">
                                     <label htmlFor="copyName">Document type:</label>
                                     <select id="policy" className="form-select">
-                                        <option defaultValue>None...</option>
+                                    <option defaultValue>None...</option>
                                         <option>ID/Passort</option>
                                         <option>Proposal</option>
                                         <option>Accident form</option>
                                         <option>Policy</option>
+                                        <option>Insurance Certificate</option>
+                                        <option>Insurance Policy</option>
+                                        <option>Medical Report</option>
+                                        <option>Birth Certificate</option>
                                         <option>Police Abstract</option>
                                     </select>
                                 </div>
