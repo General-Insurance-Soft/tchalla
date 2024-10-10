@@ -64,7 +64,7 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <hr/>
+                    <hr />
 
                     <div class="d-flex justify-content-start mb-3">
                         <div className="">
@@ -117,7 +117,7 @@ export default function Page() {
                                 <div className="col-md-3">
                                     <label htmlFor="copyName">Document type:</label>
                                     <select id="policy" className="form-select">
-                                    <option defaultValue>None...</option>
+                                        <option defaultValue>None...</option>
                                         <option>ID/Passort</option>
                                         <option>Proposal</option>
                                         <option>Accident form</option>
@@ -130,12 +130,23 @@ export default function Page() {
                                     </select>
                                 </div>
                                 <div className="col-md-3">
+                                    <label htmlFor="copyName">Select folder:</label>
+                                    <select id="policy" className="form-select">
+                                        <option>Default</option>
+                                        <option role="separator" disabled="disabled">─────────────────────────</option>
+                                        <option value="new folder">Create New</option>
+                                    </select>
+                                </div>
+                                <div className="col-md-3">
                                     <label htmlFor="documentName">Document name:</label>
                                     <input id="documentName" type="text" className="form-control" />
                                 </div>
-                                <div className="col-md-3">
-                                    <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
-                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-sm-12">
+                            <div className="col-md-3">
+                                <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
                             </div>
                         </div>
 
