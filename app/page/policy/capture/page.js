@@ -9,11 +9,13 @@ export default function Page() {
 
     const modalRef = useRef(null);
 
-    const creatNewImageFolder = () => {
+    const creatNewImageFolder = (event) => {
 
         if (typeof window !== "undefined" && bootstrap) {
-            const modal = new bootstrap.Modal(modalRef.current);
-            modal.show();
+            if (event.target.value === "new folder") {
+                const modal = new bootstrap.Modal(modalRef.current);
+                modal.show();
+            }
         }
     }
 
@@ -95,7 +97,7 @@ export default function Page() {
                                 </div>
                                 <div className="col-md-3">
                                     <label htmlFor="copyName">Select folder:</label>
-                                    <select onChange={() => creatNewImageFolder()} id="policy" className="form-select">
+                                    <select onChange={(event) => creatNewImageFolder(event)} id="policy" className="form-select">
                                         <option>Default</option>
                                         <option role="separator" disabled="disabled">─────────────────────────</option>
                                         <option value="new folder">Create New</option>
