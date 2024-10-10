@@ -75,6 +75,18 @@ export default function Page() {
                     <form className="row g-3">
 
                         <div className="col-sm-12">
+                            <div className="row">
+                                <div className="col-md-3">
+                                    <label htmlFor="name">Policy No:</label>
+                                    <input id="name" type="text" className="form-control" />
+                                </div>
+                                <div className="col-md-3">
+                                    <label htmlFor="phone">Certificate No:</label>
+                                    <input id="phone" type="text" className="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-12">
                             <div className="row d-flex align-items-end">
                                 <div className="col-md-3">
                                     <label htmlFor="img">Select Scanned copies:</label>
@@ -116,80 +128,82 @@ export default function Page() {
                             </div>
                         </div>
 
-                        <div className="row mt-3">
+                    </form>
 
-                            <div className="col-sm-12">
+                    <hr />
 
-                                <h6 className="tc-card-header">All added scanned copies</h6>
-                                <hr />
+                    <div className="row">
 
-                                <div className='row'>
-                                    {/* Template */}
-                                    <div className="col-sm-6">
+                        <div className="col-sm-12">
 
-                                        <div className="card">
-                                            <div className="card-body">
+                            <h6 className="tc-card-header">All added scanned copies</h6>
 
-                                                <h6 className="card-subtitle mb-2 text-muted">Policy</h6>
-                                                <Image
-                                                    src="/img/receipt_template.jpg"
-                                                    // layout="responsive"
-                                                    width={200}  // Aspect ratio width
-                                                    height={400}  // Aspect ratio height
-                                                    className="card-img-top"
-                                                    alt="receipt template"
-                                                />
-                                                <hr />
+                            <div className='row'>
+                                {/* Template */}
+                                <div className="col-sm-6">
+
+                                    <div className="card">
+                                        <div className="card-body">
+
+                                            <h6 className="card-subtitle mt-2 text-muted">Policy</h6>
+                                            <Image
+                                                src="/img/receipt_template.jpg"
+                                                // layout="responsive"
+                                                width={200}  // Aspect ratio width
+                                                height={400}  // Aspect ratio height
+                                                className="card-img-top"
+                                                alt="receipt template"
+                                            />
+                                            <hr />
+                                            <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                            <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                            <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Template */}
+
+
+                                {/* Template */}
+                                <div className="col-sm-6">
+
+                                    <div className="card">
+                                        <div className="card-body">
+
+                                            <h6 className="card-subtitle mt-2 text-muted">Cetificate</h6>
+                                            <Image
+                                                src="/img/receipt_template.jpg"
+                                                // layout="responsive"
+                                                width={200}  // Aspect ratio width
+                                                height={400}  // Aspect ratio height
+                                                className="card-img-top"
+                                                alt="receipt template"
+                                            />
+                                            <hr />
+
+                                            <div className="d-flex">
                                                 <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
                                                 <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
                                                 <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                             </div>
                                         </div>
                                     </div>
-                                    {/* Template */}
-
-
-                                    {/* Template */}
-                                    <div className="col-sm-6">
-
-                                        <div className="card">
-                                            <div className="card-body">
-
-                                                <h6 className="card-subtitle mb-2 text-muted">Cetificate</h6>
-                                                <Image
-                                                    src="/img/receipt_template.jpg"
-                                                    // layout="responsive"
-                                                    width={200}  // Aspect ratio width
-                                                    height={400}  // Aspect ratio height
-                                                    className="card-img-top"
-                                                    alt="receipt template"
-                                                />
-                                                <hr />
-
-                                                <div className="d-flex">
-                                                    <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
-                                                    <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
-                                                    <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* Template */}
-
                                 </div>
+                                {/* Template */}
 
                             </div>
+
                         </div>
+                    </div>
 
-
+                    <div className="row">
                         <div className="text-center mb-3">
                             <div className="d-flex justify-content-center">
                                 <button className="btn btn-primary me-2">Save</button>
                                 <button className="btn btn-secondary">Cancel</button>
                             </div>
                         </div>
-                        <hr />
-                    </form>
+                    </div>
 
                     {/* Modal */}
                     <DataPointModal />
