@@ -3,17 +3,29 @@
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import Image from 'next/image';
 import NewCustomerForm from "./new_customer_form";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import NewImageFolder from "../../../lib/utils/new_image_folder";
 
 export default function Page() {
 
     let [customerState, setCutomerState] = useState("existing");
+    const modalRef = useRef(null);
 
     useEffect(() => { }, [customerState]);
 
     let handleCustomerState = (value) => {
         setCutomerState(value);
     };
+
+    const creatNewImageFolder = (event) => {
+
+        if (typeof window !== "undefined" && bootstrap) {
+            if (event.target.value === "new folder") {
+                const modal = new bootstrap.Modal(modalRef.current);
+                modal.show();
+            }
+        }
+    }
 
     return (
         <>
@@ -131,7 +143,7 @@ export default function Page() {
                                 </div>
                                 <div className="col-md-3">
                                     <label htmlFor="copyName">Select folder:</label>
-                                    <select id="policy" className="form-select">
+                                    <select onChange={(event) => creatNewImageFolder(event)} id="policy" className="form-select">
                                         <option>Default</option>
                                         <option role="separator" disabled="disabled">─────────────────────────</option>
                                         <option value="new folder">Create New</option>
@@ -202,6 +214,7 @@ export default function Page() {
 
                 </div>
             </div>
+            <NewImageFolder modalRefVar={modalRef} />
         </>
 
     );
