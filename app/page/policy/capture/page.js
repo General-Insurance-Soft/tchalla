@@ -1,7 +1,21 @@
+'use client';
+
+import { useEffect, useRef } from "react";
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import Image from 'next/image';
 
 export default function Page() {
+
+    const modalRef = useRef(null);
+
+    const creatNewImageFolder = () => {
+
+        if (typeof window !== "undefined" && bootstrap) {
+            const modal = new bootstrap.Modal(modalRef.current);
+            modal.show();
+        }
+    }
+
     return (
         <>
             <div className="pagetitle">
@@ -19,7 +33,7 @@ export default function Page() {
                 <div className="card-body">
                     <h5 className="card-title">Capture policy Details</h5>
 
-                    <div class="d-flex justify-content-start align-items-center mb-3">
+                    <div className="d-flex justify-content-start align-items-center mb-3">
 
                         <div className="flex-grow-1 me-5" style={{ maxWidth: "600px" }}>
                             {/* <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" /> */}
@@ -35,15 +49,15 @@ export default function Page() {
                         </div>
 
                         <div className="ms-auto">
-                            <button class="btn btn-primary me-2">Save</button>
-                            <button class="btn btn-secondary">Reset</button>
+                            <button className="btn btn-primary me-2">Save</button>
+                            <button className="btn btn-secondary">Reset</button>
                         </div>
                     </div>
 
                     <hr />
 
 
-                    <div class="d-flex justify-content-start mb-3">
+                    <div className="d-flex justify-content-start mb-3">
                         <div className="">
                             <button type="button" className="btn btn-primary mb-3 me-3" data-bs-toggle="modal"
                                 data-bs-target="#paneId">Add new field</button>
@@ -79,15 +93,25 @@ export default function Page() {
                                     </select>
                                 </div>
                                 <div className="col-md-3">
+                                    <label htmlFor="copyName">Select folder:</label>
+                                    <select onChange={() => creatNewImageFolder()} id="policy" className="form-select">
+                                        <option>Default</option>
+                                        <option role="separator" disabled="disabled">─────────────────────────</option>
+                                        <option value="new folder">Create New</option>
+                                    </select>
+                                </div>
+                                <div className="col-md-3">
                                     <label htmlFor="documentName">Document name:</label>
                                     <input id="documentName" type="text" className="form-control" />
                                 </div>
-                                <div className="col-md-3">
-                                    <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
-                                </div>
+
                             </div>
                         </div>
-
+                        <div className="col-sm-12">
+                            <div className="col-md-3">
+                                <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
+                            </div>
+                        </div>
 
                         <div className="row mt-3">
 
@@ -103,7 +127,7 @@ export default function Page() {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mb-2 text-muted">Policy</h6>
+                                                <h6 className="card-subtitle mb-2 text-muted">Policy</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -113,9 +137,9 @@ export default function Page() {
                                                     alt="receipt template"
                                                 />
                                                 <hr />
-                                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +152,7 @@ export default function Page() {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mb-2 text-muted">Cetificate</h6>
+                                                <h6 className="card-subtitle mb-2 text-muted">Cetificate</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -140,9 +164,9 @@ export default function Page() {
                                                 <hr />
 
                                                 <div className="d-flex">
-                                                    <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                    <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                    <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                    <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                    <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                    <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -169,6 +193,28 @@ export default function Page() {
 
                 </div>
             </div>
+
+            {/* create new image folder modal */}
+
+            <div className="modal fade" ref={modalRef} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Add new folder</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* end create new image folder modal */}
+
         </>
     );
 }
