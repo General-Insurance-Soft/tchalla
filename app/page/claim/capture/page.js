@@ -1,7 +1,26 @@
+'use client';
+
+import { useEffect, useRef } from "react";
+
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import Image from 'next/image';
+import NewImageFolder from "../../../lib/utils/new_image_folder";
+
 
 export default function Page() {
+
+    const modalRef = useRef(null);
+
+    const creatNewImageFolder = (event) => {
+
+        if (typeof window !== "undefined" && bootstrap) {
+            if (event.target.value === "new folder") {
+                const modal = new bootstrap.Modal(modalRef.current);
+                modal.show();
+            }
+        }
+    }
+
     return (
         <>
             <div className="pagetitle">
@@ -19,42 +38,40 @@ export default function Page() {
                 <div className="card-body">
                     <h5 className="card-title">Capture Claim Details</h5>
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <button type="button" className="btn btn-primary mb-3" data-bs-toggle="modal"
+                    <div className="d-flex justify-content-start align-items-center mb-3">
+
+                        <div className="flex-grow-1 me-5" style={{ maxWidth: "600px" }}>
+
+                            <div className="input-group">
+                                <span className="input-group-text" id="search-icon">
+                                    <i className="bi bi-search"></i>
+                                </span>
+                                <input id="search" type="text" className="form-control" placeholder="Search policy by Name, car, ref no, phone no, certificate, ID/Passport" aria-label="Search" aria-describedby="search-icon" />
+
+                            </div>
+                        </div>
+
+                        <div className="ms-auto">
+                            <button className="btn btn-primary me-2">Save</button>
+                            <button className="btn btn-secondary">Reset</button>
+                        </div>
+                    </div>
+
+                    <hr />
+
+
+                    <div className="d-flex justify-content-start mb-3">
+                        <div className="">
+                            <button type="button" className="btn btn-primary mb-3 me-3" data-bs-toggle="modal"
                                 data-bs-target="#paneId">Add new field</button>
                         </div>
 
-                        <div>
-                            <button class="btn btn-primary me-2">Save</button>
-                            <button class="btn btn-secondary">Cancel</button>
+                        <div className="">
+                            <input id="claim_tag" type="text" className="form-control" placeholder="claim reference" />
                         </div>
                     </div>
 
                     <form className="row g-3">
-                        <div className="col-md-4">
-                            <input type="text" className="form-control" placeholder="Search customer" />
-                        </div>
-
-                        <div className="col-md-4">
-                            <select id="inputState" className="form-select">
-                                <option defaultValue>Select insurance...</option>
-                                <option>Britam</option>
-                                <option>Old mutual</option>
-                                <option>Jubilee</option>
-                                <option>CIC</option>
-                            </select>
-                        </div>
-
-                        <div className="col-md-4">
-                            <select id="inputState" className="form-select">
-                                <option defaultValue>Select policy type...</option>
-                                <option>Fire/Bulgary</option>
-                                <option>Health</option>
-                                <option>Car</option>
-                                <option>Life insurance</option>
-                            </select>
-                        </div>
 
                         <div className="col-md-4">
                             <select id="inputState" className="form-select">
@@ -88,17 +105,48 @@ export default function Page() {
                         </div>
 
 
-                        <div className="col-md-2">
-                            <label for="img">Select Scanned copies:</label>
+                        {/* upload scanned images */}
+
+                        <div className="col-sm-12">
+                            <div className="row d-flex align-items-end">
+                                <div className="col-md-3">
+                                    <label htmlFor="img">Select Scanned copies:</label>
+                                    <input type="file" id="img" name="img" accept="image/*" className="form-control" />
+                                </div>
+                                <div className="col-md-3">
+                                    <label htmlFor="copyName">Document type:</label>
+                                    <select id="policy" className="form-select">
+                                        <option defaultValue>None...</option>
+                                        <option>ID/Passort</option>
+                                        <option>Proposal</option>
+                                        <option>Accident form</option>
+                                        <option>Policy</option>
+                                        <option>Insurance Certificate</option>
+                                        <option>Insurance Policy</option>
+                                        <option>Medical Report</option>
+                                        <option>Birth Certificate</option>
+                                        <option>Police Abstract</option>
+                                    </select>
+                                </div>
+                                <div className="col-md-3">
+                                    <label htmlFor="copyName">Select folder:</label>
+                                    <select onChange={(event) => creatNewImageFolder(event)} id="policy" className="form-select">
+                                        <option>Default</option>
+                                        <option role="separator" disabled="disabled">─────────────────────────</option>
+                                        <option value="new folder">Create New</option>
+                                    </select>
+                                </div>
+                                <div className="col-md-3">
+                                    <label htmlFor="documentName">Document name:</label>
+                                    <input id="documentName" type="text" className="form-control" />
+                                </div>
+
+                            </div>
                         </div>
-                        <div className="col-md-4">
-                            <input type="file" id="img" name="img" accept="image/*" className="form-control" />
-                        </div>
-                        <div className="col-md-5">
-                            <input type="text" className="form-control" placeholder="Scanned copy name" />
-                        </div>
-                        <div className="col-md-1">
-                            <button type="button" className="btn btn-info">Add image</button>
+                        <div className="col-sm-12">
+                            <div className="col-md-3">
+                                <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
+                            </div>
                         </div>
 
 
@@ -118,7 +166,7 @@ export default function Page() {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mb-2 text-muted">Claim form</h6>
+                                                <h6 class="card-subtitle mt-2 text-muted">Claim form</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -143,7 +191,7 @@ export default function Page() {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mb-2 text-muted">National ID</h6>
+                                                <h6 class="card-subtitle mt-2 text-muted">National ID</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -168,7 +216,7 @@ export default function Page() {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mb-2 text-muted">KRA Pin</h6>
+                                                <h6 class="card-subtitle mt-2 text-muted">KRA Pin</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -193,7 +241,7 @@ export default function Page() {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mb-2 text-muted">Accident image 1</h6>
+                                                <h6 class="card-subtitle mt-2 text-muted">Accident image 1</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -217,7 +265,7 @@ export default function Page() {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mb-2 text-muted">Accident image 2</h6>
+                                                <h6 class="card-subtitle mt-2 text-muted">Accident image 2</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -241,7 +289,7 @@ export default function Page() {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mb-2 text-muted">Accident image 3</h6>
+                                                <h6 class="card-subtitle mt-2 text-muted">Accident image 3</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -261,7 +309,6 @@ export default function Page() {
 
                                 </div>
 
-
                             </div>
                         </div>
 
@@ -280,6 +327,9 @@ export default function Page() {
 
                 </div>
             </div>
+
+            <NewImageFolder modalRefVar={modalRef} />
+
         </>
     );
 }
