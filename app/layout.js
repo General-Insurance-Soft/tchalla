@@ -1,8 +1,13 @@
 
+"use client";
+
+import { useEffect } from 'react';
+
 import Link from 'next/link'
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapClient from "./lib/boostrapj";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 //import  "simple-datatables/dist/style.css"
 import "./globals.css";
@@ -13,14 +18,21 @@ import PolicySubMenu from "./lib/components/ui/menu/policy/index";
 import ProposalSubMenu from "./lib/components/ui/menu/proposal/index";
 import SettingSubMenu from "./lib/components/ui/menu/setting/index";
 import ReportSubMenu from "./lib/components/ui/menu/report/index";
-import PaymentSubMenu from "./lib/components/ui/menu/payment/index"; 
+import PaymentSubMenu from "./lib/components/ui/menu/payment/index";
 
-export const metadata = {
-  title: "Gisca Insure: Insurance Agent Platform",
-  description: "Gisca Insure: Insurance Agent Platform",
-};
 
 export default function RootLayout({ children }) {
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            import('bootstrap/dist/js/bootstrap.bundle.min.js')
+                .then((bootstrap) => {
+                    window.bootstrap = bootstrap;
+                })
+                .catch((err) => console.error('Bootstrap loading error:', err));
+        }
+    }, []);
+
   return (
 
     // <!DOCTYPE html>
