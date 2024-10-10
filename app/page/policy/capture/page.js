@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import Image from 'next/image';
+import NewImageFolder from "../../../lib/utils/new_image_folder";
 
 export default function Page() {
 
@@ -193,28 +194,7 @@ export default function Page() {
 
                 </div>
             </div>
-
-            {/* create new image folder modal */}
-
-            <div className="modal fade" ref={modalRef} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add new folder</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* end create new image folder modal */}
-
+            <NewImageFolder modalRefVar={modalRef} />
         </>
     );
 }
