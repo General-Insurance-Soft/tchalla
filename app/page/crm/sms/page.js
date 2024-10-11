@@ -1,3 +1,5 @@
+'use client'
+
 import Data_Table from '../../../lib/components/table/data-table';
 import BulkSmsTblContent from './bulk-sms-tbl-content';
 import ScheduleSmsTblContent from './schedule-sms-tbl-content';

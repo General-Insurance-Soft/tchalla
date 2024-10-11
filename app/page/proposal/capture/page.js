@@ -21,7 +21,7 @@ export default function Page() {
 
         if (typeof window !== "undefined" && bootstrap) {
             if (event.target.value === "new folder") {
-                const modal = new bootstrap.Modal(modalRef.current);
+                const modal = new window.bootstrap.Modal(modalRef.current);
                 modal.show();
             }
         }

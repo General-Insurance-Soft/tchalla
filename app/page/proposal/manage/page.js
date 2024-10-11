@@ -1,3 +1,5 @@
+'use client'
+
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import Image from 'next/image';
 

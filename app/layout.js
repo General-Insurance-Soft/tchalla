@@ -7,7 +7,6 @@ import Link from 'next/link'
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapClient from "./lib/boostrapj";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 //import  "simple-datatables/dist/style.css"
 import "./globals.css";
