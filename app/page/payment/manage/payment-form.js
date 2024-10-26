@@ -16,13 +16,23 @@ export default function PaymentForm({ paymentAction }) {
                     </div>
                     <div className="modal-body">
                         <form className="row g-3">
-                            <div className="col-md-4">
+
+                            <div className="col-md-12">
 
                                 {paymentAction === "add" ?
+                                    <input id="secondName" type="text" className="form-control" placeholder="Search user by name, ID/Passort, Phone, Email etc" />
+                                    :
                                     ""
+                                }
+
+                            </div>
+
+                            <div className="col-md-4">
+                                <label for="firstName"> First name:</label>
+                                {paymentAction === "add" ?
+                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
                                     :
                                     <>
-                                        <label for="firstName">Enter first name:</label>
                                         <input id="firstName" type="text" className="form-control" value="Tom" />
                                     </>
 
@@ -30,12 +40,12 @@ export default function PaymentForm({ paymentAction }) {
 
                             </div>
                             <div className="col-md-4">
-
+                                <label for="phone"> Second name:</label>
                                 {paymentAction === "add" ?
-                                    ""
+                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
                                     :
                                     <>
-                                        <label for="phone">Enter second name:</label>
+
                                         <input id="secondName" type="text" className="form-control" value="Lopy" />
                                     </>
 
@@ -43,31 +53,43 @@ export default function PaymentForm({ paymentAction }) {
 
                             </div>
                             <div className="col-md-4">
-
+                                <label for="thirdName"> Third Name:</label>
                                 {paymentAction === "add" ?
-                                    ""
+                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
                                     :
                                     <>
-                                        <label for="thirdName">Enter third Name:</label>
+
                                         <input for="thirdName" type="text" className="form-control" value="Lee" />
                                     </>
 
                                 }
 
                             </div>
-                            <div className="col-md-4">
 
+                            <div className="col-md-4">
+                                <label for="Passport"> Id/Passport:</label>
                                 {paymentAction === "add" ?
-                                    ""
+                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
                                     :
                                     <>
-                                        <label for="Passport">Enter Id/Passport:</label>
+
                                         <input id="Passport" type="text" className="form-control" value="28904783" />
                                     </>
 
                                 }
 
                             </div>
+
+                            <div className="col-md-4">
+                                <label for="Passport">Ref No:</label>
+                                {paymentAction === "add" ?
+                                    <input id="refNo" type="text" className="form-control" />
+                                    :
+                                    <input id="refNo" type="text" className="form-control" placeholder="#AJFJD201H" />
+                                }
+
+                            </div>
+
 
                         </form>
                     </div>
