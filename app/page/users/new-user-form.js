@@ -1,5 +1,5 @@
 
-export default function NewUserForm({userAction}) {
+export default function NewUserForm({ userAction }) {
 
     return (
 
@@ -17,17 +17,32 @@ export default function NewUserForm({userAction}) {
                             <div className="col-md-4">
                                 <label for="firstName"> First name:</label>
 
-                                <input className="form-control" type="text" aria-label="First Name" ></input>
+                                {
+                                    userAction === "add" ?
+                                        <input id="firstName" className="form-control" type="text" aria-label="First Name" key={userAction} ></input>
+                                        :
+                                        <input id="firstName" className="form-control" type="text" aria-label="First Name" placeholder="Tom" key={userAction}></input>
+                                }
+
                             </div>
                             <div className="col-md-4">
                                 <label for="secondName"> Second name:</label>
 
-                                <input id="secondName" className="form-control" type="text" aria-label="Second Name"  ></input>
+                                {
+                                    userAction === "add" ?
+                                        <input id="secondName" className="form-control" type="text" aria-label="Second Name" key={userAction}></input>
+                                        :
+                                        <input id="secondName" className="form-control" placeholder="Lee" type="text" aria-label="Second Name" key={userAction} ></input>
+                                }
                             </div>
                             <div className="col-md-4">
                                 <label for="email"> Email</label>
-
-                                <input id="email" className="form-control" type="text" aria-label="First Name"  ></input>
+                                {
+                                    userAction === "add" ?
+                                        <input id="email" className="form-control" type="text" aria-label="Email" key={userAction}></input>
+                                        :
+                                        <input id="email" className="form-control" placeholder="tmlee@gmail.com" type="text" aria-label="Email" key={userAction}></input>
+                                }
                             </div>
 
                             <div className="col-md-4">
@@ -41,12 +56,17 @@ export default function NewUserForm({userAction}) {
 
                             <div className="col-md-4">
                                 <label for="Passport">Role</label>
-                                <select className="form-select">
+                                <select className="form-select" key={userAction}>
+                                    {
+                                        userAction === "add" ? [
+                                            <option key="2" value="2">...</option>, <option key="5" value="2">Data Entry</option>]
+                                            :
+                                            <option key="2" value="2">Data Entry</option>
+                                    }
                                     <option key="0" value="0">Admin</option>
                                     <option key="1" value="1">Super Admin</option>
-                                    <option key="2" value="2">Data Entry</option>
-                                    <option key="1" value="1">Reports</option>
-                                    <option key="1" value="1">Secretary</option>
+                                    <option key="3" value="1">Reports</option>
+                                    <option key="4" value="1">Secretary</option>
                                 </select>
                             </div>
 
