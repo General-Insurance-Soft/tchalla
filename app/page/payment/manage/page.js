@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
+import DeletePyament from './delete-payment.js';
 import PaymentForm from './payment-form.js';
-
 
 
 export default function Page() {
@@ -111,7 +111,7 @@ export default function Page() {
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}>
                                                             <i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -131,7 +131,7 @@ export default function Page() {
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -151,7 +151,7 @@ export default function Page() {
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -171,7 +171,7 @@ export default function Page() {
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -191,7 +191,7 @@ export default function Page() {
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -211,7 +211,7 @@ export default function Page() {
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
 
@@ -236,6 +236,7 @@ export default function Page() {
             </div>
 
             <PaymentForm paymentAction={paymentAction} />
+            <DeletePyament />
         </>
 
     );
