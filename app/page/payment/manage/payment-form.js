@@ -17,42 +17,58 @@ export default function PaymentForm({ paymentAction }) {
                     <div className="modal-body">
                         <form className="row g-3">
                             <div className="col-md-4">
-                                <label for="firstName">Enter first name:</label>
+
                                 {paymentAction === "add" ?
                                     ""
                                     :
-                                    <input id="firstName" type="text" className="form-control" value="Tom" />
+                                    <>
+                                        <label for="firstName">Enter first name:</label>
+                                        <input id="firstName" type="text" className="form-control" value="Tom" />
+                                    </>
+
                                 }
 
                             </div>
                             <div className="col-md-4">
-                                <label for="phone">Enter second name:</label>
+
                                 {paymentAction === "add" ?
                                     ""
                                     :
-                                    <input id="secondName" type="text" className="form-control" value="Lopy" />
+                                    <>
+                                        <label for="phone">Enter second name:</label>
+                                        <input id="secondName" type="text" className="form-control" value="Lopy" />
+                                    </>
+
                                 }
 
                             </div>
                             <div className="col-md-4">
-                                <label for="thirdName">Enter third Name:</label>
+
                                 {paymentAction === "add" ?
                                     ""
                                     :
-                                    <input for="thirdName" type="text" className="form-control" value="Lee" />
+                                    <>
+                                        <label for="thirdName">Enter third Name:</label>
+                                        <input for="thirdName" type="text" className="form-control" value="Lee" />
+                                    </>
+
                                 }
 
                             </div>
                             <div className="col-md-4">
-                                <label for="Passport">Enter Id/Passport:</label>
+
                                 {paymentAction === "add" ?
                                     ""
                                     :
-                                    <input id="Passport" type="text" className="form-control" value="28904783" />
+                                    <>
+                                        <label for="Passport">Enter Id/Passport:</label>
+                                        <input id="Passport" type="text" className="form-control" value="28904783" />
+                                    </>
+
                                 }
 
                             </div>
-                          
+
                         </form>
                     </div>
                     <div className="modal-footer">
