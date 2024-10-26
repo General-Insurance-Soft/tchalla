@@ -1,5 +1,5 @@
 
-export default function DeletePyament() {
+export default function DeletePayment() {
 
     return (
 

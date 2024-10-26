@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 
-import DeletePyament from './delete-payment.js';
+import DeletePayment from './delete-payment.js';
 import PaymentForm from './payment-form.js';
-
 
 export default function Page() {
 
@@ -236,7 +235,7 @@ export default function Page() {
             </div>
 
             <PaymentForm paymentAction={paymentAction} />
-            <DeletePyament />
+            <DeletePayment />
         </>
 
     );
