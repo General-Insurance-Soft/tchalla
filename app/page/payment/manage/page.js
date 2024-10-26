@@ -1,9 +1,11 @@
+import PaymentForm from './payment-form.js';
+
 export default function Page() {
     return (
         <>
 
             <div className="pagetitle">
-                <h1>Pyaments</h1>
+                <h1>Payments</h1>
                 <nav>
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -20,9 +22,9 @@ export default function Page() {
                         <li className="nav-item flex-fill" role="presentation">
                             <button className="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-payment" type="button" role="tab" aria-controls="payment" aria-selected="true">Transactions</button>
                         </li>
-                        <li className="nav-item flex-fill" role="presentation">
+                        {/* <li className="nav-item flex-fill" role="presentation">
                             <button className="nav-link w-100" id="schedule-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-schedule" type="button" role="tab" aria-controls="payment2" aria-selected="false">payment2</button>
-                        </li>
+                        </li> */}
 
                     </ul>
 
@@ -35,15 +37,30 @@ export default function Page() {
                                 <div className="card-body">
                                     {/* <h5 className="card-title">Capture policy Details</h5> */}
 
+                                    <div className="d-flex justify-content-start mt-3">
+
+                                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                            Add new payment
+                                        </button>
+
+
+                                        {/* <div className="">
+                                            <input id="claim_tag" type="text" className="form-control" placeholder="claim reference" />
+                                        </div> */}
+                                    </div>
+
                                     <div>
-                                        <div className="row mb-2  mt-5">
+                                        <div className="row mb-2  mt-2">
+
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" placeholder="Search by name, phone, ID/Passport" />
+                                            </div>
+
                                             <div className="col-md-6 d-flex">
                                                 From: <input type="date" className="form-control me-2" placeholder="From: " />
                                                 To: <input type="date" className="form-control" placeholder="To: " />
                                             </div>
-                                            <div className="col-md-6">
-                                                <input type="text" className="form-control" placeholder="Search by name, phone, ID/Passport" />
-                                            </div>
+
                                         </div>
 
                                         <table className="table table-striped table-bordere">
@@ -83,7 +100,7 @@ export default function Page() {
                                                     <td>2024-08-11</td>
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                                         <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
@@ -103,7 +120,7 @@ export default function Page() {
                                                     <td>2024-08-11</td>
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                                         <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
@@ -123,7 +140,7 @@ export default function Page() {
                                                     <td>2024-08-11</td>
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                                         <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
@@ -143,7 +160,7 @@ export default function Page() {
                                                     <td>2024-08-11</td>
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                                         <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
@@ -163,7 +180,7 @@ export default function Page() {
                                                     <td>2024-08-11</td>
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                                         <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
@@ -183,7 +200,7 @@ export default function Page() {
                                                     <td>2024-08-11</td>
                                                     <td>
                                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
                                                         <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                     </td>
                                                 </tr>
@@ -209,6 +226,7 @@ export default function Page() {
                 </div>
             </div>
 
+            <PaymentForm action="add" />
         </>
 
     );
