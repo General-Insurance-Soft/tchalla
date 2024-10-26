@@ -1,4 +1,12 @@
+import { useEffect } from "react";
+
 export default function PaymentForm({ paymentAction }) {
+
+    useEffect(() => {
+        console.log("changing options " + paymentAction);
+        // Update options based on the paymentAction prop
+    }, [paymentAction]);
+
     return (
 
         <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -93,15 +101,25 @@ export default function PaymentForm({ paymentAction }) {
                             <div className="col-md-4">
                                 <label for="Passport">Payment Mode:</label>
 
-                                <select id="inputState" class="form-select">
+                                <select id="inputState" class="form-select" key={paymentAction}>
                                     {
+
                                         paymentAction === "add" ?
-                                            [<option value="0">...</option>, <option value="2">Bank</option>]
+
+                                            [
+                                                <option key="0" value="0">...</option>,
+                                                <option key="2" value="2">Bank</option>,
+                                                <option key="1" value="1">Mpesa</option>
+                                            ]
                                             :
-                                            <option value="2">Bank</option>
+
+                                            [
+                                                <option key="2" value="2">Bank</option>,
+                                                <option key="1" value="1">Mpesa</option>
+                                            ]
+
                                     }
 
-                                    <option value="1">Mpesa</option>
                                 </select>
 
                             </div>
@@ -117,24 +135,34 @@ export default function PaymentForm({ paymentAction }) {
                             <div className="col-md-4">
                                 <label for="Passport">Payment Date:</label>
                                 {paymentAction === "add" ?
-                                    <input type="date" className="form-control" />
+                                    <input type="date"  key={paymentAction} className="form-control" />
                                     :
-                                    <input type="date" className="form-control" value="2024-10-22" />
+                                    <input type="date"  key={paymentAction} className="form-control" value="2024-10-22" />
                                 }
 
                             </div>
                             <div className="col-md-4">
                                 <label for="Passport">SMS Sent:</label>
 
-                                <select id="inputState" class="form-select">
+                                <select id="inputState" class="form-select" key={paymentAction}>
+
                                     {
                                         paymentAction === "add" ?
-                                            [<option value="0">...</option>, <option value="2">No</option>]
+
+                                            [
+                                                <option key="0" value="0">...</option>,
+                                                <option key="2" value="2">No</option>,
+                                                <option key="1" value="1">Yes</option>
+                                            ]
                                             :
-                                            <option value="2">No</option>
+
+                                            [
+                                                <option key="2" value="2">No</option>,
+                                                <option key="1" value="1">Yes</option>
+                                            ]
                                     }
 
-                                    <option value="1">Yes</option>
+
                                 </select>
 
                             </div>
