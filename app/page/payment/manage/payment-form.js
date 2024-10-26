@@ -94,7 +94,13 @@ export default function PaymentForm({ paymentAction }) {
                                 <label for="Passport">Payment Mode:</label>
 
                                 <select id="inputState" class="form-select">
-                                    <option value="2">Bank</option>
+                                    {
+                                        paymentAction === "add" ?
+                                            [<option value="0">...</option>, <option value="2">Bank</option>]
+                                            :
+                                            <option value="2">Bank</option>
+                                    }
+
                                     <option value="1">Mpesa</option>
                                 </select>
 
@@ -121,7 +127,13 @@ export default function PaymentForm({ paymentAction }) {
                                 <label for="Passport">SMS Sent:</label>
 
                                 <select id="inputState" class="form-select">
-                                    <option value="2">No</option>
+                                    {
+                                        paymentAction === "add" ?
+                                            [<option value="0">...</option>, <option value="2">No</option>]
+                                            :
+                                            <option value="2">No</option>
+                                    }
+
                                     <option value="1">Yes</option>
                                 </select>
 
