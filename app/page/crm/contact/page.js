@@ -293,7 +293,7 @@ export default function Page() {
                                             [
                                                 <React.Fragment key="group-buttons">
                                                     <button class="btn btn-primary me-2"><i class="bi bi-floppy"></i> Save </button>
-                                                    <button onClick={() => toggleCustomerTable()} class="btn btn-secondary me-2"><i class="bi bi-x"></i> Cancel </button>
+                                                    <button onClick={() => toggleCustomerTable()} class="btn btn-secondary me-2"><i class="bi bi-x"></i> Close </button>
                                                 </React.Fragment>
                                             ]
                                             :
@@ -306,10 +306,12 @@ export default function Page() {
                             {
                                 showGroupCustomerList ?
                                     <>
+
                                         <div className="row mb-3">
                                             <div className="col-md-4"><input type="text" className="form-control" placeholder="Group Name" /></div>
                                         </div>
                                         <div class="d-flex  mt-2 mb-2 gap-3">
+                                            <span>Filter contacts: </span>
                                             <div>
                                                 <select id="inputState" className="form-select">
                                                     <option defaultValue>Policy type...</option>
@@ -367,67 +369,76 @@ export default function Page() {
                                     ""
                             }
 
-                            <div className="row">
-                                <h4 className="fw-bold">Group List</h4>
-                                <div>Total groups: 3</div>
-                            </div>
-                            <table className="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Total members</th>
-                                        <th scope="col">Created date</th>
-                                        <th scope="col">Created by</th>
-                                        <th scope="col">Last Editor</th>
-                                        <th scope="col">Last Edited</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Car insurance Group</td>
-                                        <td>30</td>
-                                        <td>2024-09-11</td>
-                                        <td>Lucy</td>
-                                        <td>Tom</td>
-                                        <td>2024-09-11</td>
-                                        <td>
-                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Life insurance</td>
-                                        <td>35</td>
-                                        <td>2024-09-11</td>
-                                        <td>Lucy</td>
-                                        <td>Kevin</td>
-                                        <td>2024-09-11</td>
-                                        <td>
-                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>High value</td>
-                                        <td>20</td>
-                                        <td>2024-09-13</td>
-                                        <td>George</td>
-                                        <td>Tom</td>
-                                        <td>2024-09-11</td>
-                                        <td>
-                                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                        </td>
-                                    </tr>
+                            {
 
-                                </tbody>
-                            </table>
+                                showGroupCustomerList ?
+                                    ""
+                                    :
+                                    <>
+                                        <div className="row">
+                                            <h4 className="fw-bold">Group List</h4>
+                                            <div>Total groups: 3</div>
+                                        </div>
+                                        <table className="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Total members</th>
+                                                    <th scope="col">Created date</th>
+                                                    <th scope="col">Created by</th>
+                                                    <th scope="col">Last Editor</th>
+                                                    <th scope="col">Last Edited</th>
+                                                    <th scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>Car insurance Group</td>
+                                                    <td>30</td>
+                                                    <td>2024-09-11</td>
+                                                    <td>Lucy</td>
+                                                    <td>Tom</td>
+                                                    <td>2024-09-11</td>
+                                                    <td>
+                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>Life insurance</td>
+                                                    <td>35</td>
+                                                    <td>2024-09-11</td>
+                                                    <td>Lucy</td>
+                                                    <td>Kevin</td>
+                                                    <td>2024-09-11</td>
+                                                    <td>
+                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>High value</td>
+                                                    <td>20</td>
+                                                    <td>2024-09-13</td>
+                                                    <td>George</td>
+                                                    <td>Tom</td>
+                                                    <td>2024-09-11</td>
+                                                    <td>
+                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                    </td>
+                                                </tr>
 
+                                            </tbody>
+                                        </table>
+
+                                    </>
+
+                            }
 
 
                         </div>
