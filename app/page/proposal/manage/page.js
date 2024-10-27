@@ -185,7 +185,7 @@ export default function Page() {
 
                                     <form className="row g-3">
                                         <div className="col-md-4">
-                                            <input type="text" className="form-control" placeholder="Tom Lee" />
+                                            <input type="text" className="form-control" value="Tom Lee" disabled />
                                         </div>
 
                                         <div className="col-md-4">
