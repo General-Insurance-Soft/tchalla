@@ -1,10 +1,9 @@
 'use client'
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as dataPointData from "../../../../public/DataPointData.json";
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import CustomerForm from "./customer_form";
-import { useState, useEffect } from "react";
 
 export default function Page() {
 
@@ -263,7 +262,7 @@ export default function Page() {
                         {/* End manage customers */}
 
                         {/* Customer group */}
-                        <div class="tab-pane fade show active" id="bordered-customer_group" role="tabpanel" aria-labelledby="customer_group-tab">
+                        <div class="tab-pane fade" id="bordered-customer_group" role="tabpanel" aria-labelledby="customer_group-tab">
 
 
                             <div class="d-flex justify-content-between align-items-center mt-2">
