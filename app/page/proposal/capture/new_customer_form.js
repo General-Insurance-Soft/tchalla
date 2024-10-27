@@ -73,7 +73,7 @@ export default function NewCustomerForm({ action }) {
             </div>
 
             <div className="col-md-4">
-                <label for="Country">Select County:</label>
+                <label for="Country">Select Country:</label>
                 <select id="Country" className="form-select">
                     {action === "add" ? [<option key={1} defaultValue>Country...</option>, <option key={2}>Kenya</option>] : <option>Kenya</option>}
                     <option>Uganda</option>
