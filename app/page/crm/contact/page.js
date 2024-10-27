@@ -12,6 +12,7 @@ export default function Page() {
     const [showGroupCustomerList, setShowGroupCustomerList] = useState(false);
     const [actionBtnLabel, setActionBtnLabel] = useState("Add new");
     const [isContactsGroupTab, setIsContactsGroupTab] = useState(false);
+    const [showEditForm, setShowEditForm] = useState(false);
 
     useEffect(() => { }, [showGroupCustomerList, isContactsGroupTab]);
 
@@ -77,7 +78,7 @@ export default function Page() {
                                 </td>
                                 :
                                 <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                 </td>
                         }
@@ -101,7 +102,7 @@ export default function Page() {
                                 </td>
                                 :
                                 <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                 </td>
                         }
@@ -124,7 +125,7 @@ export default function Page() {
                                 </td>
                                 :
                                 <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                 </td>
                         }
@@ -147,7 +148,7 @@ export default function Page() {
                                 </td>
                                 :
                                 <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                 </td>
                         }
@@ -170,7 +171,7 @@ export default function Page() {
                                 </td>
                                 :
                                 <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                 </td>
                         }
@@ -193,7 +194,7 @@ export default function Page() {
                                 </td>
                                 :
                                 <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
+                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                 </td>
                         }
@@ -252,11 +253,18 @@ export default function Page() {
                         <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
                             <h5 className="card-title">Manage Customers</h5>
 
-
                             {customerTable}
-                            <hr />
-                            <h5 className="card-title">Edit Customer</h5>
-                            <CustomerForm action="edit" />
+
+                            {
+                                showEditForm ?
+                                    <>
+                                        <hr />
+                                        <h5 className="card-title">Edit Customer</h5>
+                                        <CustomerForm action="edit" setShowEditForm={setShowEditForm} />
+                                    </>
+                                    :
+                                    ""
+                            }
 
                         </div>
                         {/* End manage customers */}

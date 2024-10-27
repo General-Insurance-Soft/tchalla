@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function CustomerForm({ action }) {
+export default function CustomerForm({ action, setShowEditForm }) {
     return (
         <>
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -10,8 +10,8 @@ export default function CustomerForm({ action }) {
                 </div>
 
                 <div>
-                    <button class="btn btn-primary me-2">{action === 'edit' ? 'Update' : 'Save'}</button>
-                    <button class="btn btn-secondary">Cancel</button>
+                    <button class="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>{action === 'edit' ? 'Update' : 'Save'}</button>
+                    <button class="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                 </div>
             </div>
 
@@ -177,8 +177,8 @@ export default function CustomerForm({ action }) {
 
                 <div className="text-center mb-3">
                     <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary me-2">{action === 'edit' ? 'Update' : 'Save'}</button>
-                        <button className="btn btn-secondary">Cancel</button>
+                        <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>{action === 'edit' ? 'Update' : 'Save'}</button>
+                        <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                     </div>
                 </div>
                 <hr />
