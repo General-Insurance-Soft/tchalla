@@ -74,7 +74,7 @@ export default function RegisterForm() {
                             <div className="card-body">
                                 <span id='signUpError' className="small text-center text-danger">
                                     {error && Object.keys(error).map(key => (
-                                        <div key={key}>{error[key]}</div>
+                                        <div key={key}> * {error[key]}</div>
                                     ))}
 
                                 </span>
