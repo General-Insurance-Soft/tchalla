@@ -13,10 +13,10 @@ export async function doSignUp(formData) {
         if (!response.ok) {
             console.log("Signup failed");
         }
-        const data = await response.json(); // Handle response
-        console.log("Signup response data:", data); // Log the response data
 
-        return data; // Return the response data if needed
+        const res = await response;
+
+        return res; // Return the response data if needed
     } catch (error) {
         console.error("Error during signup:", error);
         throw error;

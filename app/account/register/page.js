@@ -2,7 +2,9 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { doSignUp } from '../../lib/service/signup'; // Correctly import the signup function
+import { doSignUp } from '../../lib/service/signup';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterForm() {
     const [firstName, setFirstName] = useState('');
@@ -12,6 +14,8 @@ export default function RegisterForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [terms, setTerms] = useState(false);
+    const [error, setError] = useState({});
+    const router = useRouter();
 
     const signupUser = async (event) => {
         event.preventDefault(); // Prevent the default form submission
@@ -27,7 +31,26 @@ export default function RegisterForm() {
         };
 
         try {
-            await doSignUp(formData);
+            let response = await doSignUp(formData);
+            if (response.ok) {
+
+                const data = await response.json(); // Assuming response.json() is a Promise
+
+                if ('jwtToken' in data && 'jwtRefreshToken' in data) {
+                    // Set the authToken cookie
+                    Cookies.set('authToken', data);
+                    router.push('/page');
+                }
+            } else if (response.status == 400) {
+
+                const data = await response.json();
+                setError(data);
+
+            } else {
+
+                setError("Signup failed, please retry");
+            }
+
             // Handle successful signup (e.g., redirect to login page)
         } catch (error) {
             console.error('Error during signup:', error);
@@ -49,12 +72,19 @@ export default function RegisterForm() {
 
                         <div className="card mb-3">
                             <div className="card-body">
+                                <span id='signUpError' className="small text-center text-danger">
+                                    {error && Object.keys(error).map(key => (
+                                        <div key={key}> * {error[key]}</div>
+                                    ))}
+
+                                </span>
+
                                 <div className="pt-4 pb-2">
                                     <h5 className="card-title text-center pb-0 fs-4">Create an Account</h5>
                                     <p className="text-center small">Enter your personal details to create account</p>
                                 </div>
 
-                                <form onSubmit={signupUser} className="row g-3">
+                                <form className="row g-3">
                                     <div className="col-12">
                                         <label htmlFor="first_name" className="form-label">First Name</label>
                                         <input
@@ -78,9 +108,9 @@ export default function RegisterForm() {
                                             id="second_name"
                                             value={secondName}
                                             onChange={(e) => setSecondName(e.target.value)}
-                                            required
+
                                         />
-                                        <div className="invalid-feedback">Please, enter your second name!</div>
+
                                     </div>
 
                                     <div className="col-12">
@@ -92,7 +122,9 @@ export default function RegisterForm() {
                                             id="third_name"
                                             value={thirdName}
                                             onChange={(e) => setThirdName(e.target.value)}
+                                            required
                                         />
+                                        <div className="invalid-feedback">Please, enter your third name!</div>
                                     </div>
 
                                     <div className="col-12">
@@ -159,7 +191,7 @@ export default function RegisterForm() {
                                         </div>
                                     </div>
                                     <div className="col-12">
-                                        <button type="submit" className="btn btn-primary w-100">Create Account</button>
+                                        <button onClick={(event) => signupUser(event)} className="btn btn-primary w-100">Create Account</button>
                                     </div>
                                     <div className="col-12">
                                         <p className="small mb-0">
