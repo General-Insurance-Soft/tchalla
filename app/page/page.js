@@ -1,7 +1,7 @@
-import Data_Table from './lib/components/table/data-table';
-import LineChart from './lib/components/chart/line_chart/line-chart';
-import PieChart from './lib/components/chart/pie_chart/pie-chart';
-import BarChart from './lib/components/chart/bar_chart/bar-chart';
+import BarChart from '../lib/components/chart/bar_chart/bar-chart';
+import LineChart from '../lib/components/chart/line_chart/line-chart';
+import PieChart from '../lib/components/chart/pie_chart/pie-chart';
+import Data_Table from '../lib/components/table/data-table';
 
 export default function Page() {
   return (

@@ -1,0 +1,64 @@
+
+"use client";
+
+import "bootstrap-icons/font/bootstrap-icons.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+//import  "simple-datatables/dist/style.css"
+import "../globals.css";
+
+export default function RootLayout({ children }) {
+    return (
+        <html lang="en">
+
+            <head>
+                <meta charSet="utf-8" />
+                <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+                <title>GISCA Insure- Insurance Agent Platform</title>
+                <meta content="" name="description" />
+                <meta content="" name="keywords" />
+
+                {/*  <!-- Favicons -->  */}
+                <link href="assets/img/favicon.png" rel="icon" />
+                <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+                {/*  <!-- Google Fonts -->  */}
+                <link href="https://fonts.gstatic.com" rel="preconnect" />
+                <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet" />
+
+                {/*  <!-- Vendor CSS Files -->  */}
+
+                {/* <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" /> */}
+                {/* <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet" /> */}
+                {/* <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet" /> */}
+                {/* <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+        <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet" /> */}
+
+                {/*  <!-- Template Main CSS File -->  */}
+                {/* <link href="assets/css/style.css" rel="stylesheet" /> */}
+
+            </head>
+
+            <body>
+                <main>
+                    <div class="container">
+                        {children}
+
+                        <section>
+                            {/* <!-- ======= Footer ======= --> */}
+                            <footer id="footer" style={{"marginLeft" : "0px"}} className="footer">
+                                <div className="copyright">
+                                    &copy; Copyright <strong><span>GISCA</span></strong>. All Rights Reserved
+                                </div>
+                            </footer>
+                            {/* <!-- End Footer --> */}
+                        </section>
+
+                        <a href="#" className="back-to-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a>
+                    </div>
+                </main>
+            </body>
+
+        </html>
+    );
+}

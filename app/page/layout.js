@@ -3,21 +3,21 @@
 
 import { useEffect } from 'react';
 
-import Link from 'next/link'
+import Link from 'next/link';
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import BootstrapClient from "./lib/boostrapj";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import BootstrapClient from "../lib/boostrapj";
 //import  "simple-datatables/dist/style.css"
-import "./globals.css";
 import Image from 'next/image';
-import ClaimSubMenu from "./lib/components/ui/menu/claim/index";
-import CRMSubMenu from "./lib/components/ui/menu/crm/index";
-import PolicySubMenu from "./lib/components/ui/menu/policy/index";
-import ProposalSubMenu from "./lib/components/ui/menu/proposal/index";
-import SettingSubMenu from "./lib/components/ui/menu/setting/index";
-import ReportSubMenu from "./lib/components/ui/menu/report/index";
-import PaymentSubMenu from "./lib/components/ui/menu/payment/index";
+import "../globals.css";
+import ClaimSubMenu from "../lib/components/ui/menu/claim/index";
+import CRMSubMenu from "../lib/components/ui/menu/crm/index";
+import PaymentSubMenu from "../lib/components/ui/menu/payment/index";
+import PolicySubMenu from "../lib/components/ui/menu/policy/index";
+import ProposalSubMenu from "../lib/components/ui/menu/proposal/index";
+import ReportSubMenu from "../lib/components/ui/menu/report/index";
+import SettingSubMenu from "../lib/components/ui/menu/setting/index";
 
 
 export default function RootLayout({ children }) {
@@ -317,7 +317,7 @@ export default function RootLayout({ children }) {
           <ul className="sidebar-nav" id="sidebar-nav">
 
             <li className="nav-item">
-              <Link className="nav-link" href="/">
+              <Link className="nav-link" href="/page">
                 <i className="bi bi-grid"></i>
                 <span>Dashboard</span>
               </Link>
