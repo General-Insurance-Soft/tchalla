@@ -40,18 +40,23 @@ export default function RootLayout({ children }) {
             </head>
 
             <body>
+                <main>
+                    <div class="container">
+                        {children}
 
-                {children}
-                {/* <!-- ======= Footer ======= --> */}
-                <footer id="footer" className="footer">
-                    <div className="copyright">
-                        &copy; Copyright <strong><span>GISCA</span></strong>. All Rights Reserved
+                        <section>
+                            {/* <!-- ======= Footer ======= --> */}
+                            <footer id="footer" style={{"marginLeft" : "0px"}} className="footer">
+                                <div className="copyright">
+                                    &copy; Copyright <strong><span>GISCA</span></strong>. All Rights Reserved
+                                </div>
+                            </footer>
+                            {/* <!-- End Footer --> */}
+                        </section>
+
+                        <a href="#" className="back-to-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a>
                     </div>
-                </footer>
-                {/* <!-- End Footer --> */}
-
-                <a href="#" className="back-to-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a>
-
+                </main>
             </body>
 
         </html>
