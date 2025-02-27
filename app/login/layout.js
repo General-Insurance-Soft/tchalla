@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
 
                 {children}
                 {/* <!-- ======= Footer ======= --> */}
-                <footer id="footer" className="footer">
+                <footer style={{"marginLeft" : "0px"}}  id="footer" className="footer">
                     <div className="copyright">
                         &copy; Copyright <strong><span>GISCA</span></strong>. All Rights Reserved
                     </div>
