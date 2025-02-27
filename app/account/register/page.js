@@ -1,91 +1,180 @@
+'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
+import { doSignUp } from '../../lib/service/signup'; // Correctly import the signup function
 
 export default function RegisterForm() {
+    const [firstName, setFirstName] = useState('');
+    const [secondName, setSecondName] = useState('');
+    const [thirdName, setThirdName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [terms, setTerms] = useState(false);
+
+    const signupUser = async (event) => {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Collect form data
+        const formData = {
+            first_name: firstName,
+            second_name: secondName,
+            third_name: thirdName,
+            phone: phone,
+            email: email,
+            password: password,
+        };
+
+        try {
+            await doSignUp(formData);
+            // Handle successful signup (e.g., redirect to login page)
+        } catch (error) {
+            console.error('Error during signup:', error);
+            // Handle signup error (e.g., display error message)
+        }
+    };
+
     return (
+        <section className="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                        <div className="d-flex justify-content-center py-4">
+                            <a href="index.html" className="logo d-flex align-items-center w-auto">
+                                <img src="assets/img/logo.png" alt="" />
+                                <span className="d-none d-lg-block">GISCA</span>
+                            </a>
+                        </div>
 
-        <main>
-            <div class="container">
-
-                <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-                                <div class="d-flex justify-content-center py-4">
-                                    <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                        <img src="assets/img/logo.png" alt="" />
-                                        <span class="d-none d-lg-block">GISCA</span>
-                                    </a>
+                        <div className="card mb-3">
+                            <div className="card-body">
+                                <div className="pt-4 pb-2">
+                                    <h5 className="card-title text-center pb-0 fs-4">Create an Account</h5>
+                                    <p className="text-center small">Enter your personal details to create account</p>
                                 </div>
 
-                                <div class="card mb-3">
-
-                                    <div class="card-body">
-
-                                        <div class="pt-4 pb-2">
-                                            <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                                            <p class="text-center small">Enter your personal details to create account</p>
-                                        </div>
-
-                                        <form class="row g-3 needs-validation" novalidate>
-                                            <div class="col-12">
-                                                <label for="yourName" class="form-label">Your Name</label>
-                                                <input type="text" name="name" class="form-control" id="yourName" required />
-                                                <div class="invalid-feedback">Please, enter your name!</div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <label for="yourEmail" class="form-label">Your Email</label>
-                                                <input type="email" name="email" class="form-control" id="yourEmail" required />
-                                                <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <label for="yourUsername" class="form-label">Username</label>
-                                                <div class="input-group has-validation">
-                                                    <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                    <input type="text" name="username" class="form-control" id="yourUsername" required />
-                                                    <div class="invalid-feedback">Please choose a username.</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <label for="yourPassword" class="form-label">Password</label>
-                                                <input type="password" name="password" class="form-control" id="yourPassword" required />
-                                                <div class="invalid-feedback">Please enter your password!</div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required />
-                                                    <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                                                    <div class="invalid-feedback">You must agree before submitting.</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <button class="btn btn-primary w-100" type="submit">Create Account</button>
-                                            </div>
-                                            <div class="col-12">
-                                                <p class="small mb-0">Already have an account?<Link href="/login">
-                                                    <span> Log in</span>
-                                                </Link>
-                                                </p>
-                                            </div>
-                                        </form>
-
+                                <form onSubmit={signupUser} className="row g-3">
+                                    <div className="col-12">
+                                        <label htmlFor="first_name" className="form-label">First Name</label>
+                                        <input
+                                            type="text"
+                                            name="first_name"
+                                            className="form-control"
+                                            id="first_name"
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)}
+                                            required
+                                        />
+                                        <div className="invalid-feedback">Please, enter your first name!</div>
                                     </div>
-                                </div>
 
+                                    <div className="col-12">
+                                        <label htmlFor="second_name" className="form-label">Second Name</label>
+                                        <input
+                                            type="text"
+                                            name="second_name"
+                                            className="form-control"
+                                            id="second_name"
+                                            value={secondName}
+                                            onChange={(e) => setSecondName(e.target.value)}
+                                            required
+                                        />
+                                        <div className="invalid-feedback">Please, enter your second name!</div>
+                                    </div>
+
+                                    <div className="col-12">
+                                        <label htmlFor="third_name" className="form-label">Third Name</label>
+                                        <input
+                                            type="text"
+                                            name="third_name"
+                                            className="form-control"
+                                            id="third_name"
+                                            value={thirdName}
+                                            onChange={(e) => setThirdName(e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div className="col-12">
+                                        <label htmlFor="phone" className="form-label">Phone number</label>
+                                        <input
+                                            type="text"
+                                            name="phone"
+                                            className="form-control"
+                                            id="phone"
+                                            value={phone}
+                                            onChange={(e) => setPhone(e.target.value)}
+                                            required
+                                        />
+                                        <div className="invalid-feedback">Please, enter your phone number!</div>
+                                    </div>
+
+                                    <div className="col-12">
+                                        <label htmlFor="email" className="form-label">Email</label>
+                                        <div className="input-group has-validation">
+                                            <span className="input-group-text" id="inputGroupPrepend">@</span>
+                                            <input
+                                                type="text"
+                                                name="email"
+                                                className="form-control"
+                                                id="email"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                required
+                                            />
+                                            <div className="invalid-feedback">Please enter your email!</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-12">
+                                        <label htmlFor="password" className="form-label">Password</label>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            className="form-control"
+                                            id="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            required
+                                        />
+                                        <div className="invalid-feedback">Please enter your password!</div>
+                                    </div>
+
+                                    <div className="col-12">
+                                        <div className="form-check">
+                                            <input
+                                                className="form-check-input"
+                                                name="terms"
+                                                type="checkbox"
+                                                value=""
+                                                id="acceptTerms"
+                                                checked={terms}
+                                                onChange={(e) => setTerms(e.target.checked)}
+                                                required
+                                            />
+                                            <label className="form-check-label" htmlFor="acceptTerms">
+                                                I agree and accept the <a href="#">terms and conditions</a>
+                                            </label>
+                                            <div className="invalid-feedback">You must agree before submitting.</div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12">
+                                        <button type="submit" className="btn btn-primary w-100">Create Account</button>
+                                    </div>
+                                    <div className="col-12">
+                                        <p className="small mb-0">
+                                            Already have an account?
+                                            <Link href="/login">
+                                                <span> Log in</span>
+                                            </Link>
+                                        </p>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
-                </section>
-
+                </div>
             </div>
-        </main>
-
-
+        </section>
     );
 }
