@@ -38,18 +38,17 @@ export default function RegisterForm() {
 
                 if ('jwtToken' in data && 'jwtRefreshToken' in data) {
                     // Set the authToken cookie
-                    Cookies.set('authToken', data);
+                    console.log("data to store: ======>")
+                    console.log(data)
+                    Cookies.set('authToken', JSON.stringify(data), { expires: 7, path: '/' });
                     router.push('/page');
                 }
-            } else if (response.status == 400) {
+            } else {
 
                 const data = await response.json();
                 setError(data);
 
-            } else {
-
-                setError("Signup failed, please retry");
-            }
+            } 
 
             // Handle successful signup (e.g., redirect to login page)
         } catch (error) {
