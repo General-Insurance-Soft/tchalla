@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Cookies from "js-cookie";
 
 import Link from 'next/link';
 
@@ -323,9 +324,15 @@ export default function RootLayout({ children }) {
                         </li>
 
                         <li>
-                          <a className="dropdown-item d-flex align-items-center" href="#">
+                          <a onClick={
+                            () => {
+                              Cookies.remove("authToken");
+                              window.location.href = '/login';
+                            }
+                          }
+                            className="dropdown-item d-flex align-items-center" href="#">
                             <i className="bi bi-box-arrow-right"></i>
-                            <span>Sign Out</span>
+                            <span >Sign Out</span>
                           </a>
                         </li>
 
