@@ -34,12 +34,10 @@ export default function RegisterForm() {
             let response = await doSignUp(formData);
             if (response.ok) {
 
-                const data = await response.json(); // Assuming response.json() is a Promise
+                const data = await response.json();
 
                 if ('jwtToken' in data && 'jwtRefreshToken' in data) {
                     // Set the authToken cookie
-                    console.log("data to store: ======>")
-                    console.log(data)
                     Cookies.set('authToken', JSON.stringify(data), { expires: 7, path: '/' });
                     router.push('/page');
                 }
