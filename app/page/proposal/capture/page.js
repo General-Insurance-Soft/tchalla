@@ -5,22 +5,14 @@ import Image from 'next/image';
 import NewCustomerForm from "./new_customer_form";
 import { useEffect, useState, useRef } from "react";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
-import { validateToken } from "../../../lib/service/auth";
+import withAuth from "../../../lib/service/with_auth";
 
-export default function Page() {
+
+const Page = () => {
 
     let [customerState, setCutomerState] = useState("existing");
     const modalRef = useRef(null);
-    let [loadPage, setLoadPage] = useState(false);
 
-    useEffect(() => {
-
-        const checkAuth = async () => {
-            setLoadPage(await validateToken());
-        };
-
-        checkAuth();
-    }, []);
 
     useEffect(() => { }, [customerState]);
 
@@ -40,207 +32,200 @@ export default function Page() {
 
     return (
 
+
+
         <>
-            {
-                !loadPage ?
-                    <div className="d-flex justify-content-center align-items-center vh-100">
-                        <div className="spinner-border text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
+            <div className="pagetitle">
+                <h1>Proposal</h1>
+                <nav>
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li className="breadcrumb-item"><a href="index.html">Proposal</a></li>
+                        <li className="breadcrumb-item active">Capture</li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">Capture Proposal Details</h5>
+
+                    <div className="d-flex justify-content-start align-items-center mb-3">
+
+                        <div className="me-3">
+                            <select onChange={(e) => handleCustomerState(e.target.value)} id="inputState" className="form-select">
+                                <option value="existing">Existing Customer</option>
+                                <option value="new">New Customer</option>
+                            </select>
+                        </div>
+
+                        {
+                            customerState === "new" ? ""
+                                :
+                                <div className="flex-grow-1 me-5" style={{ maxWidth: "500px" }}>
+                                    {/* <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" /> */}
+
+
+                                    <div className="input-group">
+                                        <span className="input-group-text" id="search-icon">
+                                            <i className="bi bi-search"></i>
+                                        </span>
+                                        <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" aria-label="Search" aria-describedby="search-icon" />
+
+                                    </div>
+                                </div>
+                        }
+
+                        <div className="ms-auto">
+                            <button className="btn btn-primary me-2">Save</button>
+                            <button className="btn btn-secondary">Reset</button>
                         </div>
                     </div>
-                    :
 
-                    <>
-                        <div className="pagetitle">
-                            <h1>Proposal</h1>
-                            <nav>
-                                <ol className="breadcrumb">
-                                    <li className="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li className="breadcrumb-item"><a href="index.html">Proposal</a></li>
-                                    <li className="breadcrumb-item active">Capture</li>
-                                </ol>
-                            </nav>
+                    <hr />
+
+                    <div className="d-flex justify-content-start mb-3">
+                        <div className="">
+                            <button type="button" className="btn btn-primary mb-3 me-3" data-bs-toggle="modal"
+                                data-bs-target="#paneId">Add new field</button>
                         </div>
 
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">Capture Proposal Details</h5>
-
-                                <div className="d-flex justify-content-start align-items-center mb-3">
-
-                                    <div className="me-3">
-                                        <select onChange={(e) => handleCustomerState(e.target.value)} id="inputState" className="form-select">
-                                            <option value="existing">Existing Customer</option>
-                                            <option value="new">New Customer</option>
-                                        </select>
-                                    </div>
-
-                                    {
-                                        customerState === "new" ? ""
-                                            :
-                                            <div className="flex-grow-1 me-5" style={{ maxWidth: "500px" }}>
-                                                {/* <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" /> */}
+                        <div className="">
+                            <input id="proposal_tag" type="text" className="form-control" placeholder="proposal reference" />
+                        </div>
+                    </div>
 
 
-                                                <div className="input-group">
-                                                    <span className="input-group-text" id="search-icon">
-                                                        <i className="bi bi-search"></i>
-                                                    </span>
-                                                    <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" aria-label="Search" aria-describedby="search-icon" />
+                    <form className="row g-3">
+                        {
+                            customerState === "new" ? <NewCustomerForm action="add" /> : ""
+                        }
+                        <div className="col-sm-12">
+                            <div className="row d-flex align-items-end">
 
-                                                </div>
-                                            </div>
-                                    }
-
-                                    <div className="ms-auto">
-                                        <button className="btn btn-primary me-2">Save</button>
-                                        <button className="btn btn-secondary">Reset</button>
-                                    </div>
+                                <div className="col-md-4">
+                                    <label for="insurance">Select insurance:</label>
+                                    <select id="insurance" className="form-select">
+                                        <option defaultValue>None...</option>
+                                        <option>Britam</option>
+                                        <option>Old mutual</option>
+                                        <option>Jubilee</option>
+                                        <option>CIC</option>
+                                    </select>
                                 </div>
+                                <div className="col-md-4">
+                                    <label for="policy">Select policy:</label>
+                                    <select id="policy" className="form-select">
+                                        <option defaultValue>None...</option>
+                                        <option>Fire/Bulgary</option>
+                                        <option>Health</option>
+                                        <option>Car</option>
+                                        <option>Life insurance</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div className="col-sm-12">
+                            <div className="row d-flex align-items-end">
+                                <div className="col-md-3">
+                                    <label htmlFor="img">Select Scanned copies:</label>
+                                    <input type="file" id="img" name="img" accept="image/*" className="form-control" />
+                                </div>
+                                <div className="col-md-3">
+                                    <label htmlFor="copyName">Document type:</label>
+                                    <select id="policy" className="form-select">
+                                        <option defaultValue>None...</option>
+                                        <option>ID/Passort</option>
+                                        <option>Proposal</option>
+                                        <option>Accident form</option>
+                                        <option>Policy</option>
+                                        <option>Insurance Certificate</option>
+                                        <option>Insurance Policy</option>
+                                        <option>Medical Report</option>
+                                        <option>Birth Certificate</option>
+                                        <option>Police Abstract</option>
+                                    </select>
+                                </div>
+                                <div className="col-md-3">
+                                    <label htmlFor="copyName">Select folder:</label>
+                                    <select onChange={(event) => creatNewImageFolder(event)} id="policy" className="form-select">
+                                        <option>Default</option>
+                                        <option role="separator" disabled="disabled">─────────────────────────</option>
+                                        <option value="new folder">Create New</option>
+                                    </select>
+                                </div>
+                                <div className="col-md-3">
+                                    <label htmlFor="documentName">Document name:</label>
+                                    <input id="documentName" type="text" className="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-sm-12">
+                            <div className="col-md-3">
+                                <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
+                            </div>
+                        </div>
+
+                        <div className="row mt-3">
+
+                            <div className="col-sm-12">
+
+                                <h6 className="tc-card-header">All added scanned copies</h6>
                                 <hr />
 
-                                <div className="d-flex justify-content-start mb-3">
-                                    <div className="">
-                                        <button type="button" className="btn btn-primary mb-3 me-3" data-bs-toggle="modal"
-                                            data-bs-target="#paneId">Add new field</button>
-                                    </div>
+                                <div className='row'>
+                                    {/* Template */}
+                                    <div className="col-sm-6">
 
-                                    <div className="">
-                                        <input id="proposal_tag" type="text" className="form-control" placeholder="proposal reference" />
+                                        <div className="card">
+                                            <div className="card-body">
+
+                                                <h6 className="card-subtitle mb-2 text-muted">Proposal</h6>
+                                                <Image
+                                                    src="/img/receipt_template.jpg"
+                                                    // layout="responsive"
+                                                    width={200}  // Aspect ratio width
+                                                    height={400}  // Aspect ratio height
+                                                    className="card-img-top"
+                                                    alt="receipt template"
+                                                />
+                                                <hr />
+                                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
+                                    {/* Template */}
+
                                 </div>
-
-
-                                <form className="row g-3">
-                                    {
-                                        customerState === "new" ? <NewCustomerForm action="add" /> : ""
-                                    }
-                                    <div className="col-sm-12">
-                                        <div className="row d-flex align-items-end">
-
-                                            <div className="col-md-4">
-                                                <label for="insurance">Select insurance:</label>
-                                                <select id="insurance" className="form-select">
-                                                    <option defaultValue>None...</option>
-                                                    <option>Britam</option>
-                                                    <option>Old mutual</option>
-                                                    <option>Jubilee</option>
-                                                    <option>CIC</option>
-                                                </select>
-                                            </div>
-                                            <div className="col-md-4">
-                                                <label for="policy">Select policy:</label>
-                                                <select id="policy" className="form-select">
-                                                    <option defaultValue>None...</option>
-                                                    <option>Fire/Bulgary</option>
-                                                    <option>Health</option>
-                                                    <option>Car</option>
-                                                    <option>Life insurance</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-sm-12">
-                                        <div className="row d-flex align-items-end">
-                                            <div className="col-md-3">
-                                                <label htmlFor="img">Select Scanned copies:</label>
-                                                <input type="file" id="img" name="img" accept="image/*" className="form-control" />
-                                            </div>
-                                            <div className="col-md-3">
-                                                <label htmlFor="copyName">Document type:</label>
-                                                <select id="policy" className="form-select">
-                                                    <option defaultValue>None...</option>
-                                                    <option>ID/Passort</option>
-                                                    <option>Proposal</option>
-                                                    <option>Accident form</option>
-                                                    <option>Policy</option>
-                                                    <option>Insurance Certificate</option>
-                                                    <option>Insurance Policy</option>
-                                                    <option>Medical Report</option>
-                                                    <option>Birth Certificate</option>
-                                                    <option>Police Abstract</option>
-                                                </select>
-                                            </div>
-                                            <div className="col-md-3">
-                                                <label htmlFor="copyName">Select folder:</label>
-                                                <select onChange={(event) => creatNewImageFolder(event)} id="policy" className="form-select">
-                                                    <option>Default</option>
-                                                    <option role="separator" disabled="disabled">─────────────────────────</option>
-                                                    <option value="new folder">Create New</option>
-                                                </select>
-                                            </div>
-                                            <div className="col-md-3">
-                                                <label htmlFor="documentName">Document name:</label>
-                                                <input id="documentName" type="text" className="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-sm-12">
-                                        <div className="col-md-3">
-                                            <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
-                                        </div>
-                                    </div>
-
-                                    <div className="row mt-3">
-
-                                        <div className="col-sm-12">
-
-                                            <h6 className="tc-card-header">All added scanned copies</h6>
-                                            <hr />
-
-                                            <div className='row'>
-                                                {/* Template */}
-                                                <div className="col-sm-6">
-
-                                                    <div className="card">
-                                                        <div className="card-body">
-
-                                                            <h6 className="card-subtitle mb-2 text-muted">Proposal</h6>
-                                                            <Image
-                                                                src="/img/receipt_template.jpg"
-                                                                // layout="responsive"
-                                                                width={200}  // Aspect ratio width
-                                                                height={400}  // Aspect ratio height
-                                                                className="card-img-top"
-                                                                alt="receipt template"
-                                                            />
-                                                            <hr />
-                                                            <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
-                                                            <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
-                                                            <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/* Template */}
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-
-                                    <div className="text-center mb-3">
-                                        <div className="d-flex justify-content-center">
-                                            <button className="btn btn-primary me-2">Save</button>
-                                            <button className="btn btn-secondary">Cancel</button>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                </form>
-
-                                {/* Modal */}
-                                <DataPointModal />
 
                             </div>
                         </div>
-                        <NewImageFolder modalRefVar={modalRef} />
-                    </>
-            }
 
+
+                        <div className="text-center mb-3">
+                            <div className="d-flex justify-content-center">
+                                <button className="btn btn-primary me-2">Save</button>
+                                <button className="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                        <hr />
+                    </form>
+
+                    {/* Modal */}
+                    <DataPointModal />
+
+                </div>
+            </div>
+            <NewImageFolder modalRefVar={modalRef} />
         </>
+
 
     );
 }
+
+
+export default withAuth(Page);
