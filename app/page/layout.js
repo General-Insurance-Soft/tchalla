@@ -22,7 +22,7 @@ import SettingSubMenu from "../lib/components/ui/menu/setting/index";
 import { validateToken } from '../lib/service/auth';
 
 export default function RootLayout({ children }) {
-  const router = useRouter();
+
   let [loadPage, setLoadPage] = useState(false);
 
   useEffect(() => {
@@ -37,14 +37,12 @@ export default function RootLayout({ children }) {
 
 
   useEffect(() => {
-    if (!router) return;
-
     const checkAuth = async () => {
-      setLoadPage(await validateToken(router));
+      setLoadPage(await validateToken());
     };
 
     checkAuth();
-  }, [router]);
+  }, []);
 
   return (
 
@@ -60,7 +58,7 @@ export default function RootLayout({ children }) {
                   <span className="visually-hidden">Loading...</span>
                 </div>
               </div>
-              
+
             </body>
           </html>
 
