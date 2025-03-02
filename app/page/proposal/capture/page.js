@@ -6,6 +6,7 @@ import NewCustomerForm from "./new_customer_form";
 import { useEffect, useState, useRef } from "react";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 
+
 export default function Page() {
 
     let [customerState, setCutomerState] = useState("existing");
@@ -28,6 +29,7 @@ export default function Page() {
     }
 
     return (
+
         <>
             <div className="pagetitle">
                 <h1>Proposal</h1>
@@ -44,7 +46,7 @@ export default function Page() {
                 <div className="card-body">
                     <h5 className="card-title">Capture Proposal Details</h5>
 
-                    <div class="d-flex justify-content-start align-items-center mb-3">
+                    <div className="d-flex justify-content-start align-items-center mb-3">
 
                         <div className="me-3">
                             <select onChange={(e) => handleCustomerState(e.target.value)} id="inputState" className="form-select">
@@ -71,14 +73,14 @@ export default function Page() {
                         }
 
                         <div className="ms-auto">
-                            <button class="btn btn-primary me-2">Save</button>
-                            <button class="btn btn-secondary">Reset</button>
+                            <button className="btn btn-primary me-2">Save</button>
+                            <button className="btn btn-secondary">Reset</button>
                         </div>
                     </div>
 
                     <hr />
 
-                    <div class="d-flex justify-content-start mb-3">
+                    <div className="d-flex justify-content-start mb-3">
                         <div className="">
                             <button type="button" className="btn btn-primary mb-3 me-3" data-bs-toggle="modal"
                                 data-bs-target="#paneId">Add new field</button>
@@ -176,7 +178,7 @@ export default function Page() {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mb-2 text-muted">Proposal</h6>
+                                                <h6 className="card-subtitle mb-2 text-muted">Proposal</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -186,9 +188,9 @@ export default function Page() {
                                                     alt="receipt template"
                                                 />
                                                 <hr />
-                                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -216,6 +218,7 @@ export default function Page() {
             </div>
             <NewImageFolder modalRefVar={modalRef} />
         </>
+
 
     );
 }

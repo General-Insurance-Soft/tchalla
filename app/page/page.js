@@ -1,9 +1,14 @@
+'use client'
+
+import { useEffect, useState } from 'react';
 import BarChart from '../lib/components/chart/bar_chart/bar-chart';
 import LineChart from '../lib/components/chart/line_chart/line-chart';
 import PieChart from '../lib/components/chart/pie_chart/pie-chart';
 import Data_Table from '../lib/components/table/data-table';
 
+
 export default function Page() {
+
   return (
 
     <>
@@ -223,35 +228,35 @@ export default function Page() {
                       </thead>
                       <tbody>
                         <tr>
-                          <th scope="row"><a href="#"><i style={{fontSize: "30px"}} className="bi bi-car-front-fill"></i></a></th>
+                          <th scope="row"><a href="#"><i style={{ fontSize: "30px" }} className="bi bi-car-front-fill"></i></a></th>
                           <td><a href="#" className="text-primary fw-bold">Vehicle - Comprehensive</a></td>
                           <td>1600</td>
                           <td className="fw-bold">100</td>
                           <td>160,000</td>
                         </tr>
                         <tr>
-                          <th scope="row"><a href="#"><i style={{fontSize: "30px"}} className="bi bi-house-add"></i></a></th>
+                          <th scope="row"><a href="#"><i style={{ fontSize: "30px" }} className="bi bi-house-add"></i></a></th>
                           <td><a href="#" className="text-primary fw-bold">House Insurance</a></td>
                           <td>1400</td>
                           <td className="fw-bold">100</td>
                           <td>140,000</td>
                         </tr>
                         <tr>
-                          <th scope="row"><a href="#"><i style={{fontSize: "30px"}} className="bi bi-person-arms-up"></i></a></th>
+                          <th scope="row"><a href="#"><i style={{ fontSize: "30px" }} className="bi bi-person-arms-up"></i></a></th>
                           <td><a href="#" className="text-primary fw-bold">Life insurance</a></td>
                           <td>767</td>
                           <td className="fw-bold">100</td>
                           <td>76,700</td>
                         </tr>
                         <tr>
-                          <th scope="row"><a href="#"><i style={{fontSize: "30px"}} className="bi bi-car-front"></i></a></th>
+                          <th scope="row"><a href="#"><i style={{ fontSize: "30px" }} className="bi bi-car-front"></i></a></th>
                           <td><a href="#" className="text-primary fw-bold">Vehicle - Third party</a></td>
                           <td>200</td>
                           <td className="fw-bold">200</td>
                           <td>40,000</td>
                         </tr>
                         <tr>
-                          <th scope="row"><a href="#"><i style={{fontSize: "30px"}} className="bi bi-fire"></i></a></th>
+                          <th scope="row"><a href="#"><i style={{ fontSize: "30px" }} className="bi bi-fire"></i></a></th>
                           <td><a href="#" className="text-primary fw-bold">Fire/burglary</a></td>
                           <td>300</td>
                           <td className="fw-bold">140</td>
@@ -399,7 +404,7 @@ export default function Page() {
               <div className="card-body pb-0">
                 <h5 className="card-title">Customers Over Time <span>| Past 5 yrs</span></h5>
 
-                <BarChart/>
+                <BarChart />
 
               </div>
             </div>
