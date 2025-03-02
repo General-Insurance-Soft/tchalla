@@ -107,3 +107,28 @@ export const refreshAuthToken = async () => {
     return returnVal;
 };
 
+
+export const signIn = async (formData) => {
+
+    try {
+        let response = await fetch(`${baseServerUrl}/user-service/api/v1/auth/authenticate`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData),
+        });
+
+        let res = await response.json();
+        return res;
+
+    } catch (error) {
+        console.error("Error during signin:", error);
+        let returnVal = {
+            "message": "Failed to authenticate, please retry: "
+        };
+
+        return returnVal;
+    }
+
+}
