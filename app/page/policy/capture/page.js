@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
+import withAuth from "../../../lib/service/with_auth";
 
-export default function Page() {
+
+const Page = () => {
 
     const modalRef = useRef(null);
 
@@ -214,3 +216,5 @@ export default function Page() {
         </>
     );
 }
+
+export default withAuth(Page);

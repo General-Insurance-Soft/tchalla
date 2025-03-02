@@ -7,8 +7,9 @@ import ProposalSetting from "./proposal/proposal_setting";
 import SmsSetting from "./sms/sms_setting";
 import PaymentSetting from "./payment/payment_setting";
 import EventCalendarSetting from "./event_calendar/event_calendar_setting";
+import withAuth from "../../../lib/service/with_auth";
 
-export default function GeneralSetting() {
+const Page = () => {
     return (
         <>
             <div className="pagetitle">
@@ -83,3 +84,5 @@ export default function GeneralSetting() {
 
     )
 }
+
+export default withAuth(Page);

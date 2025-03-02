@@ -5,8 +5,9 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
+import withAuth from "../../../lib/service/with_auth";
 
-export default function Page() {
+const Page = () => {
 
     const [showEditForm, setShowEditForm] = useState(false);
     const modalRef = useRef(null);
@@ -326,3 +327,5 @@ export default function Page() {
 
     );
 }
+
+export default withAuth(Page);

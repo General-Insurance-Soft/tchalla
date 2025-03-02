@@ -5,8 +5,10 @@ import { useState } from 'react';
 import DeletePayment from './delete-payment.js';
 import PaymentDetails from './payment-details.js';
 import PaymentForm from './payment-form.js';
+import withAuth from "../../../lib/service/with_auth";
 
-export default function Page() {
+
+const Page = () => {
 
     const [paymentAction, setPaymentAction] = useState("add");
 
@@ -242,3 +244,5 @@ export default function Page() {
 
     );
 }
+
+export default withAuth(Page);

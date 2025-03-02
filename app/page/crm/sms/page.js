@@ -3,8 +3,10 @@
 import Data_Table from '../../../lib/components/table/data-table';
 import BulkSmsTblContent from './bulk-sms-tbl-content';
 import ScheduleSmsTblContent from './schedule-sms-tbl-content';
+import withAuth from "../../../lib/service/with_auth";
 
-export default function Page() {
+
+const Page = () => {
     return (
         <>
             <div className="pagetitle">
@@ -452,3 +454,5 @@ export default function Page() {
         </>
     );
 }
+
+export default withAuth(Page);
