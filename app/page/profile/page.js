@@ -1,4 +1,9 @@
-export default function Page() {
+'use client';   
+
+import withAuth from "../../lib/service/with_auth";
+
+
+const Page = () => {
     return (
         <>
             <div className="pagetitle">
@@ -109,3 +114,5 @@ export default function Page() {
 
     );
 }
+
+export default withAuth(Page);

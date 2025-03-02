@@ -4,8 +4,9 @@ import { useState } from 'react';
 
 import DeleteUser from './delete-user';
 import NewUserForm from './new-user-form';
+import withAuth from "../../lib/service/with_auth";
 
-export default function Page() {
+const Page = () => {
 
     let [userAction, setUserAction] = useState();
 
@@ -154,3 +155,5 @@ export default function Page() {
         </>
     );
 }
+
+export default withAuth(Page);

@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import * as dataPointData from "../../../../public/DataPointData.json";
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import CustomerForm from "./customer_form";
+import withAuth from "../../../lib/service/with_auth";
 
-export default function Page() {
+
+const Page = () => {
 
     let combinedDataArry = dataPointData.custom_data.demo_data.concat(dataPointData.predefined_data.policy_data);
     combinedDataArry = combinedDataArry.concat(dataPointData.predefined_data.demo_data).concat(dataPointData.predefined_data.policy_data);
@@ -459,3 +461,5 @@ export default function Page() {
     );
 
 }
+
+export default withAuth(Page);

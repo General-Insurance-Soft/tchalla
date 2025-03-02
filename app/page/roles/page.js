@@ -1,10 +1,12 @@
 "use client";
+
 import { useState } from 'react';
 
 import DeleteRole from './delete-role';
 import NewRoleForm from './new-role-form';
+import withAuth from "../../lib/service/with_auth";
 
-export default function Page() {
+const Page = () => {
 
     const [roleAction, setRoleAction] = useState("add");
 
@@ -129,3 +131,5 @@ export default function Page() {
         </>
     );
 }
+
+export default withAuth(Page);
