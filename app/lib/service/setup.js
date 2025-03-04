@@ -1,1 +1,1 @@
-export const baseServerUrl = "http://20.174.58.236:9000"; 
+export const baseServerUrl = "https://api.gisca.savannasoft.com";
