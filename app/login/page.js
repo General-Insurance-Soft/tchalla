@@ -134,7 +134,7 @@ export default function LoginForm() {
                                                 <button onClick={(event) => signInUser(event)} className="btn btn-primary w-100">Login</button>
                                             </div>
                                             <div class="col-12">
-                                                <p class="small mb-0">Don't have an account?  <Link href="/account/register">
+                                                <p class="small mb-0">Don&apos;t have an account?  <Link href="/account/register">
                                                     <span> Create an account</span>
                                                 </Link>
                                                 </p>
