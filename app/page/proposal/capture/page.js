@@ -98,7 +98,13 @@ const Page = () => {
 
                     <form className="row g-3">
                         {
-                            customerState === "new" ? <CustomerForm action="add" /> : ""
+                            customerState === "new" ?
+                                <>
+                                    <CustomerForm action="add" />
+                                    <hr />
+                                </>
+                                :
+                                ""
                         }
                         <div className="col-sm-12">
                             <div className="row d-flex align-items-end">
