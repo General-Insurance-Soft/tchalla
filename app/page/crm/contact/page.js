@@ -247,7 +247,7 @@ const Page = () => {
                         <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
                             <h5 className="card-title">Capture Customer Details</h5>
 
-                            <CustomerForm action="add" />
+                            <CustomerForm action="add" isUserPage="true" />
                         </div>
 
                         {/* manage customers */}
@@ -262,7 +262,7 @@ const Page = () => {
                                     <>
                                         <hr />
                                         <h5 className="card-title">Edit Customer</h5>
-                                        <CustomerForm action="edit" setShowEditForm={setShowEditForm} />
+                                        <CustomerForm action="edit" setShowEditForm={setShowEditForm} isUserPage="true"/>
                                     </>
                                     :
                                     ""

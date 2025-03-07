@@ -2,7 +2,7 @@
 
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import Image from 'next/image';
-import NewCustomerForm from "./new_customer_form";
+import CustomerForm from "../../crm/contact/customer_form";
 import { useEffect, useState, useRef } from "react";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
@@ -98,7 +98,7 @@ const Page = () => {
 
                     <form className="row g-3">
                         {
-                            customerState === "new" ? <NewCustomerForm action="add" /> : ""
+                            customerState === "new" ? <CustomerForm action="add" /> : ""
                         }
                         <div className="col-sm-12">
                             <div className="row d-flex align-items-end">
