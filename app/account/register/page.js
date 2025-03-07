@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { doSignUp } from '../../lib/service/signup';
+import { doSignUp } from '../../lib/service/auth';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 
@@ -16,8 +16,11 @@ export default function RegisterForm() {
     const [terms, setTerms] = useState(false);
     const [error, setError] = useState({});
     const router = useRouter();
+    const [disableSubmit, setDisableSubmit] = useState(false);
 
     const signupUser = async (event) => {
+        setDisableSubmit(true);
+
         event.preventDefault(); // Prevent the default form submission
 
         // Collect form data
@@ -42,15 +45,16 @@ export default function RegisterForm() {
                     router.push('/page');
                 }
             } else {
-
+                setDisableSubmit(false);
                 const data = await response.json();
                 setError(data);
 
-            } 
+            }
 
             // Handle successful signup (e.g., redirect to login page)
         } catch (error) {
             console.error('Error during signup:', error);
+            setDisableSubmit(false);
             // Handle signup error (e.g., display error message)
         }
     };
@@ -188,7 +192,14 @@ export default function RegisterForm() {
                                         </div>
                                     </div>
                                     <div className="col-12">
-                                        <button onClick={(event) => signupUser(event)} className="btn btn-primary w-100">Create Account</button>
+
+                                        {
+                                            disableSubmit ?
+                                                <button className="btn btn-primary w-100" disabled>Creating Account...</button>
+                                                :
+                                                <button onClick={(event) => signupUser(event)} className="btn btn-primary w-100">Create Account</button>
+                                        }
+
                                     </div>
                                     <div className="col-12">
                                         <p className="small mb-0">
