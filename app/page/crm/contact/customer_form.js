@@ -114,77 +114,81 @@ export default function CustomerForm({ action, setShowEditForm, isUserPage }) {
                     <input type="file" id="img2" name="img" accept="image/*" className="form-control" />
                 </div>
 
+                {
+                    isUserPage ?
+                        <>
+                            <div className="col-sm-12">
 
 
-                <div className="col-sm-12">
+                                <h6 className="tc-card-header">All added scanned copies</h6>
+                                <hr />
 
+                                <div className='row'>
+                                    {/* Template */}
+                                    <div className="col-sm-6">
 
-                    <h6 className="tc-card-header">All added scanned copies</h6>
-                    <hr />
+                                        <div className="card">
+                                            <div className="card-body">
 
-                    <div className='row'>
-                        {/* Template */}
-                        <div className="col-sm-6">
+                                                <h6 class="card-subtitle mb-2 text-muted">Passport</h6>
+                                                <Image
+                                                    src="/img/receipt_template.jpg"
+                                                    // layout="responsive"
+                                                    width={200}  // Aspect ratio width
+                                                    height={400}  // Aspect ratio height
+                                                    className="card-img-top"
+                                                    alt="receipt template"
+                                                />
+                                                <hr />
 
-                            <div className="card">
-                                <div className="card-body">
-
-                                    <h6 class="card-subtitle mb-2 text-muted">Passport</h6>
-                                    <Image
-                                        src="/img/receipt_template.jpg"
-                                        // layout="responsive"
-                                        width={200}  // Aspect ratio width
-                                        height={400}  // Aspect ratio height
-                                        className="card-img-top"
-                                        alt="receipt template"
-                                    />
-                                    <hr />
-
-                                    <div className="d-flex">
-                                        <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                        <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                        <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                <div className="d-flex">
+                                                    <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
+                                                    <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
+                                                    <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    {/* Template */}
+
+                                    {/* Template */}
+                                    <div className="col-sm-6">
+
+                                        <div className="card">
+                                            <div className="card-body">
+
+                                                <h6 class="card-subtitle mb-2 text-muted">KRA PIN</h6>
+                                                <Image
+                                                    src="/img/receipt_template.jpg"
+                                                    // layout="responsive"
+                                                    width={200}  // Aspect ratio width
+                                                    height={400}  // Aspect ratio height
+                                                    className="card-img-top"
+                                                    alt="receipt template"
+                                                />
+                                                <hr />
+
+                                                <div className="d-flex">
+                                                    <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
+                                                    <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
+                                                    <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* Template */}
                                 </div>
                             </div>
-                        </div>
-                        {/* Template */}
 
-                        {/* Template */}
-                        <div className="col-sm-6">
-
-                            <div className="card">
-                                <div className="card-body">
-
-                                    <h6 class="card-subtitle mb-2 text-muted">KRA PIN</h6>
-                                    <Image
-                                        src="/img/receipt_template.jpg"
-                                        // layout="responsive"
-                                        width={200}  // Aspect ratio width
-                                        height={400}  // Aspect ratio height
-                                        className="card-img-top"
-                                        alt="receipt template"
-                                    />
-                                    <hr />
-
-                                    <div className="d-flex">
-                                        <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                        <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                        <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
-                                    </div>
+                            <div className="text-center mb-3">
+                                <div className="d-flex justify-content-center">
+                                    <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>{action === 'edit' ? 'Update' : 'Save'}</button>
+                                    <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                                 </div>
                             </div>
-                        </div>
-                        {/* Template */}
-                    </div>
-                </div>
 
-                <div className="text-center mb-3">
-                    <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>{action === 'edit' ? 'Update' : 'Save'}</button>
-                        <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
-                    </div>
-                </div>
+                        </> : ''
+                }
                 <hr />
             </form>
         </>
