@@ -7,12 +7,12 @@ Reference-data-Service
 ======================
 */
 
-export const fetchInsuranceCopanies = async () => {
+let dataFetcher = async (url, dataName) => {
 
     let token = getToken("access");
 
     try {
-        let response = await fetch(`${baseServerUrl}/reference-data-service/api/v1/insurance-company/get-insurance-companies`, {
+        let response = await fetch(url, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -22,53 +22,31 @@ export const fetchInsuranceCopanies = async () => {
 
         let res = await response;
         if (!res.ok) {
-            console.log("Error fetching insurance companies");
+            console.log(`Error fetching ${dataName}`);
             return {
-                "message": "Could not fetch insurance companies"
+                "message": `Could not fetch ${dataName}`
             };
         }
         return res.json();
 
     } catch (error) {
-        console.error("Error getting insurance companies:", error);
+        console.error(`Error getting ${dataName}:`, error);
         let returnVal = {
-            "message": "Error getting insurance companies "
+            "message": "Error getting data"
         };
 
         return returnVal;
     }
+}
 
+export const fetchInsuranceCopanies = async () => {
+    return await dataFetcher(`${baseServerUrl}/reference-data-service/api/v1/insurance-company/get-insurance-companies`, "insurance companies");
 }
 
 export const fetchDocumentTypes = async () => {
+    return await dataFetcher(`${baseServerUrl}/reference-data-service/api/v1/document-type/get-document-types`, "document types");
+}
 
-    let token = getToken("access");
-
-    try {
-        let response = await fetch(`${baseServerUrl}/reference-data-service/api/v1/document-type/get-document-types`, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        let res = await response;
-        if (!res.ok) {
-            console.log("Error fetching document types");
-            return {
-                "message": "Could not fetch document types"
-            };
-        }
-        return res.json();
-
-    } catch (error) {
-        console.error("Error getting document types:", error);
-        let returnVal = {
-            "message": "Error getting document types "
-        };
-
-        return returnVal;
-    }
-
+export const fetchPolicies = async () => {
+    return await dataFetcher(`${baseServerUrl}/reference-data-service/api/v1/policy/get-policies`, "policies");
 }

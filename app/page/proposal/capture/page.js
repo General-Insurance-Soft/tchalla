@@ -6,7 +6,7 @@ import CustomerForm from "../../crm/contact/customer_form";
 import { useEffect, useState, useRef } from "react";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchInsuranceCopanies, fetchDocumentTypes } from "../../../lib/service/model";
+import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -14,6 +14,7 @@ const Page = () => {
     let [customerState, setCutomerState] = useState("existing");
     let [insuranceCompanies, setInsuranceCompanies] = useState([]);
     let [documentTypes, setDocumentTypes] = useState([]);
+    let [policies, setPolicies] = useState([]);
 
     useEffect(() => { }, [customerState]);
 
@@ -29,6 +30,12 @@ const Page = () => {
             setDocumentTypes(res);
         };
 
+        const fetchPoliciesData = async () => {
+            let res = await fetchPolicies();
+            setPolicies(res);
+        };
+
+        fetchPoliciesData();
         fetchDocumentTypesData();
         fetchInsuranceCompaniesData();
 
@@ -144,10 +151,11 @@ const Page = () => {
                                     <label for="policy">Select policy:</label>
                                     <select id="policy" className="form-select">
                                         <option defaultValue>None...</option>
-                                        <option>Fire/Bulgary</option>
-                                        <option>Health</option>
-                                        <option>Car</option>
-                                        <option>Life insurance</option>
+                                        {policies.map((company) => (
+                                            <option key={company.id} value={company.id}>
+                                                {company.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
