@@ -5,7 +5,7 @@ import * as dataPointData from "../../../../public/DataPointData.json";
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import CustomerForm from "./customer_form";
 import withAuth from "../../../lib/service/with_auth";
-
+import DocumentHolder from "../../../lib/components/ui/utils/document_holder";
 
 const Page = () => {
 
@@ -15,6 +15,7 @@ const Page = () => {
     const [actionBtnLabel, setActionBtnLabel] = useState("Add new");
     const [isContactsGroupTab, setIsContactsGroupTab] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
+
 
     useEffect(() => { }, [showGroupCustomerList, isContactsGroupTab]);
 
@@ -247,7 +248,14 @@ const Page = () => {
                         <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
                             <h5 className="card-title">Capture Customer Details</h5>
 
-                            <CustomerForm action="add" />
+                            <CustomerForm action="add" isUserPage="true" />
+                            <DocumentHolder />
+                            <div className="text-center mb-3">
+                                <div className="d-flex justify-content-center">
+                                    <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Save</button>
+                                    <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                                </div>
+                            </div>
                         </div>
 
                         {/* manage customers */}
@@ -262,7 +270,14 @@ const Page = () => {
                                     <>
                                         <hr />
                                         <h5 className="card-title">Edit Customer</h5>
-                                        <CustomerForm action="edit" setShowEditForm={setShowEditForm} />
+                                        <CustomerForm action="edit" setShowEditForm={setShowEditForm} isUserPage="true" />
+                                        <DocumentHolder />
+                                        <div className="text-center mb-3">
+                                            <div className="d-flex justify-content-center">
+                                                <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
+                                                <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                                            </div>
+                                        </div>
                                     </>
                                     :
                                     ""

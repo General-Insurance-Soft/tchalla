@@ -2,19 +2,46 @@
 
 import DataPointModal from "../../../lib/utils/data_point_modal";
 import Image from 'next/image';
-import NewCustomerForm from "./new_customer_form";
+import CustomerForm from "../../crm/contact/customer_form";
 import { useEffect, useState, useRef } from "react";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-
+import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies } from "../../../lib/service/model";
 
 const Page = () => {
 
-    let [customerState, setCutomerState] = useState("existing");
     const modalRef = useRef(null);
-
+    let [customerState, setCutomerState] = useState("existing");
+    let [insuranceCompanies, setInsuranceCompanies] = useState([]);
+    let [documentTypes, setDocumentTypes] = useState([]);
+    let [policies, setPolicies] = useState([]);
 
     useEffect(() => { }, [customerState]);
+
+    useEffect(() => {
+
+        const fetchInsuranceCompaniesData = async () => {
+            let res = await fetchInsuranceCopanies();
+            setInsuranceCompanies(res);
+        };
+
+        const fetchDocumentTypesData = async () => {
+            let res = await fetchDocumentTypes();
+            setDocumentTypes(res);
+        };
+
+        const fetchPoliciesData = async () => {
+            let res = await fetchPolicies();
+            setPolicies(res);
+        };
+
+        fetchPoliciesData();
+        fetchDocumentTypesData();
+        fetchInsuranceCompaniesData();
+
+    }, []);
+
+
 
     let handleCustomerState = (value) => {
         setCutomerState(value);
@@ -98,7 +125,13 @@ const Page = () => {
 
                     <form className="row g-3">
                         {
-                            customerState === "new" ? <NewCustomerForm action="add" /> : ""
+                            customerState === "new" ?
+                                <>
+                                    <CustomerForm action="add" />
+                                    <hr />
+                                </>
+                                :
+                                ""
                         }
                         <div className="col-sm-12">
                             <div className="row d-flex align-items-end">
@@ -107,20 +140,22 @@ const Page = () => {
                                     <label for="insurance">Select insurance:</label>
                                     <select id="insurance" className="form-select">
                                         <option defaultValue>None...</option>
-                                        <option>Britam</option>
-                                        <option>Old mutual</option>
-                                        <option>Jubilee</option>
-                                        <option>CIC</option>
+                                        {insuranceCompanies.map((company) => (
+                                            <option key={company.id} value={company.id}>
+                                                {company.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                                 <div className="col-md-4">
                                     <label for="policy">Select policy:</label>
                                     <select id="policy" className="form-select">
                                         <option defaultValue>None...</option>
-                                        <option>Fire/Bulgary</option>
-                                        <option>Health</option>
-                                        <option>Car</option>
-                                        <option>Life insurance</option>
+                                        {policies.map((company) => (
+                                            <option key={company.id} value={company.id}>
+                                                {company.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
@@ -136,15 +171,11 @@ const Page = () => {
                                     <label htmlFor="copyName">Document type:</label>
                                     <select id="policy" className="form-select">
                                         <option defaultValue>None...</option>
-                                        <option>ID/Passort</option>
-                                        <option>Proposal</option>
-                                        <option>Accident form</option>
-                                        <option>Policy</option>
-                                        <option>Insurance Certificate</option>
-                                        <option>Insurance Policy</option>
-                                        <option>Medical Report</option>
-                                        <option>Birth Certificate</option>
-                                        <option>Police Abstract</option>
+                                        {documentTypes.map((company) => (
+                                            <option key={company.id} value={company.id}>
+                                                {company.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                                 <div className="col-md-3">

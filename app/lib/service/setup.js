@@ -1,1 +1,1 @@
-export const baseServerUrl = "https://api.gisca.savannasoft.com";
+export const baseServerUrl = "http://localhost:9001";
