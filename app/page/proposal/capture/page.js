@@ -10,9 +10,9 @@ import { fetchInsuranceCopanies } from "../../../lib/service/model";
 
 const Page = () => {
 
-    let [customerState, setCutomerState] = useState("existing");
     const modalRef = useRef(null);
-
+    let [customerState, setCutomerState] = useState("existing");
+    let [insuranceCompanies, setInsuranceCompanies] = useState([]);
 
     useEffect(() => { }, [customerState]);
 
@@ -20,7 +20,7 @@ const Page = () => {
 
         const fetchData = async () => {
             let res = await fetchInsuranceCopanies();
-            console.log("Insurance companies: ", res);
+            setInsuranceCompanies(res);
         };
         fetchData();
 
@@ -125,10 +125,11 @@ const Page = () => {
                                     <label for="insurance">Select insurance:</label>
                                     <select id="insurance" className="form-select">
                                         <option defaultValue>None...</option>
-                                        <option>Britam</option>
-                                        <option>Old mutual</option>
-                                        <option>Jubilee</option>
-                                        <option>CIC</option>
+                                        {insuranceCompanies.map((company) => (
+                                            <option key={company.id} value={company.id}>
+                                                {company.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                                 <div className="col-md-4">
