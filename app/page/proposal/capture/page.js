@@ -6,7 +6,7 @@ import CustomerForm from "../../crm/contact/customer_form";
 import { useEffect, useState, useRef } from "react";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-
+import { fetchInsuranceCopanies } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -15,6 +15,18 @@ const Page = () => {
 
 
     useEffect(() => { }, [customerState]);
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+            let res = await fetchInsuranceCopanies();
+            console.log("Insurance companies: ", res);
+        };
+        fetchData();
+
+    }, []);
+
+
 
     let handleCustomerState = (value) => {
         setCutomerState(value);
