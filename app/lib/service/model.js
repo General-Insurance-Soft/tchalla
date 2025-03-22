@@ -39,3 +39,36 @@ export const fetchInsuranceCopanies = async () => {
     }
 
 }
+
+export const fetchDocumentTypes = async () => {
+
+    let token = getToken("access");
+
+    try {
+        let response = await fetch(`${baseServerUrl}/reference-data-service/api/v1/document-type/get-document-types`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        let res = await response;
+        if (!res.ok) {
+            console.log("Error fetching document types");
+            return {
+                "message": "Could not fetch document types"
+            };
+        }
+        return res.json();
+
+    } catch (error) {
+        console.error("Error getting document types:", error);
+        let returnVal = {
+            "message": "Error getting document types "
+        };
+
+        return returnVal;
+    }
+
+}

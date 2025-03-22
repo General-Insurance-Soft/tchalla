@@ -6,23 +6,31 @@ import CustomerForm from "../../crm/contact/customer_form";
 import { useEffect, useState, useRef } from "react";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchInsuranceCopanies } from "../../../lib/service/model";
+import { fetchInsuranceCopanies, fetchDocumentTypes } from "../../../lib/service/model";
 
 const Page = () => {
 
     const modalRef = useRef(null);
     let [customerState, setCutomerState] = useState("existing");
     let [insuranceCompanies, setInsuranceCompanies] = useState([]);
+    let [documentTypes, setDocumentTypes] = useState([]);
 
     useEffect(() => { }, [customerState]);
 
     useEffect(() => {
 
-        const fetchData = async () => {
+        const fetchInsuranceCompaniesData = async () => {
             let res = await fetchInsuranceCopanies();
             setInsuranceCompanies(res);
         };
-        fetchData();
+
+        const fetchDocumentTypesData = async () => {
+            let res = await fetchDocumentTypes();
+            setDocumentTypes(res);
+        };
+
+        fetchDocumentTypesData();
+        fetchInsuranceCompaniesData();
 
     }, []);
 
@@ -155,15 +163,11 @@ const Page = () => {
                                     <label htmlFor="copyName">Document type:</label>
                                     <select id="policy" className="form-select">
                                         <option defaultValue>None...</option>
-                                        <option>ID/Passort</option>
-                                        <option>Proposal</option>
-                                        <option>Accident form</option>
-                                        <option>Policy</option>
-                                        <option>Insurance Certificate</option>
-                                        <option>Insurance Policy</option>
-                                        <option>Medical Report</option>
-                                        <option>Birth Certificate</option>
-                                        <option>Police Abstract</option>
+                                        {documentTypes.map((company) => (
+                                            <option key={company.id} value={company.id}>
+                                                {company.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                                 <div className="col-md-3">
