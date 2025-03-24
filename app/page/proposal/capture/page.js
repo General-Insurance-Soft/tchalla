@@ -15,6 +15,7 @@ const Page = () => {
     let [insuranceCompanies, setInsuranceCompanies] = useState([]);
     let [documentTypes, setDocumentTypes] = useState([]);
     let [policies, setPolicies] = useState([]);
+    
 
     useEffect(() => { }, [customerState]);
 
@@ -22,16 +23,25 @@ const Page = () => {
 
         const fetchInsuranceCompaniesData = async () => {
             let res = await fetchInsuranceCopanies();
+            if('error' in res){
+                return;
+            }
             setInsuranceCompanies(res);
         };
 
         const fetchDocumentTypesData = async () => {
             let res = await fetchDocumentTypes();
+            if('error' in res){
+                return;
+            }
             setDocumentTypes(res);
         };
 
         const fetchPoliciesData = async () => {
             let res = await fetchPolicies();
+            if('error' in res){
+                return;
+            }
             setPolicies(res);
         };
 
