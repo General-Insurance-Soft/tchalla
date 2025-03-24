@@ -1,16 +1,13 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
-import * as dataPointData from "../../../../public/DataPointData.json";
-import DataPointModal from "../../../lib/utils/data_point_modal";
 import CustomerForm from "./customer_form";
 import withAuth from "../../../lib/service/with_auth";
 import DocumentHolder from "../../../lib/components/ui/utils/document_holder";
 
 const Page = () => {
 
-    let combinedDataArry = dataPointData.custom_data.demo_data.concat(dataPointData.predefined_data.policy_data);
-    combinedDataArry = combinedDataArry.concat(dataPointData.predefined_data.demo_data).concat(dataPointData.predefined_data.policy_data);
+
     const [showGroupCustomerList, setShowGroupCustomerList] = useState(false);
     const [actionBtnLabel, setActionBtnLabel] = useState("Add new");
     const [isContactsGroupTab, setIsContactsGroupTab] = useState(false);
@@ -471,7 +468,7 @@ const Page = () => {
 
             {/* Modal */}
 
-            <DataPointModal />
+            
         </>
     );
 
