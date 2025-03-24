@@ -24,7 +24,7 @@ let dataFetcher = async (url, dataName) => {
         if (!res.ok) {
             console.log(`Error fetching ${dataName}`);
             return {
-                "message": `Could not fetch ${dataName}`
+                "error": `Could not fetch ${dataName}`
             };
         }
         return res.json();
@@ -32,7 +32,7 @@ let dataFetcher = async (url, dataName) => {
     } catch (error) {
         console.error(`Error getting ${dataName}:`, error);
         let returnVal = {
-            "message": "Error getting data"
+            "error": "Error getting data"
         };
 
         return returnVal;
