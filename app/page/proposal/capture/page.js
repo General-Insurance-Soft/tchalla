@@ -1,6 +1,5 @@
 "use client"
 
-import DataPointModal from "../../../lib/utils/data_point_modal";
 import Image from 'next/image';
 import CustomerForm from "../../crm/contact/customer_form";
 import { useEffect, useState, useRef } from "react";
@@ -123,8 +122,7 @@ const Page = () => {
 
                     <div className="d-flex justify-content-start mb-3">
                         <div className="">
-                            <button type="button" className="btn btn-primary mb-3 me-3" data-bs-toggle="modal"
-                                data-bs-target="#paneId">Add new field</button>
+                            
                         </div>
 
                         <div className="">
@@ -257,7 +255,7 @@ const Page = () => {
                     </form>
 
                     {/* Modal */}
-                    <DataPointModal />
+                    
 
                 </div>
             </div>

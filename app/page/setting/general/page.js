@@ -1,6 +1,5 @@
 'use client'
 
-import DataPointSetting from "./data_point/DataPointSetting";
 import PolicySetting from "./policy/policy_setting";
 import ClaimSetting from "./claim/claim_setting";
 import ProposalSetting from "./proposal/proposal_setting";
@@ -29,9 +28,6 @@ const Page = () => {
 
                             <ul className="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
                                 <li className="nav-item flex-fill" role="presentation">
-                                    <button className="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-data" type="button" role="tab" aria-controls="data" aria-selected="true">Data points</button>
-                                </li>
-                                <li className="nav-item flex-fill" role="presentation">
                                     <button className="nav-link w-100" id="proposal-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-proposal" type="button" role="tab" aria-controls="proposal" aria-selected="false">Proposal</button>
                                 </li>
                                 <li className="nav-item flex-fill" role="presentation">
@@ -52,9 +48,7 @@ const Page = () => {
                 
                             </ul>
                             <div className="tab-content pt-2" id="borderedTabJustifiedContent">
-                                <div className="tab-pane fade show active" id="bordered-justified-data" role="tabpanel" aria-labelledby="data-tab">
-                                    <DataPointSetting />
-                                </div>
+                                
                                 <div className="tab-pane fade" id="bordered-justified-proposal" role="tabpanel" aria-labelledby="proposal-tab">
                                     <ProposalSetting />
                                 </div>

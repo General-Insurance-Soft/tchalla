@@ -3,7 +3,6 @@
 import { useRef, useState } from 'react';
 
 import Image from 'next/image';
-import DataPointModal from "../../../lib/utils/data_point_modal";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 
@@ -184,8 +183,7 @@ const Page = () => {
 
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div>
-                                            <button type="button" className="btn btn-primary mb-3" data-bs-toggle="modal"
-                                                data-bs-target="#paneId">Add new field</button>
+                                            
                                         </div>
 
                                         <div>
@@ -344,7 +342,7 @@ const Page = () => {
                                     </form>
 
                                     {/* Modal */}
-                                    <DataPointModal />
+                                    
                                 </div>
                             </div>
 

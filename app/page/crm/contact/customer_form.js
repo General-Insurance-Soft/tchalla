@@ -29,8 +29,7 @@ export default function CustomerForm({ action, setShowEditForm, isUserPage }) {
                 isUserPage ?
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div>
-                            <button type="button" className="btn btn-primary mb-3" data-bs-toggle="modal"
-                                data-bs-target="#paneId">Add new field</button>
+                            
                         </div>
 
                         <div>
