@@ -15,6 +15,7 @@ const Page = () => {
     let [insuranceCompanies, setInsuranceCompanies] = useState([]);
     let [documentTypes, setDocumentTypes] = useState([]);
     let [policies, setPolicies] = useState([]);
+    
 
     useEffect(() => { }, [customerState]);
 

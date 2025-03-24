@@ -50,3 +50,7 @@ export const fetchDocumentTypes = async () => {
 export const fetchPolicies = async () => {
     return await dataFetcher(`${baseServerUrl}/reference-data-service/api/v1/policy/get-policies`, "policies");
 }
+
+export const fetchAdministrativeAreas = async () => {
+    return await dataFetcher(`${baseServerUrl}/reference-data-service/api/v1/administrative-area/get-administrative-areas`, "administrative areas");
+}

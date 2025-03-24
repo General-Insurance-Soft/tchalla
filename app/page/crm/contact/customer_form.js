@@ -1,4 +1,28 @@
+import React, { useEffect, useState } from "react";
+
+import { fetchAdministrativeAreas } from "../../../lib/service/model";
+
 export default function CustomerForm({ action, setShowEditForm, isUserPage }) {
+
+    let [administrativeAreas, setAdministrativeAreas] = useState([]);
+
+    useEffect(() => {
+
+
+        const fetchAdministrativeAreasData = async () => {
+            let res = await fetchAdministrativeAreas();
+            if ('error' in res) {
+                return;
+            }
+            setAdministrativeAreas(res);
+        };
+
+        fetchAdministrativeAreasData();
+
+
+    }, []);
+
+
     return (
         <>
             {
@@ -77,20 +101,26 @@ export default function CustomerForm({ action, setShowEditForm, isUserPage }) {
                 </div>
                 <div className="col-md-4">
                     <select id="inputState" className="form-select">
-                        {action === "add" ? [<option key={1} defaultValue>Country...</option>, <option key={2}>Kenya</option>] : <option>Kenya</option>}
-                        <option>Uganda</option>
-                        <option>Zambia</option>
-                        <option>Rwanda</option>
+                        {action === "add" ? [<option key={1} defaultValue>Country...</option>] : <option>Kenya</option>}
+                        {administrativeAreas.map((area, index) => {
+                            if (area.level === 1) {
+                                return <option key={index}>{area.name}</option>;
+                            }
+                        }
+                        )}
                     </select>
                 </div>
                 <div className="col-md-4">
                     <select id="inputState" className="form-select">
 
-                        {action === "add" ? [<option key={1} defaultValue>County...</option>, <option key={2} >Nakuru</option>] : <option>Nakuru</option>}
+                        {action === "add" ? [<option key={1} defaultValue>County...</option>] : <option>Nakuru</option>}
 
-                        <option>Kericho</option>
-                        <option>Mombasa</option>
-                        <option>Nairobi</option>
+                        {administrativeAreas.map((area, index) => {
+                            if (area.level === 2) {
+                                return <option key={index}>{area.name}</option>;
+                            }
+                        }
+                        )}
                     </select>
                 </div>
                 <div className="col-md-4">
@@ -111,7 +141,7 @@ export default function CustomerForm({ action, setShowEditForm, isUserPage }) {
                     <label for="img2">Select KRA pin:</label>
                     <input type="file" id="img2" name="img" accept="image/*" className="form-control" />
                 </div>
-               
+
             </form>
         </>
     );
