@@ -5,7 +5,7 @@ import CustomerForm from "../../crm/contact/customer_form";
 import { useEffect, useState, useRef } from "react";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies } from "../../../lib/service/model";
+import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -35,9 +35,10 @@ const Page = () => {
     let [administrativeArea, setAdministrativeArea] = useState('');
     let [customerGroup, setCustomerGroup] = useState(0);
     let [kraPin, setKraPin] = useState('');
-    let [identificationCard, setIdentificationCard] = useState('');
+    let [identificationCardId, setIdentificationCardId] = useState('');
 
-    let saveProposal = () => {
+    let saveProposal = (event) => { 
+        event.preventDefault();
         // Save the proposal data to the server or perform any other action 
         console.log("Proposal data saved:", {
             proposalNumber,
@@ -59,9 +60,32 @@ const Page = () => {
             administrativeArea,
             customerGroup,
             kraPin,
-            identificationCard,
+            identificationCardId,
             proposalDocuments
         });
+
+        let data = {
+            "proposal": {
+                "policy_type_id": policyId,
+                "start_date": startDate,
+                "end_date": endDate,
+                "insurance_company_id": insuranceCompanyId,
+                "reference_number": proposalNumber,
+                "proposal_documents": proposalDocuments
+            },
+            "contact": {
+                "first_name": firstName,
+                "last_name": thirdName,
+                "gender": gender,
+                "phone": phoneNumber,
+                "id_number": identificationCardId,
+                "address": {
+                    "administrative_area": administrativeArea,
+                    "country_code": countryCode
+                }
+            }
+        }
+        saveProposalAndContact(data);
     };
 
     useEffect(() => { }, [customerState]);
@@ -158,7 +182,7 @@ const Page = () => {
                         }
 
                         <div className="ms-auto">
-                            <button onClick={() => saveProposal()} className="btn btn-primary me-2">Save</button>
+                            <button onClick={(e) => saveProposal(e)} className="btn btn-primary me-2">Save</button>
                             <button className="btn btn-secondary">Reset</button>
                         </div>
                     </div>
@@ -209,8 +233,8 @@ const Page = () => {
                                         setCustomerGroup={setCustomerGroup}
                                         kraPin={kraPin}
                                         setKraPin={setKraPin}
-                                        identificationCard={identificationCard}
-                                        setIdentificationCard={setIdentificationCard}
+                                        identificationCardId={identificationCardId}
+                                        setIdentificationCardId={setIdentificationCardId}
                                     />
 
                                     <hr />
@@ -360,7 +384,7 @@ const Page = () => {
 
                         <div className="text-center mb-3">
                             <div className="d-flex justify-content-center">
-                                <button onClick={() => saveProposal()} className="btn btn-primary me-2">Save</button>
+                                <button onClick={(e) => saveProposal(e)} className="btn btn-primary me-2">Save</button>
                                 <button className="btn btn-secondary">Cancel</button>
                             </div>
                         </div>

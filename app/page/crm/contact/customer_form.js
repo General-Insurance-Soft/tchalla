@@ -16,7 +16,7 @@ export default function CustomerForm({
     administrativeArea, setAdministrativeArea,
     customerGroup, setCustomerGroup,
     kraPin, setKraPin,
-    identificationCard, setIdentificationCard,
+    identificationCardId, setIdentificationCardId,
 }) {
 
     let [administrativeAreas, setAdministrativeAreas] = useState([]);
@@ -46,7 +46,7 @@ export default function CustomerForm({
             setAdministrativeArea('');
             setCustomerGroup(0);
             setKraPin('');
-            setIdentificationCard('');
+            setIdentificationCardId('');
 
         } else {
             // Fetch the data for the user and populate the state variables
@@ -95,8 +95,8 @@ export default function CustomerForm({
                 </div>
                 <div className="col-md-4">
                     <input key={1}
-                        value={identificationCard}
-                        onChange={(event) => setIdentificationCard(event.target.value)}
+                        value={identificationCardId}
+                        onChange={(event) => setIdentificationCardId(event.target.value)}
                         type="text" className="form-control" placeholder="ID/Passport No." />
                 </div>
                 <div className="col-md-4">

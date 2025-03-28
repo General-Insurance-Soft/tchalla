@@ -7,7 +7,7 @@ Reference-data-Service
 ======================
 */
 
-let dataFetcher = async (url, dataName) => {
+let dataFetch = async (url, dataName) => {
 
     let token = getToken("access");
 
@@ -39,18 +39,57 @@ let dataFetcher = async (url, dataName) => {
     }
 }
 
+let dataPost = async (url, data, dataName) => {
+
+    let token = getToken("access");
+
+    try {
+        let response = await fetch(url, {
+            method: "Post",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+
+        let res = await response;
+        if (!res.ok) {
+            console.log(`Error posting data:  ${dataName}`);
+            return {
+                "error": `Could not post data:  ${dataName}`
+            };
+        }
+        return res.json();
+
+    } catch (error) {
+        console.error(`Error posting:  ${dataName}:`, error);
+        let returnVal = {
+            "error": "Error posting data"
+        };
+
+        return returnVal;
+    }
+}
+
 export const fetchInsuranceCopanies = async () => {
-    return await dataFetcher(`${baseServerUrl}/reference-data-service/api/v1/insurance-company/get-insurance-companies`, "insurance companies");
+    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/insurance-company/get-insurance-companies`, "insurance companies");
 }
 
 export const fetchDocumentTypes = async () => {
-    return await dataFetcher(`${baseServerUrl}/reference-data-service/api/v1/document-type/get-document-types`, "document types");
+    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/document-type/get-document-types`, "document types");
 }
 
 export const fetchPolicies = async () => {
-    return await dataFetcher(`${baseServerUrl}/reference-data-service/api/v1/policy/get-policies`, "policies");
+    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/policy/get-policies`, "policies");
 }
 
 export const fetchAdministrativeAreas = async () => {
-    return await dataFetcher(`${baseServerUrl}/reference-data-service/api/v1/administrative-area/get-administrative-areas`, "administrative areas");
+    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/administrative-area/get-administrative-areas`, "administrative areas");
 }
+
+export const saveProposalAndContact = async (data) => {
+    return await dataPost(`${baseServerUrl}/api/v1/client-service/proposal-user/save`, data, "proposal & contact save");
+}
+
+
