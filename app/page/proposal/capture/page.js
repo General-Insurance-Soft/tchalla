@@ -135,7 +135,7 @@ const Page = () => {
                         {
                             customerState === "new" ?
                                 <>
-                                    <CustomerForm action="add" />
+                                    <CustomerForm action="add" isUserPage ={false}/>
                                     <hr />
                                 </>
                                 :
