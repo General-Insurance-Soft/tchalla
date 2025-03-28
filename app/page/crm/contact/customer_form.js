@@ -160,27 +160,30 @@ export default function CustomerForm({
                     </select>
                 </div>
                 <div className="col-md-4">
-                    <label for="customer-group">Select customer group:</label>
                     <select id="customer-group"
                         value={customerGroup}
                         onChange={(event) => setCustomerGroup(event.target.value)}
                         className="form-select"
                     >
-                        <option key={0} value={0} defaultValue>None...</option>
+                        <option key={0} value={0} defaultValue>Select customer group:</option>
                         <option key={2} value={1}>Group 1</option>
                         <option key={3} value={2}>Group 2</option>
                     </select>
                 </div>
-                <div className="col-md-4">
-                    <label for="img">Select passport/ID image:</label>
-                    <input type="file" id="img" name="img" accept="image/*" className="form-control" />
-                </div>
 
-                <div className="col-md-4">
-                    <label for="img2">Select KRA pin:</label>
-                    <input type="file" id="img2" name="img" accept="image/*" className="form-control" />
-                </div>
+                <div className="col-sm-12">
+                    <div className="row">
+                        <div className="col-md-4">
+                            <label for="img">Select passport/ID image:</label>
+                            <input type="file" id="img" name="img" accept="image/*" className="form-control" />
+                        </div>
 
+                        <div className="col-md-4">
+                            <label for="img2">Select KRA pin:</label>
+                            <input type="file" id="img2" name="img" accept="image/*" className="form-control" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );
