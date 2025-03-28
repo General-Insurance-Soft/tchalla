@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react";
 
 import { fetchAdministrativeAreas } from "../../../lib/service/model";
 
-export default function CustomerForm({ action, setShowEditForm, isUserPage }) {
+export default function CustomerForm({
+    action, setShowEditForm,
+    isUserPage,
+    firstName, setFirstName,
+    secondName, setSecondName,
+    thirdName, setThirdName,
+    phoneNumber, setPhoneNumber,
+    email, setEmail,
+    gender, setGender,
+    address, setAddress,
+    countryCode, setCountryCode,
+    administrativeArea, setAdministrativeArea,
+    customerGroup, setCustomerGroup,
+    kraPin, setKraPin,
+    identificationCard, setIdentificationCard,
+}) {
 
     let [administrativeAreas, setAdministrativeAreas] = useState([]);
-    let [firstName, setFirstName] = useState('');
-    let [secondName, setSecondName] = useState('');
-    let [thirdName, setThirdName] = useState('');
-    let [phoneNumber, setPhoneNumber] = useState('');
-    let [email, setEmail] = useState('');
-    let [gender, setGender] = useState('');
-    let [address, setAddress] = useState('');
-    let [countryCode, setCountryCode] = useState('');
-    let [administrativeArea, setAdministrativeArea] = useState('');
-    let [customerGroup, setCustomerGroup] = useState(0);
-    let [kraPin, setKraPin] = useState('');
-    let [identificationCard, setDdentificationCard] = useState('');
-
-
 
     useEffect(() => {
         const fetchAdministrativeAreasData = async () => {
@@ -45,7 +46,7 @@ export default function CustomerForm({ action, setShowEditForm, isUserPage }) {
             setAdministrativeArea('');
             setCustomerGroup(0);
             setKraPin('');
-            setDdentificationCard('');
+            setIdentificationCard('');
 
         } else {
             // Fetch the data for the user and populate the state variables
