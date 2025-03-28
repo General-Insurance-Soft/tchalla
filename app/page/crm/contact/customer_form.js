@@ -95,6 +95,12 @@ export default function CustomerForm({
                 </div>
                 <div className="col-md-4">
                     <input key={1}
+                        value={identificationCard}
+                        onChange={(event) => setIdentificationCard(event.target.value)}
+                        type="text" className="form-control" placeholder="ID/Passport No." />
+                </div>
+                <div className="col-md-4">
+                    <input key={1}
                         value={phoneNumber}
                         onChange={(event) => setPhoneNumber(event.target.value)}
                         type="text" className="form-control" placeholder="Phone Number" />

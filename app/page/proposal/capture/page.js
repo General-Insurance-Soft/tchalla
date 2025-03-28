@@ -60,6 +60,7 @@ const Page = () => {
             customerGroup,
             kraPin,
             identificationCard,
+            proposalDocuments
         });
     };
 
@@ -278,7 +279,7 @@ const Page = () => {
                                 <div className="col-md-3">
                                     <label htmlFor="copyName">Document type:</label>
                                     <select id="policy" className="form-select"
-                                        onChange={
+                                        onChange={() => (
                                             setProposalDocuments([
                                                 {
                                                     "folder_name": "folder_one",
@@ -286,6 +287,8 @@ const Page = () => {
                                                     "blob_url": "http://vvv.vvv.vvv.vvvvvvvvvvvvvvvvvvvvv"
                                                 }
                                             ])
+                                        )
+
                                         }
                                     >
                                         <option defaultValue>None...</option>
