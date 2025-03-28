@@ -5,7 +5,7 @@ import CustomerForm from "../../crm/contact/customer_form";
 import { useEffect, useState, useRef } from "react";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies } from "../../../lib/service/model";
+import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -14,15 +14,88 @@ const Page = () => {
     let [insuranceCompanies, setInsuranceCompanies] = useState([]);
     let [documentTypes, setDocumentTypes] = useState([]);
     let [policies, setPolicies] = useState([]);
-    
+
+    let [proposalNumber, setProposalNumber] = useState('');
+    let [insuranceCompanyId, setInsuranceCompanyId] = useState('');
+    let [policyId, setPolicyId] = useState('');
+    let [startDate, setStartDate] = useState('');
+    let [endDate, setEndDate] = useState('');
+    let [proposalDocuments, setProposalDocuments] = useState([]);
+
+
+    //customer state (lifted from CustomerForm)
+    let [firstName, setFirstName] = useState('');
+    let [secondName, setSecondName] = useState('');
+    let [thirdName, setThirdName] = useState('');
+    let [phoneNumber, setPhoneNumber] = useState('');
+    let [email, setEmail] = useState('');
+    let [gender, setGender] = useState('');
+    let [address, setAddress] = useState('');
+    let [countryCode, setCountryCode] = useState('');
+    let [administrativeArea, setAdministrativeArea] = useState('');
+    let [customerGroup, setCustomerGroup] = useState(0);
+    let [kraPin, setKraPin] = useState('');
+    let [identificationCardId, setIdentificationCardId] = useState('');
+
+    let saveProposal = (event) => { 
+        event.preventDefault();
+        // Save the proposal data to the server or perform any other action 
+        console.log("Proposal data saved:", {
+            proposalNumber,
+            insuranceCompanyId,
+            policyId,
+            startDate,
+            endDate,
+        });
+
+        console.log("Customer data saved:", {
+            firstName,
+            secondName,
+            thirdName,
+            phoneNumber,
+            email,
+            gender,
+            address,
+            countryCode,
+            administrativeArea,
+            customerGroup,
+            kraPin,
+            identificationCardId,
+            proposalDocuments
+        });
+
+        let data = {
+            "proposal": {
+                "policy_type_id": policyId,
+                "start_date": startDate,
+                "end_date": endDate,
+                "insurance_company_id": insuranceCompanyId,
+                "reference_number": proposalNumber,
+                "proposal_documents": proposalDocuments
+            },
+            "contact": {
+                "first_name": firstName,
+                "last_name": thirdName,
+                "gender": gender,
+                "phone": phoneNumber,
+                "id_number": identificationCardId,
+                "address": {
+                    "administrative_area": administrativeArea,
+                    "country_code": countryCode
+                }
+            }
+        }
+        saveProposalAndContact(data);
+    };
 
     useEffect(() => { }, [customerState]);
 
+    //initialize fieds with server data
     useEffect(() => {
 
         const fetchInsuranceCompaniesData = async () => {
             let res = await fetchInsuranceCopanies();
-            if('error' in res){
+            if ('error' in res) {
                 return;
             }
             setInsuranceCompanies(res);
@@ -30,7 +103,7 @@ const Page = () => {
 
         const fetchDocumentTypesData = async () => {
             let res = await fetchDocumentTypes();
-            if('error' in res){
+            if ('error' in res) {
                 return;
             }
             setDocumentTypes(res);
@@ -38,7 +111,7 @@ const Page = () => {
 
         const fetchPoliciesData = async () => {
             let res = await fetchPolicies();
-            if('error' in res){
+            if ('error' in res) {
                 return;
             }
             setPolicies(res);
@@ -49,8 +122,6 @@ const Page = () => {
         fetchInsuranceCompaniesData();
 
     }, []);
-
-
 
     let handleCustomerState = (value) => {
         setCutomerState(value);
@@ -67,8 +138,6 @@ const Page = () => {
     }
 
     return (
-
-
 
         <>
             <div className="pagetitle">
@@ -113,7 +182,7 @@ const Page = () => {
                         }
 
                         <div className="ms-auto">
-                            <button className="btn btn-primary me-2">Save</button>
+                            <button onClick={(e) => saveProposal(e)} className="btn btn-primary me-2">Save</button>
                             <button className="btn btn-secondary">Reset</button>
                         </div>
                     </div>
@@ -122,11 +191,15 @@ const Page = () => {
 
                     <div className="d-flex justify-content-start mb-3">
                         <div className="">
-                            
+
                         </div>
 
                         <div className="">
-                            <input id="proposal_tag" type="text" className="form-control" placeholder="proposal reference" />
+                            <input id="proposal_tag"
+                                value={proposalNumber}
+                                onChange={(e) => setProposalNumber(e.target.value)}
+                                type="text" className="form-control"
+                                placeholder="proposal reference" />
                         </div>
                     </div>
 
@@ -135,7 +208,35 @@ const Page = () => {
                         {
                             customerState === "new" ?
                                 <>
-                                    <CustomerForm action="add" />
+                                    <CustomerForm
+                                        action="add"
+                                        isUserPage={false}
+                                        firstName={firstName}
+                                        setFirstName={setFirstName}
+                                        secondName={secondName}
+                                        setSecondName={setSecondName}
+                                        thirdName={thirdName}
+                                        setThirdName={setThirdName}
+                                        phoneNumber={phoneNumber}
+                                        setPhoneNumber={setPhoneNumber}
+                                        email={email}
+                                        setEmail={setEmail}
+                                        gender={gender}
+                                        setGender={setGender}
+                                        address={address}
+                                        setAddress={setAddress}
+                                        countryCode={countryCode}
+                                        setCountryCode={setCountryCode}
+                                        administrativeArea={administrativeArea}
+                                        setAdministrativeArea={setAdministrativeArea}
+                                        customerGroup={customerGroup}
+                                        setCustomerGroup={setCustomerGroup}
+                                        kraPin={kraPin}
+                                        setKraPin={setKraPin}
+                                        identificationCardId={identificationCardId}
+                                        setIdentificationCardId={setIdentificationCardId}
+                                    />
+
                                     <hr />
                                 </>
                                 :
@@ -143,10 +244,12 @@ const Page = () => {
                         }
                         <div className="col-sm-12">
                             <div className="row d-flex align-items-end">
-
-                                <div className="col-md-4">
+                                <div className="col-md-3">
                                     <label for="insurance">Select insurance:</label>
-                                    <select id="insurance" className="form-select">
+                                    <select id="insurance" className="form-select"
+                                        value={insuranceCompanyId}
+                                        onChange={(e) => setInsuranceCompanyId(e.target.value)}
+                                    >
                                         <option defaultValue>None...</option>
                                         {insuranceCompanies.map((company) => (
                                             <option key={company.id} value={company.id}>
@@ -155,9 +258,12 @@ const Page = () => {
                                         ))}
                                     </select>
                                 </div>
-                                <div className="col-md-4">
+                                <div className="col-md-3">
                                     <label for="policy">Select policy:</label>
-                                    <select id="policy" className="form-select">
+                                    <select id="policy" className="form-select"
+                                        value={policyId}
+                                        onChange={(e) => setPolicyId(e.target.value)}
+                                    >
                                         <option defaultValue>None...</option>
                                         {policies.map((company) => (
                                             <option key={company.id} value={company.id}>
@@ -166,6 +272,25 @@ const Page = () => {
                                         ))}
                                     </select>
                                 </div>
+
+                                <div className="col-md-3">
+                                    <label for="start_date">Start date:</label>
+                                    <input value={startDate}
+                                        onChange={(e) => setStartDate(e.target.value)}
+                                        id="start_date" type="date"
+                                        className="form-control"
+                                        placeholder="Start date" />
+                                </div>
+
+                                <div className="col-md-3">
+                                    <label for="end_date">End date:</label>
+                                    <input value={endDate}
+                                        onChange={(e) => setEndDate(e.target.value)}
+                                        id="end_date" type="date"
+                                        className="form-control"
+                                        placeholder="End date" />
+                                </div>
+
                             </div>
                         </div>
 
@@ -177,11 +302,23 @@ const Page = () => {
                                 </div>
                                 <div className="col-md-3">
                                     <label htmlFor="copyName">Document type:</label>
-                                    <select id="policy" className="form-select">
+                                    <select id="policy" className="form-select"
+                                        onChange={() => (
+                                            setProposalDocuments([
+                                                {
+                                                    "folder_name": "folder_one",
+                                                    "document_name": "passport",
+                                                    "blob_url": "http://vvv.vvv.vvv.vvvvvvvvvvvvvvvvvvvvv"
+                                                }
+                                            ])
+                                        )
+
+                                        }
+                                    >
                                         <option defaultValue>None...</option>
-                                        {documentTypes.map((company) => (
-                                            <option key={company.id} value={company.id}>
-                                                {company.name}
+                                        {documentTypes.map((doc) => (
+                                            <option key={doc.id} value={doc.id}>
+                                                {doc.name}
                                             </option>
                                         ))}
                                     </select>
@@ -247,7 +384,7 @@ const Page = () => {
 
                         <div className="text-center mb-3">
                             <div className="d-flex justify-content-center">
-                                <button className="btn btn-primary me-2">Save</button>
+                                <button onClick={(e) => saveProposal(e)} className="btn btn-primary me-2">Save</button>
                                 <button className="btn btn-secondary">Cancel</button>
                             </div>
                         </div>
@@ -255,10 +392,10 @@ const Page = () => {
                     </form>
 
                     {/* Modal */}
-                    
 
-                </div>
-            </div>
+
+                </div >
+            </div >
             <NewImageFolder modalRefVar={modalRef} />
         </>
 
