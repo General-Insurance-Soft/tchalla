@@ -20,6 +20,8 @@ const Page = () => {
     let [policyId, setPolicyId] = useState('');
     let [startDate, setStartDate] = useState('');
     let [endDate, setEndDate] = useState('');
+    let [proposalDocuments, setProposalDocuments] = useState([]);
+
 
     //customer state (lifted from CustomerForm)
     let [firstName, setFirstName] = useState('');
@@ -275,7 +277,17 @@ const Page = () => {
                                 </div>
                                 <div className="col-md-3">
                                     <label htmlFor="copyName">Document type:</label>
-                                    <select id="policy" className="form-select">
+                                    <select id="policy" className="form-select"
+                                        onChange={
+                                            setProposalDocuments([
+                                                {
+                                                    "folder_name": "folder_one",
+                                                    "document_name": "passport",
+                                                    "blob_url": "http://vvv.vvv.vvv.vvvvvvvvvvvvvvvvvvvvv"
+                                                }
+                                            ])
+                                        }
+                                    >
                                         <option defaultValue>None...</option>
                                         {documentTypes.map((doc) => (
                                             <option key={doc.id} value={doc.id}>
@@ -355,8 +367,8 @@ const Page = () => {
                     {/* Modal */}
 
 
-                </div>
-            </div>
+                </div >
+            </div >
             <NewImageFolder modalRefVar={modalRef} />
         </>
 
