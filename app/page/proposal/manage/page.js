@@ -65,14 +65,14 @@ const Page = () => {
         res.proposals.forEach((proposal) => {
 
             try {
-                proposal["updateByName"] = contactMap[proposal.updated_by].first_name + " " + contactMap[proposal.updated_by].second_name + " " + contactMap[proposal.updated_by].last_name;
+                proposal["updateByName"] = contactMap[proposal.updated_by].first_name + " " + contactMap[proposal.updated_by].last_name;
             } catch (error) {
                 console.log("Error in refresh proposal table =========>>>" + error);
                 proposal["updateByName"] = "";
             }
 
             try {
-                proposal["contactName"] = contactMap[proposal.contact_id].first_name + " " + contactMap[proposal.contact_id].second_name + " " + contactMap[proposal.contact_id].last_name;
+                proposal["contactName"] = contactMap[proposal.contact_id].first_name + " " + contactMap[proposal.contact_id].last_name;
             } catch (error) {
                 console.log("Error in refresh proposal table =========>>>" + error);
 
