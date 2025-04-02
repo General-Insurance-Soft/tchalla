@@ -1,14 +1,17 @@
 'use client'
 
-import { useRef, useState } from 'react';
+import { use, useRef, useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
+import { fetchProposalData } from "../../../lib/service/model";
 
 const Page = () => {
 
     const [showEditForm, setShowEditForm] = useState(false);
+    const [proposalList, setProposalList] = useState([]);
+
     const modalRef = useRef(null);
     const creatNewImageFolder = (event) => {
 
@@ -19,6 +22,24 @@ const Page = () => {
             }
         }
     }
+
+    useEffect(() => {
+
+        const fetchProposalList = async () => {
+            let res = await fetchProposalData(0,10);
+            if ('error' in res) {
+                return;
+            }
+            setProposalList(res);
+            console.log("Proposal list =========>>>");
+            console.log(res);
+        };
+
+        fetchProposalList();
+
+    }, []);
+
+
 
     return (
         <>
@@ -184,7 +205,7 @@ const Page = () => {
 
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div>
-                                            
+
                                         </div>
 
                                         <div>
@@ -311,7 +332,7 @@ const Page = () => {
                                     </form>
 
                                     {/* Modal */}
-                                    
+
                                 </div>
                             </div>
 

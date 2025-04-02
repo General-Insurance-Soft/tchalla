@@ -37,7 +37,7 @@ const Page = () => {
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
 
-    let saveProposal = (event) => { 
+    let saveProposal = (event) => {
         event.preventDefault();
         // Save the proposal data to the server or perform any other action 
         console.log("Proposal data saved:", {
@@ -46,22 +46,6 @@ const Page = () => {
             policyId,
             startDate,
             endDate,
-        });
-
-        console.log("Customer data saved:", {
-            firstName,
-            secondName,
-            thirdName,
-            phoneNumber,
-            email,
-            gender,
-            address,
-            countryCode,
-            administrativeArea,
-            customerGroup,
-            kraPin,
-            identificationCardId,
-            proposalDocuments
         });
 
         let data = {
