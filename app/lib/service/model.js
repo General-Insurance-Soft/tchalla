@@ -92,4 +92,6 @@ export const saveProposalAndContact = async (data) => {
     return await dataPost(`${baseServerUrl}/api/v1/client-service/proposal-user/save`, data, "proposal & contact save");
 }
 
-
+export const fetchProposalData = async (page, size) => {
+    return await dataFetch(`${baseServerUrl}/proposal-service/api/v1/proposal/get-proposals?page=${page}&size=${size}`, "proposal list");
+}
