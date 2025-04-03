@@ -48,16 +48,27 @@ const Page = () => {
         }
 
         let adminAreas = {};
-        res.administrative_areas.forEach((area) => {
-            adminAreas[area.id] = area;
-        });
+        try {
+            res.administrative_areas.forEach((area) => {
+                adminAreas[area.id] = area;
+            });
+        } catch (error) {
+            console.log("Error in res.administrative_areas =========>>>" + error);
+        }
+
         //setAdministrativeAreas(adminAreas);
 
         let contactMap = {};
-        res.contact.forEach((contc) => {
-            contactMap[contc.id] = contc;
 
-        });
+        try {
+            res.contact.forEach((contc) => {
+                contactMap[contc.id] = contc;
+
+            });
+        } catch (error) {
+            console.log("Error in res.contact =========>>>" + error);
+        }
+
         //setContacts(contactMap);
 
         let proposalLst = [];
@@ -205,14 +216,14 @@ const Page = () => {
                                 <div className="card-body">
                                     <h5 className="card-title">Edit Tom Lee proposal from date: 2024-09-11</h5>
 
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div className="d-flex justify-content-between align-items-center mb-3">
                                         <div>
 
                                         </div>
 
                                         <div>
-                                            <button class="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
-                                            <button class="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                                            <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
+                                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                                         </div>
                                     </div>
 
@@ -296,7 +307,7 @@ const Page = () => {
                                                         <div className="card">
                                                             <div className="card-body">
 
-                                                                <h6 class="card-subtitle mb-2 text-muted">Proposal</h6>
+                                                                <h6 className="card-subtitle mb-2 text-muted">Proposal</h6>
                                                                 <Image
                                                                     src="/img/receipt_template.jpg"
                                                                     // layout="responsive"
@@ -308,9 +319,9 @@ const Page = () => {
                                                                 <hr />
 
                                                                 <div className="d-flex">
-                                                                    <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                                    <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                                    <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                                    <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                                    <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                                    <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
