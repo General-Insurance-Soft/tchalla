@@ -69,6 +69,18 @@ const Page = () => {
             console.log("Error in res.contact =========>>>" + error);
         }
 
+        let updatedByMap = {};
+
+        try {
+            res.updatedBy.forEach((val) => {
+                updatedByMap[val.id] = val;
+
+            });
+        } catch (error) {
+            console.log("Error in res.updatedBy =========>>>" + error);
+        }
+
+
         //setContacts(contactMap);
 
         let proposalLst = [];
@@ -76,7 +88,7 @@ const Page = () => {
         res.proposals.forEach((proposal) => {
 
             try {
-                proposal["updateByName"] = contactMap[proposal.updated_by].first_name + " " + contactMap[proposal.updated_by].last_name;
+                proposal["updateByName"] = updatedByMap[proposal.updated_by].first_name + " " + updatedByMap[proposal.updated_by].third_name;
             } catch (error) {
                 console.log("Error in refresh proposal table =========>>>" + error);
                 proposal["updateByName"] = "";
