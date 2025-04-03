@@ -1,5 +1,5 @@
 
-export default function DeleteProposal() {
+export default function DeleteProposal({ deleteProposal }) {
 
     return (
 
@@ -17,7 +17,7 @@ export default function DeleteProposal() {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="btn btn-primary">Yes</button>
+                        <button type="button" className="btn btn-primary" onClick={()=>deleteProposal()}>Yes</button>
                     </div>
                 </div>
             </div>
