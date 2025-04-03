@@ -165,6 +165,10 @@ const Page = () => {
         }
     }
 
+    const resetSelectedProposal = () => {
+        setSelectedProposalId(null);
+    }
+
     return (
         <>
             <div className="pagetitle">
@@ -389,7 +393,7 @@ const Page = () => {
                 </div>
             </div>
             <NewImageFolder modalRefVar={modalRef} />
-            <DeleteProposal deleteProposal={deleteProposal} />
+            <DeleteProposal deleteProposal={deleteProposal} resetSelectedProposal={resetSelectedProposal} />
             <ProposalStatusModal ref={proposalStatusModalRef} messageStatus={messageStatus} />
         </>
 

@@ -12,8 +12,7 @@ const ProposalStatusModal = forwardRef(({ messageStatus }, ref) => {
                         <p>{messageStatus}</p>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="btn btn-primary">Yes</button>
+                        <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
