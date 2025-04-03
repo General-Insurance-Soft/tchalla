@@ -60,12 +60,15 @@ const Page = () => {
             "contact": {
                 "first_name": firstName,
                 "last_name": thirdName,
+                "second_name": secondName,
                 "gender": gender,
+                "email": email,
                 "phone": phoneNumber,
                 "id_number": identificationCardId,
                 "address": {
                     "administrative_area": administrativeArea,
-                    "country_code": countryCode
+                    "country_code": countryCode,
+                    "address": address
                 }
             }
         }

@@ -10,7 +10,10 @@ import { fetchProposalData } from "../../../lib/service/model";
 const Page = () => {
 
     const [showEditForm, setShowEditForm] = useState(false);
+    const [administrativeAreas, setAdministrativeAreas] = useState({});
+    const [contacts, setContacts] = useState({});
     const [proposalList, setProposalList] = useState([]);
+    const [res, setRes] = useState({});
 
     const modalRef = useRef(null);
     const creatNewImageFolder = (event) => {
@@ -26,20 +29,110 @@ const Page = () => {
     useEffect(() => {
 
         const fetchProposalList = async () => {
-            let res = await fetchProposalData(0,10);
+            let res = await fetchProposalData(0, 10);
             if ('error' in res) {
                 return;
             }
-            setProposalList(res);
-            console.log("Proposal list =========>>>");
-            console.log(res);
+            setRes(res);
         };
-
         fetchProposalList();
 
     }, []);
 
 
+    useEffect(() => {
+
+        if (!res || Object.keys(res).length === 0) {
+            console.log("res is empty");
+            return
+        }
+
+        let adminAreas = {};
+        try {
+            res.administrative_areas.forEach((area) => {
+                adminAreas[area.id] = area;
+            });
+        } catch (error) {
+            console.log("Error in res.administrative_areas =========>>>" + error);
+        }
+
+        //setAdministrativeAreas(adminAreas);
+
+        let contactMap = {};
+
+        try {
+            res.contact.forEach((contc) => {
+                contactMap[contc.id] = contc;
+
+            });
+        } catch (error) {
+            console.log("Error in res.contact =========>>>" + error);
+        }
+
+        //setContacts(contactMap);
+
+        let proposalLst = [];
+
+        res.proposals.forEach((proposal) => {
+
+            try {
+                proposal["updateByName"] = contactMap[proposal.updated_by].first_name + " " + contactMap[proposal.updated_by].last_name;
+            } catch (error) {
+                console.log("Error in refresh proposal table =========>>>" + error);
+                proposal["updateByName"] = "";
+            }
+
+            try {
+                proposal["contactName"] = contactMap[proposal.contact_id].first_name + " " + contactMap[proposal.contact_id].last_name;
+            } catch (error) {
+                console.log("Error in refresh proposal table =========>>>" + error);
+
+                proposal["contactName"] = "";
+            }
+
+            try {
+                proposal["address"] = contactMap[proposal.contact_id].address.address;
+            } catch (error) {
+                console.log("Error in refresh proposal table =========>>>" + error);
+                proposal["address"] = "";
+            }
+
+            try {
+                proposal["country"] = adminAreas[contactMap[proposal.contact_id].address.country_code].name;
+            } catch (error) {
+                console.log("Error in refresh proposal table =========>>>" + error);
+                proposal["country"] = "";
+            }
+
+            try {
+                proposal["county"] = adminAreas[contactMap[proposal.contact_id].address.administrative_area].name;
+            } catch (error) {
+                console.log("Error in refresh proposal table =========>>>" + error);
+                proposal["county"] = "";
+            }
+
+            try {
+                proposal["phone"] = contactMap[proposal.contact_id].phone;
+            } catch (error) {
+                console.log("Error in refresh proposal table =========>>>" + error);
+
+                proposal["phone"] = "";
+            }
+
+            try {
+                proposal["email"] = contactMap[proposal.contact_id].email;
+            } catch (error) {
+                console.log("Error in refresh proposal table =========>>>" + error);
+                proposal["email"] = "";
+            }
+
+            proposalLst.push(proposal);
+
+        });
+
+        setProposalList(proposalLst);
+
+    }, [res]);
 
     return (
         <>
@@ -85,111 +178,31 @@ const Page = () => {
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info"
-                                            onClick={() => setShowEditForm(true)}
-                                        ><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
+                                {
+                                    proposalList.map((proposal, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td>{proposal["contactName"]}</td>
+                                                <td>{proposal["phone"]}</td>
+                                                <td>{proposal["email"]}</td>
+                                                <td>{proposal["country"]}</td>
+                                                <td>{proposal["county"]}</td>
+                                                <td>{proposal["address"]}</td>
+                                                <td>{proposal.end_date}</td>
+                                                <td>3</td>
+                                                <td>{proposal["updateByName"]}</td>
+                                                <td>{proposal.updated_at}</td>
+                                                <td>
+                                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info"
+                                                        onClick={() => setShowEditForm(true)}
+                                                    ><i className="bi bi-pencil-square"></i></button>
+                                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })
+                                }
 
                             </tbody>
                         </table>
@@ -203,14 +216,14 @@ const Page = () => {
                                 <div className="card-body">
                                     <h5 className="card-title">Edit Tom Lee proposal from date: 2024-09-11</h5>
 
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div className="d-flex justify-content-between align-items-center mb-3">
                                         <div>
 
                                         </div>
 
                                         <div>
-                                            <button class="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
-                                            <button class="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                                            <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
+                                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                                         </div>
                                     </div>
 
@@ -294,7 +307,7 @@ const Page = () => {
                                                         <div className="card">
                                                             <div className="card-body">
 
-                                                                <h6 class="card-subtitle mb-2 text-muted">Proposal</h6>
+                                                                <h6 className="card-subtitle mb-2 text-muted">Proposal</h6>
                                                                 <Image
                                                                     src="/img/receipt_template.jpg"
                                                                     // layout="responsive"
@@ -306,9 +319,9 @@ const Page = () => {
                                                                 <hr />
 
                                                                 <div className="d-flex">
-                                                                    <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                                    <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                                    <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                                    <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                                    <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                                    <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
