@@ -72,6 +72,38 @@ let dataPost = async (url, data, dataName) => {
     }
 }
 
+let dataDeleteById = async (url, dataName) => {
+
+    let token = getToken("access");
+
+    try {
+        let response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        let res = await response;
+        if (!res.ok) {
+            console.log(`Error fetching ${dataName}`);
+            return {
+                "error": `Could not fetch ${dataName}`
+            };
+        }
+        return res.json();
+
+    } catch (error) {
+        console.error(`Error getting ${dataName}:`, error);
+        let returnVal = {
+            "error": "Error getting data"
+        };
+
+        return returnVal;
+    }
+}
+
 export const fetchInsuranceCopanies = async () => {
     return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/insurance-company/get-insurance-companies`, "insurance companies");
 }
@@ -94,4 +126,8 @@ export const saveProposalAndContact = async (data) => {
 
 export const fetchProposalData = async (page, size) => {
     return await dataFetch(`${baseServerUrl}/proposal-service/api/v1/proposal/get-proposals?page=${page}&size=${size}`, "proposal list");
+}
+
+export const daleteProposal = async (id) => {
+    return await dataDeleteById(`${baseServerUrl}/proposal-service/api/v1/proposal/delete?id=${id}`, "proposal delete");
 }

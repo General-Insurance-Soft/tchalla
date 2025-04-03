@@ -1,11 +1,13 @@
 'use client'
 
-import { use, useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchProposalData } from "../../../lib/service/model";
+import DeleteProposal from './delete-proposal.js';
+import ProposalStatusModal from './proposal-status-message.js';
+import { fetchProposalData, daleteProposal } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -14,6 +16,9 @@ const Page = () => {
     const [contacts, setContacts] = useState({});
     const [proposalList, setProposalList] = useState([]);
     const [res, setRes] = useState({});
+    const [selectedProposalId, setSelectedProposalId] = useState(null);
+    const [messageStatus, setMessageStatus] = useState("");
+    const proposalStatusModalRef = useRef(null);
 
     const modalRef = useRef(null);
     const creatNewImageFolder = (event) => {
@@ -146,6 +151,24 @@ const Page = () => {
 
     }, [res]);
 
+    const deleteProposal = async () => {
+        if (selectedProposalId == null) return
+
+        let res = await daleteProposal(selectedProposalId);
+        console.log("delete proposal res", res);
+        setMessageStatus(res.message);
+
+        // Show the ProposalStatusModal
+        if (proposalStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
+            modal.show();
+        }
+    }
+
+    const resetSelectedProposal = () => {
+        setSelectedProposalId(null);
+    }
+
     return (
         <>
             <div className="pagetitle">
@@ -209,7 +232,10 @@ const Page = () => {
                                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info"
                                                         onClick={() => setShowEditForm(true)}
                                                     ><i className="bi bi-pencil-square"></i></button>
-                                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                    <button type="button" data-bs-toggle="modal"
+                                                        onClick={() => setSelectedProposalId(proposal.id)}
+                                                        data-bs-target="#deleteProposalModal"
+                                                        className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                 </td>
                                             </tr>
                                         );
@@ -367,6 +393,8 @@ const Page = () => {
                 </div>
             </div>
             <NewImageFolder modalRefVar={modalRef} />
+            <DeleteProposal deleteProposal={deleteProposal} resetSelectedProposal={resetSelectedProposal} />
+            <ProposalStatusModal ref={proposalStatusModalRef} messageStatus={messageStatus} />
         </>
 
     );
