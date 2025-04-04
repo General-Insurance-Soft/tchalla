@@ -45,6 +45,14 @@ export default function RootLayout({ children }) {
     checkAuth();
   }, []);
 
+  let clearApiCache = () => {
+    for (let key in localStorage) {
+      if (key.startsWith("cache:")) {
+        localStorage.removeItem(key);
+      }
+    }
+  }
+
   return (
 
     <>
@@ -327,6 +335,7 @@ export default function RootLayout({ children }) {
                           <a onClick={
                             () => {
                               Cookies.remove("authToken");
+                              clearApiCache();
                               window.location.href = '/login';
                             }
                           }
