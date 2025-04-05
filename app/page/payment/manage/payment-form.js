@@ -36,7 +36,7 @@ export default function PaymentForm({ paymentAction }) {
                             </div>
 
                             <div className="col-md-4">
-                                <labelhtmlFor="firstName"> First name:</label>
+                                <label htmlFor="firstName"> First name:</label>
                                 {paymentAction === "add" ?
                                     <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
                                     :
@@ -48,7 +48,7 @@ export default function PaymentForm({ paymentAction }) {
 
                             </div>
                             <div className="col-md-4">
-                                <labelhtmlFor="phone"> Second name:</label>
+                                <label htmlFor="phone"> Second name:</label>
                                 {paymentAction === "add" ?
                                     <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
                                     :
@@ -61,13 +61,13 @@ export default function PaymentForm({ paymentAction }) {
 
                             </div>
                             <div className="col-md-4">
-                                <labelhtmlFor="thirdName"> Third Name:</label>
+                                <label htmlFor="thirdName"> Third Name:</label>
                                 {paymentAction === "add" ?
                                     <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
                                     :
                                     <>
 
-                                        <inputhtmlFor="thirdName" type="text" className="form-control" value="Lee" />
+                                        <input htmlFor="thirdName" type="text" className="form-control" value="Lee" />
                                     </>
 
                                 }
@@ -75,7 +75,7 @@ export default function PaymentForm({ paymentAction }) {
                             </div>
 
                             <div className="col-md-4">
-                                <labelhtmlFor="Passport"> Id/Passport:</label>
+                                <label htmlFor="Passport"> Id/Passport:</label>
                                 {paymentAction === "add" ?
                                     <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
                                     :
@@ -89,7 +89,7 @@ export default function PaymentForm({ paymentAction }) {
                             </div>
 
                             <div className="col-md-4">
-                                <labelhtmlFor="Passport">Ref No:</label>
+                                <label htmlFor="Passport">Ref No:</label>
                                 {paymentAction === "add" ?
                                     <input id="refNo" type="text" className="form-control" />
                                     :
@@ -99,7 +99,7 @@ export default function PaymentForm({ paymentAction }) {
                             </div>
 
                             <div className="col-md-4">
-                                <labelhtmlFor="Passport">Payment Mode:</label>
+                                <label htmlFor="Passport">Payment Mode:</label>
 
                                 <select id="inputState" className="form-select" key={paymentAction}>
                                     {
@@ -124,7 +124,7 @@ export default function PaymentForm({ paymentAction }) {
 
                             </div>
                             <div className="col-md-4">
-                                <labelhtmlFor="Passport">Amount:</label>
+                                <label htmlFor="Passport">Amount:</label>
                                 {paymentAction === "add" ?
                                     <input id="amount" type="text" className="form-control" />
                                     :
@@ -133,7 +133,7 @@ export default function PaymentForm({ paymentAction }) {
 
                             </div>
                             <div className="col-md-4">
-                                <labelhtmlFor="Passport">Payment Date:</label>
+                                <label htmlFor="Passport">Payment Date:</label>
                                 {paymentAction === "add" ?
                                     <input type="date"  key={paymentAction} className="form-control" />
                                     :
@@ -142,7 +142,7 @@ export default function PaymentForm({ paymentAction }) {
 
                             </div>
                             <div className="col-md-4">
-                                <labelhtmlFor="Passport">SMS Sent:</label>
+                                <label htmlFor="Passport">SMS Sent:</label>
 
                                 <select id="inputState" className="form-select" key={paymentAction}>
 

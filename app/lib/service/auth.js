@@ -1,3 +1,4 @@
+import { clearApiCache, getToken } from '../utils/util';
 import { baseServerUrl } from './setup';
 import Cookies from 'js-cookie';
 
@@ -46,6 +47,7 @@ export const validateToken = async () => {
             }
             else {
                 console.log("Failed to validate token, redirecting to login page");
+                clearApiCache();
                 window.location.href = '/login';
                 returnVal = false;
                 return returnVal;
@@ -131,6 +133,77 @@ export const signIn = async (formData) => {
         return returnVal;
     }
 
+}
+
+export const fetchUserData = async (userId, tkn) => {
+    try {
+
+        if(typeof window != 'undefined'){
+            if(localStorage.getItem('userData')){
+                let userData = JSON.parse(localStorage.getItem('userData'));
+                return userData;
+            }
+        }
+
+        if(!userId){
+            console.log("No user id found");
+            return null;
+        }
+
+        if (!tkn) tkn = getToken('access');
+
+        const response = await fetch(`${baseServerUrl}/user-service/api/v1/user/get?user=${userId}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${tkn}`
+            }
+        });
+
+        if(!response.ok) {
+            console.log("Failed to fetch user data");
+        }
+        const res = await response.json();
+        
+        return res;
+    } catch (err) {
+        console.error("Error fetching user data:", err);
+        throw err;
+    }
+}
+
+export const doProfileUpdate = (updateData, userId) => {
+    // check that the logged in user == userId
+    // if not, return an error
+    let current_user = fetchUserData();
+    if(!current_user || current_user['id'] != userId){
+        return {
+            "error": "Unauthorized"
+        }
+    }
+
+    let token = getToken("access");
+    updateData.user = userId;
+    updateData.id = userId;
+    try {
+        let response = fetch(`${baseServerUrl}/user-service/api/v1/user/update`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(updateData)
+        });
+
+        let res = response;
+        if (!res.ok) {
+            console.log("Error updating user data");
+        }
+        return res.json();
+    } catch (error) {
+        console.error("Error updating user data:", error);
+        throw error;
+    }
 }
 
 export async function doSignUp(formData) {

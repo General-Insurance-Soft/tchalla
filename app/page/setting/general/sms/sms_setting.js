@@ -13,13 +13,13 @@ export default function SmsSetting() {
                             <div className="row mb-3">
                                 <form>
                                     <div className="row mb-3">
-                                        <labelhtmlFor="firstAlert" className="col-sm-7 col-form-label">Specific days not to send SMS:</label>
+                                        <label htmlFor="firstAlert" className="col-sm-7 col-form-label">Specific days not to send SMS:</label>
                                         <div className="col-sm-5">
                                             <input type="text" className="form-control" id="firstAlert" />
                                         </div>
                                     </div>
                                     <div className="row mb-3">
-                                        <labelhtmlFor="subsequentAlert" className="col-sm-7 col-form-label">Time of day to send SMS:</label>
+                                        <label htmlFor="subsequentAlert" className="col-sm-7 col-form-label">Time of day to send SMS:</label>
                                         <div className="col-sm-5">
                                             From:
                                             <input type="text" className="form-control" id="subsequentAlert" />
@@ -28,32 +28,32 @@ export default function SmsSetting() {
                                         </div>
                                     </div>
                                     <div className="row mb-3">
-                                        <labelhtmlFor="maxAlert" className="col-sm-7 col-form-label">Send SMS on special events?</label>
+                                        <label htmlFor="maxAlert" className="col-sm-7 col-form-label">Send SMS on special events?</label>
                                         <div className="col-sm-5">
                                             <input className="form-check-input" type="checkbox" id="checkSMS1" />
                                         </div>
                                     </div>
                                     <div className="row mb-3">
-                                        <labelhtmlFor="maxAlert" className="col-sm-7 col-form-label">Special calender days/events not to send SMS:</label>
+                                        <label htmlFor="maxAlert" className="col-sm-7 col-form-label">Special calender days/events not to send SMS:</label>
                                         <div className="col-sm-5">
                                             <input type="text" className="form-control" id="maxAlert" />
                                         </div>
                                     </div>
                                     <div className="row mb-3">
-                                        <labelhtmlFor="maxAlert" className="col-sm-7 col-form-label">Send happy birthday SMS to clients?</label>
+                                        <label htmlFor="maxAlert" className="col-sm-7 col-form-label">Send happy birthday SMS to clients?</label>
                                         <div className="col-sm-5">
                                             <input className="form-check-input" type="checkbox" id="checkSMS" />
                                         </div>
                                     </div>
                                     <div className="row mb-3">
-                                        <labelhtmlFor="maxAlert" className="col-sm-7 col-form-label">Send policy expire SMS to clients?</label>
+                                        <label htmlFor="maxAlert" className="col-sm-7 col-form-label">Send policy expire SMS to clients?</label>
                                         <div className="col-sm-5">
                                             <input className="form-check-input" type="checkbox" id="checkPolicyExpire" />
                                         </div>
                                     </div>
 
                                     <div className="row mb-3">
-                                        <labelhtmlFor="maxAlert" className="col-sm-7 col-form-label">Remind me via SMS when credits are below this level?</label>
+                                        <label htmlFor="maxAlert" className="col-sm-7 col-form-label">Remind me via SMS when credits are below this level?</label>
                                         <div className="col-sm-5">
                                             <input className="form-check-input" type="checkbox" id="checkSMS" />
                                         </div>
@@ -78,12 +78,12 @@ export default function SmsSetting() {
                             <hr />
                             <form>
                                 <div className="row mb-3">
-                                    <labelhtmlFor="#" className="col-sm-7 col-form-label">Number of days to store sent SMS:</label>
+                                    <label htmlFor="#" className="col-sm-7 col-form-label">Number of days to store sent SMS:</label>
                                     <div className="col-sm-5">
                                         <input style={{ marginBottom: "5px" }} type="text" className="form-control" id="fileStoegaeLength" />
                                         <div className="form-check">
                                             <input className="form-check-input" type="checkbox" id="checkEmail" />
-                                            <label className="form-check-label"htmlFor="gridRadios3">
+                                            <label className="form-check-label" htmlFor="gridRadios3">
                                                 Indefinite
                                             </label>
                                         </div>

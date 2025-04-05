@@ -337,7 +337,7 @@ const Page = () => {
                                             </div>
                                             |
                                             <div className="d-flex gap-1">
-                                                <labelhtmlFor="age" className="col-form-label">Age: </label>
+                                                <label htmlFor="age" className="col-form-label">Age: </label>
                                                 <select id="age" className="form-select">
                                                     <option>equals</option>
                                                     <option>greater than</option>
@@ -347,7 +347,7 @@ const Page = () => {
                                             </div>
                                             |
                                             <div className="d-flex gap-1">
-                                                <labelhtmlFor="age" className="col-form-label">Name: </label>
+                                                <label htmlFor="age" className="col-form-label">Name: </label>
                                                 <select id="age" className="form-select">
                                                     <option>starts with</option>
                                                     <option>contains</option>

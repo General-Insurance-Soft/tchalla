@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { signIn } from '../lib/service/auth';
+import { signIn, fetchUserData } from '../lib/service/auth';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-
+import { jwtDecode } from 'jwt-decode';
 
 export default function LoginForm() {
 
@@ -26,11 +26,39 @@ export default function LoginForm() {
         try {
             let response = await signIn(formData);
             const data = await response;
-
             if ('jwtToken' in data && 'jwtRefreshToken' in data) {
                 // Set the authToken cookie
                 Cookies.set('authToken', JSON.stringify(data), { expires: 7, path: '/' });
-                router.push('/page');
+
+                const decodedToken = jwtDecode(data?.jwtToken?.token);
+
+                // if( typeof window != 'undefined' ){
+                //     window.localStorage.setItem('userData', JSON.stringify({
+                //         email: decodedToken['email'],
+                //         userId: decodedToken['user-id'],
+                //         orgId: decodedToken['organization-id'],
+                //         roles: decodedToken['authorities'] || [],
+                //     }));
+                // }
+
+                if(decodedToken['user-id']){
+                    fetchUserData(decodedToken['user-id'], data?.jwtToken?.token).then((userData) => {
+                        if (userData) {
+                            window.localStorage.setItem('userData', JSON.stringify({
+                                // ...JSON.parse(window.localStorage.getItem('userData')),
+                                ...userData
+                            }));
+                        }
+                    }
+                    ).catch((error) => {
+                        console.error('Error fetching user data:', error);
+                    }).finally(() => {
+                        router.push('/page');
+                    });
+                } else {
+                    router.push('/page');
+                }
+
             } else {
 
                 if ('messageString' in data) {
@@ -79,7 +107,7 @@ export default function LoginForm() {
 
                                     <div className="card-body">
 
-                                        <span id='signUpError' className="small text-center text-danger">
+                                        <span id='signUpError' className="small text-center text-danger p-2">
                                             {error && Object.keys(error).map(key => (
                                                 <div key={key}> * {error[key]}</div>
                                             ))}

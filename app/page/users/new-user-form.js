@@ -15,7 +15,7 @@ export default function NewUserForm({ userAction }) {
                     <div className="modal-body">
                         <form className="row g-3">
                             <div className="col-md-4">
-                                <labelhtmlFor="firstName"> First name:</label>
+                                <label htmlFor="firstName"> First name:</label>
 
                                 {
                                     userAction === "add" ?
@@ -26,7 +26,7 @@ export default function NewUserForm({ userAction }) {
 
                             </div>
                             <div className="col-md-4">
-                                <labelhtmlFor="secondName"> Second name:</label>
+                                <label htmlFor="secondName"> Second name:</label>
 
                                 {
                                     userAction === "add" ?
@@ -36,7 +36,7 @@ export default function NewUserForm({ userAction }) {
                                 }
                             </div>
                             <div className="col-md-4">
-                                <labelhtmlFor="email"> Email</label>
+                                <label htmlFor="email"> Email</label>
                                 {
                                     userAction === "add" ?
                                         <input id="email" className="form-control" type="text" aria-label="Email" key={userAction}></input>
@@ -46,16 +46,16 @@ export default function NewUserForm({ userAction }) {
                             </div>
 
                             <div className="col-md-4">
-                                <labelhtmlFor="Passport">Password</label>
+                                <label htmlFor="Passport">Password</label>
                                 <input id="password1" type="password" className="form-control" />
                             </div>
                             <div className="col-md-4">
-                                <labelhtmlFor="Passport">Repeat Password</label>
+                                <label htmlFor="Passport">Repeat Password</label>
                                 <input id="password2" type="password" className="form-control" />
                             </div>
 
                             <div className="col-md-4">
-                                <labelhtmlFor="Passport">Role</label>
+                                <label htmlFor="Passport">Role</label>
                                 <select className="form-select" key={userAction}>
                                     {
                                         userAction === "add" ? [

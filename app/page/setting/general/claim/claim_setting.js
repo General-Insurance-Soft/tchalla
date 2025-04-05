@@ -12,7 +12,7 @@ export default function ClaimSetting() {
                         <div className="row mb-3">
                             <form>
                                 <div className="row mb-3">
-                                    <labelhtmlFor="firstAlert" className="col-sm-9 col-form-label">Remind me via SMS claims longer than this number of days:</label>
+                                    <label htmlFor="firstAlert" className="col-sm-9 col-form-label">Remind me via SMS claims longer than this number of days:</label>
                                     <div className="col-sm-3">
                                         <input type="text" className="form-control" id="firstAlert" />
                                     </div>
@@ -33,12 +33,12 @@ export default function ClaimSetting() {
                         <hr />
                         <form>
                             <div className="row mb-3">
-                                <labelhtmlFor="#" className="col-sm-9 col-form-label">Number of days to store attached claim files:</label>
+                                <label htmlFor="#" className="col-sm-9 col-form-label">Number of days to store attached claim files:</label>
                                 <div className="col-sm-3">
                                     <input style={{ marginBottom: "5px" }} type="text" className="form-control" id="fileStoegaeLength" />
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" id="checkEmail" />
-                                        <label className="form-check-label"htmlFor="gridRadios3">
+                                        <label className="form-check-label" htmlFor="gridRadios3">
                                             Indefinite
                                         </label>
                                     </div>

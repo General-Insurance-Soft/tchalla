@@ -232,7 +232,7 @@ const Page = () => {
                         <div className="col-sm-12">
                             <div className="row d-flex align-items-end">
                                 <div className="col-md-3">
-                                    <labelhtmlFor="insurance">Select insurance:</label>
+                                    <label htmlFor="insurance">Select insurance:</label>
                                     <select id="insurance" className="form-select"
                                         value={insuranceCompanyId}
                                         onChange={(e) => setInsuranceCompanyId(e.target.value)}
@@ -246,7 +246,7 @@ const Page = () => {
                                     </select>
                                 </div>
                                 <div className="col-md-3">
-                                    <labelhtmlFor="policy">Select policy:</label>
+                                    <label htmlFor="policy">Select policy:</label>
                                     <select id="policy" className="form-select"
                                         value={policyId}
                                         onChange={(e) => setPolicyId(e.target.value)}
@@ -261,7 +261,7 @@ const Page = () => {
                                 </div>
 
                                 <div className="col-md-3">
-                                    <labelhtmlFor="start_date">Start date:</label>
+                                    <label htmlFor="start_date">Start date:</label>
                                     <input value={startDate}
                                         onChange={(e) => setStartDate(e.target.value)}
                                         id="start_date" type="date"
@@ -270,7 +270,7 @@ const Page = () => {
                                 </div>
 
                                 <div className="col-md-3">
-                                    <labelhtmlFor="end_date">End date:</label>
+                                    <label htmlFor="end_date">End date:</label>
                                     <input value={endDate}
                                         onChange={(e) => setEndDate(e.target.value)}
                                         id="end_date" type="date"

@@ -14,7 +14,7 @@ export default function PolicySetting() {
                             <form>
 
                                 <div className="row mb-3">
-                                    <labelhtmlFor="#" className="col-sm-9 col-form-label">Send policy expiry reminders? </label>
+                                    <label htmlFor="#" className="col-sm-9 col-form-label">Send policy expiry reminders? </label>
                                     <div className="col-sm-3">
                                         <div className="form-check form-switch">
                                             <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked"/>
@@ -22,35 +22,35 @@ export default function PolicySetting() {
                                     </div>
                                 </div>
                                 <div className="row mb-3">
-                                    <labelhtmlFor="firstAlert" className="col-sm-9 col-form-label">Number Of days before sending first alert:</label>
+                                    <label htmlFor="firstAlert" className="col-sm-9 col-form-label">Number Of days before sending first alert:</label>
                                     <div className="col-sm-3">
                                         <input type="text" className="form-control" id="firstAlert" />
                                     </div>
                                 </div>
                                 <div className="row mb-3">
-                                    <labelhtmlFor="subsequentAlert" className="col-sm-9 col-form-label">Number of days between subsequent reminders:</label>
+                                    <label htmlFor="subsequentAlert" className="col-sm-9 col-form-label">Number of days between subsequent reminders:</label>
                                     <div className="col-sm-3">
                                         <input type="text" className="form-control" id="subsequentAlert" />
                                     </div>
                                 </div>
                                 <div className="row mb-3">
-                                    <labelhtmlFor="maxAlert" className="col-sm-9 col-form-label">Maximum number of alerts:</label>
+                                    <label htmlFor="maxAlert" className="col-sm-9 col-form-label">Maximum number of alerts:</label>
                                     <div className="col-sm-3">
                                         <input type="text" className="form-control" id="maxAlert" />
                                     </div>
                                 </div>
                                 <div className="row mb-3">
-                                    <labelhtmlFor="#" className="col-sm-9 col-form-label">Mode of alerts:</label>
+                                    <label htmlFor="#" className="col-sm-9 col-form-label">Mode of alerts:</label>
                                     <div className="col-sm-3">
                                         <div className="form-check">
                                             <input className="form-check-input" type="checkbox" id="checkSMS" />
-                                            <label className="form-check-label"htmlFor="gridRadios2">
+                                            <label className="form-check-label" htmlFor="gridRadios2">
                                                 SMS
                                             </label>
                                         </div>
                                         <div className="form-check disabled">
                                             <input className="form-check-input" type="checkbox" id="checkEmail" />
-                                            <label className="form-check-label"htmlFor="gridRadios3">
+                                            <label className="form-check-label" htmlFor="gridRadios3">
                                                 Email
                                             </label>
                                         </div>
@@ -75,12 +75,12 @@ export default function PolicySetting() {
                         <hr />
                         <form>
                             <div className="row mb-3">
-                                <labelhtmlFor="#" className="col-sm-9 col-form-label">Number of days to store attached policy files:</label>
+                                <label htmlFor="#" className="col-sm-9 col-form-label">Number of days to store attached policy files:</label>
                                 <div className="col-sm-3">
                                     <input style={{ marginBottom: "5px" }} type="text" className="form-control" id="fileStoegaeLength" />
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" id="checkEmail" />
-                                        <label className="form-check-label"htmlFor="gridRadios3">
+                                        <label className="form-check-label" htmlFor="gridRadios3">
                                             Indefinite
                                         </label>
                                     </div>

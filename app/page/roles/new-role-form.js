@@ -79,7 +79,7 @@ export default function NewRoleForm({ roleAction }) {
                     <div className="modal-body">
                         <form className="row g-3">
                             <div className="col-md-4">
-                                <labelhtmlFor="firstName"> Role name:</label>
+                                <label htmlFor="firstName"> Role name:</label>
 
                                 {
                                     roleAction === "add" ?
@@ -90,7 +90,7 @@ export default function NewRoleForm({ roleAction }) {
 
                             </div>
                             <div className="col-md-12">
-                                <labelhtmlFor="secondName"> Assign Permission</label>
+                                <label htmlFor="secondName"> Assign Permission</label>
 
                                 <DualListBox
                                     canFilter

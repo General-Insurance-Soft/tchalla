@@ -145,11 +145,11 @@ const Page = () => {
 
                                                             <div className="row mb-3">
                                                                 <div className="col-sm-6">
-                                                                    <labelhtmlFor="inputName5" className="form-label">SMS template for event:</label>
+                                                                    <label htmlFor="inputName5" className="form-label">SMS template for event:</label>
                                                                     <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8"></textarea>
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <labelhtmlFor="#" className="form-label">Placeholders:</label>
+                                                                    <label htmlFor="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name]
@@ -160,7 +160,7 @@ const Page = () => {
                                                             <div className="row">
                                                                 <div className='col-sm-6'>
                                                                     <div className="d-flex align-items-center">
-                                                                        <labelhtmlFor="inputName5" className="form-label me-2">Contact group:</label>
+                                                                        <label htmlFor="inputName5" className="form-label me-2">Contact group:</label>
                                                                         <select id="inputState" className="form-select">
                                                                             <option value="1">Car Third party group</option>
                                                                             <option value="2">Life insurance group</option>
@@ -242,11 +242,11 @@ const Page = () => {
                                                             <form className="row g-3">
 
                                                                 <div className="col-sm-6">
-                                                                    <labelhtmlFor="inputName56" className="form-label">Template Name:</label>
+                                                                    <label htmlFor="inputName56" className="form-label">Template Name:</label>
                                                                     <input type="text" className="form-control" id="inputName56" />
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <labelhtmlFor="inputState" className="form-label">Select Event:</label>
+                                                                    <label htmlFor="inputState" className="form-label">Select Event:</label>
                                                                     <select id="inputState" className="form-select">
                                                                         {/* <option defaultValue>Gender...</option> */}
                                                                         <option>Company anniversary</option>
@@ -256,11 +256,11 @@ const Page = () => {
                                                                     </select>
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <labelhtmlFor="inputName5" className="form-label">SMS template for event:</label>
+                                                                    <label htmlFor="inputName5" className="form-label">SMS template for event:</label>
                                                                     <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8"></textarea>
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <labelhtmlFor="#" className="form-label">Placeholders:</label>
+                                                                    <label htmlFor="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name]
@@ -313,13 +313,13 @@ const Page = () => {
                                                             <form action="#" className="row g-3 mb-3">
 
                                                                 <div className="col-sm-8">
-                                                                    <labelhtmlFor="inputName5" className="form-label">SMS template birthdays day:</label>
+                                                                    <label htmlFor="inputName5" className="form-label">SMS template birthdays day:</label>
                                                                     <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8">
                                                                         Dear [first_name] [last_name], we wish you a happy birthday. May you have a great day and a wonderful year ahead.
                                                                     </textarea>
                                                                 </div>
                                                                 <div className="col-sm-4">
-                                                                    <labelhtmlFor="#" className="form-label">Placeholders:</label>
+                                                                    <label htmlFor="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name] [policy_expiry_date]
@@ -353,13 +353,13 @@ const Page = () => {
 
 
                                                                 <div className="col-sm-8">
-                                                                    <labelhtmlFor="inputName5" className="form-label">SMS template birthdays day:</label>
+                                                                    <label htmlFor="inputName5" className="form-label">SMS template birthdays day:</label>
                                                                     <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8">
                                                                         Dear [first_name], we wish to remind you that your policy is due for renewal on [policy_expiry_date]. Kindly visit our offices for more information.
                                                                     </textarea>
                                                                 </div>
                                                                 <div className="col-sm-4">
-                                                                    <labelhtmlFor="#" className="form-label">Placeholders:</label>
+                                                                    <label htmlFor="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name] [policy_expiry_date]
@@ -412,11 +412,11 @@ const Page = () => {
                             <form>
                                 <div className="row mb-3">
                                     <div className="col-sm-6">
-                                        <labelhtmlFor="inputName5" className="form-label">SMS template:</label>
+                                        <label htmlFor="inputName5" className="form-label">SMS template:</label>
                                         <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8"></textarea>
                                     </div>
                                     <div className="col-sm-6">
-                                        <labelhtmlFor="#" className="form-label">Placeholders:</label>
+                                        <label htmlFor="#" className="form-label">Placeholders:</label>
                                         <div>
                                             [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                             [x_name], [x_name], [x_name]
@@ -427,7 +427,7 @@ const Page = () => {
                                 <div className="row">
                                     <div className='col-sm-6'>
                                         <div className="d-flex align-items-center">
-                                            <labelhtmlFor="inputName5" className="form-label me-2">Contact group:</label>
+                                            <label htmlFor="inputName5" className="form-label me-2">Contact group:</label>
                                             <select id="inputState" className="form-select">
                                                 <option value="1">Car Third party group</option>
                                                 <option value="2">Life insurance group</option>

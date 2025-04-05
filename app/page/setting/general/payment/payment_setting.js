@@ -13,7 +13,7 @@ export default function PaymentSetting() {
                             <hr />
                             <form>
                                 <div className="row mb-3">
-                                    <labelhtmlFor="#" className="col-sm-9 col-form-label">Send SMS to client when payments are received?</label>
+                                    <label htmlFor="#" className="col-sm-9 col-form-label">Send SMS to client when payments are received?</label>
                                     <div className="col-sm-3">
                                         <div className="form-check">
                                             <input className="form-check-input" type="checkbox" id="sendPaymentSms" />
