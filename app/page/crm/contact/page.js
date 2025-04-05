@@ -222,27 +222,27 @@ const Page = () => {
             <div className="card">
                 <div className="card-body">
 
-                    <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab"
+                    <ul className="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+                        <li className="nav-item" role="presentation">
+                            <button className="nav-link active" id="home-tab"
                                 onClick={() => setIsContactsGroupTab(false)}
                                 data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">New Customer</button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab"
+                        <li className="nav-item" role="presentation">
+                            <button className="nav-link" id="profile-tab"
                                 onClick={() => setIsContactsGroupTab(false)}
                                 data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Manage Contacts</button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="customer_group-tab" data-bs-toggle="tab" data-bs-target="#bordered-customer_group"
+                        <li className="nav-item" role="presentation">
+                            <button className="nav-link" id="customer_group-tab" data-bs-toggle="tab" data-bs-target="#bordered-customer_group"
                                 type="button" role="tab" aria-controls="customer_group" aria-selected="false"
                                 onClick={() => setIsContactsGroupTab(true)}
                             >Contacts Groups</button>
                         </li>
 
                     </ul>
-                    <div class="tab-content pt-2" id="borderedTabContent">
-                        <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
+                    <div className="tab-content pt-2" id="borderedTabContent">
+                        <div className="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
                             <h5 className="card-title">Capture Customer Details</h5>
 
                             <CustomerForm action="add" isUserPage="true" />
@@ -257,7 +257,7 @@ const Page = () => {
 
                         {/* manage customers */}
 
-                        <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div className="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
                             <h5 className="card-title">Manage Customers</h5>
 
                             {customerTable}
@@ -284,10 +284,10 @@ const Page = () => {
                         {/* End manage customers */}
 
                         {/* Customer group */}
-                        <div class="tab-pane fade" id="bordered-customer_group" role="tabpanel" aria-labelledby="customer_group-tab">
+                        <div className="tab-pane fade" id="bordered-customer_group" role="tabpanel" aria-labelledby="customer_group-tab">
 
 
-                            <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div className="d-flex justify-content-between align-items-center mt-2">
                                 <div>
                                     {
                                         showGroupCustomerList ?
@@ -306,12 +306,12 @@ const Page = () => {
                                         showGroupCustomerList ?
                                             [
                                                 <React.Fragment key="group-buttons">
-                                                    <button class="btn btn-primary me-2"><i class="bi bi-floppy"></i> Save </button>
-                                                    <button onClick={() => toggleCustomerTable()} class="btn btn-secondary me-2"><i class="bi bi-x"></i> Close </button>
+                                                    <button className="btn btn-primary me-2"><i className="bi bi-floppy"></i> Save </button>
+                                                    <button onClick={() => toggleCustomerTable()} className="btn btn-secondary me-2"><i className="bi bi-x"></i> Close </button>
                                                 </React.Fragment>
                                             ]
                                             :
-                                            [<button key="add-new-btn" onClick={() => toggleCustomerTable()} class="btn btn-primary me-2"><i class="bi bi-plus-lg"></i> Add new </button>]
+                                            [<button key="add-new-btn" onClick={() => toggleCustomerTable()} className="btn btn-primary me-2"><i className="bi bi-plus-lg"></i> Add new </button>]
                                     }
 
                                 </div>
@@ -324,7 +324,7 @@ const Page = () => {
                                         <div className="row mb-3">
                                             <div className="col-md-4"><input type="text" className="form-control" placeholder="Group Name" /></div>
                                         </div>
-                                        <div class="d-flex  mt-2 mb-2 gap-3">
+                                        <div className="d-flex  mt-2 mb-2 gap-3">
                                             <span>Filter contacts: </span>
                                             <div>
                                                 <select id="inputState" className="form-select">
@@ -337,23 +337,23 @@ const Page = () => {
                                             </div>
                                             |
                                             <div className="d-flex gap-1">
-                                                <label for="age" class="col-form-label">Age: </label>
+                                                <labelhtmlFor="age" className="col-form-label">Age: </label>
                                                 <select id="age" className="form-select">
                                                     <option>equals</option>
                                                     <option>greater than</option>
                                                     <option>less than</option>
                                                 </select>
-                                                <input type="number" class="form-control" min="-1" style={{ width: '80px' }}></input>
+                                                <input type="number" className="form-control" min="-1" style={{ width: '80px' }}></input>
                                             </div>
                                             |
                                             <div className="d-flex gap-1">
-                                                <label for="age" class="col-form-label">Name: </label>
+                                                <labelhtmlFor="age" className="col-form-label">Name: </label>
                                                 <select id="age" className="form-select">
                                                     <option>starts with</option>
                                                     <option>contains</option>
                                                     <option>ends with</option>
                                                 </select>
-                                                <input type="text" class="form-control" min="-1"></input>
+                                                <input type="text" className="form-control" min="-1"></input>
                                             </div>
                                             |
                                             <div>

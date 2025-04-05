@@ -21,11 +21,11 @@ const ScheduleSmsTblContent =
                 <td>2024-10-01 10:00</td>
                 <td>2024-10-02 11:08</td>
                 <td>50% (250/500)</td>
-                <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 60%</span></td>
+                <td><span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> 60%</span></td>
                 <td><span className="badge bg-dark">In Progress</span></td>
                 <td>
-                    <button className="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
-                    <button className="btn btn-sm btn-warning"><i class="bi bi-x-lg"></i></button>
+                    <button className="btn btn-sm btn-primary me-1"><i className="bi bi-eye"></i></button>
+                    <button className="btn btn-sm btn-warning"><i className="bi bi-x-lg"></i></button>
                 </td>
             </tr>
             <tr>
@@ -35,10 +35,10 @@ const ScheduleSmsTblContent =
                 <td>2024-10-01 10:00</td>
                 <td>2024-10-02 11:08</td>
                 <td>90% (100/110)</td>
-                <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 85%</span></td>
+                <td><span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> 85%</span></td>
                 <td><span className="badge bg-success">Completed</span></td>
                 <td>
-                    <button className="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
+                    <button className="btn btn-sm btn-primary me-1"><i className="bi bi-eye"></i></button>
                 </td>
             </tr>
             <tr>
@@ -48,10 +48,10 @@ const ScheduleSmsTblContent =
                 <td>2024-10-01 10:00</td>
                 <td>2024-10-02 11:08</td>
                 <td>95% (550/600)</td>
-                <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 70%</span></td>
+                <td><span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> 70%</span></td>
                 <td><span className="badge bg-warning">Cancelled</span></td>
                 <td>
-                    <button className="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
+                    <button className="btn btn-sm btn-primary me-1"><i className="bi bi-eye"></i></button>
                 </td>
             </tr>
             <tr>
@@ -61,10 +61,10 @@ const ScheduleSmsTblContent =
                 <td>2024-10-01 10:00</td>
                 <td>2024-10-02 11:08</td>
                 <td>98% (250/310)</td>
-                <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 96%</span></td>
+                <td><span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> 96%</span></td>
                 <td><span className="badge bg-success">Completed</span></td>
                 <td>
-                    <button className="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
+                    <button className="btn btn-sm btn-primary me-1"><i className="bi bi-eye"></i></button>
                 </td>
             </tr>
             <tr>
@@ -74,11 +74,11 @@ const ScheduleSmsTblContent =
                 <td>2024-10-01 10:00</td>
                 <td>2024-10-02 11:08</td>
                 <td>100% (300/300)</td>
-                <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 90%</span></td>
+                <td><span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> 90%</span></td>
                 <td><span className="badge bg-success">Completed</span></td>
 
                 <td>
-                    <button className="btn btn-sm btn-primary me-1"><i class="bi bi-eye"></i></button>
+                    <button className="btn btn-sm btn-primary me-1"><i className="bi bi-eye"></i></button>
                 </td>
             </tr>
         </tbody>

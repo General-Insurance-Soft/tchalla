@@ -21,6 +21,7 @@ import ProposalSubMenu from "../lib/components/ui/menu/proposal/index";
 import ReportSubMenu from "../lib/components/ui/menu/report/index";
 import SettingSubMenu from "../lib/components/ui/menu/setting/index";
 import { validateToken } from '../lib/service/auth';
+import { clearApiCache } from '../lib/utils/util';
 
 export default function RootLayout({ children }) {
 
@@ -44,14 +45,6 @@ export default function RootLayout({ children }) {
 
     checkAuth();
   }, []);
-
-  let clearApiCache = () => {
-    for (let key in localStorage) {
-      if (key.startsWith("cache:")) {
-        localStorage.removeItem(key);
-      }
-    }
-  }
 
   return (
 

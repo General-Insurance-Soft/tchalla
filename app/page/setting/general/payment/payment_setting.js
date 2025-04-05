@@ -13,7 +13,7 @@ export default function PaymentSetting() {
                             <hr />
                             <form>
                                 <div className="row mb-3">
-                                    <label for="#" className="col-sm-9 col-form-label">Send SMS to client when payments are received?</label>
+                                    <labelhtmlFor="#" className="col-sm-9 col-form-label">Send SMS to client when payments are received?</label>
                                     <div className="col-sm-3">
                                         <div className="form-check">
                                             <input className="form-check-input" type="checkbox" id="sendPaymentSms" />
@@ -45,7 +45,7 @@ export default function PaymentSetting() {
                                     <div className="card">
                                         <div className="card-body">
 
-                                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
+                                            <h6 className="card-subtitle mb-2 text-muted">Template #</h6>
                                             <Image
                                                 src="/img/receipt_template.jpg"
                                                 // layout="responsive"
@@ -55,7 +55,7 @@ export default function PaymentSetting() {
                                                 alt="receipt template"
                                             />
                                             <hr />
-                                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
+                                            <p className="card-text"><a className="btn btn-primary">Preview</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@ export default function PaymentSetting() {
                                     <div className="card">
                                         <div className="card-body">
 
-                                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
+                                            <h6 className="card-subtitle mb-2 text-muted">Template #</h6>
                                             <Image
                                                 src="/img/receipt_template.jpg"
                                                 // layout="responsive"
@@ -77,30 +77,7 @@ export default function PaymentSetting() {
                                                 alt="receipt template"
                                             />
                                             <hr />
-                                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Template */}
-
-
-                                {/* Template */}
-                                <div className="col-sm-6">
-
-                                    <div className="card">
-                                        <div className="card-body">
-
-                                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
-                                            <Image
-                                                src="/img/receipt_template.jpg"
-                                                // layout="responsive"
-                                                width={200}  // Aspect ratio width
-                                                height={400}  // Aspect ratio height
-                                                className="card-img-top"
-                                                alt="receipt template"
-                                            />
-                                            <hr />
-                                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
+                                            <p className="card-text"><a className="btn btn-primary">Preview</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +90,7 @@ export default function PaymentSetting() {
                                     <div className="card">
                                         <div className="card-body">
 
-                                            <h6 class="card-subtitle mb-2 text-muted">Template #</h6>
+                                            <h6 className="card-subtitle mb-2 text-muted">Template #</h6>
                                             <Image
                                                 src="/img/receipt_template.jpg"
                                                 // layout="responsive"
@@ -123,7 +100,30 @@ export default function PaymentSetting() {
                                                 alt="receipt template"
                                             />
                                             <hr />
-                                            <p class="card-text"><a class="btn btn-primary">Preview</a></p>
+                                            <p className="card-text"><a className="btn btn-primary">Preview</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Template */}
+
+
+                                {/* Template */}
+                                <div className="col-sm-6">
+
+                                    <div className="card">
+                                        <div className="card-body">
+
+                                            <h6 className="card-subtitle mb-2 text-muted">Template #</h6>
+                                            <Image
+                                                src="/img/receipt_template.jpg"
+                                                // layout="responsive"
+                                                width={200}  // Aspect ratio width
+                                                height={400}  // Aspect ratio height
+                                                className="card-img-top"
+                                                alt="receipt template"
+                                            />
+                                            <hr />
+                                            <p className="card-text"><a className="btn btn-primary">Preview</a></p>
                                         </div>
                                     </div>
                                 </div>

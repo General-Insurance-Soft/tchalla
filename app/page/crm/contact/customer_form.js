@@ -59,14 +59,14 @@ export default function CustomerForm({
         <>
             {
                 isUserPage ?
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div className="d-flex justify-content-between align-items-center mb-3">
                         <div>
 
                         </div>
 
                         <div>
-                            <button class="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>{action === 'edit' ? 'Update' : 'Save'}</button>
-                            <button class="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                            <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>{action === 'edit' ? 'Update' : 'Save'}</button>
+                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                         </div>
                     </div> : ''
             }
@@ -174,12 +174,12 @@ export default function CustomerForm({
                 <div className="col-sm-12">
                     <div className="row">
                         <div className="col-md-4">
-                            <label for="img">Select passport/ID image:</label>
+                            <labelhtmlFor="img">Select passport/ID image:</label>
                             <input type="file" id="img" name="img" accept="image/*" className="form-control" />
                         </div>
 
                         <div className="col-md-4">
-                            <label for="img2">Select KRA pin:</label>
+                            <labelhtmlFor="img2">Select KRA pin:</label>
                             <input type="file" id="img2" name="img" accept="image/*" className="form-control" />
                         </div>
                     </div>

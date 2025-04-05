@@ -26,7 +26,7 @@ const Page = () => {
                     <div className="col-md-3 border-end">
 
                         <div className="d-flex flex-column align-items-center text-center p-4">
-                            {/* <img class="img-profile rounded-circle" src="{{ asset('images/undraw_profile.svg') }}" /> */}
+                            {/* <img className="img-profile rounded-circle" src="{{ asset('images/undraw_profile.svg') }}" /> */}
                             <span><i style={{ "color": "#00c9e8", fontSize: '6rem' }} className="bi bi-person-circle"></i></span>
                             <span className="font-weight-bold">Duncan</span>
                             <span className="text-black-50">duncan@gmail.com</span>

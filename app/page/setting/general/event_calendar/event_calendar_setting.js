@@ -194,10 +194,10 @@ export default function EventCalendarSetting() {
                                     </div>
                                 </div>
                                 <hr />
-                                <div class="text-center mb-3">
-                                    <div class="d-flex justify-content-center">
-                                        <button class="btn btn-primary me-2">Add</button>
-                                        <button class="btn btn-secondary">Reset</button>
+                                <div className="text-center mb-3">
+                                    <div className="d-flex justify-content-center">
+                                        <button className="btn btn-primary me-2">Add</button>
+                                        <button className="btn btn-secondary">Reset</button>
                                     </div>
                                 </div>
                             </form>
