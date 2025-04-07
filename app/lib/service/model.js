@@ -3,9 +3,10 @@ import { getToken } from '../utils/util';
 
 /*
 ======================
-Reference-data-Service
+
 ======================
 */
+
 
 let dataFetch = async (url, dataName) => {
 
@@ -104,20 +105,92 @@ let dataDeleteById = async (url, dataName) => {
     }
 }
 
+function setCacheWithExpiry(key, data, ttl = 5 * 24 * 60 * 60 * 1000) { // Default: 5 days
+    const item = {
+        data,
+        expiry: Date.now() + ttl
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+}
+
+function getFromCache(key) {
+    const itemStr = localStorage.getItem(key);
+    if (!itemStr) return null;
+
+    try {
+        const item = JSON.parse(itemStr);
+        if (Date.now() > item.expiry) {
+            localStorage.removeItem(key); // Expired
+            return null;
+        }
+        return item.data;
+    } catch (e) {
+        console.error(`Error parsing cached item for ${key}`);
+        localStorage.removeItem(key);
+        return null;
+    }
+}
+
 export const fetchInsuranceCopanies = async () => {
-    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/insurance-company/get-insurance-companies`, "insurance companies");
+
+    const cacheKey = `insutance-companies`;
+    const cachedData = getFromCache(cacheKey);
+
+    if (cachedData) {
+        console.log(`Cache hit for ${cacheKey}`);
+        return cachedData;
+    }
+    const jsonData = await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/insurance-company/get-insurance-companies`, "insurance companies");
+    setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+
+    return jsonData
+
 }
 
 export const fetchDocumentTypes = async () => {
-    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/document-type/get-document-types`, "document types");
+    const cacheKey = `document-types`;
+    const cachedData = getFromCache(cacheKey);
+
+    if (cachedData) {
+        console.log(`Cache hit for ${cacheKey}`);
+        return cachedData;
+    }
+
+    const jsonData = await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/document-type/get-document-types`, "document types");
+    setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+
+    return jsonData
+
 }
 
 export const fetchPolicies = async () => {
-    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/policy/get-policies`, "policies");
+    const cacheKey = `policies`;
+    const cachedData = getFromCache(cacheKey);
+
+    if (cachedData) {
+        console.log(`Cache hit for ${cacheKey}`);
+        return cachedData;
+    }
+
+    const jsonData = await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/policy/get-policies`, "policies");
+    setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+
+    return jsonData
 }
 
 export const fetchAdministrativeAreas = async () => {
-    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/administrative-area/get-administrative-areas`, "administrative areas");
+    const cacheKey = `administrative-areas`;
+    const cachedData = getFromCache(cacheKey);
+
+    if (cachedData) {
+        console.log(`Cache hit for ${cacheKey}`);
+        return cachedData;
+    }
+
+    const jsonData = await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/administrative-area/get-administrative-areas`, "administrative areas");
+    setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+
+    return jsonData
 }
 
 export const saveProposalAndContact = async (data) => {

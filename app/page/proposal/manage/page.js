@@ -7,7 +7,7 @@ import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import DeleteProposal from './delete-proposal.js';
 import ProposalStatusModal from './proposal-status-message.js';
-import { fetchProposalData, daleteProposal } from "../../../lib/service/model";
+import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -19,6 +19,9 @@ const Page = () => {
     const [selectedProposalId, setSelectedProposalId] = useState(null);
     const [messageStatus, setMessageStatus] = useState("");
     const proposalStatusModalRef = useRef(null);
+    let [insuranceCompanies, setInsuranceCompanies] = useState([]);
+    let [documentTypes, setDocumentTypes] = useState([]);
+    let [policies, setPolicies] = useState([]);
 
     const modalRef = useRef(null);
     const creatNewImageFolder = (event) => {
@@ -163,6 +166,37 @@ const Page = () => {
             const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
             modal.show();
         }
+    }
+
+    const fetchEditFormDefaultData = async () => {
+
+        if (policies.length == 0) {
+            let policies = await fetchPolicies();
+            if ('error' in res) {
+                policies = [];
+            } else {
+                setPolicies(policies);
+            }
+        }
+
+        if (documentTypes.length == 0) {
+            let docTypes = await fetchDocumentTypes();
+            if ('error' in res) {
+                docTypes = [];
+            } else {
+                setDocumentTypes(docTypes);
+            }
+        }
+
+        if (insuranceCompanies.length == 0) {
+            let insuranceCompanies = await fetchInsuranceCopanies();
+            if ('error' in res) {
+                insuranceCompanies = [];
+            } else {
+                setInsuranceCompanies(insuranceCompanies);
+            }
+        }
+
     }
 
     const resetSelectedProposal = () => {
