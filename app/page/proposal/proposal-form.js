@@ -6,7 +6,7 @@ import withAuth from "../../lib/service/with_auth";
 
 const Page = (
     {
-        proposalAction,
+        proposalAction, selectedProposal,
         firstName, setFirstName,
         secondName, setSecondName,
         thirdName, setThirdName,
@@ -31,6 +31,7 @@ const Page = (
         saveProposal
     }
 ) => {
+    console.log("Test rerender on props change " + selectedProposal.insurance_company_id);
     return (
         <>
             <form className="row g-3">
@@ -79,12 +80,19 @@ const Page = (
                                 value={insuranceCompanyId}
                                 onChange={(e) => setInsuranceCompanyId(e.target.value)}
                             >
-                                <option defaultValue>None...</option>
-                                {insuranceCompanies.map((company) => (
-                                    <option key={company.id} value={company.id}>
-                                        {company.name}
-                                    </option>
-                                ))}
+                                {/* proposalAction={"edit"} setSelectedProposal={setSelectedProposal} */}
+
+                                {proposalAction === "edit" ?
+                                    <option defaultValue>None...</option> : ""
+                                }
+                                {
+                                    insuranceCompanies.map((company) => (
+                                        <option key={company.id} value={company.id}>
+                                            {company.name}
+                                        </option>
+                                    ))
+                                }
+                                {/* <option defaultValue>{selectedProposal.insurance_company_name}</option> */}
                             </select>
                         </div>
                         <div className="col-md-3">
@@ -93,7 +101,9 @@ const Page = (
                                 value={policyId}
                                 onChange={(e) => setPolicyId(e.target.value)}
                             >
-                                <option defaultValue>None...</option>
+                                {proposalAction === "edit" ?
+                                    <option defaultValue>None...</option> : ""
+                                }
                                 {policies.map((company) => (
                                     <option key={company.id} value={company.id}>
                                         {company.name}
@@ -131,7 +141,7 @@ const Page = (
                         </div>
                         <div className="col-md-3">
                             <label htmlFor="copyName">Document type:</label>
-                            <select id="policy" className="form-select"
+                            <select id="document-type" className="form-select"
                                 onChange={() => (
                                     setProposalDocuments([
                                         {
@@ -144,7 +154,9 @@ const Page = (
 
                                 }
                             >
-                                <option defaultValue>None...</option>
+                                {proposalAction === "edit" ?
+                                    <option defaultValue>None...</option> : ""
+                                }
                                 {documentTypes.map((doc) => (
                                     <option key={doc.id} value={doc.id}>
                                         {doc.name}
