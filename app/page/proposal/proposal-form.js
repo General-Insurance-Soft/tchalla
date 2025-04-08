@@ -31,7 +31,6 @@ const Page = (
         saveProposal
     }
 ) => {
-    console.log("Test rerender on props change " + selectedProposal.insurance_company_id);
     return (
         <>
             <form className="row g-3">
@@ -82,8 +81,8 @@ const Page = (
                             >
                                 {/* proposalAction={"edit"} setSelectedProposal={setSelectedProposal} */}
 
-                                {proposalAction === "edit" ?
-                                    <option defaultValue>None...</option> : ""
+                                {proposalAction != "edit" ?
+                                    <option value={-1}>None...</option> : ""
                                 }
                                 {
                                     insuranceCompanies.map((company) => (
@@ -101,7 +100,7 @@ const Page = (
                                 value={policyId}
                                 onChange={(e) => setPolicyId(e.target.value)}
                             >
-                                {proposalAction === "edit" ?
+                                {proposalAction != "edit" ?
                                     <option defaultValue>None...</option> : ""
                                 }
                                 {policies.map((company) => (
@@ -154,7 +153,7 @@ const Page = (
 
                                 }
                             >
-                                {proposalAction === "edit" ?
+                                {proposalAction != "edit" ?
                                     <option defaultValue>None...</option> : ""
                                 }
                                 {documentTypes.map((doc) => (

@@ -16,7 +16,7 @@ const Page = () => {
     let [policies, setPolicies] = useState([]);
 
     let [proposalNumber, setProposalNumber] = useState('');
-    let [insuranceCompanyId, setInsuranceCompanyId] = useState('');
+    let [insuranceCompanyId, setInsuranceCompanyId] = useState(-1);
     let [policyId, setPolicyId] = useState('');
     let [startDate, setStartDate] = useState('');
     let [endDate, setEndDate] = useState('');
