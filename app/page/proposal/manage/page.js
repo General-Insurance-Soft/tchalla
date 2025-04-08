@@ -21,6 +21,7 @@ const Page = () => {
     const [proposalList, setProposalList] = useState([]);
     const [res, setRes] = useState({});
     const [selectedProposalId, setSelectedProposalId] = useState(null);
+    const [selectedProposal, setSelectedProposal] = useState(null);
     const [messageStatus, setMessageStatus] = useState("");
     let [insuranceCompanies, setInsuranceCompanies] = useState([]);
     let [documentTypes, setDocumentTypes] = useState([]);
@@ -32,6 +33,7 @@ const Page = () => {
     let [startDate, setStartDate] = useState('');
     let [endDate, setEndDate] = useState('');
     let [proposalDocuments, setProposalDocuments] = useState([]);
+    let [editFormContactDetails, setEditFormContactDetails] = useState("");
 
     const creatNewImageFolder = (event) => {
 
@@ -293,13 +295,25 @@ const Page = () => {
                                                 <td>{proposal["country"]}</td>
                                                 <td>{proposal["county"]}</td>
                                                 <td>{proposal["address"]}</td>
-                                                <td>{proposal.end_date}</td>
+                                                <td>{proposal.start_date}</td>
                                                 <td>3</td>
                                                 <td>{proposal["updateByName"]}</td>
                                                 <td>{proposal.updated_at}</td>
                                                 <td>
                                                     <button type="button" style={{ marginRight: "10px" }} className="btn btn-info"
-                                                        onClick={() => setShowEditForm(true)}
+                                                        onClick={
+                                                            () => {
+                                                                setShowEditForm(true, proposal)
+                                                                setSelectedProposal(proposal)
+                                                                setInsuranceCompanyId(proposal.insurance_company_id)
+                                                                setPolicyId(proposal.policy_type_id)
+                                                                setStartDate(proposal.start_date)
+                                                                setEndDate(proposal.end_date)
+                                                                setProposalNumber(proposal.reference_number)
+                                                                setEditFormContactDetails("Edit " + proposal["contactName"] + " proposal from: " + proposal["start_date"])
+                                                                console.log("selectedProposal", selectedProposal)
+                                                            }
+                                                        }
                                                     ><i className="bi bi-pencil-square"></i></button>
                                                     <button type="button" data-bs-toggle="modal"
                                                         onClick={() => setSelectedProposalId(proposal.id)}
@@ -321,7 +335,7 @@ const Page = () => {
 
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="card-title">Edit Tom Lee proposal from date: 2025-04-01</h5>
+                                    <h5 className="card-title">{editFormContactDetails}</h5>
 
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <div>
@@ -348,7 +362,7 @@ const Page = () => {
                                     </div>
 
                                     <ProposalForm
-                                        proposalAction={"edit"}
+                                        proposalAction={"edit"} selectedProposal={selectedProposal}
                                         insuranceCompanyId={insuranceCompanyId} policyId={policyId}
                                         startDate={startDate} endDate={endDate}
                                         proposalDocuments={proposalDocuments} setProposalDocuments={setProposalDocuments}
