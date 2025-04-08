@@ -321,10 +321,23 @@ const Page = () => {
 
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="card-title">Edit Tom Lee proposal from date: 2024-09-11</h5>
+                                    <h5 className="card-title">Edit Tom Lee proposal from date: 2025-04-01</h5>
 
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <div>
+
+                                            <div>
+                                                <label htmlFor="insurance">Select proposal to edit:</label>
+                                                <select id="insurance" className="form-select">
+                                                    <option defaultValue>Ref: uuus-hfhf date: 2025-04-01</option>
+                                                    <option >
+                                                        Ref: pipjko-hfhf date: 2024-09-11
+                                                    </option>
+                                                    <option >
+                                                        Ref: xxhxhx-hfhf date: 2024-07-11
+                                                    </option>
+                                                </select>
+                                            </div>
 
                                         </div>
 
