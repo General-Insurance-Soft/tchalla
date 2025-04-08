@@ -57,6 +57,39 @@ const Page = () => {
     }, []);
 
 
+    //initialize fieds with server data
+    useEffect(() => {
+
+        const fetchInsuranceCompaniesData = async () => {
+            let res = await fetchInsuranceCopanies();
+            if ('error' in res) {
+                return;
+            }
+            setInsuranceCompanies(res);
+        };
+
+        const fetchDocumentTypesData = async () => {
+            let res = await fetchDocumentTypes();
+            if ('error' in res) {
+                return;
+            }
+            setDocumentTypes(res);
+        };
+
+        const fetchPoliciesData = async () => {
+            let res = await fetchPolicies();
+            if ('error' in res) {
+                return;
+            }
+            setPolicies(res);
+        };
+
+        fetchPoliciesData();
+        fetchDocumentTypesData();
+        fetchInsuranceCompaniesData();
+
+    }, []);
+
     useEffect(() => {
 
         if (!res || Object.keys(res).length === 0) {
@@ -200,37 +233,6 @@ const Page = () => {
         }
         saveProposalAndContact(data);
     };
-
-    const fetchEditFormDefaultData = async () => {
-
-        if (policies.length == 0) {
-            let policies = await fetchPolicies();
-            if ('error' in res) {
-                policies = [];
-            } else {
-                setPolicies(policies);
-            }
-        }
-
-        if (documentTypes.length == 0) {
-            let docTypes = await fetchDocumentTypes();
-            if ('error' in res) {
-                docTypes = [];
-            } else {
-                setDocumentTypes(docTypes);
-            }
-        }
-
-        if (insuranceCompanies.length == 0) {
-            let insuranceCompanies = await fetchInsuranceCopanies();
-            if ('error' in res) {
-                insuranceCompanies = [];
-            } else {
-                setInsuranceCompanies(insuranceCompanies);
-            }
-        }
-
-    }
 
     const resetSelectedProposal = () => {
         setSelectedProposalId(null);
