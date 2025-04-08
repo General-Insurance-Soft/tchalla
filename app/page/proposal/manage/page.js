@@ -8,8 +8,12 @@ import withAuth from "../../../lib/service/with_auth";
 import DeleteProposal from './delete-proposal.js';
 import ProposalStatusModal from './proposal-status-message.js';
 import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies } from "../../../lib/service/model";
+import ProposalForm from "../proposal-form";
+
 
 const Page = () => {
+    const modalRef = useRef(null);
+    const proposalStatusModalRef = useRef(null);
 
     const [showEditForm, setShowEditForm] = useState(false);
     const [administrativeAreas, setAdministrativeAreas] = useState({});
@@ -18,12 +22,17 @@ const Page = () => {
     const [res, setRes] = useState({});
     const [selectedProposalId, setSelectedProposalId] = useState(null);
     const [messageStatus, setMessageStatus] = useState("");
-    const proposalStatusModalRef = useRef(null);
     let [insuranceCompanies, setInsuranceCompanies] = useState([]);
     let [documentTypes, setDocumentTypes] = useState([]);
     let [policies, setPolicies] = useState([]);
+    let [customerState, setCutomerState] = useState("");
+    let [proposalNumber, setProposalNumber] = useState('');
+    let [insuranceCompanyId, setInsuranceCompanyId] = useState('');
+    let [policyId, setPolicyId] = useState('');
+    let [startDate, setStartDate] = useState('');
+    let [endDate, setEndDate] = useState('');
+    let [proposalDocuments, setProposalDocuments] = useState([]);
 
-    const modalRef = useRef(null);
     const creatNewImageFolder = (event) => {
 
         if (typeof window !== "undefined" && bootstrap) {
@@ -168,6 +177,30 @@ const Page = () => {
         }
     }
 
+    let saveProposal = (event) => {
+        event.preventDefault();
+        // Save the proposal data to the server or perform any other action 
+        console.log("Proposal data saved:", {
+            proposalNumber,
+            insuranceCompanyId,
+            policyId,
+            startDate,
+            endDate,
+        });
+
+        let data = {
+            "proposal": {
+                "policy_type_id": policyId,
+                "start_date": startDate,
+                "end_date": endDate,
+                "insurance_company_id": insuranceCompanyId,
+                "reference_number": proposalNumber,
+                "proposal_documents": proposalDocuments
+            }
+        }
+        saveProposalAndContact(data);
+    };
+
     const fetchEditFormDefaultData = async () => {
 
         if (policies.length == 0) {
@@ -299,122 +332,19 @@ const Page = () => {
                                         </div>
                                     </div>
 
-                                    <form className="row g-3">
-                                        <div className="col-md-4">
-                                            <input type="text" className="form-control" value="Tom Lee" disabled />
-                                        </div>
-
-                                        <div className="col-md-4">
-                                            <select id="inputState" className="form-select">
-                                                <option defaultValue>Jubilee</option>
-                                                <option>Britam</option>
-                                                <option>Old mutual</option>
-                                                <option>CIC</option>
-                                            </select>
-                                        </div>
-
-                                        <div className="col-md-4">
-                                            <select id="inputState" className="form-select">
-                                                <option defaultValue>Health</option>
-                                                <option>Fire/Bulgary</option>
-                                                <option>Car</option>
-                                                <option>Life insurance</option>
-                                            </select>
-                                        </div>
-
-                                        <div className="col-sm-12">
-                                            <div className="row d-flex align-items-end">
-                                                <div className="col-md-3">
-                                                    <label htmlFor="img">Select Scanned copies:</label>
-                                                    <input type="file" id="img" name="img" accept="image/*" className="form-control" />
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <label htmlFor="copyName">Document type:</label>
-                                                    <select id="policy" className="form-select">
-                                                        <option defaultValue>None...</option>
-                                                        <option>ID/Passort</option>
-                                                        <option>Proposal</option>
-                                                        <option>Accident form</option>
-                                                        <option>Policy</option>
-                                                        <option>Insurance Certificate</option>
-                                                        <option>Insurance Policy</option>
-                                                        <option>Medical Report</option>
-                                                        <option>Birth Certificate</option>
-                                                        <option>Police Abstract</option>
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <label htmlFor="copyName">Select folder:</label>
-                                                    <select onChange={(event) => creatNewImageFolder(event)} id="policy" className="form-select">
-                                                        <option>Default</option>
-                                                        <option role="separator" disabled="disabled">─────────────────────────</option>
-                                                        <option value="new folder">Create New</option>
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <label htmlFor="documentName">Document name:</label>
-                                                    <input id="documentName" type="text" className="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-sm-12">
-                                            <div className="col-md-3">
-                                                <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="row mt-3">
-
-                                            <div className="col-sm-12">
-
-                                                <h6 className="tc-card-header">All added scanned copies</h6>
-                                                <hr />
-
-                                                <div className='row'>
-                                                    {/* Template */}
-                                                    <div className="col-sm-6">
-
-                                                        <div className="card">
-                                                            <div className="card-body">
-
-                                                                <h6 className="card-subtitle mb-2 text-muted">Proposal</h6>
-                                                                <Image
-                                                                    src="/img/receipt_template.jpg"
-                                                                    // layout="responsive"
-                                                                    width={200}  // Aspect ratio width
-                                                                    height={400}  // Aspect ratio height
-                                                                    className="card-img-top"
-                                                                    alt="receipt template"
-                                                                />
-                                                                <hr />
-
-                                                                <div className="d-flex">
-                                                                    <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
-                                                                    <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
-                                                                    <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {/* Template */}
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-
-
-                                        <div className="text-center mb-3">
-                                            <div className="d-flex justify-content-center">
-                                                <button className="btn btn-primary me-2">Save</button>
-                                                <button className="btn btn-secondary">Cancel</button>
-                                            </div>
-                                        </div>
-                                        <hr />
-                                    </form>
+                                    <ProposalForm
+                                        proposalAction={"edit"}
+                                        insuranceCompanyId={insuranceCompanyId} policyId={policyId}
+                                        startDate={startDate} endDate={endDate}
+                                        proposalDocuments={proposalDocuments} setProposalDocuments={setProposalDocuments}
+                                        setInsuranceCompanyId={setInsuranceCompanyId} setPolicyId={setPolicyId}
+                                        setStartDate={setStartDate} setEndDate={setEndDate}
+                                        insuranceCompanies={insuranceCompanies} setInsuranceCompanies={setInsuranceCompanies}
+                                        documentTypes={documentTypes} setDocumentTypes={setDocumentTypes}
+                                        policies={policies} setPolicies={setPolicies}
+                                        customerState={customerState} setCutomerState={setCutomerState}
+                                        saveProposal={saveProposal}
+                                    />
 
                                     {/* Modal */}
 

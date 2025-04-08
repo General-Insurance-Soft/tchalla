@@ -191,7 +191,7 @@ const Page = () => {
                     </div>
 
                     <ProposalForm
-                        action={"add"} isUserPage={false}
+                        proposalAction={"add"}
                         firstName={firstName} setFirstName={setFirstName}
                         secondName={secondName} setSecondName={setSecondName}
                         thirdName={thirdName} setThirdName={setThirdName}

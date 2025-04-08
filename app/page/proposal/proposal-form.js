@@ -2,14 +2,11 @@
 
 import Image from 'next/image';
 import CustomerForm from "../crm/contact/customer_form";
-import { useEffect, useState, useRef } from "react";
-import NewImageFolder from "../../lib/utils/new_image_folder";
 import withAuth from "../../lib/service/with_auth";
-import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact } from "../../lib/service/model";
 
 const Page = (
     {
-        action, isUserPage,
+        proposalAction,
         firstName, setFirstName,
         secondName, setSecondName,
         thirdName, setThirdName,
@@ -41,7 +38,7 @@ const Page = (
                     customerState === "new" ?
                         <>
                             <CustomerForm
-                                action={action}
+                                action={"add"}
                                 isUserPage={false}
                                 firstName={firstName}
                                 setFirstName={setFirstName}
@@ -216,7 +213,9 @@ const Page = (
 
                 <div className="text-center mb-3">
                     <div className="d-flex justify-content-center">
-                        <button onClick={(e) => saveProposal(e)} className="btn btn-primary me-2">Save</button>
+                        <button onClick={(e) => saveProposal(e)} className="btn btn-primary me-2"> {
+                            proposalAction === "add" ? "Save" : "Update"
+                        } </button>
                         <button className="btn btn-secondary">Cancel</button>
                     </div>
                 </div>
