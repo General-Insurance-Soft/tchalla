@@ -13,7 +13,20 @@ const Page = () => {
     const [isContactsGroupTab, setIsContactsGroupTab] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
 
+    let [firstName, setFirstName] = useState('');
+    let [secondName, setSecondName] = useState('');
+    let [thirdName, setThirdName] = useState('');
+    let [phoneNumber, setPhoneNumber] = useState('');
+    let [email, setEmail] = useState('');
+    let [gender, setGender] = useState('');
+    let [address, setAddress] = useState('');
+    let [countryCode, setCountryCode] = useState('');
+    let [administrativeArea, setAdministrativeArea] = useState('');
+    let [customerGroup, setCustomerGroup] = useState(0);
+    let [kraPin, setKraPin] = useState('');
+    let [identificationCardId, setIdentificationCardId] = useState('');
 
+    
     useEffect(() => { }, [showGroupCustomerList, isContactsGroupTab]);
 
     const toggleCustomerTable = () => {
@@ -245,7 +258,33 @@ const Page = () => {
                         <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
                             <h5 className="card-title">Capture Customer Details</h5>
 
-                            <CustomerForm action="add" isUserPage="true" />
+                            <CustomerForm
+                                action="add" isUserPage="true"
+                                firstName={firstName}
+                                setFirstName={setFirstName}
+                                secondName={secondName}
+                                setSecondName={setSecondName}
+                                thirdName={thirdName}
+                                setThirdName={setThirdName}
+                                phoneNumber={phoneNumber}
+                                setPhoneNumber={setPhoneNumber}
+                                email={email}
+                                setEmail={setEmail}
+                                gender={gender}
+                                setGender={setGender}
+                                address={address}
+                                setAddress={setAddress}
+                                countryCode={countryCode}
+                                setCountryCode={setCountryCode}
+                                administrativeArea={administrativeArea}
+                                setAdministrativeArea={setAdministrativeArea}
+                                customerGroup={customerGroup}
+                                setCustomerGroup={setCustomerGroup}
+                                kraPin={kraPin}
+                                setKraPin={setKraPin}
+                                identificationCardId={identificationCardId}
+                                setIdentificationCardId={setIdentificationCardId}
+                            />
                             <DocumentHolder />
                             <div className="text-center mb-3">
                                 <div className="d-flex justify-content-center">
@@ -468,7 +507,7 @@ const Page = () => {
 
             {/* Modal */}
 
-            
+
         </>
     );
 
