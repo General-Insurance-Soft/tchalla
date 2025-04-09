@@ -204,3 +204,11 @@ export const fetchProposalData = async (page, size) => {
 export const daleteProposal = async (id) => {
     return await dataDeleteById(`${baseServerUrl}/proposal-service/api/v1/proposal/delete?id=${id}`, "proposal delete");
 }
+
+export const getProposal = async (id) => {
+    return await dataFetch(`${baseServerUrl}/proposal-service/api/v1/proposal/get?id=${id}`, "proposal get");
+}
+
+export const getProposalByContact = async (id) => {
+    return await dataFetch(`${baseServerUrl}/proposal-service/api/v1/proposal/get-by-contact?id=${id}`, "proposal get by contact");
+}
