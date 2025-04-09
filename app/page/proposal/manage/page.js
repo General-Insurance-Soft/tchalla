@@ -15,6 +15,8 @@ const Page = () => {
     const modalRef = useRef(null);
     const proposalStatusModalRef = useRef(null);
 
+    const [showOptionalProposalSelectSpinner, setShowOptionalProposalSelectSpinner] = useState(false);
+
     const [showEditForm, setShowEditForm] = useState(false);
     const [administrativeAreas, setAdministrativeAreas] = useState({});
     const [contacts, setContacts] = useState({});
@@ -339,20 +341,40 @@ const Page = () => {
 
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <div>
-
+                                            <label htmlFor="insurance">Select proposal to edit:</label>
                                             <div>
-                                                <label htmlFor="insurance">Select proposal to edit:</label>
-                                                <select id="insurance" className="form-select">
-                                                    <option defaultValue>Ref: uuus-hfhf date: 2025-04-01</option>
-                                                    <option >
-                                                        Ref: pipjko-hfhf date: 2024-09-11
-                                                    </option>
-                                                    <option >
-                                                        Ref: xxhxhx-hfhf date: 2024-07-11
-                                                    </option>
-                                                </select>
-                                            </div>
+                                                <div style={{ display: "inline-block" }}>
+                                                    <select id="insurance" className="form-select"
+                                                        onChange={(event) => {
+                                                            setShowOptionalProposalSelectSpinner(true);
+                                                        }
+                                                        }>
+                                                        <option defaultValue>Ref: uuus-hfhf date: 2025-04-01</option>
+                                                        <option>Ref: pipjko-hfhf date: 2024-09-11</option>
+                                                        <option>Ref: xxhxhx-hfhf date: 2024-07-11</option>
+                                                    </select>
+                                                </div>
 
+                                                {
+                                                    showOptionalProposalSelectSpinner &&
+                                                    <div
+                                                        className="spinner-border text-primary"
+                                                        style={{
+                                                            display: "inline-block",
+                                                            verticalAlign: "middle",
+                                                            marginLeft: "8px",
+                                                            width: "25px",
+                                                            height: "25px",
+                                                            borderWidth: "0.25rem",
+                                                            borderRadius: "50%"
+                                                        }}
+                                                        role="status"
+                                                    >
+                                                        <span className="visually-hidden">Loading...</span>
+                                                    </div>
+                                                }
+
+                                            </div>
                                         </div>
 
                                         <div>
