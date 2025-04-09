@@ -7,13 +7,15 @@ import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import DeleteProposal from './delete-proposal.js';
 import ProposalStatusModal from './proposal-status-message.js';
-import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies } from "../../../lib/service/model";
+import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getProposal, getProposalByContact } from "../../../lib/service/model";
 import ProposalForm from "../proposal-form";
 
 
 const Page = () => {
     const modalRef = useRef(null);
     const proposalStatusModalRef = useRef(null);
+
+    const [showOptionalProposalSelectSpinner, setShowOptionalProposalSelectSpinner] = useState(false);
 
     const [showEditForm, setShowEditForm] = useState(false);
     const [administrativeAreas, setAdministrativeAreas] = useState({});
@@ -34,6 +36,7 @@ const Page = () => {
     let [endDate, setEndDate] = useState('');
     let [proposalDocuments, setProposalDocuments] = useState([]);
     let [editFormContactDetails, setEditFormContactDetails] = useState("");
+    let [selectedContactProposals, setSelectedContactProposals] = useState([]);
 
     const creatNewImageFolder = (event) => {
 
@@ -311,6 +314,9 @@ const Page = () => {
                                                                 setEndDate(proposal.end_date)
                                                                 setProposalNumber(proposal.reference_number)
                                                                 setEditFormContactDetails("Edit " + proposal["contactName"] + " proposal from: " + proposal["start_date"])
+                                                                getProposalByContact(proposal.contact_id).then((res) => {
+                                                                    setSelectedContactProposals(res)
+                                                                })
                                                                 console.log("selectedProposal", selectedProposal)
                                                             }
                                                         }
@@ -339,20 +345,50 @@ const Page = () => {
 
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <div>
-
+                                            <label htmlFor="insurance">Select proposal to edit:</label>
                                             <div>
-                                                <label htmlFor="insurance">Select proposal to edit:</label>
-                                                <select id="insurance" className="form-select">
-                                                    <option defaultValue>Ref: uuus-hfhf date: 2025-04-01</option>
-                                                    <option >
-                                                        Ref: pipjko-hfhf date: 2024-09-11
-                                                    </option>
-                                                    <option >
-                                                        Ref: xxhxhx-hfhf date: 2024-07-11
-                                                    </option>
-                                                </select>
-                                            </div>
+                                                <div style={{ display: "inline-block" }}>
+                                                    {/* selectedContactProposals */}
 
+                                                    {
+                                                        selectedContactProposals.length > 0 &&
+                                                        <select id="insurance" className="form-select"
+                                                            onChange={(event) => {
+                                                                // setShowOptionalProposalSelectSpinner(true);
+                                                            }
+                                                            }>
+                                                            {
+                                                                selectedContactProposals.map((proposal, index) => {
+                                                                    return (
+                                                                        <option key={index} value={proposal.id}>"Ref: " {proposal.reference_number} " date: " {proposal.start_date}</option>
+                                                                    );
+                                                                })
+                                                            }
+                                                        </select>
+                                                    }
+
+                                                </div>
+
+                                                {
+                                                    showOptionalProposalSelectSpinner &&
+                                                    <div
+                                                        className="spinner-border text-primary"
+                                                        style={{
+                                                            display: "inline-block",
+                                                            verticalAlign: "middle",
+                                                            marginLeft: "8px",
+                                                            width: "25px",
+                                                            height: "25px",
+                                                            borderWidth: "0.25rem",
+                                                            borderRadius: "50%"
+                                                        }}
+                                                        role="status"
+                                                    >
+                                                        <span className="visually-hidden">Loading...</span>
+                                                    </div>
+                                                }
+
+                                            </div>
                                         </div>
 
                                         <div>
