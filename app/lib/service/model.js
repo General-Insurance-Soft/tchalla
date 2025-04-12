@@ -40,13 +40,13 @@ let dataFetch = async (url, dataName) => {
     }
 }
 
-let dataPost = async (url, data, dataName) => {
+let dataPost = async (url, data, dataName, method) => {
 
     let token = getToken("access");
 
     try {
         let response = await fetch(url, {
-            method: "Post",
+            method: method,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -194,7 +194,7 @@ export const fetchAdministrativeAreas = async () => {
 }
 
 export const saveProposalAndContact = async (data) => {
-    return await dataPost(`${baseServerUrl}/api/v1/client-service/proposal-user/save`, data, "proposal & contact save");
+    return await dataPost(`${baseServerUrl}/api/v1/client-service/proposal-user/save`, data, "proposal & contact save", "POST");
 }
 
 export const fetchProposalData = async (page, size) => {
@@ -212,3 +212,8 @@ export const getProposal = async (id) => {
 export const getProposalByContact = async (id) => {
     return await dataFetch(`${baseServerUrl}/proposal-service/api/v1/proposal/get-by-contact?id=${id}`, "proposal get by contact");
 }
+
+export const updateProposal = async (id, data) => {
+    return await dataPost(`${baseServerUrl}/proposal-service/api/v1/proposal/update?id=${id}`, data, "proposal update", "PUT");
+}
+

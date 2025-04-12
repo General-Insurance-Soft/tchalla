@@ -7,7 +7,7 @@ import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import DeleteProposal from './delete-proposal.js';
 import ProposalStatusModal from './proposal-status-message.js';
-import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getProposal, getProposalByContact } from "../../../lib/service/model";
+import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getProposal, getProposalByContact, updateProposal } from "../../../lib/service/model";
 import ProposalForm from "../proposal-form";
 
 
@@ -46,6 +46,35 @@ const Page = () => {
                 modal.show();
             }
         }
+    }
+
+    const updateProposalData = async (event) => {
+        event.preventDefault();
+
+        let data = {
+            "policy_type_id": policyId,
+            "start_date": startDate,
+            "end_date": endDate,
+            "insurance_company_id": insuranceCompanyId,
+            "reference_number": proposalNumber,
+            "proposal_documents": proposalDocuments
+        }
+
+        let res = await updateProposal(selectedProposal.id, data);
+        console.log("update proposal res");
+        console.log(res);
+        if ('error' in res) {
+            setMessageStatus(res.error);
+        } else {
+            setMessageStatus(res.message);
+        }
+
+        if (proposalStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
+            modal.show();
+        }
+        return;
+
     }
 
     const fetchSubproposal = async (proposalId) => {
@@ -417,7 +446,15 @@ const Page = () => {
                                         </div>
 
                                         <div>
-                                            <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
+                                            <button className="btn btn-primary me-2"
+                                                onClick={
+                                                    () => {
+                                                        // setShowEditForm(false)
+                                                        updateProposalData(event);
+                                                    }
+                                                }>
+                                                Update
+                                            </button>
                                             <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                                         </div>
                                     </div>
@@ -444,7 +481,7 @@ const Page = () => {
                     }
 
                 </div>
-            </div>
+            </div >
             <NewImageFolder modalRefVar={modalRef} />
             <DeleteProposal deleteProposal={deleteProposal} resetSelectedProposal={resetSelectedProposal} />
             <ProposalStatusModal ref={proposalStatusModalRef} messageStatus={messageStatus} />
