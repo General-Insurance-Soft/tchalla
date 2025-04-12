@@ -60,13 +60,13 @@ const Page = () => {
             "proposal_documents": proposalDocuments
         }
 
-        let res = await updateProposal(selectedProposal.id, data);
-        console.log("update proposal res");
-        console.log(res);
-        if ('error' in res) {
-            setMessageStatus(res.error);
+        let response = await updateProposal(selectedProposal.id, data);
+
+        if ('error' in response) {
+            setMessageStatus(response.error);
         } else {
-            setMessageStatus(res.message);
+            setMessageStatus(response.message);
+            fetchAllProposalData();
         }
 
         if (proposalStatusModalRef.current) {
@@ -101,19 +101,62 @@ const Page = () => {
         setShowOptionalProposalSelectSpinner(false);
     }
 
-    useEffect(() => {
 
-        const fetchProposalList = async () => {
-            let res = await fetchProposalData(0, 10);
-            if ('error' in res) {
-                return;
+    const deleteProposal = async () => {
+        if (selectedProposalId == null) return
+
+        let res = await daleteProposal(selectedProposalId);
+        console.log("delete proposal res", res);
+        setMessageStatus(res.message);
+
+        // Show the ProposalStatusModal
+        if (proposalStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
+            modal.show();
+        }
+    }
+
+    let saveProposal = (event) => {
+        event.preventDefault();
+        // Save the proposal data to the server or perform any other action 
+        console.log("Proposal data saved:", {
+            proposalNumber,
+            insuranceCompanyId,
+            policyId,
+            startDate,
+            endDate,
+        });
+
+        let data = {
+            "proposal": {
+                "policy_type_id": policyId,
+                "start_date": startDate,
+                "end_date": endDate,
+                "insurance_company_id": insuranceCompanyId,
+                "reference_number": proposalNumber,
+                "proposal_documents": proposalDocuments
             }
-            setRes(res);
-        };
-        fetchProposalList();
+        }
+        saveProposalAndContact(data);
+    };
 
+    const resetSelectedProposal = () => {
+        setSelectedProposalId(null);
+    }
+
+
+    const fetchAllProposalData = async () => {
+        let res = await fetchProposalData(0, 15);
+        if ('error' in res) {
+            return;
+        }
+        setRes(res);
+    };
+
+
+    useEffect(() => {
+        fetchAllProposalData();
     }, []);
-
 
     //initialize fieds with server data
     useEffect(() => {
@@ -254,47 +297,6 @@ const Page = () => {
 
     }, [res]);
 
-    const deleteProposal = async () => {
-        if (selectedProposalId == null) return
-
-        let res = await daleteProposal(selectedProposalId);
-        console.log("delete proposal res", res);
-        setMessageStatus(res.message);
-
-        // Show the ProposalStatusModal
-        if (proposalStatusModalRef.current) {
-            const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
-            modal.show();
-        }
-    }
-
-    let saveProposal = (event) => {
-        event.preventDefault();
-        // Save the proposal data to the server or perform any other action 
-        console.log("Proposal data saved:", {
-            proposalNumber,
-            insuranceCompanyId,
-            policyId,
-            startDate,
-            endDate,
-        });
-
-        let data = {
-            "proposal": {
-                "policy_type_id": policyId,
-                "start_date": startDate,
-                "end_date": endDate,
-                "insurance_company_id": insuranceCompanyId,
-                "reference_number": proposalNumber,
-                "proposal_documents": proposalDocuments
-            }
-        }
-        saveProposalAndContact(data);
-    };
-
-    const resetSelectedProposal = () => {
-        setSelectedProposalId(null);
-    }
 
     return (
         <>
