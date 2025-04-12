@@ -376,7 +376,7 @@ const Page = () => {
 
                                                     {
                                                         selectedContactProposals.length > 0 &&
-                                                        <select id="insurance" className="form-select"
+                                                        <select id="insurance" value={selectedProposal.id} className="form-select"
                                                             onChange={(event) => {
                                                                 setShowOptionalProposalSelectSpinner(true);
                                                                 fetchSubproposal(event.target.value);
@@ -421,7 +421,6 @@ const Page = () => {
                                             <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                                         </div>
                                     </div>
-
                                     <ProposalForm
                                         proposalAction={"edit"} selectedProposal={selectedProposal}
                                         insuranceCompanyId={insuranceCompanyId} policyId={policyId}
@@ -433,7 +432,7 @@ const Page = () => {
                                         documentTypes={documentTypes} setDocumentTypes={setDocumentTypes}
                                         policies={policies} setPolicies={setPolicies}
                                         customerState={customerState} setCutomerState={setCutomerState}
-                                        saveProposal={saveProposal}
+                                        saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber}
                                     />
 
                                     {/* Modal */}

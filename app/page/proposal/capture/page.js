@@ -176,20 +176,6 @@ const Page = () => {
 
                     <hr />
 
-                    <div className="d-flex justify-content-start mb-3">
-                        <div className="">
-
-                        </div>
-
-                        <div className="">
-                            <input id="proposal_tag"
-                                value={proposalNumber}
-                                onChange={(e) => setProposalNumber(e.target.value)}
-                                type="text" className="form-control"
-                                placeholder="proposal reference" />
-                        </div>
-                    </div>
-
                     <ProposalForm
                         proposalAction={"add"}
                         firstName={firstName} setFirstName={setFirstName}
@@ -214,7 +200,7 @@ const Page = () => {
                         documentTypes={documentTypes} setDocumentTypes={setDocumentTypes}
                         policies={policies} setPolicies={setPolicies}
                         customerState={customerState} setCutomerState={setCutomerState}
-                        saveProposal={saveProposal}
+                        saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber}
                     />
 
                     {/* Modal */}

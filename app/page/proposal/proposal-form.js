@@ -28,11 +28,28 @@ const Page = (
         documentTypes, setDocumentTypes,
         policies, setPolicies,
         customerState, setCutomerState,
-        saveProposal
+        saveProposal, proposalNumber, setProposalNumber
     }
 ) => {
     return (
         <>
+
+
+            <div className="d-flex justify-content-start mb-3">
+                <div className="">
+
+                </div>
+
+                <div className="">
+                    <input id="proposal_tag"
+                        value={proposalNumber}
+                        onChange={(e) => setProposalNumber(e.target.value)}
+                        type="text" className="form-control"
+                        placeholder="proposal reference" />
+                </div>
+            </div>
+
+
             <form className="row g-3">
                 {
                     customerState === "new" ?
