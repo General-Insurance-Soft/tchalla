@@ -7,7 +7,7 @@ import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import DeleteProposal from './delete-proposal.js';
 import ProposalStatusModal from './proposal-status-message.js';
-import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getProposal, getProposalByContact } from "../../../lib/service/model";
+import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getProposal, getProposalByContact, updateProposal } from "../../../lib/service/model";
 import ProposalForm from "../proposal-form";
 
 
@@ -48,19 +48,115 @@ const Page = () => {
         }
     }
 
-    useEffect(() => {
+    const updateProposalData = async (event) => {
+        event.preventDefault();
 
-        const fetchProposalList = async () => {
-            let res = await fetchProposalData(0, 10);
-            if ('error' in res) {
-                return;
+        let data = {
+            "policy_type_id": policyId,
+            "start_date": startDate,
+            "end_date": endDate,
+            "insurance_company_id": insuranceCompanyId,
+            "reference_number": proposalNumber,
+            "proposal_documents": proposalDocuments
+        }
+
+        let response = await updateProposal(selectedProposal.id, data);
+
+        if ('error' in response) {
+            setMessageStatus(response.error);
+        } else {
+            setMessageStatus(response.message);
+            fetchAllProposalData();
+        }
+
+        if (proposalStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
+            modal.show();
+        }
+        return;
+
+    }
+
+    const fetchSubproposal = async (proposalId) => {
+        let proposal = await getProposal(proposalId);
+        if ('error' in proposal) {
+            setMessageStatus(proposal.message);
+
+            if (proposalStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
+                modal.show();
             }
-            setRes(res);
-        };
-        fetchProposalList();
+            setShowOptionalProposalSelectSpinner(false);
+            return;
+        }
 
+        setSelectedProposal(proposal)
+        setInsuranceCompanyId(proposal.insurance_company_id)
+        setPolicyId(proposal.policy_type_id)
+        setStartDate(proposal.start_date)
+        setEndDate(proposal.end_date)
+        setProposalNumber(proposal.reference_number)
+        let contactName = contacts[proposal.contact_id].first_name + " " + contacts[proposal.contact_id].last_name;
+        setEditFormContactDetails("Edit " + contactName + " proposal from: " + proposal["start_date"])
+        setShowOptionalProposalSelectSpinner(false);
+    }
+
+
+    const deleteProposal = async () => {
+        if (selectedProposalId == null) return
+
+        let res = await daleteProposal(selectedProposalId);
+        console.log("delete proposal res", res);
+        setMessageStatus(res.message);
+
+        // Show the ProposalStatusModal
+        if (proposalStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
+            modal.show();
+        }
+    }
+
+    let saveProposal = (event) => {
+        event.preventDefault();
+        // Save the proposal data to the server or perform any other action 
+        console.log("Proposal data saved:", {
+            proposalNumber,
+            insuranceCompanyId,
+            policyId,
+            startDate,
+            endDate,
+        });
+
+        let data = {
+            "proposal": {
+                "policy_type_id": policyId,
+                "start_date": startDate,
+                "end_date": endDate,
+                "insurance_company_id": insuranceCompanyId,
+                "reference_number": proposalNumber,
+                "proposal_documents": proposalDocuments
+            }
+        }
+        saveProposalAndContact(data);
+    };
+
+    const resetSelectedProposal = () => {
+        setSelectedProposalId(null);
+    }
+
+
+    const fetchAllProposalData = async () => {
+        let res = await fetchProposalData(0, 15);
+        if ('error' in res) {
+            return;
+        }
+        setRes(res);
+    };
+
+
+    useEffect(() => {
+        fetchAllProposalData();
     }, []);
-
 
     //initialize fieds with server data
     useEffect(() => {
@@ -136,7 +232,7 @@ const Page = () => {
         }
 
 
-        //setContacts(contactMap);
+        setContacts(contactMap);
 
         let proposalLst = [];
 
@@ -201,47 +297,6 @@ const Page = () => {
 
     }, [res]);
 
-    const deleteProposal = async () => {
-        if (selectedProposalId == null) return
-
-        let res = await daleteProposal(selectedProposalId);
-        console.log("delete proposal res", res);
-        setMessageStatus(res.message);
-
-        // Show the ProposalStatusModal
-        if (proposalStatusModalRef.current) {
-            const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
-            modal.show();
-        }
-    }
-
-    let saveProposal = (event) => {
-        event.preventDefault();
-        // Save the proposal data to the server or perform any other action 
-        console.log("Proposal data saved:", {
-            proposalNumber,
-            insuranceCompanyId,
-            policyId,
-            startDate,
-            endDate,
-        });
-
-        let data = {
-            "proposal": {
-                "policy_type_id": policyId,
-                "start_date": startDate,
-                "end_date": endDate,
-                "insurance_company_id": insuranceCompanyId,
-                "reference_number": proposalNumber,
-                "proposal_documents": proposalDocuments
-            }
-        }
-        saveProposalAndContact(data);
-    };
-
-    const resetSelectedProposal = () => {
-        setSelectedProposalId(null);
-    }
 
     return (
         <>
@@ -352,9 +407,10 @@ const Page = () => {
 
                                                     {
                                                         selectedContactProposals.length > 0 &&
-                                                        <select id="insurance" className="form-select"
+                                                        <select id="insurance" value={selectedProposal.id} className="form-select"
                                                             onChange={(event) => {
-                                                                // setShowOptionalProposalSelectSpinner(true);
+                                                                setShowOptionalProposalSelectSpinner(true);
+                                                                fetchSubproposal(event.target.value);
                                                             }
                                                             }>
                                                             {
@@ -392,11 +448,18 @@ const Page = () => {
                                         </div>
 
                                         <div>
-                                            <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
+                                            <button className="btn btn-primary me-2"
+                                                onClick={
+                                                    () => {
+                                                        // setShowEditForm(false)
+                                                        updateProposalData(event);
+                                                    }
+                                                }>
+                                                Update
+                                            </button>
                                             <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                                         </div>
                                     </div>
-
                                     <ProposalForm
                                         proposalAction={"edit"} selectedProposal={selectedProposal}
                                         insuranceCompanyId={insuranceCompanyId} policyId={policyId}
@@ -408,7 +471,7 @@ const Page = () => {
                                         documentTypes={documentTypes} setDocumentTypes={setDocumentTypes}
                                         policies={policies} setPolicies={setPolicies}
                                         customerState={customerState} setCutomerState={setCutomerState}
-                                        saveProposal={saveProposal}
+                                        saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber} updateProposalData={updateProposalData}
                                     />
 
                                     {/* Modal */}
@@ -420,7 +483,7 @@ const Page = () => {
                     }
 
                 </div>
-            </div>
+            </div >
             <NewImageFolder modalRefVar={modalRef} />
             <DeleteProposal deleteProposal={deleteProposal} resetSelectedProposal={resetSelectedProposal} />
             <ProposalStatusModal ref={proposalStatusModalRef} messageStatus={messageStatus} />

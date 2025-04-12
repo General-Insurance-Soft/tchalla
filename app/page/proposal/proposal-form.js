@@ -28,11 +28,28 @@ const Page = (
         documentTypes, setDocumentTypes,
         policies, setPolicies,
         customerState, setCutomerState,
-        saveProposal
+        saveProposal, proposalNumber, setProposalNumber, updateProposalData
     }
 ) => {
     return (
         <>
+
+
+            <div className="d-flex justify-content-start mb-3">
+                <div className="">
+
+                </div>
+
+                <div className="">
+                    <input id="proposal_tag"
+                        value={proposalNumber}
+                        onChange={(e) => setProposalNumber(e.target.value)}
+                        type="text" className="form-control"
+                        placeholder="proposal reference" />
+                </div>
+            </div>
+
+
             <form className="row g-3">
                 {
                     customerState === "new" ?
@@ -224,9 +241,14 @@ const Page = (
 
                 <div className="text-center mb-3">
                     <div className="d-flex justify-content-center">
-                        <button onClick={(e) => saveProposal(e)} className="btn btn-primary me-2"> {
-                            proposalAction === "add" ? "Save" : "Update"
-                        } </button>
+                        <button
+                            onClick={(e) => {
+                                proposalAction === "add" ? saveProposal(e) : updateProposalData(e)
+                            }
+                            } className="btn btn-primary me-2"> {
+                                proposalAction === "add" ? "Save" : "Update"
+                            }
+                        </button>
                         <button className="btn btn-secondary">Cancel</button>
                     </div>
                 </div>
