@@ -299,7 +299,7 @@ const Page = () => {
                                                 <td>{proposal["county"]}</td>
                                                 <td>{proposal["address"]}</td>
                                                 <td>{proposal.start_date}</td>
-                                                <td>3</td>
+                                                <td>{proposal.proposal_count}</td>
                                                 <td>{proposal["updateByName"]}</td>
                                                 <td>{proposal.updated_at}</td>
                                                 <td>
