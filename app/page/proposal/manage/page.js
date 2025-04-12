@@ -471,7 +471,7 @@ const Page = () => {
                                         documentTypes={documentTypes} setDocumentTypes={setDocumentTypes}
                                         policies={policies} setPolicies={setPolicies}
                                         customerState={customerState} setCutomerState={setCutomerState}
-                                        saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber}
+                                        saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber} updateProposalData={updateProposalData}
                                     />
 
                                     {/* Modal */}
