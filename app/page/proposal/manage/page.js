@@ -48,6 +48,30 @@ const Page = () => {
         }
     }
 
+    const fetchSubproposal = async (proposalId) => {
+        let proposal = await getProposal(proposalId);
+        if ('error' in proposal) {
+            setMessageStatus(proposal.message);
+
+            if (proposalStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
+                modal.show();
+            }
+            setShowOptionalProposalSelectSpinner(false);
+            return;
+        }
+
+        setSelectedProposal(proposal)
+        setInsuranceCompanyId(proposal.insurance_company_id)
+        setPolicyId(proposal.policy_type_id)
+        setStartDate(proposal.start_date)
+        setEndDate(proposal.end_date)
+        setProposalNumber(proposal.reference_number)
+        let contactName = contacts[proposal.contact_id].first_name + " " + contacts[proposal.contact_id].last_name;
+        setEditFormContactDetails("Edit " + contactName + " proposal from: " + proposal["start_date"])
+        setShowOptionalProposalSelectSpinner(false);
+    }
+
     useEffect(() => {
 
         const fetchProposalList = async () => {
@@ -136,7 +160,7 @@ const Page = () => {
         }
 
 
-        //setContacts(contactMap);
+        setContacts(contactMap);
 
         let proposalLst = [];
 
@@ -354,7 +378,8 @@ const Page = () => {
                                                         selectedContactProposals.length > 0 &&
                                                         <select id="insurance" className="form-select"
                                                             onChange={(event) => {
-                                                                // setShowOptionalProposalSelectSpinner(true);
+                                                                setShowOptionalProposalSelectSpinner(true);
+                                                                fetchSubproposal(event.target.value);
                                                             }
                                                             }>
                                                             {
