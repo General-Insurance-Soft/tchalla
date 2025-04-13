@@ -457,7 +457,7 @@ const Page = () => {
                                                 }>
                                                 Update
                                             </button>
-                                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Close</button>
                                         </div>
                                     </div>
                                     <ProposalForm
@@ -472,6 +472,7 @@ const Page = () => {
                                         policies={policies} setPolicies={setPolicies}
                                         customerState={customerState} setCutomerState={setCutomerState}
                                         saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber} updateProposalData={updateProposalData}
+                                        setShowEditForm = {setShowEditForm}
                                     />
 
                                     {/* Modal */}
