@@ -5,11 +5,14 @@ import { useEffect, useState, useRef } from "react";
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import ProposalForm from "../proposal-form";
+import ProposalStatusModal from '../proposal-status-message.js';
 import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact } from "../../../lib/service/model";
 
 const Page = () => {
 
     const modalRef = useRef(null);
+    const [messageStatus, setMessageStatus] = useState("");
+    const proposalCaptureStatusModalRef = useRef(null);
     let [customerState, setCutomerState] = useState("existing");
     let [insuranceCompanies, setInsuranceCompanies] = useState([]);
     let [documentTypes, setDocumentTypes] = useState([]);
@@ -37,7 +40,7 @@ const Page = () => {
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
 
-    let saveProposal = (event) => {
+    const saveProposal = async (event) => {
         event.preventDefault();
         // Save the proposal data to the server or perform any other action 
         console.log("Proposal data saved:", {
@@ -72,7 +75,14 @@ const Page = () => {
                 }
             }
         }
-        saveProposalAndContact(data);
+        let saveRes = await saveProposalAndContact(data);
+        setMessageStatus(saveRes.message);
+
+        // Show the ProposalStatusModal
+        if (proposalCaptureStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(proposalCaptureStatusModalRef.current);
+            modal.show();
+        }
     };
 
     useEffect(() => { }, [customerState]);
@@ -209,6 +219,7 @@ const Page = () => {
                 </div >
             </div >
             <NewImageFolder modalRefVar={modalRef} />
+            <ProposalStatusModal ref={proposalCaptureStatusModalRef} messageStatus={messageStatus} />
         </>
 
 
