@@ -22,18 +22,36 @@ let dataFetch = async (url, dataName) => {
         });
 
         let res = await response;
+
         if (!res.ok) {
-            console.log(`Error fetching ${dataName}`);
+            const errorBody = await response.json();
+            console.error(`Error posting data: ${dataName}`, errorBody);
+
+            let errorMessage = '';
+
+            if (typeof errorBody === 'string') {
+                errorMessage = errorBody;
+            } else if (Array.isArray(errorBody)) {
+                errorMessage = errorBody.join('<br/>');
+            } else if (typeof errorBody === 'object') {
+                errorMessage = Object.entries(errorBody)
+                    .map(([field, msg]) => `${field}: ${msg}`)
+                    .join('<br/>');
+            } else {
+                errorMessage = 'An unknown error occurred.';
+            }
+
             return {
-                "error": `Could not fetch ${dataName}`
+                message: `Could not fetch data: ${errorMessage}`
             };
         }
+
         return res.json();
 
     } catch (error) {
         console.error(`Error getting ${dataName}:`, error);
         let returnVal = {
-            "error": "Error getting data"
+            "message": "Error getting data"
         };
 
         return returnVal;
@@ -55,18 +73,36 @@ let dataPost = async (url, data, dataName, method) => {
         });
 
         let res = await response;
+
         if (!res.ok) {
-            console.log(`Error posting data:  ${dataName}`);
+            const errorBody = await response.json();
+            console.error(`Error posting data: ${dataName}`, errorBody);
+
+            let errorMessage = '';
+
+            if (typeof errorBody === 'string') {
+                errorMessage = errorBody;
+            } else if (Array.isArray(errorBody)) {
+                errorMessage = errorBody.join('<br/>');
+            } else if (typeof errorBody === 'object') {
+                errorMessage = Object.entries(errorBody)
+                    .map(([field, msg]) => `${field}: ${msg}`)
+                    .join('<br/>');
+            } else {
+                errorMessage = 'An unknown error occurred.';
+            }
+
             return {
-                "error": `Could not post data:  ${dataName}`
+                message: `Could not post data: ${errorMessage}`
             };
         }
+
         return res.json();
 
     } catch (error) {
         console.error(`Error posting:  ${dataName}:`, error);
         let returnVal = {
-            "error": "Error posting data"
+            "message": "Error posting data"
         };
 
         return returnVal;
@@ -87,18 +123,36 @@ let dataDeleteById = async (url, dataName) => {
         });
 
         let res = await response;
+
         if (!res.ok) {
-            console.log(`Error fetching ${dataName}`);
+            const errorBody = await response.json();
+            console.error(`Error posting data: ${dataName}`, errorBody);
+
+            let errorMessage = '';
+
+            if (typeof errorBody === 'string') {
+                errorMessage = errorBody;
+            } else if (Array.isArray(errorBody)) {
+                errorMessage = errorBody.join('<br/>');
+            } else if (typeof errorBody === 'object') {
+                errorMessage = Object.entries(errorBody)
+                    .map(([field, msg]) => `${field}: ${msg}`)
+                    .join('<br/>');
+            } else {
+                errorMessage = 'An unknown error occurred.';
+            }
+
             return {
-                "error": `Could not fetch ${dataName}`
+                message: `Could not delete data: ${errorMessage}`
             };
         }
+
         return res.json();
 
     } catch (error) {
         console.error(`Error getting ${dataName}:`, error);
         let returnVal = {
-            "error": "Error getting data"
+            "message": "Error getting data"
         };
 
         return returnVal;

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import DeleteProposal from './delete-proposal.js';
-import ProposalStatusModal from './proposal-status-message.js';
+import ProposalStatusModal from '../proposal-status-message.js';
 import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getProposal, getProposalByContact, updateProposal } from "../../../lib/service/model";
 import ProposalForm from "../proposal-form";
 
@@ -62,12 +62,8 @@ const Page = () => {
 
         let response = await updateProposal(selectedProposal.id, data);
 
-        if ('error' in response) {
-            setMessageStatus(response.error);
-        } else {
-            setMessageStatus(response.message);
-            fetchAllProposalData();
-        }
+        setMessageStatus(response.message);
+        fetchAllProposalData();
 
         if (proposalStatusModalRef.current) {
             const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
@@ -457,7 +453,7 @@ const Page = () => {
                                                 }>
                                                 Update
                                             </button>
-                                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Close</button>
                                         </div>
                                     </div>
                                     <ProposalForm
@@ -472,6 +468,7 @@ const Page = () => {
                                         policies={policies} setPolicies={setPolicies}
                                         customerState={customerState} setCutomerState={setCutomerState}
                                         saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber} updateProposalData={updateProposalData}
+                                        setShowEditForm={setShowEditForm}
                                     />
 
                                     {/* Modal */}
