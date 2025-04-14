@@ -271,3 +271,7 @@ export const updateProposal = async (id, data) => {
     return await dataPost(`${baseServerUrl}/proposal-service/api/v1/proposal/update?id=${id}`, data, "proposal update", "PUT");
 }
 
+export const getContactList = async (page, size) => {
+    return await dataFetch(`${baseServerUrl}/contact-service/api/v1/contact/get-contacts?page=${page}&size=${size}`, "contact list get");
+}
+
