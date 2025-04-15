@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import CustomerForm from "./customer_form";
 import withAuth from "../../../lib/service/with_auth";
 import DocumentHolder from "../../../lib/components/ui/utils/document_holder";
+//getContactList
+import { getContactList } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -12,197 +14,106 @@ const Page = () => {
     const [actionBtnLabel, setActionBtnLabel] = useState("Add new");
     const [isContactsGroupTab, setIsContactsGroupTab] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
+    const [customerData, setCustomerData] = useState({});
+    const [contactlList, setContactlList] = useState([]);
+
+    let [firstName, setFirstName] = useState('');
+    let [secondName, setSecondName] = useState('');
+    let [thirdName, setThirdName] = useState('');
+    let [phoneNumber, setPhoneNumber] = useState('');
+    let [email, setEmail] = useState('');
+    let [gender, setGender] = useState('');
+    let [address, setAddress] = useState('');
+    let [countryCode, setCountryCode] = useState('');
+    let [administrativeArea, setAdministrativeArea] = useState('');
+    let [customerGroup, setCustomerGroup] = useState(0);
+    let [kraPin, setKraPin] = useState('');
+    let [identificationCardId, setIdentificationCardId] = useState('');
 
 
     useEffect(() => { }, [showGroupCustomerList, isContactsGroupTab]);
+
+    useEffect(() => {
+        fetchAllContactData();
+    }, []);
+
+    useEffect(() => {
+
+        if (!customerData || Object.keys(customerData).length === 0) {
+            console.log("customerData is empty");
+            return
+        }
+
+        let adminAreas = {};
+        try {
+            customerData.administrative_areas.forEach((area) => {
+                adminAreas[area.id] = area;
+            });
+        } catch (error) {
+            console.log("Error in customerData.administrative_areas =========>>>" + error);
+        }
+
+        //setAdministrativeAreas(adminAreas);
+
+
+        let updatedByMap = {};
+
+        try {
+            customerData.updatedBy.forEach((val) => {
+                updatedByMap[val.id] = val;
+
+            });
+        } catch (error) {
+            console.log("Error in customerData.updatedBy =========>>>" + error);
+        }
+
+        let contactlLst = [];
+
+        customerData.contacts.forEach((contact) => {
+
+            try {
+                contact["updateByName"] = updatedByMap[contact.updated_by].first_name + " " + updatedByMap[contact.updated_by].third_name;
+            } catch (error) {
+                console.log("Error in refresh contact table =========>>>" + error);
+                contact["updateByName"] = "";
+            }
+
+            try {
+                contact["country"] = adminAreas[contact.address.country_code].name;
+            } catch (error) {
+                console.log("Error in refresh contact table =========>>>" + error);
+                contact["country"] = "";
+            }
+
+            try {
+                contact["county"] = adminAreas[contact.address.administrative_area].name;
+            } catch (error) {
+                console.log("Error in refresh contact table =========>>>" + error);
+                contact["county"] = "";
+            }
+
+            contactlLst.push(contact);
+
+        });
+
+        setContactlList(contactlLst);
+
+    }, [customerData]);
+
+    const fetchAllContactData = async () => {
+        let res = await getContactList(0, 10);
+        if ('error' in res) {
+            return;
+        }
+        setCustomerData(res);
+    };
 
     const toggleCustomerTable = () => {
         setShowGroupCustomerList(!showGroupCustomerList);
     };
 
     let customerTable = [
-        <>
-            <div className="row">
 
-                {
-                    isContactsGroupTab ?
-                        <div className="col-sm-6 text-info">Total Customers selected: 20</div>
-
-                        :
-                        <div className="col-sm-6">Total Customers: 600</div>
-                }
-            </div>
-            <table className="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Country</th>
-                        <th scope="col">County</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Last Editor</th>
-                        <th scope="col">Last Edited</th>
-                        <th scope="col">
-                            {
-                                isContactsGroupTab ?
-
-                                    <td>
-                                        <input id="selectAll" type="checkbox" /> Select all
-                                    </td>
-                                    :
-                                    "Action"
-                            }
-
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr key={1}>
-                        <td>#</td>
-                        <td>Tom Lee</td>
-                        <td>0700123789</td>
-                        <td>tmlee@gmail.com</td>
-                        <td>Kenya</td>
-                        <td>Nakuru</td>
-                        <td>First avenue shababa</td>
-                        <td>Lucy</td>
-                        <td>2024-09-11</td>
-                        {
-                            isContactsGroupTab ?
-
-                                <td>
-                                    <input type="checkbox" />
-                                </td>
-                                :
-                                <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                </td>
-                        }
-
-                    </tr>
-                    <tr key={2}>
-                        <td>#</td>
-                        <td>Tom Lee</td>
-                        <td>0700123789</td>
-                        <td>tmlee@gmail.com</td>
-                        <td>Kenya</td>
-                        <td>Nakuru</td>
-                        <td>First avenue shababa</td>
-                        <td>Lucy</td>
-                        <td>2024-09-11</td>
-                        {
-                            isContactsGroupTab ?
-
-                                <td>
-                                    <input type="checkbox" />
-                                </td>
-                                :
-                                <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                </td>
-                        }
-                    </tr>
-                    <tr key={3}>
-                        <td>#</td>
-                        <td>Tom Lee</td>
-                        <td>0700123789</td>
-                        <td>tmlee@gmail.com</td>
-                        <td>Kenya</td>
-                        <td>Nakuru</td>
-                        <td>First avenue shababa</td>
-                        <td>Lucy</td>
-                        <td>2024-09-11</td>
-                        {
-                            isContactsGroupTab ?
-
-                                <td>
-                                    <input type="checkbox" />
-                                </td>
-                                :
-                                <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                </td>
-                        }
-                    </tr>
-                    <tr key={30}>
-                        <td>#</td>
-                        <td>Tom Lee</td>
-                        <td>0700123789</td>
-                        <td>tmlee@gmail.com</td>
-                        <td>Kenya</td>
-                        <td>Nakuru</td>
-                        <td>First avenue shababa</td>
-                        <td>Lucy</td>
-                        <td>2024-09-11</td>
-                        {
-                            isContactsGroupTab ?
-
-                                <td>
-                                    <input type="checkbox" />
-                                </td>
-                                :
-                                <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                </td>
-                        }
-                    </tr>
-                    <tr key={4}>
-                        <td>#</td>
-                        <td>Tom Lee</td>
-                        <td>0700123789</td>
-                        <td>tmlee@gmail.com</td>
-                        <td>Kenya</td>
-                        <td>Nakuru</td>
-                        <td>First avenue shababa</td>
-                        <td>Lucy</td>
-                        <td>2024-09-11</td>
-                        {
-                            isContactsGroupTab ?
-
-                                <td>
-                                    <input type="checkbox" />
-                                </td>
-                                :
-                                <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                </td>
-                        }
-                    </tr>
-                    <tr key={5}>
-                        <td>#</td>
-                        <td>Tom Lee</td>
-                        <td>0700123789</td>
-                        <td>tmlee@gmail.com</td>
-                        <td>Kenya</td>
-                        <td>Nakuru</td>
-                        <td>First avenue shababa</td>
-                        <td>Lucy</td>
-                        <td>2024-09-11</td>
-                        {
-                            isContactsGroupTab ?
-
-                                <td>
-                                    <input type="checkbox" />
-                                </td>
-                                :
-                                <td>
-                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                </td>
-                        }
-                    </tr>
-
-                </tbody>
-            </table>
-        </>
 
     ];
 
@@ -245,7 +156,33 @@ const Page = () => {
                         <div className="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
                             <h5 className="card-title">Capture Customer Details</h5>
 
-                            <CustomerForm action="add" isUserPage="true" />
+                            <CustomerForm
+                                action="add" isUserPage="true"
+                                firstName={firstName}
+                                setFirstName={setFirstName}
+                                secondName={secondName}
+                                setSecondName={setSecondName}
+                                thirdName={thirdName}
+                                setThirdName={setThirdName}
+                                phoneNumber={phoneNumber}
+                                setPhoneNumber={setPhoneNumber}
+                                email={email}
+                                setEmail={setEmail}
+                                gender={gender}
+                                setGender={setGender}
+                                address={address}
+                                setAddress={setAddress}
+                                countryCode={countryCode}
+                                setCountryCode={setCountryCode}
+                                administrativeArea={administrativeArea}
+                                setAdministrativeArea={setAdministrativeArea}
+                                customerGroup={customerGroup}
+                                setCustomerGroup={setCustomerGroup}
+                                kraPin={kraPin}
+                                setKraPin={setKraPin}
+                                identificationCardId={identificationCardId}
+                                setIdentificationCardId={setIdentificationCardId}
+                            />
                             <DocumentHolder />
                             <div className="text-center mb-3">
                                 <div className="d-flex justify-content-center">
@@ -260,7 +197,78 @@ const Page = () => {
                         <div className="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
                             <h5 className="card-title">Manage Customers</h5>
 
-                            {customerTable}
+                            <>
+                                <div className="row">
+
+                                    {
+                                        isContactsGroupTab ?
+                                            <div className="col-sm-6 text-info">Total Customers selected: 20</div>
+
+                                            :
+                                            <div className="col-sm-6">Total Customers: 600</div>
+                                    }
+                                </div>
+                                <table className="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Country</th>
+                                            <th scope="col">County</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Last Editor</th>
+                                            <th scope="col">Last Edited</th>
+                                            <th scope="col">
+                                                {
+                                                    isContactsGroupTab ?
+
+                                                        <td>
+                                                            <input id="selectAll" type="checkbox" /> Select all
+                                                        </td>
+                                                        :
+                                                        "Action"
+                                                }
+
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {
+                                            contactlList.map((row, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>{index + 1}</td>
+                                                        <td>{row["first_name"]} {row["last_name"]}</td>
+                                                        <td>{row["phone"]}</td>
+                                                        <td>{row["email"]}</td>
+                                                        <td>{row["country"]}</td>
+                                                        <td>{row["county"]}</td>
+                                                        <td>{row["address"].address}</td>
+                                                        <td>{row["updateByName"]}</td>
+                                                        <td>{row["updatedAt"]}</td>
+                                                        {
+                                                            isContactsGroupTab ?
+
+                                                                <td>
+                                                                    <input type="checkbox" />
+                                                                </td>
+                                                                :
+                                                                <td>
+                                                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
+                                                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                                </td>
+                                                        }
+                                                    </tr>
+                                                );
+                                            })
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </>
 
                             {
                                 showEditForm ?
@@ -347,8 +355,8 @@ const Page = () => {
                                             </div>
                                             |
                                             <div className="d-flex gap-1">
-                                                <label htmlFor="age" className="col-form-label">Name: </label>
-                                                <select id="age" className="form-select">
+                                                <label htmlFor="name" className="col-form-label">Name: </label>
+                                                <select id="name" className="form-select">
                                                     <option>starts with</option>
                                                     <option>contains</option>
                                                     <option>ends with</option>
@@ -468,7 +476,7 @@ const Page = () => {
 
             {/* Modal */}
 
-            
+
         </>
     );
 

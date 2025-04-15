@@ -3,9 +3,10 @@ import { getToken } from '../utils/util';
 
 /*
 ======================
-Reference-data-Service
+
 ======================
 */
+
 
 let dataFetch = async (url, dataName) => {
 
@@ -21,31 +22,49 @@ let dataFetch = async (url, dataName) => {
         });
 
         let res = await response;
+
         if (!res.ok) {
-            console.log(`Error fetching ${dataName}`);
+            const errorBody = await response.json();
+            console.error(`Error posting data: ${dataName}`, errorBody);
+
+            let errorMessage = '';
+
+            if (typeof errorBody === 'string') {
+                errorMessage = errorBody;
+            } else if (Array.isArray(errorBody)) {
+                errorMessage = errorBody.join('<br/>');
+            } else if (typeof errorBody === 'object') {
+                errorMessage = Object.entries(errorBody)
+                    .map(([field, msg]) => `${field}: ${msg}`)
+                    .join('<br/>');
+            } else {
+                errorMessage = 'An unknown error occurred.';
+            }
+
             return {
-                "error": `Could not fetch ${dataName}`
+                message: `Could not fetch data: ${errorMessage}`
             };
         }
+
         return res.json();
 
     } catch (error) {
         console.error(`Error getting ${dataName}:`, error);
         let returnVal = {
-            "error": "Error getting data"
+            "message": "Error getting data"
         };
 
         return returnVal;
     }
 }
 
-let dataPost = async (url, data, dataName) => {
+let dataPost = async (url, data, dataName, method) => {
 
     let token = getToken("access");
 
     try {
         let response = await fetch(url, {
-            method: "Post",
+            method: method,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -54,18 +73,36 @@ let dataPost = async (url, data, dataName) => {
         });
 
         let res = await response;
+
         if (!res.ok) {
-            console.log(`Error posting data:  ${dataName}`);
+            const errorBody = await response.json();
+            console.error(`Error posting data: ${dataName}`, errorBody);
+
+            let errorMessage = '';
+
+            if (typeof errorBody === 'string') {
+                errorMessage = errorBody;
+            } else if (Array.isArray(errorBody)) {
+                errorMessage = errorBody.join('<br/>');
+            } else if (typeof errorBody === 'object') {
+                errorMessage = Object.entries(errorBody)
+                    .map(([field, msg]) => `${field}: ${msg}`)
+                    .join('<br/>');
+            } else {
+                errorMessage = 'An unknown error occurred.';
+            }
+
             return {
-                "error": `Could not post data:  ${dataName}`
+                message: `Could not post data: ${errorMessage}`
             };
         }
+
         return res.json();
 
     } catch (error) {
         console.error(`Error posting:  ${dataName}:`, error);
         let returnVal = {
-            "error": "Error posting data"
+            "message": "Error posting data"
         };
 
         return returnVal;
@@ -86,42 +123,132 @@ let dataDeleteById = async (url, dataName) => {
         });
 
         let res = await response;
+
         if (!res.ok) {
-            console.log(`Error fetching ${dataName}`);
+            const errorBody = await response.json();
+            console.error(`Error posting data: ${dataName}`, errorBody);
+
+            let errorMessage = '';
+
+            if (typeof errorBody === 'string') {
+                errorMessage = errorBody;
+            } else if (Array.isArray(errorBody)) {
+                errorMessage = errorBody.join('<br/>');
+            } else if (typeof errorBody === 'object') {
+                errorMessage = Object.entries(errorBody)
+                    .map(([field, msg]) => `${field}: ${msg}`)
+                    .join('<br/>');
+            } else {
+                errorMessage = 'An unknown error occurred.';
+            }
+
             return {
-                "error": `Could not fetch ${dataName}`
+                message: `Could not delete data: ${errorMessage}`
             };
         }
+
         return res.json();
 
     } catch (error) {
         console.error(`Error getting ${dataName}:`, error);
         let returnVal = {
-            "error": "Error getting data"
+            "message": "Error getting data"
         };
 
         return returnVal;
     }
 }
 
+function setCacheWithExpiry(key, data, ttl = 5 * 24 * 60 * 60 * 1000) { // Default: 5 days
+    const item = {
+        data,
+        expiry: Date.now() + ttl
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+}
+
+function getFromCache(key) {
+    const itemStr = localStorage.getItem(key);
+    if (!itemStr) return null;
+
+    try {
+        const item = JSON.parse(itemStr);
+        if (Date.now() > item.expiry) {
+            localStorage.removeItem(key); // Expired
+            return null;
+        }
+        return item.data;
+    } catch (e) {
+        console.error(`Error parsing cached item for ${key}`);
+        localStorage.removeItem(key);
+        return null;
+    }
+}
+
 export const fetchInsuranceCopanies = async () => {
-    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/insurance-company/get-insurance-companies`, "insurance companies");
+
+    const cacheKey = `insutance-companies`;
+    const cachedData = getFromCache(cacheKey);
+
+    if (cachedData) {
+        console.log(`Cache hit for ${cacheKey}`);
+        return cachedData;
+    }
+    const jsonData = await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/insurance-company/get-insurance-companies`, "insurance companies");
+    setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+
+    return jsonData
+
 }
 
 export const fetchDocumentTypes = async () => {
-    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/document-type/get-document-types`, "document types");
+    const cacheKey = `document-types`;
+    const cachedData = getFromCache(cacheKey);
+
+    if (cachedData) {
+        console.log(`Cache hit for ${cacheKey}`);
+        return cachedData;
+    }
+
+    const jsonData = await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/document-type/get-document-types`, "document types");
+    setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+
+    return jsonData
+
 }
 
 export const fetchPolicies = async () => {
-    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/policy/get-policies`, "policies");
+    const cacheKey = `policies`;
+    const cachedData = getFromCache(cacheKey);
+
+    if (cachedData) {
+        console.log(`Cache hit for ${cacheKey}`);
+        return cachedData;
+    }
+
+    const jsonData = await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/policy/get-policies`, "policies");
+    setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+
+    return jsonData
 }
 
 export const fetchAdministrativeAreas = async () => {
-    return await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/administrative-area/get-administrative-areas`, "administrative areas");
+    const cacheKey = `administrative-areas`;
+    const cachedData = getFromCache(cacheKey);
+
+    if (cachedData) {
+        console.log(`Cache hit for ${cacheKey}`);
+        return cachedData;
+    }
+
+    const jsonData = await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/administrative-area/get-administrative-areas`, "administrative areas");
+    setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+
+    return jsonData
 }
 
 export const saveProposalAndContact = async (data) => {
-    return await dataPost(`${baseServerUrl}/api/v1/client-service/proposal-user/save`, data, "proposal & contact save");
+    return await dataPost(`${baseServerUrl}/api/v1/client-service/proposal-user/save`, data, "proposal & contact save", "POST");
 }
 
 export const fetchProposalData = async (page, size) => {
@@ -131,3 +258,20 @@ export const fetchProposalData = async (page, size) => {
 export const daleteProposal = async (id) => {
     return await dataDeleteById(`${baseServerUrl}/proposal-service/api/v1/proposal/delete?id=${id}`, "proposal delete");
 }
+
+export const getProposal = async (id) => {
+    return await dataFetch(`${baseServerUrl}/proposal-service/api/v1/proposal/get?id=${id}`, "proposal get");
+}
+
+export const getProposalByContact = async (id) => {
+    return await dataFetch(`${baseServerUrl}/proposal-service/api/v1/proposal/get-by-contact?id=${id}`, "proposal get by contact");
+}
+
+export const updateProposal = async (id, data) => {
+    return await dataPost(`${baseServerUrl}/proposal-service/api/v1/proposal/update?id=${id}`, data, "proposal update", "PUT");
+}
+
+export const getContactList = async (page, size) => {
+    return await dataFetch(`${baseServerUrl}/contact-service/api/v1/contact/get-contacts?page=${page}&size=${size}`, "contact list get");
+}
+
