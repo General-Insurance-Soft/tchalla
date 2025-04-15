@@ -114,8 +114,23 @@ const Page = () => {
 
     let customerTable = [
 
-
     ];
+
+    const resetState = () => {
+        setFirstName('');
+        setSecondName('');
+        setThirdName('');
+        setPhoneNumber('');
+        setEmail('');
+        setGender('');
+        setAddress('');
+        setCountryCode('');
+        setAdministrativeArea('');
+        setCustomerGroup(0);
+        setKraPin('');
+        setIdentificationCardId('');
+
+    }
 
     return (
         <>
@@ -136,18 +151,36 @@ const Page = () => {
                     <ul className="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
                         <li className="nav-item" role="presentation">
                             <button className="nav-link active" id="home-tab"
-                                onClick={() => setIsContactsGroupTab(false)}
+                                onClick={
+                                    () => {
+                                        setIsContactsGroupTab(false)
+                                        resetState();
+                                        setShowEditForm(false);
+                                    }
+
+                                }
                                 data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">New Customer</button>
                         </li>
                         <li className="nav-item" role="presentation">
                             <button className="nav-link" id="profile-tab"
-                                onClick={() => setIsContactsGroupTab(false)}
+                                onClick={() => {
+                                    setIsContactsGroupTab(false)
+                                    resetState();
+                                    setShowEditForm(false);
+                                }
+                                }
                                 data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Manage Contacts</button>
                         </li>
                         <li className="nav-item" role="presentation">
                             <button className="nav-link" id="customer_group-tab" data-bs-toggle="tab" data-bs-target="#bordered-customer_group"
                                 type="button" role="tab" aria-controls="customer_group" aria-selected="false"
-                                onClick={() => setIsContactsGroupTab(true)}
+                                onClick={() => {
+                                    setIsContactsGroupTab(true)
+                                    resetState();
+                                    setShowEditForm(false);
+                                }
+
+                                }
                             >Contacts Groups</button>
                         </li>
 
@@ -257,7 +290,27 @@ const Page = () => {
                                                                 </td>
                                                                 :
                                                                 <td>
-                                                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
+                                                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info"
+                                                                        onClick={
+                                                                            () => {
+                                                                                setShowEditForm(true);
+                                                                                setFirstName(row["first_name"]);
+                                                                                setSecondName(row["second_name"]);
+                                                                                setThirdName(row["last_name"]);
+                                                                                setPhoneNumber(row["phone"]);
+                                                                                setEmail(row["email"]);
+                                                                                setGender(row["gender"]);
+                                                                                setAddress(row["address"].address);
+                                                                                setCountryCode(row["address"].country_code);
+                                                                                setAdministrativeArea(row["address"].administrative_area);
+                                                                                setCustomerGroup(row["customer_group"]);
+                                                                                setKraPin(row["kra_pin"]);
+                                                                                setIdentificationCardId(row["id_number"]);
+                                                                            }
+
+                                                                        }
+                                                                    >
+                                                                        <i className="bi bi-pencil-square"></i></button>
                                                                     <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                                 </td>
                                                         }
@@ -275,7 +328,33 @@ const Page = () => {
                                     <>
                                         <hr />
                                         <h5 className="card-title">Edit Customer</h5>
-                                        <CustomerForm action="edit" setShowEditForm={setShowEditForm} isUserPage="true" />
+                                        <CustomerForm
+                                            action="edit" setShowEditForm={setShowEditForm}
+                                            isUserPage="true" firstName={firstName}
+                                            setFirstName={setFirstName}
+                                            secondName={secondName}
+                                            setSecondName={setSecondName}
+                                            thirdName={thirdName}
+                                            setThirdName={setThirdName}
+                                            phoneNumber={phoneNumber}
+                                            setPhoneNumber={setPhoneNumber}
+                                            email={email}
+                                            setEmail={setEmail}
+                                            gender={gender}
+                                            setGender={setGender}
+                                            address={address}
+                                            setAddress={setAddress}
+                                            countryCode={countryCode}
+                                            setCountryCode={setCountryCode}
+                                            administrativeArea={administrativeArea}
+                                            setAdministrativeArea={setAdministrativeArea}
+                                            customerGroup={customerGroup}
+                                            setCustomerGroup={setCustomerGroup}
+                                            kraPin={kraPin}
+                                            setKraPin={setKraPin}
+                                            identificationCardId={identificationCardId}
+                                            setIdentificationCardId={setIdentificationCardId}
+                                        />
                                         <DocumentHolder />
                                         <div className="text-center mb-3">
                                             <div className="d-flex justify-content-center">

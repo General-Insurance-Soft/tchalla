@@ -16,7 +16,7 @@ export default function CustomerForm({
     administrativeArea, setAdministrativeArea,
     customerGroup, setCustomerGroup,
     kraPin, setKraPin,
-    identificationCardId, setIdentificationCardId,
+    identificationCardId, setIdentificationCardId
 }) {
 
     let [administrativeAreas, setAdministrativeAreas] = useState([]);
@@ -74,7 +74,7 @@ export default function CustomerForm({
             <div className="row g-3">
                 <div className="col-md-4">
                     <input type="text"
-                        value={firstName}
+                        value={firstName || ""}
                         onChange={(event) => setFirstName(event.target.value)}
                         className="form-control"
                         placeholder="First Name" />
@@ -88,26 +88,26 @@ export default function CustomerForm({
                 </div>
                 <div className="col-md-4">
                     <input type="text"
-                        value={thirdName}
+                        value={thirdName || ""}
                         onChange={(event) => setThirdName(event.target.value)}
                         className="form-control" placeholder="Third Name" />
 
                 </div>
                 <div className="col-md-4">
                     <input key={1}
-                        value={identificationCardId}
+                        value={identificationCardId || ""}
                         onChange={(event) => setIdentificationCardId(event.target.value)}
                         type="text" className="form-control" placeholder="ID/Passport No." />
                 </div>
                 <div className="col-md-4">
                     <input key={1}
-                        value={phoneNumber}
+                        value={phoneNumber || ""}
                         onChange={(event) => setPhoneNumber(event.target.value)}
                         type="text" className="form-control" placeholder="Phone Number" />
                 </div>
                 <div className="col-md-4">
                     <input type="email"
-                        value={email}
+                        value={email || ""}
                         onChange={(event) => setEmail(event.target.value)}
                         className="form-control" placeholder="Email" />
 
@@ -120,11 +120,12 @@ export default function CustomerForm({
                         <option key={0} value={0} defaultValue>Gender...</option>
                         <option value={"MALE"} key={1}>Male</option>
                         <option value={"FEMALE"} key={2}>Female</option>
+                        <option value={"OTHER"} key={2}>Other</option>
                     </select>
                 </div>
                 <div className="col-md-4">
                     <input type="text"
-                        value={address}
+                        value={address || ""}
                         onChange={(event) => setAddress(event.target.value)}
                         className="form-control" placeholder="Address" />
                 </div>
