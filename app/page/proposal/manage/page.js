@@ -75,7 +75,7 @@ const Page = () => {
 
     const fetchSubproposal = async (proposalId) => {
         let proposal = await getProposal(proposalId);
-        if ('error' in proposal) {
+        if ('message' in proposal) {
             setMessageStatus(proposal.message);
 
             if (proposalStatusModalRef.current) {
@@ -143,9 +143,17 @@ const Page = () => {
 
     const fetchAllProposalData = async () => {
         let res = await fetchProposalData(0, 15);
-        if ('error' in res) {
+ 
+        if ('message' in res) {
+            setMessageStatus(res.message);
+
+            if (proposalStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
+                modal.show();
+            }
             return;
         }
+
         setRes(res);
     };
 
