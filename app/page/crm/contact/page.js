@@ -155,6 +155,7 @@ const Page = () => {
                                     () => {
                                         setIsContactsGroupTab(false)
                                         resetState();
+                                        setShowEditForm(false);
                                     }
 
                                 }
@@ -165,6 +166,7 @@ const Page = () => {
                                 onClick={() => {
                                     setIsContactsGroupTab(false)
                                     resetState();
+                                    setShowEditForm(false);
                                 }
                                 }
                                 data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Manage Contacts</button>
@@ -175,6 +177,7 @@ const Page = () => {
                                 onClick={() => {
                                     setIsContactsGroupTab(true)
                                     resetState();
+                                    setShowEditForm(false);
                                 }
 
                                 }
