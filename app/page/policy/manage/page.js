@@ -181,14 +181,14 @@ const Page = () => {
                                 <div className="card-body">
                                     <h5 className="card-title">Edit Tom Lee policy from date: 2024-08-11</h5>
 
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div className="d-flex justify-content-between align-items-center mb-3">
                                         <div>
                                             
                                         </div>
 
                                         <div>
-                                            <button class="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
-                                            <button class="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                                            <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
+                                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                                         </div>
                                     </div>
 
@@ -275,7 +275,7 @@ const Page = () => {
                                                         <div className="card">
                                                             <div className="card-body">
 
-                                                                <h6 class="card-subtitle mb-2 text-muted">Policy</h6>
+                                                                <h6 className="card-subtitle mb-2 text-muted">Policy</h6>
                                                                 <Image
                                                                     src="/img/receipt_template.jpg"
                                                                     // layout="responsive"
@@ -287,9 +287,9 @@ const Page = () => {
                                                                 <hr />
 
                                                                 <div className="d-flex">
-                                                                    <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                                    <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                                    <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                                    <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                                    <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                                    <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -302,7 +302,7 @@ const Page = () => {
                                                         <div className="card">
                                                             <div className="card-body">
 
-                                                                <h6 class="card-subtitle mb-2 text-muted">Cetificate</h6>
+                                                                <h6 className="card-subtitle mb-2 text-muted">Cetificate</h6>
                                                                 <Image
                                                                     src="/img/receipt_template.jpg"
                                                                     // layout="responsive"
@@ -314,9 +314,9 @@ const Page = () => {
                                                                 <hr />
 
                                                                 <div className="d-flex">
-                                                                    <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                                    <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                                    <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                                    <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                                    <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                                    <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>

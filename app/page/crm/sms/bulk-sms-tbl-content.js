@@ -19,7 +19,7 @@ const BulkSmsTblContent =
                 <td>2024-10-01 10:00</td>
                 <td>2024-10-02 11:08</td>
                 <td>98% (489/500)</td>
-                <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 60%</span></td>
+                <td><span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> 60%</span></td>
                 <td><span className="badge bg-success">Completed</span></td>
                 <td>
                     <button className="btn btn-sm btn-primary">View</button>
@@ -31,7 +31,7 @@ const BulkSmsTblContent =
                 <td>2024-10-01 10:00</td>
                 <td>2024-10-02 11:08</td>
                 <td>90% (100/110)</td>
-                <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 85%</span></td>
+                <td><span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> 85%</span></td>
                 <td><span className="badge bg-success">Completed</span></td>
                 <td>
                     <button className="btn btn-sm btn-primary">View</button>
@@ -43,7 +43,7 @@ const BulkSmsTblContent =
                 <td>2024-10-01 10:00</td>
                 <td>2024-10-02 11:08</td>
                 <td>95% (550/600)</td>
-                <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 70%</span></td>
+                <td><span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> 70%</span></td>
                 <td><span className="badge bg-danger">Cancelled</span></td>
                 <td>
                     <button className="btn btn-sm btn-primary">View</button>
@@ -55,7 +55,7 @@ const BulkSmsTblContent =
                 <td>2024-10-01 10:00</td>
                 <td>2024-10-02 11:08</td>
                 <td>98% (250/310)</td>
-                <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 96%</span></td>
+                <td><span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> 96%</span></td>
                 <td><span className="badge bg-success">Completed</span></td>
                 <td>
                     <button className="btn btn-sm btn-primary">View</button>
@@ -67,7 +67,7 @@ const BulkSmsTblContent =
                 <td>2024-10-01 10:00</td>
                 <td>2024-10-02 11:08</td>
                 <td>100% (300/300)</td>
-                <td><span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> 90%</span></td>
+                <td><span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> 90%</span></td>
                 <td><span className="badge bg-success">Completed</span></td>
                 
                 <td>

@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
 
             <body>
                 <main>
-                    <div class="container">
+                    <div className="container">
                         {children}
 
                         <section>

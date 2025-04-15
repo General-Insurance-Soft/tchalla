@@ -56,7 +56,7 @@ const Page = () => {
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div>
 
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bulkSMSModal">
+                                                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bulkSMSModal">
                                                         New Bulk SMS
                                                     </button>
                                                 </div>
@@ -145,11 +145,11 @@ const Page = () => {
 
                                                             <div className="row mb-3">
                                                                 <div className="col-sm-6">
-                                                                    <label for="inputName5" className="form-label">SMS template for event:</label>
+                                                                    <label htmlFor="inputName5" className="form-label">SMS template for event:</label>
                                                                     <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8"></textarea>
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <label for="#" className="form-label">Placeholders:</label>
+                                                                    <label htmlFor="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name]
@@ -159,9 +159,9 @@ const Page = () => {
 
                                                             <div className="row">
                                                                 <div className='col-sm-6'>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <label for="inputName5" class="form-label me-2">Contact group:</label>
-                                                                        <select id="inputState" class="form-select">
+                                                                    <div className="d-flex align-items-center">
+                                                                        <label htmlFor="inputName5" className="form-label me-2">Contact group:</label>
+                                                                        <select id="inputState" className="form-select">
                                                                             <option value="1">Car Third party group</option>
                                                                             <option value="2">Life insurance group</option>
                                                                             <option value="3">Health insutance group</option>
@@ -196,11 +196,11 @@ const Page = () => {
                                                         <div>
 
                                                             <span >
-                                                                <span class="badge bg-dark"><i class="bi bi-folder me-1"></i> In progress: 1</span> |
-                                                                <span class="badge bg-info text-dark"><i class="bi bi-info-circle me-1"></i> Pending: 1</span> |
-                                                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Completed: 20</span> |
-                                                                <span class="badge bg-warning text-dark"><i class="bi bi-exclamation-triangle me-1"></i> Cancelled: 2</span> |
-                                                                <span class="badge bg-primary"><i class="bi bi-star me-1"></i> Total: 23</span>
+                                                                <span className="badge bg-dark"><i className="bi bi-folder me-1"></i> In progress: 1</span> |
+                                                                <span className="badge bg-info text-dark"><i className="bi bi-info-circle me-1"></i> Pending: 1</span> |
+                                                                <span className="badge bg-success"><i className="bi bi-check-circle me-1"></i> Completed: 20</span> |
+                                                                <span className="badge bg-warning text-dark"><i className="bi bi-exclamation-triangle me-1"></i> Cancelled: 2</span> |
+                                                                <span className="badge bg-primary"><i className="bi bi-star me-1"></i> Total: 23</span>
                                                             </span>
                                                         </div>
                                                         <div>
@@ -242,11 +242,11 @@ const Page = () => {
                                                             <form className="row g-3">
 
                                                                 <div className="col-sm-6">
-                                                                    <label for="inputName56" className="form-label">Template Name:</label>
+                                                                    <label htmlFor="inputName56" className="form-label">Template Name:</label>
                                                                     <input type="text" className="form-control" id="inputName56" />
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <label for="inputState" className="form-label">Select Event:</label>
+                                                                    <label htmlFor="inputState" className="form-label">Select Event:</label>
                                                                     <select id="inputState" className="form-select">
                                                                         {/* <option defaultValue>Gender...</option> */}
                                                                         <option>Company anniversary</option>
@@ -256,11 +256,11 @@ const Page = () => {
                                                                     </select>
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <label for="inputName5" className="form-label">SMS template for event:</label>
+                                                                    <label htmlFor="inputName5" className="form-label">SMS template for event:</label>
                                                                     <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8"></textarea>
                                                                 </div>
                                                                 <div className="col-sm-6">
-                                                                    <label for="#" className="form-label">Placeholders:</label>
+                                                                    <label htmlFor="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name]
@@ -313,13 +313,13 @@ const Page = () => {
                                                             <form action="#" className="row g-3 mb-3">
 
                                                                 <div className="col-sm-8">
-                                                                    <label for="inputName5" className="form-label">SMS template birthdays day:</label>
+                                                                    <label htmlFor="inputName5" className="form-label">SMS template birthdays day:</label>
                                                                     <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8">
                                                                         Dear [first_name] [last_name], we wish you a happy birthday. May you have a great day and a wonderful year ahead.
                                                                     </textarea>
                                                                 </div>
                                                                 <div className="col-sm-4">
-                                                                    <label for="#" className="form-label">Placeholders:</label>
+                                                                    <label htmlFor="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name] [policy_expiry_date]
@@ -353,13 +353,13 @@ const Page = () => {
 
 
                                                                 <div className="col-sm-8">
-                                                                    <label for="inputName5" className="form-label">SMS template birthdays day:</label>
+                                                                    <label htmlFor="inputName5" className="form-label">SMS template birthdays day:</label>
                                                                     <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8">
                                                                         Dear [first_name], we wish to remind you that your policy is due for renewal on [policy_expiry_date]. Kindly visit our offices for more information.
                                                                     </textarea>
                                                                 </div>
                                                                 <div className="col-sm-4">
-                                                                    <label for="#" className="form-label">Placeholders:</label>
+                                                                    <label htmlFor="#" className="form-label">Placeholders:</label>
                                                                     <div>
                                                                         [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                                                         [x_name], [x_name], [x_name] [policy_expiry_date]
@@ -400,23 +400,23 @@ const Page = () => {
 
             {/* bulk sms modal */}
 
-            <div class="modal fade" id="bulkSMSModal" tabindex="-1" aria-labelledby="bulkSMSModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="bulkSMSModalLabel">New Bulk SMS</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="bulkSMSModal" tabindex="-1" aria-labelledby="bulkSMSModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-lg">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="bulkSMSModalLabel">New Bulk SMS</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
 
                             <form>
                                 <div className="row mb-3">
                                     <div className="col-sm-6">
-                                        <label for="inputName5" className="form-label">SMS template:</label>
+                                        <label htmlFor="inputName5" className="form-label">SMS template:</label>
                                         <textarea id="inputName5" className="form-control" name="w3review" rows="4" cols="8"></textarea>
                                     </div>
                                     <div className="col-sm-6">
-                                        <label for="#" className="form-label">Placeholders:</label>
+                                        <label htmlFor="#" className="form-label">Placeholders:</label>
                                         <div>
                                             [first_name], [last_name], [middle_name], [x_name],  [x_name],
                                             [x_name], [x_name], [x_name]
@@ -426,9 +426,9 @@ const Page = () => {
 
                                 <div className="row">
                                     <div className='col-sm-6'>
-                                        <div class="d-flex align-items-center">
-                                            <label for="inputName5" class="form-label me-2">Contact group:</label>
-                                            <select id="inputState" class="form-select">
+                                        <div className="d-flex align-items-center">
+                                            <label htmlFor="inputName5" className="form-label me-2">Contact group:</label>
+                                            <select id="inputState" className="form-select">
                                                 <option value="1">Car Third party group</option>
                                                 <option value="2">Life insurance group</option>
                                                 <option value="3">Health insutance group</option>
@@ -442,9 +442,9 @@ const Page = () => {
                             </form>
 
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Send SMS</button>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary">Send SMS</button>
                         </div>
                     </div>
                 </div>

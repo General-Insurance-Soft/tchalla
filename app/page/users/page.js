@@ -41,7 +41,7 @@ const Page = () => {
 
                     <div>
 
-                        <div class="d-flex justify-content-start align-items-center mb-3">
+                        <div className="d-flex justify-content-start align-items-center mb-3">
 
                             <div className="flex-grow-1 me-3" style={{ maxWidth: "500px" }}>
                                 <input type="text" className="form-control" placeholder="Search by user" />

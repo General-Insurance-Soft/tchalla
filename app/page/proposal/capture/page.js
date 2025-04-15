@@ -185,7 +185,6 @@ const Page = () => {
                     </div>
 
                     <hr />
-
                     <ProposalForm
                         proposalAction={"add"}
                         firstName={firstName} setFirstName={setFirstName}

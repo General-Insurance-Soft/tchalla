@@ -163,7 +163,7 @@ const Page = () => {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mt-2 text-muted">Claim form</h6>
+                                                <h6 className="card-subtitle mt-2 text-muted">Claim form</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -173,9 +173,9 @@ const Page = () => {
                                                     alt="receipt template"
                                                 />
                                                 <hr />
-                                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -188,7 +188,7 @@ const Page = () => {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mt-2 text-muted">National ID</h6>
+                                                <h6 className="card-subtitle mt-2 text-muted">National ID</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -198,9 +198,9 @@ const Page = () => {
                                                     alt="receipt template"
                                                 />
                                                 <hr />
-                                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -213,7 +213,7 @@ const Page = () => {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mt-2 text-muted">KRA Pin</h6>
+                                                <h6 className="card-subtitle mt-2 text-muted">KRA Pin</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -223,9 +223,9 @@ const Page = () => {
                                                     alt="receipt template"
                                                 />
                                                 <hr />
-                                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +238,7 @@ const Page = () => {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mt-2 text-muted">Accident image 1</h6>
+                                                <h6 className="card-subtitle mt-2 text-muted">Accident image 1</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -248,9 +248,9 @@ const Page = () => {
                                                     alt="receipt template"
                                                 />
                                                 <hr />
-                                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -262,7 +262,7 @@ const Page = () => {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mt-2 text-muted">Accident image 2</h6>
+                                                <h6 className="card-subtitle mt-2 text-muted">Accident image 2</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -272,9 +272,9 @@ const Page = () => {
                                                     alt="receipt template"
                                                 />
                                                 <hr />
-                                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -286,7 +286,7 @@ const Page = () => {
                                         <div className="card">
                                             <div className="card-body">
 
-                                                <h6 class="card-subtitle mt-2 text-muted">Accident image 3</h6>
+                                                <h6 className="card-subtitle mt-2 text-muted">Accident image 3</h6>
                                                 <Image
                                                     src="/img/receipt_template.jpg"
                                                     // layout="responsive"
@@ -296,9 +296,9 @@ const Page = () => {
                                                     alt="receipt template"
                                                 />
                                                 <hr />
-                                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                                             </div>
                                         </div>
                                     </div>

@@ -5,16 +5,16 @@ export default function ClaimSetting() {
 
             {/* Notofication setting */}
             <div className="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="tc-card-header">Notifications</h6>
+                <div className="card">
+                    <div className="card-body">
+                        <h6 className="tc-card-header">Notifications</h6>
                         <hr />
                         <div className="row mb-3">
                             <form>
-                                <div class="row mb-3">
-                                    <label for="firstAlert" class="col-sm-9 col-form-label">Remind me via SMS claims longer than this number of days:</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="firstAlert" />
+                                <div className="row mb-3">
+                                    <label htmlFor="firstAlert" className="col-sm-9 col-form-label">Remind me via SMS claims longer than this number of days:</label>
+                                    <div className="col-sm-3">
+                                        <input type="text" className="form-control" id="firstAlert" />
                                     </div>
                                 </div>
                             </form>
@@ -27,18 +27,18 @@ export default function ClaimSetting() {
             {/* Storage settings */}
 
             <div className="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="tc-card-header">Storage</h6>
+                <div className="card">
+                    <div className="card-body">
+                        <h6 className="tc-card-header">Storage</h6>
                         <hr />
                         <form>
-                            <div class="row mb-3">
-                                <label for="#" class="col-sm-9 col-form-label">Number of days to store attached claim files:</label>
-                                <div class="col-sm-3">
-                                    <input style={{ marginBottom: "5px" }} type="text" class="form-control" id="fileStoegaeLength" />
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="checkEmail" />
-                                        <label class="form-check-label" for="gridRadios3">
+                            <div className="row mb-3">
+                                <label htmlFor="#" className="col-sm-9 col-form-label">Number of days to store attached claim files:</label>
+                                <div className="col-sm-3">
+                                    <input style={{ marginBottom: "5px" }} type="text" className="form-control" id="fileStoegaeLength" />
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" id="checkEmail" />
+                                        <label className="form-check-label" htmlFor="gridRadios3">
                                             Indefinite
                                         </label>
                                     </div>

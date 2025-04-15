@@ -17,7 +17,7 @@ export default function DocumentHolder() {
                     <div className="card">
                         <div className="card-body">
 
-                            <h6 class="card-subtitle mb-2 text-muted">Passport</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">Passport</h6>
                             <Image
                                 src="/img/receipt_template.jpg"
                                 // layout="responsive"
@@ -29,9 +29,9 @@ export default function DocumentHolder() {
                             <hr />
 
                             <div className="d-flex">
-                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ export default function DocumentHolder() {
                     <div className="card">
                         <div className="card-body">
 
-                            <h6 class="card-subtitle mb-2 text-muted">KRA PIN</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">KRA PIN</h6>
                             <Image
                                 src="/img/receipt_template.jpg"
                                 // layout="responsive"
@@ -56,9 +56,9 @@ export default function DocumentHolder() {
                             <hr />
 
                             <div className="d-flex">
-                                <button type="button" className="btn btn-primary me-2"><i class="bi bi-eye-fill"></i></button>
-                                <button type="button" className="btn btn-info me-2"><i class="bi bi-download"></i></button>
-                                <button type="button" className="btn btn-secondary"><i class="bi bi-trash3-fill"></i></button>
+                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
+                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
+                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
                             </div>
                         </div>
                     </div>
