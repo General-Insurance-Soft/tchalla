@@ -26,7 +26,8 @@ const Page = () => {
                 setUserData(data);
                 setEditUserData({
                     first_name: data.first_name,
-                    last_name: data.last_name,
+                    second_name: data.second_name,
+                    third_name: data.third_name,
                     email: data.email,
                     phone: data.phone,
                     password: '',
@@ -40,8 +41,9 @@ const Page = () => {
     }, []);
 
     const updateProfile = async () => {
+        setMessage([]);
         let updateData = {
-            id: userData.id,
+            user: userData.id,
             first_name: editUserData.first_name,
             second_name: editUserData.second_name,
             third_name: editUserData.third_name,
@@ -92,7 +94,7 @@ const Page = () => {
                     <div className="col-md-12">
                         {/* Messages */}
                         {message.length > 0 && message.map((msg, index) => (
-                            <div key={index} className={`alert alert-${msg.type}`} role="alert">
+                            <div key={index} className={`alert alert-${msg.type || warning}`} role="alert">
                                 {msg.text}
                             </div>
                         ))}
@@ -116,23 +118,23 @@ const Page = () => {
 
                             <div className="row mt-2">
                                 <div className="col-md-4"><label className="labels">Name <span style={{ "color": "red" }}>*</span></label>
-                                    <input required type="text" className="form-control" value={editUserData?.first_name} onChange={(e) => setEditUserData({ ...editUserData, first_name: e.target.value })} />
+                                    <input required type="text" className="form-control" defaultValue={editUserData?.first_name} onChange={(e) => setEditUserData({ ...editUserData, first_name: e.target.value })} />
                                 </div>
                                 <div className="col-md-4"><label className="labels">Second Name</label>
-                                    <input type="text" className="form-control" value={editUserData?.second_name} onChange={(e) => setEditUserData({ ...editUserData, second_name: e.target.value })} />
+                                    <input type="text" className="form-control" defaultValue={editUserData?.second_name} onChange={(e) => setEditUserData({ ...editUserData, second_name: e.target.value })} />
                                 </div>
                                 <div className="col-md-4"><label className="labels">Third Name</label>
-                                    <input type="text" className="form-control" value={editUserData?.third_name} onChange={(e) => setEditUserData({ ...editUserData, third_name: e.target.value })} />
+                                    <input type="text" className="form-control" defaultValue={editUserData?.third_name} onChange={(e) => setEditUserData({ ...editUserData, third_name: e.target.value })} />
                                 </div>
                             </div>
                             <div className="row mt-3">
 
                                 <div className="col-md-12"><label className="labels">Email <span style={{ "color": "red" }}>*</span></label>
-                                    <input required type="email" className="form-control" value={editUserData?.email} onChange={(e) => setEditUserData({ ...editUserData, email: e.target.value })} />
+                                    <input required type="email" className="form-control" defaultValue={editUserData?.email} onChange={(e) => setEditUserData({ ...editUserData, email: e.target.value })} />
                                 </div>
 
                                 <div className="col-md-12" style={{ "marginTop": "5px" }}><label className="labels">Password</label>
-                                    <input id="passfield" className="form-control" type="password" value={editUserData?.password} onChange={(e) => setEditUserData({ ...editUserData, password: e.target.value })} />
+                                    <input id="passfield" className="form-control" type="password" defaultValue={editUserData?.password} onChange={(e) => setEditUserData({ ...editUserData, password: e.target.value })} />
                                     <input type="checkBox" onChange={(e) => {
                                         if (e.target.checked) {
                                             document.getElementById('passfield').setAttribute('type', 'text');
