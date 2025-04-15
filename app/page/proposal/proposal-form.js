@@ -103,7 +103,7 @@ const Page = (
                                     <option value={-1}>None...</option> : ""
                                 }
                                 {
-                                    insuranceCompanies.map((company) => (
+                                    Array.isArray(insuranceCompanies) && insuranceCompanies.map((company) => (
                                         <option key={company.id} value={company.id}>
                                             {company.name}
                                         </option>
@@ -121,7 +121,7 @@ const Page = (
                                 {proposalAction != "edit" ?
                                     <option defaultValue>None...</option> : ""
                                 }
-                                {policies.map((company) => (
+                                {Array.isArray(policies) && policies.map((company) => (
                                     <option key={company.id} value={company.id}>
                                         {company.name}
                                     </option>
@@ -174,7 +174,7 @@ const Page = (
                                 {proposalAction != "edit" ?
                                     <option defaultValue>None...</option> : ""
                                 }
-                                {documentTypes.map((doc) => (
+                                {Array.isArray(documentTypes) && documentTypes.map((doc) => (
                                     <option key={doc.id} value={doc.id}>
                                         {doc.name}
                                     </option>

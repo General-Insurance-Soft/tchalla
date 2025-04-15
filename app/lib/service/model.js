@@ -42,7 +42,7 @@ let dataFetch = async (url, dataName) => {
             }
 
             return {
-                error: `Could not fetch data: ${errorMessage}`
+                message: `Could not fetch data: ${errorMessage}`
             };
         }
 
@@ -51,7 +51,7 @@ let dataFetch = async (url, dataName) => {
     } catch (error) {
         console.error(`Error getting ${dataName}:`, error);
         let returnVal = {
-            "error": "Error getting data"
+            "message": "Error getting data"
         };
 
         return returnVal;
@@ -93,7 +93,7 @@ let dataPost = async (url, data, dataName, method) => {
             }
 
             return {
-                error: `Could not post data: ${errorMessage}`
+                message: `Could not post data: ${errorMessage}`
             };
         }
 
@@ -102,7 +102,7 @@ let dataPost = async (url, data, dataName, method) => {
     } catch (error) {
         console.error(`Error posting:  ${dataName}:`, error);
         let returnVal = {
-            "error": "Error posting data"
+            "message": "Error posting data"
         };
 
         return returnVal;
@@ -143,7 +143,7 @@ let dataDeleteById = async (url, dataName) => {
             }
 
             return {
-                error: `Could not delete data: ${errorMessage}`
+                message: `Could not delete data: ${errorMessage}`
             };
         }
 
@@ -152,7 +152,7 @@ let dataDeleteById = async (url, dataName) => {
     } catch (error) {
         console.error(`Error getting ${dataName}:`, error);
         let returnVal = {
-            "error": "Error getting data"
+            "message": "Error getting data"
         };
 
         return returnVal;
