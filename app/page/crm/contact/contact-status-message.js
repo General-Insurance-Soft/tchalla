@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-const ContactStatusModal = forwardRef(({ messageStatus }, ref) => {
+const ContactStatusModal = forwardRef(({ messageStatus, altAction, altActionName, resetState }, ref) => {
     return (
         <div ref={ref} className="modal fade" id="ContactStatusModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="proposalStatusModalModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
@@ -12,7 +12,12 @@ const ContactStatusModal = forwardRef(({ messageStatus }, ref) => {
                         <p>{messageStatus}</p>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => resetState()} >Close</button>
+                        {
+                            altAction ?
+                                <button type="button" className="btn btn-primary" >{altActionName}</button>
+                                : ""
+                        }
                     </div>
                 </div>
             </div>
