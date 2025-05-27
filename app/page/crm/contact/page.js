@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import CustomerForm from "./customer_form";
 import withAuth from "../../../lib/service/with_auth";
 import DocumentHolder from "../../../lib/components/ui/utils/document_holder";
 //getContactList
-import { getContactList } from "../../../lib/service/model";
+import { getContactList, saveContact, updateContact } from "../../../lib/service/model";
+import ContactStatusModal from './contact-status-message.js';
 
 const Page = () => {
 
@@ -16,6 +17,8 @@ const Page = () => {
     const [showEditForm, setShowEditForm] = useState(false);
     const [customerData, setCustomerData] = useState({});
     const [contactlList, setContactlList] = useState([]);
+    const [messageStatus, setMessageStatus] = useState("");
+    const contactCaptureStatusModalRef = useRef(null);
 
     let [firstName, setFirstName] = useState('');
     let [secondName, setSecondName] = useState('');
@@ -29,6 +32,7 @@ const Page = () => {
     let [customerGroup, setCustomerGroup] = useState(0);
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
+    let [currentSelectedContact, setCurrentSelectedContact] = useState({});
 
 
     useEffect(() => { }, [showGroupCustomerList, isContactsGroupTab]);
@@ -132,6 +136,41 @@ const Page = () => {
 
     }
 
+    const saveContactData = async (event, action, id) => {
+        event.preventDefault();
+console.log("id ==========>>>" + id);
+        let data = {
+            "first_name": firstName,
+            "last_name": thirdName,
+            "second_name": secondName,
+            "gender": gender,
+            "email": email,
+            "phone": phoneNumber,
+            "id_number": identificationCardId,
+            "address": {
+                "administrative_area": administrativeArea,
+                "country_code": countryCode,
+                "address": address
+            }
+        }
+
+        let saveRes = null;
+
+        if (action == "update") {
+            saveRes = await updateContact(data, id);
+        } else {
+            saveRes = await saveContact(data);
+        }
+
+        setMessageStatus(saveRes.message);
+
+        // Show the ProposalStatusModal
+        if (contactCaptureStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
+            modal.show();
+        }
+    };
+
     return (
         <>
             <div className="pagetitle">
@@ -215,11 +254,17 @@ const Page = () => {
                                 setKraPin={setKraPin}
                                 identificationCardId={identificationCardId}
                                 setIdentificationCardId={setIdentificationCardId}
+                                setShowEditForm={setShowEditForm}
                             />
                             <DocumentHolder />
                             <div className="text-center mb-3">
                                 <div className="d-flex justify-content-center">
-                                    <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Save</button>
+                                    <button className="btn btn-primary me-2" onClick={
+                                        (e) => {
+                                            setShowEditForm(false)
+                                            saveContactData(e, "save", null)
+                                        }
+                                    }>Save</button>
                                     <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                                 </div>
                             </div>
@@ -306,6 +351,7 @@ const Page = () => {
                                                                                 setCustomerGroup(row["customer_group"]);
                                                                                 setKraPin(row["kra_pin"]);
                                                                                 setIdentificationCardId(row["id_number"]);
+                                                                                setCurrentSelectedContact(row);
                                                                             }
 
                                                                         }
@@ -354,12 +400,21 @@ const Page = () => {
                                             setKraPin={setKraPin}
                                             identificationCardId={identificationCardId}
                                             setIdentificationCardId={setIdentificationCardId}
+                                            saveContactData={saveContactData}
+                                            currentSelectedContact = {currentSelectedContact}
                                         />
                                         <DocumentHolder />
                                         <div className="text-center mb-3">
                                             <div className="d-flex justify-content-center">
-                                                <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
-                                                <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                                                <button className="btn btn-primary me-2" onClick={
+                                                    (e) => {
+                                                        // setShowEditForm(false)
+                                                        saveContactData(e, "update", currentSelectedContact["id"])
+                                                    }
+                                                }
+
+                                                >Update</button>
+                                                <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Close</button>
                                             </div>
                                         </div>
                                     </>
@@ -554,7 +609,7 @@ const Page = () => {
 
 
             {/* Modal */}
-
+            <ContactStatusModal ref={contactCaptureStatusModalRef} messageStatus={messageStatus} />
 
         </>
     );

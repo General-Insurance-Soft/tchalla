@@ -275,3 +275,10 @@ export const getContactList = async (page, size) => {
     return await dataFetch(`${baseServerUrl}/contact-service/api/v1/contact/get-contacts?page=${page}&size=${size}`, "contact list get");
 }
 
+export const saveContact = async (data) => {
+    return await dataPost(`${baseServerUrl}/contact-service/api/v1/contact/create`, data, "Contact save", "POST");
+}
+
+export const updateContact = async (data, id) => {
+    return await dataPost(`${baseServerUrl}/contact-service/api/v1/contact/update?id=${id}`, data, "Contact update", "PUT");
+}
