@@ -19,6 +19,8 @@ const Page = () => {
     const [contactlList, setContactlList] = useState([]);
     const [messageStatus, setMessageStatus] = useState("");
     const contactCaptureStatusModalRef = useRef(null);
+    const [altAction, setAltAction] = useState(null);
+    const [altActionName, setAltActionName] = useState(null);
 
     let [firstName, setFirstName] = useState('');
     let [secondName, setSecondName] = useState('');
@@ -40,6 +42,7 @@ const Page = () => {
     useEffect(() => {
         fetchAllContactData();
     }, []);
+
 
     useEffect(() => {
 
@@ -133,12 +136,13 @@ const Page = () => {
         setCustomerGroup(0);
         setKraPin('');
         setIdentificationCardId('');
-
+        setAltAction(null);
+        setAltActionName(null);
     }
 
     const saveContactData = async (event, action, id) => {
         event.preventDefault();
-console.log("id ==========>>>" + id);
+        console.log("id ==========>>>" + id);
         let data = {
             "first_name": firstName,
             "last_name": thirdName,
@@ -170,6 +174,10 @@ console.log("id ==========>>>" + id);
             modal.show();
         }
     };
+
+    const deleteContact = async (event, action, id) => {
+
+    }
 
     return (
         <>
@@ -352,12 +360,28 @@ console.log("id ==========>>>" + id);
                                                                                 setKraPin(row["kra_pin"]);
                                                                                 setIdentificationCardId(row["id_number"]);
                                                                                 setCurrentSelectedContact(row);
+                                                                                setAltAction(null);
+                                                                                setAltActionName("");
                                                                             }
 
                                                                         }
                                                                     >
                                                                         <i className="bi bi-pencil-square"></i></button>
-                                                                    <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                                    <button type="button" className="btn btn-danger"
+
+                                                                        onClick={
+                                                                            () => {
+                                                                                setMessageStatus("Are you sure of this delete action? This will delete all data associtated with the cusomer from the system");
+                                                                                if (contactCaptureStatusModalRef.current) {
+                                                                                    setAltAction(deleteContact);
+                                                                                    setAltActionName("Delete");
+                                                                                    const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
+                                                                                    modal.show();
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                                                    ><i className="bi bi-trash3"></i></button>
                                                                 </td>
                                                         }
                                                     </tr>
@@ -401,7 +425,7 @@ console.log("id ==========>>>" + id);
                                             identificationCardId={identificationCardId}
                                             setIdentificationCardId={setIdentificationCardId}
                                             saveContactData={saveContactData}
-                                            currentSelectedContact = {currentSelectedContact}
+                                            currentSelectedContact={currentSelectedContact}
                                         />
                                         <DocumentHolder />
                                         <div className="text-center mb-3">
@@ -410,6 +434,8 @@ console.log("id ==========>>>" + id);
                                                     (e) => {
                                                         // setShowEditForm(false)
                                                         saveContactData(e, "update", currentSelectedContact["id"])
+                                                        setAltAction(null);
+                                                        setAltActionName("");
                                                     }
                                                 }
 
@@ -609,7 +635,7 @@ console.log("id ==========>>>" + id);
 
 
             {/* Modal */}
-            <ContactStatusModal ref={contactCaptureStatusModalRef} messageStatus={messageStatus} />
+            <ContactStatusModal ref={contactCaptureStatusModalRef} altAction={altAction} altActionName={altActionName} resetState={resetState} messageStatus={messageStatus} />
 
         </>
     );
