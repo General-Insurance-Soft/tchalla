@@ -16,7 +16,8 @@ export default function CustomerForm({
     administrativeArea, setAdministrativeArea,
     customerGroup, setCustomerGroup,
     kraPin, setKraPin,
-    identificationCardId, setIdentificationCardId
+    identificationCardId, setIdentificationCardId,
+    saveContactData, currentSelectedContact
 }) {
 
     let [administrativeAreas, setAdministrativeAreas] = useState([]);
@@ -65,7 +66,21 @@ export default function CustomerForm({
                         </div>
 
                         <div>
-                            <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>{action === 'edit' ? 'Update' : 'Save'}</button>
+                            <button className="btn btn-primary me-2" onClick={
+
+                                (e) => {
+                                    if (action === 'edit') {
+                                        console.log("Update======================");
+                                        console.log(currentSelectedContact["id"]);
+                                        saveContactData(e, "update", currentSelectedContact["id"])
+                                    } else {
+                                        saveContactData(e, "add")
+                                    }
+                                }
+
+                            }>{
+                                    action === 'edit' ? 'Update' : 'Save'
+                                }</button>
                             <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                         </div>
                     </div> : ''
