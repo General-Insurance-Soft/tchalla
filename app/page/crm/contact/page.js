@@ -162,10 +162,11 @@ const Page = () => {
 
         if (action == "update") {
             saveRes = await updateContact(data, id);
+
         } else {
             saveRes = await saveContact(data);
         }
-
+        
         setMessageStatus(saveRes.message);
 
         // Show the ProposalStatusModal
@@ -173,6 +174,8 @@ const Page = () => {
             const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
             modal.show();
         }
+
+        fetchAllContactData();
     };
 
     const deleteContact = async (event, id) => {
@@ -186,7 +189,7 @@ const Page = () => {
             const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
             modal.show();
         }
-
+        fetchAllContactData();
     }
 
     return (
@@ -391,7 +394,7 @@ const Page = () => {
                                                                             () => {
                                                                                 setMessageStatus("Are you sure of this delete action? This will delete all data associtated with the cusomer from the system");
                                                                                 if (contactCaptureStatusModalRef.current) {
-                                                                                    setAltAction((e)=>deleteContact);
+                                                                                    setAltAction((e) => deleteContact);
                                                                                     setAltActionName("delete");
                                                                                     setCurrentSelectedContact(row);
                                                                                     const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
