@@ -28,6 +28,7 @@ const ContactStatusModal = forwardRef(({ messageStatus, altAction, altActionName
                                     (e) => {
                                         if (altActionName == "delete") {
                                             altAction(e, currentSelectedContact["id"]);
+                                            resetState();
                                         }
                                     }
 
