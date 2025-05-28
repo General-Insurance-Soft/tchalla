@@ -232,7 +232,13 @@ const Page = () => {
                         </li>
 
                     </ul>
+
+
+
                     <div className="tab-content pt-2" id="borderedTabContent">
+
+                        {/* New clustomer form */}
+
                         <div className="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
                             <h5 className="card-title">Capture Customer Details</h5>
 
@@ -262,7 +268,7 @@ const Page = () => {
                                 setKraPin={setKraPin}
                                 identificationCardId={identificationCardId}
                                 setIdentificationCardId={setIdentificationCardId}
-                                setShowEditForm={setShowEditForm}
+                                saveContactData={saveContactData}
                             />
                             <DocumentHolder />
                             <div className="text-center mb-3">
@@ -273,12 +279,14 @@ const Page = () => {
                                             saveContactData(e, "save", null)
                                         }
                                     }>Save</button>
-                                    <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                                    {/* <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button> */}
                                 </div>
                             </div>
                         </div>
 
-                        {/* manage customers */}
+                        {/*======= end New clustomer form ==========*/}
+
+                        {/*========= manage customers========== */}
 
                         <div className="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
                             <h5 className="card-title">Manage Customers</h5>
@@ -450,9 +458,9 @@ const Page = () => {
                             }
 
                         </div>
-                        {/* End manage customers */}
+                        {/* ============= End manage customers============== */}
 
-                        {/* Customer group */}
+                        {/* ================= Customer group =============== */}
                         <div className="tab-pane fade" id="bordered-customer_group" role="tabpanel" aria-labelledby="customer_group-tab">
 
 
@@ -625,7 +633,7 @@ const Page = () => {
 
 
                         </div>
-                        {/* end customer group */}
+                        {/* ================== end customer group =========================== */}
 
                     </div>
 

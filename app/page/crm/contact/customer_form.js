@@ -78,14 +78,18 @@ export default function CustomerForm({
                                         setAltAction(null);
                                         setAltActionName("update");
                                     } else {
-                                        saveContactData(e, "add")
+                                        saveContactData(e, "save", null);
                                     }
                                 }
 
                             }>{
                                     action === 'edit' ? 'Update' : 'Save'
                                 }</button>
-                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Close</button>
+                            {
+                                action === 'edit' ?
+                                    <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Close</button> : ''
+                            }
+
                         </div>
                     </div> : ''
             }
