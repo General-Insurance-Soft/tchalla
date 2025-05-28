@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-const ContactStatusModal = forwardRef(({ messageStatus, altAction, altActionName, resetState, setShowEditForm }, ref) => {
+const ContactStatusModal = forwardRef(({ messageStatus, altAction, altActionName, resetState, setShowEditForm, currentSelectedContact }, ref) => {
     return (
         <div ref={ref} className="modal fade" id="ContactStatusModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="proposalStatusModalModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
@@ -23,7 +23,15 @@ const ContactStatusModal = forwardRef(({ messageStatus, altAction, altActionName
                         } >Close</button>
                         {
                             altAction ?
-                                <button type="button" className="btn btn-primary" >{altActionName}</button>
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={
+
+                                    (e) => {
+                                        if (altActionName == "delete") {
+                                            altAction(e, currentSelectedContact["id"]);
+                                        }
+                                    }
+
+                                } >{altActionName}</button>
                                 : ""
                         }
                     </div>
