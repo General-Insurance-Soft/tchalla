@@ -17,7 +17,8 @@ export default function CustomerForm({
     customerGroup, setCustomerGroup,
     kraPin, setKraPin,
     identificationCardId, setIdentificationCardId,
-    saveContactData, currentSelectedContact
+    saveContactData, currentSelectedContact,
+    setAltAction, setAltActionName
 }) {
 
     let [administrativeAreas, setAdministrativeAreas] = useState([]);
@@ -49,6 +50,7 @@ export default function CustomerForm({
             setKraPin('');
             setIdentificationCardId('');
 
+
         } else {
             // Fetch the data for the user and populate the state variables
         }
@@ -73,6 +75,8 @@ export default function CustomerForm({
                                         console.log("Update======================");
                                         console.log(currentSelectedContact["id"]);
                                         saveContactData(e, "update", currentSelectedContact["id"])
+                                        setAltAction(null);
+                                        setAltActionName("update");
                                     } else {
                                         saveContactData(e, "add")
                                     }
@@ -81,7 +85,7 @@ export default function CustomerForm({
                             }>{
                                     action === 'edit' ? 'Update' : 'Save'
                                 }</button>
-                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
+                            <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Close</button>
                         </div>
                     </div> : ''
             }

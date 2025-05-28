@@ -426,6 +426,7 @@ const Page = () => {
                                             setIdentificationCardId={setIdentificationCardId}
                                             saveContactData={saveContactData}
                                             currentSelectedContact={currentSelectedContact}
+                                            setAltAction={setAltAction} setAltActionName={setAltActionName}
                                         />
                                         <DocumentHolder />
                                         <div className="text-center mb-3">
@@ -433,9 +434,9 @@ const Page = () => {
                                                 <button className="btn btn-primary me-2" onClick={
                                                     (e) => {
                                                         // setShowEditForm(false)
-                                                        saveContactData(e, "update", currentSelectedContact["id"])
+                                                        saveContactData(e, "update", currentSelectedContact["id"]);
                                                         setAltAction(null);
-                                                        setAltActionName("");
+                                                        setAltActionName("update");
                                                     }
                                                 }
 
@@ -635,7 +636,11 @@ const Page = () => {
 
 
             {/* Modal */}
-            <ContactStatusModal ref={contactCaptureStatusModalRef} altAction={altAction} altActionName={altActionName} resetState={resetState} messageStatus={messageStatus} />
+            <ContactStatusModal
+                ref={contactCaptureStatusModalRef} altAction={altAction}
+                altActionName={altActionName} resetState={resetState}
+                messageStatus={messageStatus} setShowEditForm={setShowEditForm}
+            />
 
         </>
     );
