@@ -5,7 +5,7 @@ import CustomerForm from "./customer_form";
 import withAuth from "../../../lib/service/with_auth";
 import DocumentHolder from "../../../lib/components/ui/utils/document_holder";
 //getContactList
-import { getContactList, saveContact, updateContact } from "../../../lib/service/model";
+import { getContactList, saveContact, updateContact, deleteContactById } from "../../../lib/service/model";
 import ContactStatusModal from './contact-status-message.js';
 
 const Page = () => {
@@ -162,10 +162,11 @@ const Page = () => {
 
         if (action == "update") {
             saveRes = await updateContact(data, id);
+
         } else {
             saveRes = await saveContact(data);
         }
-
+        
         setMessageStatus(saveRes.message);
 
         // Show the ProposalStatusModal
@@ -173,10 +174,22 @@ const Page = () => {
             const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
             modal.show();
         }
+
+        fetchAllContactData();
     };
 
-    const deleteContact = async (event, action, id) => {
+    const deleteContact = async (event, id) => {
+        console.log("Running delete");
+        event.preventDefault();
+        let res = await deleteContactById(id);
+        setMessageStatus(res.message);
 
+        // Show the ProposalStatusModal
+        if (contactCaptureStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
+            modal.show();
+        }
+        fetchAllContactData();
     }
 
     return (
@@ -381,8 +394,9 @@ const Page = () => {
                                                                             () => {
                                                                                 setMessageStatus("Are you sure of this delete action? This will delete all data associtated with the cusomer from the system");
                                                                                 if (contactCaptureStatusModalRef.current) {
-                                                                                    setAltAction(deleteContact);
-                                                                                    setAltActionName("Delete");
+                                                                                    setAltAction((e) => deleteContact);
+                                                                                    setAltActionName("delete");
+                                                                                    setCurrentSelectedContact(row);
                                                                                     const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
                                                                                     modal.show();
                                                                                 }
@@ -648,6 +662,7 @@ const Page = () => {
                 ref={contactCaptureStatusModalRef} altAction={altAction}
                 altActionName={altActionName} resetState={resetState}
                 messageStatus={messageStatus} setShowEditForm={setShowEditForm}
+                currentSelectedContact={currentSelectedContact}
             />
 
         </>
