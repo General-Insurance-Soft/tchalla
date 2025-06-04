@@ -159,7 +159,7 @@ export default function CustomerForm({
                     >
                         <option key={-1} defaultValue>Country...</option>
                         {
-                            administrativeAreas.map((area, index) => {
+                            administrativeAreas && administrativeAreas.length > 0 && administrativeAreas.map((area, index) => {
                                 if (area.level === 1) {
                                     return <option value={area.id} key={index}>{area.name}</option>;
                                 }
@@ -175,12 +175,13 @@ export default function CustomerForm({
                         className="form-select"
                     >
                         <option key={1} defaultValue>County...</option>
-                        {administrativeAreas.map((area, index) => {
-                            if (area.level === 2) {
-                                return <option value={area.id} key={index}>{area.name}</option>;
+                        {
+                            administrativeAreas && administrativeAreas.length > 0 && administrativeAreas.map((area, index) => {
+                                if (area.level === 2) {
+                                    return <option value={area.id} key={index}>{area.name}</option>;
+                                }
                             }
-                        }
-                        )}
+                            )}
                     </select>
                 </div>
                 <div className="col-md-4">

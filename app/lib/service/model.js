@@ -236,7 +236,13 @@ export const fetchAdministrativeAreas = async () => {
     const cacheKey = `administrative-areas`;
     const cachedData = getFromCache(cacheKey);
 
-    if (cachedData) {
+    if (
+        cachedData
+        &&
+        (Array.isArray(cachedData)
+            && (cachedData.length == 0)
+        )
+    ) {
         console.log(`Cache hit for ${cacheKey}`);
         return cachedData;
     }
