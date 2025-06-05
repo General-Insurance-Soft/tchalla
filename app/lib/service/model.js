@@ -301,3 +301,7 @@ export const getContactGroupList = async (page, size) => {
     return await dataFetch(`${baseServerUrl}/contact-service/api/v1/contact-group/get-list?page=${page}&size=${size}`, "contact group list");
 }
 
+export const updateContactGroup = async (data, id) => {
+    return await dataPost(`${baseServerUrl}/contact-service/api/v1/contact-group/update?id=${id}`, data, "Contact group update", "PUT");
+}
+

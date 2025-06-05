@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { saveContactGroup, getContactGroupList } from '../../../lib/service/model';
+import { saveContactGroup, getContactGroupList, updateContactGroup } from '../../../lib/service/model';
 
 export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatusModalRef, setMessageStatus }) {
 
@@ -8,6 +8,8 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
     const [groupName, setGroupName] = useState("");
     const [contactGroupData, setContactGroupData] = useState({});
     const [contactGrouplList, setContactGrouplList] = useState([]);
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [currentSelectedContactGroup, setCurrentSelectedContactGroup] = useState({});
 
     const toggleCustomerTable = () => {
         setIsAddNewGroup(!isAddNewGroup);
@@ -74,7 +76,7 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
         let saveRes = null;
 
         if (action == "update") {
-            // saveRes = await updateContact(data, id);
+            saveRes = await updateContactGroup(data, id);
 
         } else {
             saveRes = await saveContactGroup(data);
@@ -89,6 +91,7 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
         }
 
         setGroupName("");
+        fetchContactGroupData();
         // fetchAllContactData();
     };
 
@@ -126,9 +129,14 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
                             [
                                 <React.Fragment key="group-buttons">
 
-                                    <button className="btn btn-primary me-2" onClick={(event) => saveContactGroupData(event, "save", null)}>
+                                    <button className="btn btn-primary me-2" onClick={
+                                        (event) => saveContactGroupData(event, isEditMode ? "update" : "save", isEditMode ? currentSelectedContactGroup["id"] : null)
+                                    }>
                                         <i className="bi bi-floppy"></i>
-                                        Save
+                                        {
+                                            isEditMode ? " Update" : " Save"
+                                        }
+
                                     </button>
 
                                     <button onClick={() => toggleCustomerTable()} className="btn btn-secondary me-2"><i className="bi bi-x"></i> Close </button>
@@ -173,9 +181,10 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
                                         <button type="button" style={{ marginRight: "10px" }} className="btn btn-info"
                                             onClick={
                                                 () => {
-                                                    toggleCustomerTable();
+                                                    setIsAddNewGroup(true);
                                                     setGroupName(row["name"]);
-
+                                                    setCurrentSelectedContactGroup(row);
+                                                    setIsEditMode(true);
                                                 }
 
                                             }
