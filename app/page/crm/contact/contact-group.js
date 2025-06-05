@@ -96,7 +96,7 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
             modal.show();
         }
 
-        setGroupName("");
+        resetValues();
         fetchContactGroupData();
         // fetchAllContactData();
     };
