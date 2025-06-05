@@ -167,7 +167,6 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
 
             <div className="row">
                 <h4 className="fw-bold">Group List</h4>
-                <div>Total groups: 3</div>
             </div>
             <table className="table table-striped table-bordered">
                 <thead>
