@@ -76,32 +76,35 @@ const Page = () => {
 
         let contactlLst = [];
 
-        customerData.contacts.forEach((contact) => {
+        if (Array.isArray(customerData.contacts)) {
 
-            try {
-                contact["updateByName"] = updatedByMap[contact.updated_by].first_name + " " + updatedByMap[contact.updated_by].third_name;
-            } catch (error) {
-                console.log("Error in refresh contact table =========>>>" + error);
-                contact["updateByName"] = "";
-            }
+            customerData.contacts.forEach((contact) => {
 
-            try {
-                contact["country"] = adminAreas[contact.address.country_code].name;
-            } catch (error) {
-                console.log("Error in refresh contact table =========>>>" + error);
-                contact["country"] = "";
-            }
+                try {
+                    contact["updateByName"] = updatedByMap[contact.updated_by].first_name + " " + updatedByMap[contact.updated_by].third_name;
+                } catch (error) {
+                    console.log("Error in refresh contact table =========>>>" + error);
+                    contact["updateByName"] = "";
+                }
 
-            try {
-                contact["county"] = adminAreas[contact.address.administrative_area].name;
-            } catch (error) {
-                console.log("Error in refresh contact table =========>>>" + error);
-                contact["county"] = "";
-            }
+                try {
+                    contact["country"] = adminAreas[contact.address.country_code].name;
+                } catch (error) {
+                    console.log("Error in refresh contact table =========>>>" + error);
+                    contact["country"] = "";
+                }
 
-            contactlLst.push(contact);
+                try {
+                    contact["county"] = adminAreas[contact.address.administrative_area].name;
+                } catch (error) {
+                    console.log("Error in refresh contact table =========>>>" + error);
+                    contact["county"] = "";
+                }
 
-        });
+                contactlLst.push(contact);
+
+            });
+        }
 
         setContactlList(contactlLst);
 
@@ -166,7 +169,7 @@ const Page = () => {
         } else {
             saveRes = await saveContact(data);
         }
-        
+
         setMessageStatus(saveRes.message);
 
         // Show the ProposalStatusModal
@@ -219,7 +222,7 @@ const Page = () => {
                                     }
 
                                 }
-                                data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">New Customer</button>
+                                data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">New Contact</button>
                         </li>
                         <li className="nav-item" role="presentation">
                             <button className="nav-link" id="profile-tab"
