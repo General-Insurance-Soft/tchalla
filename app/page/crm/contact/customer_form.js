@@ -117,13 +117,13 @@ export default function CustomerForm({
 
                 </div>
                 <div className="col-md-4">
-                    <input key={1}
+                    <input 
                         value={identificationCardId || ""}
                         onChange={(event) => setIdentificationCardId(event.target.value)}
                         type="text" className="form-control" placeholder="ID/Passport No." />
                 </div>
                 <div className="col-md-4">
-                    <input key={1}
+                    <input 
                         value={phoneNumber || ""}
                         onChange={(event) => setPhoneNumber(event.target.value)}
                         type="text" className="form-control" placeholder="Phone Number" />
@@ -143,7 +143,7 @@ export default function CustomerForm({
                         <option key={0} value={0} defaultValue>Gender...</option>
                         <option value={"MALE"} key={1}>Male</option>
                         <option value={"FEMALE"} key={2}>Female</option>
-                        <option value={"OTHER"} key={2}>Other</option>
+                        <option value={"OTHER"} key={3}>Other</option>
                     </select>
                 </div>
                 <div className="col-md-4">
@@ -159,7 +159,7 @@ export default function CustomerForm({
                     >
                         <option key={-1} defaultValue>Country...</option>
                         {
-                            administrativeAreas.map((area, index) => {
+                            administrativeAreas && administrativeAreas.length > 0 && administrativeAreas.map((area, index) => {
                                 if (area.level === 1) {
                                     return <option value={area.id} key={index}>{area.name}</option>;
                                 }
@@ -175,12 +175,13 @@ export default function CustomerForm({
                         className="form-select"
                     >
                         <option key={1} defaultValue>County...</option>
-                        {administrativeAreas.map((area, index) => {
-                            if (area.level === 2) {
-                                return <option value={area.id} key={index}>{area.name}</option>;
+                        {
+                            administrativeAreas && administrativeAreas.length > 0 && administrativeAreas.map((area, index) => {
+                                if (area.level === 2) {
+                                    return <option value={area.id} key={index}>{area.name}</option>;
+                                }
                             }
-                        }
-                        )}
+                            )}
                     </select>
                 </div>
                 <div className="col-md-4">
