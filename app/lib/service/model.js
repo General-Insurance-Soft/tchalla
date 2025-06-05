@@ -292,3 +292,7 @@ export const updateContact = async (data, id) => {
 export const deleteContactById = async (id) => {
     return await dataDeleteById(`${baseServerUrl}/contact-service/api/v1/contact/delete?id=${id}`, "Contact delete");
 }
+
+export const saveContactGroup = async (data) => {
+    return await dataPost(`${baseServerUrl}/contact-service/api/v1/contact-group/create`, data, "Contact group save", "POST");
+}

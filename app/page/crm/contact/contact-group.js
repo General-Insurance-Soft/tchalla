@@ -1,18 +1,46 @@
 import React, { useState, useEffect } from 'react';
 
-export default function ConctactGroup({ isContactsGroupTab }) {
+import { saveContactGroup } from '../../../lib/service/model';
+
+export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatusModalRef, setMessageStatus  }) {
 
     const [isAddNewGroup, setIsAddNewGroup] = useState(false);
+    const [groupName, setGroupName] = useState("");
 
-    let customerTable = [
-
-    ];
 
     const toggleCustomerTable = () => {
         setIsAddNewGroup(!isAddNewGroup);
     };
 
     useEffect(() => { }, [isAddNewGroup, isContactsGroupTab]);
+
+    const saveContactGroupData = async (event, action, id) => {
+
+        event.preventDefault();
+
+        let data = {
+            "name": groupName,
+        }
+
+        let saveRes = null;
+
+        if (action == "update") {
+            // saveRes = await updateContact(data, id);
+
+        } else {
+            saveRes = await saveContactGroup(data);
+        }
+
+        setMessageStatus(saveRes.message);
+
+        // Show the ProposalStatusModal
+        if (contactCaptureStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
+            modal.show();
+        }
+
+        // fetchAllContactData();
+    };
 
     return (
         <>
@@ -22,7 +50,11 @@ export default function ConctactGroup({ isContactsGroupTab }) {
                     {
                         isAddNewGroup ?
 
-                            <input type="text" className="form-control" style={{ width: "350px" }} placeholder="Group Name" />
+                            <input
+                                type="text" className="form-control" style={{ width: "350px" }} placeholder="Group Name"
+                                value={groupName || ""}
+                                onChange={(event) => setGroupName(event.target.value)}
+                            />
 
                             :
                             ""
@@ -34,7 +66,12 @@ export default function ConctactGroup({ isContactsGroupTab }) {
                         isAddNewGroup ?
                             [
                                 <React.Fragment key="group-buttons">
-                                    <button className="btn btn-primary me-2"><i className="bi bi-floppy"></i> Save </button>
+
+                                    <button className="btn btn-primary me-2" onClick={(event) => saveContactGroupData(event, "save", null)}>
+                                        <i className="bi bi-floppy"></i>
+                                        Save
+                                    </button>
+
                                     <button onClick={() => toggleCustomerTable()} className="btn btn-secondary me-2"><i className="bi bi-x"></i> Close </button>
                                 </React.Fragment>
                             ]

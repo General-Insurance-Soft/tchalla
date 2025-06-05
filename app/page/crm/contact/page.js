@@ -475,7 +475,11 @@ const Page = () => {
 
                         {/* ================= Customer group =============== */}
                         <div className="tab-pane fade" id="bordered-customer_group" role="tabpanel" aria-labelledby="customer_group-tab">
-                            <ConctactGroup isContactsGroupTab= {isContactsGroupTab} />
+                            <ConctactGroup
+                                isContactsGroupTab={isContactsGroupTab}
+                                contactCaptureStatusModalRef={contactCaptureStatusModalRef}
+                                setMessageStatus={setMessageStatus}
+                            />
                         </div>
                         {/* ================== end customer group =========================== */}
 
