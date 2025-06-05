@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import CustomerForm from "./customer_form";
 import withAuth from "../../../lib/service/with_auth";
 import DocumentHolder from "../../../lib/components/ui/utils/document_holder";
+import ConctactGroup from "./contact-group";
 //getContactList
 import { getContactList, saveContact, updateContact, deleteContactById } from "../../../lib/service/model";
 import ContactStatusModal from './contact-status-message.js';
@@ -11,7 +12,7 @@ import ContactStatusModal from './contact-status-message.js';
 const Page = () => {
 
 
-    const [showGroupCustomerList, setShowGroupCustomerList] = useState(false);
+
     const [actionBtnLabel, setActionBtnLabel] = useState("Add new");
     const [isContactsGroupTab, setIsContactsGroupTab] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
@@ -37,7 +38,6 @@ const Page = () => {
     let [currentSelectedContact, setCurrentSelectedContact] = useState({});
 
 
-    useEffect(() => { }, [showGroupCustomerList, isContactsGroupTab]);
 
     useEffect(() => {
         fetchAllContactData();
@@ -118,13 +118,9 @@ const Page = () => {
         setCustomerData(res);
     };
 
-    const toggleCustomerTable = () => {
-        setShowGroupCustomerList(!showGroupCustomerList);
-    };
 
-    let customerTable = [
 
-    ];
+
 
     const resetState = () => {
         setFirstName('');
@@ -479,176 +475,7 @@ const Page = () => {
 
                         {/* ================= Customer group =============== */}
                         <div className="tab-pane fade" id="bordered-customer_group" role="tabpanel" aria-labelledby="customer_group-tab">
-
-
-                            <div className="d-flex justify-content-between align-items-center mt-2">
-                                <div>
-                                    {
-                                        showGroupCustomerList ?
-                                            <>
-                                                <h5 className="card-title fw-bold">New Group</h5>
-
-                                            </>
-
-                                            :
-                                            ""
-                                    }
-                                </div>
-
-                                <div>
-                                    {
-                                        showGroupCustomerList ?
-                                            [
-                                                <React.Fragment key="group-buttons">
-                                                    <button className="btn btn-primary me-2"><i className="bi bi-floppy"></i> Save </button>
-                                                    <button onClick={() => toggleCustomerTable()} className="btn btn-secondary me-2"><i className="bi bi-x"></i> Close </button>
-                                                </React.Fragment>
-                                            ]
-                                            :
-                                            [<button key="add-new-btn" onClick={() => toggleCustomerTable()} className="btn btn-primary me-2"><i className="bi bi-plus-lg"></i> Add new </button>]
-                                    }
-
-                                </div>
-                            </div>
-
-                            {
-                                showGroupCustomerList ?
-                                    <>
-
-                                        <div className="row mb-3">
-                                            <div className="col-md-4"><input type="text" className="form-control" placeholder="Group Name" /></div>
-                                        </div>
-                                        <div className="d-flex  mt-2 mb-2 gap-3">
-                                            <span>Filter contacts: </span>
-                                            <div>
-                                                <select id="inputState" className="form-select">
-                                                    <option defaultValue>Policy type...</option>
-                                                    <option>Fire/Bulgary</option>
-                                                    <option>Health</option>
-                                                    <option>Car</option>
-                                                    <option>Life insurance</option>
-                                                </select>
-                                            </div>
-                                            |
-                                            <div className="d-flex gap-1">
-                                                <label htmlFor="age" className="col-form-label">Age: </label>
-                                                <select id="age" className="form-select">
-                                                    <option>equals</option>
-                                                    <option>greater than</option>
-                                                    <option>less than</option>
-                                                </select>
-                                                <input type="number" className="form-control" min="-1" style={{ width: '80px' }}></input>
-                                            </div>
-                                            |
-                                            <div className="d-flex gap-1">
-                                                <label htmlFor="name" className="col-form-label">Name: </label>
-                                                <select id="name" className="form-select">
-                                                    <option>starts with</option>
-                                                    <option>contains</option>
-                                                    <option>ends with</option>
-                                                </select>
-                                                <input type="text" className="form-control" min="-1"></input>
-                                            </div>
-                                            |
-                                            <div>
-                                                <select id="inputState" className="form-select">
-                                                    <option defaultValue>Country...</option>
-                                                    <option>Kenya</option>
-                                                    <option>Uganda</option>
-                                                    <option>Tanzania</option>
-                                                    <option>Rwanda</option>
-                                                </select>
-                                            </div>
-
-                                            <div>
-                                                <select id="inputState" className="form-select">
-                                                    <option defaultValue>County...</option>
-                                                    <option>Nairobi</option>
-                                                    <option>Kisumu</option>
-                                                    <option>Nakuru</option>
-                                                    <option>Nyandarua</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        {customerTable}
-                                        <hr />
-                                    </>
-                                    :
-                                    ""
-                            }
-
-                            {
-
-                                showGroupCustomerList ?
-                                    ""
-                                    :
-                                    <>
-                                        <div className="row">
-                                            <h4 className="fw-bold">Group List</h4>
-                                            <div>Total groups: 3</div>
-                                        </div>
-                                        <table className="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Total members</th>
-                                                    <th scope="col">Created date</th>
-                                                    <th scope="col">Created by</th>
-                                                    <th scope="col">Last Editor</th>
-                                                    <th scope="col">Last Edited</th>
-                                                    <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>#</td>
-                                                    <td>Car insurance Group</td>
-                                                    <td>30</td>
-                                                    <td>2024-09-11</td>
-                                                    <td>Lucy</td>
-                                                    <td>Tom</td>
-                                                    <td>2024-09-11</td>
-                                                    <td>
-                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>#</td>
-                                                    <td>Life insurance</td>
-                                                    <td>35</td>
-                                                    <td>2024-09-11</td>
-                                                    <td>Lucy</td>
-                                                    <td>Kevin</td>
-                                                    <td>2024-09-11</td>
-                                                    <td>
-                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>#</td>
-                                                    <td>High value</td>
-                                                    <td>20</td>
-                                                    <td>2024-09-13</td>
-                                                    <td>George</td>
-                                                    <td>Tom</td>
-                                                    <td>2024-09-11</td>
-                                                    <td>
-                                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-
-                                    </>
-
-                            }
-
-
+                            <ConctactGroup isContactsGroupTab= {isContactsGroupTab} />
                         </div>
                         {/* ================== end customer group =========================== */}
 
