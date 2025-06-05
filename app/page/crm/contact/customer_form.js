@@ -143,7 +143,7 @@ export default function CustomerForm({
                         <option key={0} value={0} defaultValue>Gender...</option>
                         <option value={"MALE"} key={1}>Male</option>
                         <option value={"FEMALE"} key={2}>Female</option>
-                        <option value={"OTHER"} key={2}>Other</option>
+                        <option value={"OTHER"} key={3}>Other</option>
                     </select>
                 </div>
                 <div className="col-md-4">

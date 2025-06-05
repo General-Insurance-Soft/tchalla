@@ -1,18 +1,67 @@
 import React, { useState, useEffect } from 'react';
 
-import { saveContactGroup } from '../../../lib/service/model';
+import { saveContactGroup, getContactGroupList } from '../../../lib/service/model';
 
 export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatusModalRef, setMessageStatus }) {
 
     const [isAddNewGroup, setIsAddNewGroup] = useState(false);
     const [groupName, setGroupName] = useState("");
-
+    const [contactGroupData, setContactGroupData] = useState({});
+    const [contactGrouplList, setContactGrouplList] = useState([]);
 
     const toggleCustomerTable = () => {
         setIsAddNewGroup(!isAddNewGroup);
     };
 
+    useEffect(() => {
+        fetchContactGroupData(0, 10);
+    }, []);
+
+
     useEffect(() => { }, [isAddNewGroup, isContactsGroupTab]);
+
+
+    useEffect(() => {
+
+        if (!contactGroupData || Object.keys(contactGroupData).length === 0) {
+            console.log("contactGroupData is empty");
+            return
+        }
+
+
+        let updatedByMap = {};
+
+        try {
+            contactGroupData.updatedByUsers.forEach((val) => {
+                updatedByMap[val.id] = val;
+
+            });
+        } catch (error) {
+            console.log("Error in customerData.updatedBy =========>>>" + error);
+        }
+
+        let contactGrouplLst = [];
+
+        if (Array.isArray(contactGroupData.data)) {
+
+            contactGroupData.data.forEach((contactGroup) => {
+
+                try {
+                    contactGroup["updateByName"] = updatedByMap[contactGroup.updatedBy].first_name + " " + updatedByMap[contactGroup.updatedBy].third_name;
+                } catch (error) {
+                    contactGroup["updateByName"] = "";
+                }
+
+                contactGrouplLst.push(contactGroup);
+
+            });
+        }
+
+        setContactGrouplList(contactGrouplLst);
+
+
+    }, [contactGroupData]);
+
 
     const saveContactGroupData = async (event, action, id) => {
 
@@ -38,10 +87,19 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
             const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
             modal.show();
         }
-        
+
         setGroupName("");
         // fetchAllContactData();
     };
+
+    const fetchContactGroupData = async () => {
+        let res = await getContactGroupList(0, 10);
+        if ('error' in res) {
+            return;
+        }
+        setContactGroupData(res);
+    };
+
 
     return (
         <>
@@ -95,52 +153,56 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
                         <th scope="col">Name</th>
                         <th scope="col">Total members</th>
                         <th scope="col">Created date</th>
-                        <th scope="col">Created by</th>
                         <th scope="col">Last Editor</th>
                         <th scope="col">Last Edited</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>#</td>
-                        <td>Car insurance Group</td>
-                        <td>30</td>
-                        <td>2024-09-11</td>
-                        <td>Lucy</td>
-                        <td>Tom</td>
-                        <td>2024-09-11</td>
-                        <td>
-                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#</td>
-                        <td>Life insurance</td>
-                        <td>35</td>
-                        <td>2024-09-11</td>
-                        <td>Lucy</td>
-                        <td>Kevin</td>
-                        <td>2024-09-11</td>
-                        <td>
-                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#</td>
-                        <td>High value</td>
-                        <td>20</td>
-                        <td>2024-09-13</td>
-                        <td>George</td>
-                        <td>Tom</td>
-                        <td>2024-09-11</td>
-                        <td>
-                            <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" ><i className="bi bi-pencil-square"></i></button>
-                            <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                        </td>
-                    </tr>
+                    {
+                        contactGrouplList.map((row, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{row["name"]}</td>
+                                    <td>{row["contactCount"]}</td>
+                                    <td>{row["createdAt"]}</td>
+                                    <td>{row["updateByName"]}</td>
+                                    <td>{row["updatedAt"]}</td>
+                                    <td>
+                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info"
+                                            onClick={
+                                                () => {
+                                                    toggleCustomerTable();
+                                                    setGroupName(row["name"]);
+
+                                                }
+
+                                            }
+                                        >
+                                            <i className="bi bi-pencil-square"></i></button>
+                                        <button type="button" className="btn btn-danger"
+
+                                        // onClick={
+                                        //     () => {
+                                        //         setMessageStatus("Are you sure of this delete action? This will delete all data associtated with the cusomer from the system");
+                                        //         if (contactCaptureStatusModalRef.current) {
+                                        //             setAltAction((e) => deleteContact);
+                                        //             setAltActionName("delete");
+                                        //             setCurrentSelectedContact(row);
+                                        //             const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
+                                        //             modal.show();
+                                        //         }
+                                        //     }
+                                        // }
+
+                                        ><i className="bi bi-trash3"></i></button>
+                                    </td>
+
+                                </tr>
+                            );
+                        })
+                    }
 
                 </tbody>
             </table>
