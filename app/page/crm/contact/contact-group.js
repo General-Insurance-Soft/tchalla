@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { saveContactGroup } from '../../../lib/service/model';
 
-export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatusModalRef, setMessageStatus  }) {
+export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatusModalRef, setMessageStatus }) {
 
     const [isAddNewGroup, setIsAddNewGroup] = useState(false);
     const [groupName, setGroupName] = useState("");
@@ -38,7 +38,8 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
             const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
             modal.show();
         }
-
+        
+        setGroupName("");
         // fetchAllContactData();
     };
 
