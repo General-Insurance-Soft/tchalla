@@ -15,6 +15,12 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
         setIsAddNewGroup(!isAddNewGroup);
     };
 
+    const resetValues = () => {
+        setGroupName("");
+        setIsEditMode(false);
+        setCurrentSelectedContactGroup({});
+    }
+
     useEffect(() => {
         fetchContactGroupData(0, 10);
     }, []);
@@ -90,7 +96,7 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
             modal.show();
         }
 
-        setGroupName("");
+        resetValues();
         fetchContactGroupData();
         // fetchAllContactData();
     };
@@ -143,7 +149,16 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
                                 </React.Fragment>
                             ]
                             :
-                            [<button key="add-new-btn" onClick={() => toggleCustomerTable()} className="btn btn-primary me-2"><i className="bi bi-plus-lg"></i> Add new </button>]
+                            [<button
+                                key="add-new-btn" className="btn btn-primary me-2"
+                                onClick={
+                                    () => {
+                                        toggleCustomerTable();
+                                        resetValues();
+                                    }
+                                } >
+                                <i className="bi bi-plus-lg"></i> Add new
+                            </button>]
                     }
 
                 </div>
