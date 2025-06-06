@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-
-import { fetchAdministrativeAreas } from "../../../lib/service/model";
+import Select from 'react-select'
+import { fetchAdministrativeAreas, getContactGroupList } from "../../../lib/service/model";
 
 export default function CustomerForm({
     action, setShowEditForm,
@@ -22,6 +22,7 @@ export default function CustomerForm({
 }) {
 
     let [administrativeAreas, setAdministrativeAreas] = useState([]);
+    let [contactGroupOptions, setContactGroupOptions] = useState([]);
 
     useEffect(() => {
         const fetchAdministrativeAreasData = async () => {
@@ -56,7 +57,29 @@ export default function CustomerForm({
         }
     }, [action]);
 
+    useEffect(() => {
+        fetchContactGroupData();
+    }, []);
 
+    const fetchContactGroupData = async () => {
+        let res = await getContactGroupList(0, 100);
+        if ('error' in res) {
+            return;
+        }
+
+        if (res || Object.keys(res).length != 0) {
+            let contactGroupOpt = [];
+            res.data.forEach((contactGroup) => {
+                contactGroupOpt.push({ value: contactGroup.id, label: contactGroup.name });
+            });
+            setContactGroupOptions(contactGroupOpt);
+        };
+    }
+
+    const custerGroupChange = (value, eventt) => {
+        console.log("Value is: ", value);
+        console.log("Event is: ", eventt);
+    }
 
     return (
         <>
@@ -117,13 +140,13 @@ export default function CustomerForm({
 
                 </div>
                 <div className="col-md-4">
-                    <input 
+                    <input
                         value={identificationCardId || ""}
                         onChange={(event) => setIdentificationCardId(event.target.value)}
                         type="text" className="form-control" placeholder="ID/Passport No." />
                 </div>
                 <div className="col-md-4">
-                    <input 
+                    <input
                         value={phoneNumber || ""}
                         onChange={(event) => setPhoneNumber(event.target.value)}
                         type="text" className="form-control" placeholder="Phone Number" />
@@ -185,15 +208,17 @@ export default function CustomerForm({
                     </select>
                 </div>
                 <div className="col-md-4">
-                    <select id="customer-group"
-                        value={customerGroup}
-                        onChange={(event) => setCustomerGroup(event.target.value)}
-                        className="form-select"
-                    >
-                        <option key={0} value={0} defaultValue>Select customer group:</option>
-                        <option key={2} value={1}>Group 1</option>
-                        <option key={3} value={2}>Group 2</option>
-                    </select>
+                    <Select
+                        id="customer-group"
+                        isMulti
+                        // defaultValue={[options[0], options[1]]}
+                        defaultValue={customerGroup}
+                        onChange={(val, evt) => custerGroupChange(val, evt)}
+                        // onChange={(event) => setCustomerGroup(event.target.value)}
+                        options={contactGroupOptions}
+                        closeMenuOnScroll={true}
+                        placeholder="Select customer group"
+                    />
                 </div>
 
                 <div className="col-sm-12">

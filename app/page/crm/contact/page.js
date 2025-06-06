@@ -32,7 +32,7 @@ const Page = () => {
     let [address, setAddress] = useState('');
     let [countryCode, setCountryCode] = useState('');
     let [administrativeArea, setAdministrativeArea] = useState('');
-    let [customerGroup, setCustomerGroup] = useState(0);
+    let [customerGroup, setCustomerGroup] = useState([]);
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
     let [currentSelectedElement, setCurrentSelectedElement] = useState({});
