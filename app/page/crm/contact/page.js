@@ -32,10 +32,10 @@ const Page = () => {
     let [address, setAddress] = useState('');
     let [countryCode, setCountryCode] = useState('');
     let [administrativeArea, setAdministrativeArea] = useState('');
-    let [customerGroup, setCustomerGroup] = useState(0);
+    let [customerGroup, setCustomerGroup] = useState([]);
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
-    let [currentSelectedContact, setCurrentSelectedContact] = useState({});
+    let [currentSelectedElement, setCurrentSelectedElement] = useState({});
 
 
 
@@ -379,7 +379,7 @@ const Page = () => {
                                                                                 setCustomerGroup(row["customer_group"]);
                                                                                 setKraPin(row["kra_pin"]);
                                                                                 setIdentificationCardId(row["id_number"]);
-                                                                                setCurrentSelectedContact(row);
+                                                                                setCurrentSelectedElement(row);
                                                                                 setAltAction(null);
                                                                                 setAltActionName("");
                                                                             }
@@ -395,7 +395,7 @@ const Page = () => {
                                                                                 if (contactCaptureStatusModalRef.current) {
                                                                                     setAltAction((e) => deleteContact);
                                                                                     setAltActionName("delete");
-                                                                                    setCurrentSelectedContact(row);
+                                                                                    setCurrentSelectedElement(row);
                                                                                     const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
                                                                                     modal.show();
                                                                                 }
@@ -446,7 +446,7 @@ const Page = () => {
                                             identificationCardId={identificationCardId}
                                             setIdentificationCardId={setIdentificationCardId}
                                             saveContactData={saveContactData}
-                                            currentSelectedContact={currentSelectedContact}
+                                            currentSelectedContact={currentSelectedElement}
                                             setAltAction={setAltAction} setAltActionName={setAltActionName}
                                         />
                                         <DocumentHolder />
@@ -455,7 +455,7 @@ const Page = () => {
                                                 <button className="btn btn-primary me-2" onClick={
                                                     (e) => {
                                                         // setShowEditForm(false)
-                                                        saveContactData(e, "update", currentSelectedContact["id"]);
+                                                        saveContactData(e, "update", currentSelectedElement["id"]);
                                                         setAltAction(null);
                                                         setAltActionName("update");
                                                     }
@@ -479,6 +479,8 @@ const Page = () => {
                                 isContactsGroupTab={isContactsGroupTab}
                                 contactCaptureStatusModalRef={contactCaptureStatusModalRef}
                                 setMessageStatus={setMessageStatus}
+                                setAltAction={setAltAction} setAltActionName={setAltActionName}
+                                setCurrentSelectedElement={setCurrentSelectedElement}
                             />
                         </div>
                         {/* ================== end customer group =========================== */}
@@ -496,7 +498,7 @@ const Page = () => {
                 ref={contactCaptureStatusModalRef} altAction={altAction}
                 altActionName={altActionName} resetState={resetState}
                 messageStatus={messageStatus} setShowEditForm={setShowEditForm}
-                currentSelectedContact={currentSelectedContact}
+                currentSelectedElement={currentSelectedElement}
             />
 
         </>

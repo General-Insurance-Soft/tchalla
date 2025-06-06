@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { saveContactGroup, getContactGroupList, updateContactGroup } from '../../../lib/service/model';
+import { saveContactGroup, getContactGroupList, updateContactGroup, deleteContactGroupById } from '../../../lib/service/model';
 
-export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatusModalRef, setMessageStatus }) {
+export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatusModalRef, setMessageStatus, setAltAction, setAltActionName, setCurrentSelectedElement }) {
 
     const [isAddNewGroup, setIsAddNewGroup] = useState(false);
     const [groupName, setGroupName] = useState("");
@@ -101,6 +101,20 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
         // fetchAllContactData();
     };
 
+    const deleteContactGroup = async (event, id) => {
+
+        event.preventDefault();
+        let res = await deleteContactGroupById(id);
+        setMessageStatus(res.message);
+
+        // Show the ProposalStatusModal
+        if (contactCaptureStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
+            modal.show();
+        }
+        fetchContactGroupData();
+    }
+
     const fetchContactGroupData = async () => {
         let res = await getContactGroupList(0, 10);
         if ('error' in res) {
@@ -167,7 +181,6 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
 
             <div className="row">
                 <h4 className="fw-bold">Group List</h4>
-                <div>Total groups: 3</div>
             </div>
             <table className="table table-striped table-bordered">
                 <thead>
@@ -207,18 +220,19 @@ export default function ConctactGroup({ isContactsGroupTab, contactCaptureStatus
                                             <i className="bi bi-pencil-square"></i></button>
                                         <button type="button" className="btn btn-danger"
 
-                                        // onClick={
-                                        //     () => {
-                                        //         setMessageStatus("Are you sure of this delete action? This will delete all data associtated with the cusomer from the system");
-                                        //         if (contactCaptureStatusModalRef.current) {
-                                        //             setAltAction((e) => deleteContact);
-                                        //             setAltActionName("delete");
-                                        //             setCurrentSelectedContact(row);
-                                        //             const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
-                                        //             modal.show();
-                                        //         }
-                                        //     }
-                                        // }
+                                            onClick={
+                                                () => {
+                                                    setMessageStatus("Are you sure you want to delete this group");
+                                                    if (contactCaptureStatusModalRef.current) {
+                                                        setAltAction((e) => deleteContactGroup);
+                                                        setAltActionName("delete");
+                                                        setCurrentSelectedElement(row);
+                                                        const modal = new window.bootstrap.Modal(contactCaptureStatusModalRef.current);
+                                                        modal.show();
+
+                                                    }
+                                                }
+                                            }
 
                                         ><i className="bi bi-trash3"></i></button>
                                     </td>
