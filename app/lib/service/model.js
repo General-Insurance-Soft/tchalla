@@ -308,3 +308,7 @@ export const updateContactGroup = async (data, id) => {
 export const deleteContactGroupById = async (id) => {
     return await dataDeleteById(`${baseServerUrl}/contact-service/api/v1/contact-group/delete?id=${id}`, "Contact group delete");
 }
+
+export const fetchSearchedContacts = async (keyword) => {
+    return await dataPost(`${baseServerUrl}/contact-service/api/v1/contact/search?keyword=${keyword}`, [], "contact search", "POST");
+};

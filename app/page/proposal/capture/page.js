@@ -6,7 +6,7 @@ import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import ProposalForm from "../proposal-form";
 import ProposalStatusModal from '../proposal-status-message.js';
-import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact } from "../../../lib/service/model";
+import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact, fetchSearchedContacts } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -40,6 +40,10 @@ const Page = () => {
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
 
+    const [searchText, setSearchText] = useState('');
+    const [searchedContacts, setSearchedContacts] = useState([]);
+    const dropdownRef = useRef(null);
+
     const saveProposal = async (event) => {
         event.preventDefault();
         // Save the proposal data to the server or perform any other action 
@@ -50,6 +54,16 @@ const Page = () => {
             startDate,
             endDate,
         });
+
+        let customerGroupData = [];
+
+
+        if (customerGroup.length != 0) {
+            customerGroup.forEach((group) => {
+                //  { value: 9, label: "sdsdsdsd" }
+                customerGroupData.push({ "id": group.value, "name": group.label });
+            });
+        }
 
         let data = {
             "proposal": {
@@ -72,7 +86,8 @@ const Page = () => {
                     "administrative_area": administrativeArea,
                     "country_code": countryCode,
                     "address": address
-                }
+                },
+                "contact_group": customerGroupData
             }
         }
         let saveRes = await saveProposalAndContact(data);
@@ -120,6 +135,34 @@ const Page = () => {
 
     }, []);
 
+
+    useEffect(() => {
+        const delayDebounce = setTimeout(() => {
+            const fetchContacts = async () => {
+                let res = await fetchSearchedContacts(searchText);
+                setSearchedContacts(res);
+            };
+            fetchContacts();
+        }, 500); // Wait 500ms after user stops typing
+
+        return () => clearTimeout(delayDebounce);
+    }, [searchText]);
+
+
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setSearchedContacts([]); // clear results
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [setSearchedContacts]);
+
     let handleCustomerState = (value) => {
         setCutomerState(value);
     };
@@ -133,6 +176,8 @@ const Page = () => {
             }
         }
     }
+
+
 
     return (
 
@@ -172,8 +217,24 @@ const Page = () => {
                                         <span className="input-group-text" id="search-icon">
                                             <i className="bi bi-search"></i>
                                         </span>
-                                        <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" aria-label="Search" aria-describedby="search-icon" />
+                                        <input
+                                            id="search" type="text" className="form-control"
+                                            placeholder="Search by Name, ID/Passport, Phone,email"
+                                            aria-label="Search" aria-describedby="search-icon"
+                                            onChange={(e) => setSearchText(e.target.value)}
+                                        />
+                                    </div>
 
+                                    <div ref={dropdownRef}>
+                                        {searchedContacts && searchedContacts.length > 0 && (
+                                            <ul className="list-group mt-2" style={{ position: "absolute", zIndex: 1000 }}>
+                                                {searchedContacts.map((c) => (
+                                                    <li key={c.id} className="list-group-item">
+                                                        {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
                                     </div>
                                 </div>
                         }
