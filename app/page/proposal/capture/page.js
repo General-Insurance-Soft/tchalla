@@ -51,6 +51,16 @@ const Page = () => {
             endDate,
         });
 
+        let customerGroupData = [];
+
+
+        if (customerGroup.length != 0) {
+            customerGroup.forEach((group) => {
+                //  { value: 9, label: "sdsdsdsd" }
+                customerGroupData.push({ "id": group.value, "name": group.label });
+            });
+        }
+
         let data = {
             "proposal": {
                 "policy_type_id": policyId,
@@ -72,7 +82,8 @@ const Page = () => {
                     "administrative_area": administrativeArea,
                     "country_code": countryCode,
                     "address": address
-                }
+                },
+                "contact_group": customerGroupData
             }
         }
         let saveRes = await saveProposalAndContact(data);
