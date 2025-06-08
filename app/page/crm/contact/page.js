@@ -172,12 +172,18 @@ const Page = () => {
 
         if (action == "update") {
             saveRes = await updateContact(data, id);
-
+            setMessageStatus(saveRes.message);
         } else {
             saveRes = await saveContact(data);
-        }
+            //check if saveRes contains userId, then save was successful (userId in saveRes means the save was successful) saveRes.userId might throw an error if saveRes is null
+            //so we need to check if saveRes is not null before checking for saveRes.userId
+            if (saveRes && saveRes.userId) {
+                setMessageStatus("User saved successfully");
+            } else {
+                setMessageStatus(saveRes.message);
+            }
 
-        setMessageStatus(saveRes.message);
+        }
 
         // Show the ProposalStatusModal
         if (contactCaptureStatusModalRef.current) {
