@@ -132,7 +132,7 @@ const Page = () => {
         setAddress('');
         setCountryCode('');
         setAdministrativeArea('');
-        setCustomerGroup(0);
+        setCustomerGroup([]);
         setKraPin('');
         setIdentificationCardId('');
         setAltAction(null);
@@ -141,7 +141,17 @@ const Page = () => {
 
     const saveContactData = async (event, action, id) => {
         event.preventDefault();
-        console.log("id ==========>>>" + id);
+
+        let customerGroupData = [];
+
+
+        if (customerGroup.length != 0) {
+            customerGroup.forEach((group) => {
+                //  { value: 9, label: "sdsdsdsd" }
+                customerGroupData.push({ "id": group.value, "name": group.label });
+            });
+        }
+
         let data = {
             "first_name": firstName,
             "last_name": thirdName,
@@ -154,19 +164,26 @@ const Page = () => {
                 "administrative_area": administrativeArea,
                 "country_code": countryCode,
                 "address": address
-            }
+            },
+            "contact_group": customerGroupData,
         }
 
         let saveRes = null;
 
         if (action == "update") {
             saveRes = await updateContact(data, id);
-
+            setMessageStatus(saveRes.message);
         } else {
             saveRes = await saveContact(data);
-        }
+            //check if saveRes contains userId, then save was successful (userId in saveRes means the save was successful) saveRes.userId might throw an error if saveRes is null
+            //so we need to check if saveRes is not null before checking for saveRes.userId
+            if (saveRes && saveRes.userId) {
+                setMessageStatus("User saved successfully");
+            } else {
+                setMessageStatus(saveRes.message);
+            }
 
-        setMessageStatus(saveRes.message);
+        }
 
         // Show the ProposalStatusModal
         if (contactCaptureStatusModalRef.current) {
@@ -376,12 +393,15 @@ const Page = () => {
                                                                                 setAddress(row["address"].address);
                                                                                 setCountryCode(row["address"].country_code);
                                                                                 setAdministrativeArea(row["address"].administrative_area);
-                                                                                setCustomerGroup(row["customer_group"]);
                                                                                 setKraPin(row["kra_pin"]);
                                                                                 setIdentificationCardId(row["id_number"]);
                                                                                 setCurrentSelectedElement(row);
                                                                                 setAltAction(null);
                                                                                 setAltActionName("");
+                                                                                setCustomerGroup(row["contact_group"].map(group => ({
+                                                                                    value: group.id,
+                                                                                    label: group.name
+                                                                                })));
                                                                             }
 
                                                                         }
