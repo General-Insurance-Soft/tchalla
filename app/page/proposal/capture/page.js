@@ -42,6 +42,7 @@ const Page = () => {
 
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
+    const dropdownRef = useRef(null);
 
     const saveProposal = async (event) => {
         event.preventDefault();
@@ -148,6 +149,20 @@ const Page = () => {
     }, [searchText]);
 
 
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setSearchedContacts([]); // clear results
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [setSearchedContacts]);
+
     let handleCustomerState = (value) => {
         setCutomerState(value);
     };
@@ -209,15 +224,18 @@ const Page = () => {
                                             onChange={(e) => setSearchText(e.target.value)}
                                         />
                                     </div>
-                                    <ul className="list-group mt-2" style={{ position: "absolute", zIndex: 1000 }}>
-                                        {
-                                            searchedContacts && searchedContacts.length > 0 && searchedContacts.map((c) => (
-                                                <li key={c.id} className="list-group-item">
-                                                    {c.first_name} {c.last_name	} - {c.phone} - {c.id_number}
-                                                </li>
-                                            ))
-                                        }
-                                    </ul>
+
+                                    <div ref={dropdownRef}>
+                                        {searchedContacts && searchedContacts.length > 0 && (
+                                            <ul className="list-group mt-2" style={{ position: "absolute", zIndex: 1000 }}>
+                                                {searchedContacts.map((c) => (
+                                                    <li key={c.id} className="list-group-item">
+                                                        {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
                                 </div>
                         }
 
