@@ -393,12 +393,15 @@ const Page = () => {
                                                                                 setAddress(row["address"].address);
                                                                                 setCountryCode(row["address"].country_code);
                                                                                 setAdministrativeArea(row["address"].administrative_area);
-                                                                                setCustomerGroup(row["customer_group"]);
                                                                                 setKraPin(row["kra_pin"]);
                                                                                 setIdentificationCardId(row["id_number"]);
                                                                                 setCurrentSelectedElement(row);
                                                                                 setAltAction(null);
                                                                                 setAltActionName("");
+                                                                                setCustomerGroup(row["contact_group"].map(group => ({
+                                                                                    value: group.id,
+                                                                                    label: group.name
+                                                                                })));
                                                                             }
 
                                                                         }
