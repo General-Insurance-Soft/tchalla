@@ -47,7 +47,7 @@ export default function CustomerForm({
             setAddress('');
             setCountryCode('');
             setAdministrativeArea('');
-            setCustomerGroup(0);
+            setCustomerGroup([]);
             setKraPin('');
             setIdentificationCardId('');
 
@@ -213,8 +213,8 @@ export default function CustomerForm({
                         isMulti
                         // defaultValue={[options[0], options[1]]}
                         defaultValue={customerGroup}
-                        onChange={(val, evt) => custerGroupChange(val, evt)}
-                        // onChange={(event) => setCustomerGroup(event.target.value)}
+                        // onChange={(val, evt) => custerGroupChange(val, evt)}
+                        onChange={(val, evt) => setCustomerGroup(val, evt)}
                         options={contactGroupOptions}
                         closeMenuOnScroll={true}
                         placeholder="Select customer group"

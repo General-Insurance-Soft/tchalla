@@ -132,7 +132,7 @@ const Page = () => {
         setAddress('');
         setCountryCode('');
         setAdministrativeArea('');
-        setCustomerGroup(0);
+        setCustomerGroup([]);
         setKraPin('');
         setIdentificationCardId('');
         setAltAction(null);
@@ -141,7 +141,17 @@ const Page = () => {
 
     const saveContactData = async (event, action, id) => {
         event.preventDefault();
-        console.log("id ==========>>>" + id);
+
+        let customerGroupData = [];
+
+
+        if (customerGroup.length != 0) {
+            customerGroup.forEach((group) => {
+                //  { value: 9, label: "sdsdsdsd" }
+                customerGroupData.push({ "id": group.value, "name": group.label });
+            });
+        }
+
         let data = {
             "first_name": firstName,
             "last_name": thirdName,
@@ -154,7 +164,8 @@ const Page = () => {
                 "administrative_area": administrativeArea,
                 "country_code": countryCode,
                 "address": address
-            }
+            },
+            "contact_group": customerGroupData,
         }
 
         let saveRes = null;
