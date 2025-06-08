@@ -6,7 +6,7 @@ import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import ProposalForm from "../proposal-form";
 import ProposalStatusModal from '../proposal-status-message.js';
-import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact } from "../../../lib/service/model";
+import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact, fetchSearchedContacts } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -39,6 +39,9 @@ const Page = () => {
     let [customerGroup, setCustomerGroup] = useState(0);
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
+
+    const [searchText, setSearchText] = useState('');
+    const [searchedContacts, setSearchedContacts] = useState([]);
 
     const saveProposal = async (event) => {
         event.preventDefault();
@@ -131,6 +134,20 @@ const Page = () => {
 
     }, []);
 
+
+    useEffect(() => {
+        const delayDebounce = setTimeout(() => {
+            const fetchContacts = async () => {
+                let res = await fetchSearchedContacts(searchText);
+                setSearchedContacts(res);
+            };
+            fetchContacts();
+        }, 500); // Wait 500ms after user stops typing
+
+        return () => clearTimeout(delayDebounce);
+    }, [searchText]);
+
+
     let handleCustomerState = (value) => {
         setCutomerState(value);
     };
@@ -144,6 +161,8 @@ const Page = () => {
             }
         }
     }
+
+
 
     return (
 
@@ -183,9 +202,22 @@ const Page = () => {
                                         <span className="input-group-text" id="search-icon">
                                             <i className="bi bi-search"></i>
                                         </span>
-                                        <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" aria-label="Search" aria-describedby="search-icon" />
-
+                                        <input
+                                            id="search" type="text" className="form-control"
+                                            placeholder="Search by Name, ID/Passport, Phone,email"
+                                            aria-label="Search" aria-describedby="search-icon"
+                                            onChange={(e) => setSearchText(e.target.value)}
+                                        />
                                     </div>
+                                    <ul className="list-group mt-2" style={{ position: "absolute", zIndex: 1000 }}>
+                                        {
+                                            searchedContacts && searchedContacts.length > 0 && searchedContacts.map((c) => (
+                                                <li key={c.id} className="list-group-item">
+                                                    {c.first_name} {c.last_name	} - {c.phone} - {c.id_number}
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
                                 </div>
                         }
 
