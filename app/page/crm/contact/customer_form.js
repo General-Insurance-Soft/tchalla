@@ -212,7 +212,7 @@ export default function CustomerForm({
                         id="customer-group"
                         isMulti
                         // defaultValue={[options[0], options[1]]}
-                        defaultValue={customerGroup}
+                        value={customerGroup}
                         // onChange={(val, evt) => custerGroupChange(val, evt)}
                         onChange={(val, evt) => setCustomerGroup(val, evt)}
                         options={contactGroupOptions}
