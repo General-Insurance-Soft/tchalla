@@ -6,7 +6,7 @@ import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import ProposalForm from "../proposal-form";
 import ProposalStatusModal from '../proposal-status-message.js';
-import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact, fetchSearchedContacts } from "../../../lib/service/model";
+import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact, fetchSearchedContacts, saveProposalData } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -49,57 +49,79 @@ const Page = () => {
     const saveProposal = async (event) => {
         event.preventDefault();
         // Save the proposal data to the server or perform any other action 
-        console.log("Proposal data saved:", {
-            proposalNumber,
-            insuranceCompanyId,
-            policyId,
-            startDate,
-            endDate,
-        });
+        console.log("Customer state " + customerState);
 
-        let customerGroupData = [];
-
-
-        if (customerGroup.length != 0) {
-            customerGroup.forEach((group) => {
-                //  { value: 9, label: "sdsdsdsd" }
-                customerGroupData.push({ "id": group.value, "name": group.label });
-            });
-        }
-
-        let data = {
-            "proposal": {
+        if (customerState == "existing") {
+            let data = {
                 "policy_type_id": policyId,
                 "start_date": startDate,
                 "end_date": endDate,
                 "insurance_company_id": insuranceCompanyId,
                 "reference_number": proposalNumber,
-                "proposal_documents": proposalDocuments
-            },
-            "contact": {
-                "first_name": firstName,
-                "last_name": thirdName,
-                "second_name": secondName,
-                "gender": gender,
-                "email": email,
-                "phone": phoneNumber,
-                "id_number": identificationCardId,
-                "address": {
-                    "administrative_area": administrativeArea,
-                    "country_code": countryCode,
-                    "address": address
-                },
-                "contact_group": customerGroupData
+                "proposal_documents": proposalDocuments,
+                "contact_id": searchedContactId
             }
-        }
-        let saveRes = await saveProposalAndContact(data);
-        setMessageStatus(saveRes.message);
+            let saveRes = await saveProposalData(data);
+            //return proposalId:1 if successful
+            if (saveRes.proposalId) {
+                setMessageStatus("Proposal saved successfully");
+                resetState();
+            } else {
+                setMessageStatus(saveRes.message);
+            }
 
-        // Show the ProposalStatusModal
+        } else {
+            let customerGroupData = [];
+
+
+            if (customerGroup.length != 0) {
+                customerGroup.forEach((group) => {
+                    //  { value: 9, label: "sdsdsdsd" }
+                    customerGroupData.push({ "id": group.value, "name": group.label });
+                });
+            }
+
+            let data = {
+                "proposal": {
+                    "policy_type_id": policyId,
+                    "start_date": startDate,
+                    "end_date": endDate,
+                    "insurance_company_id": insuranceCompanyId,
+                    "reference_number": proposalNumber,
+                    "proposal_documents": proposalDocuments
+                },
+                "contact": {
+                    "first_name": firstName,
+                    "last_name": thirdName,
+                    "second_name": secondName,
+                    "gender": gender,
+                    "email": email,
+                    "phone": phoneNumber,
+                    "id_number": identificationCardId,
+                    "address": {
+                        "administrative_area": administrativeArea,
+                        "country_code": countryCode,
+                        "address": address
+                    },
+                    "contact_group": customerGroupData
+                }
+            }
+            let saveRes = await saveProposalAndContact(data);
+            //  if saveRes.message does not contain "Could not post data", reset state
+            setMessageStatus(saveRes.message);
+
+            if (!saveRes.message.includes("Could not post data")) {
+                resetState();
+            }
+
+            // Show the ProposalStatusModal
+
+        }
         if (proposalCaptureStatusModalRef.current) {
             const modal = new window.bootstrap.Modal(proposalCaptureStatusModalRef.current);
             modal.show();
         }
+
     };
 
     useEffect(() => { }, [customerState]);
@@ -168,6 +190,27 @@ const Page = () => {
     let handleCustomerState = (value) => {
         setCutomerState(value);
     };
+
+    const resetState = () => {
+        setFirstName('');
+        setSecondName('');
+        setThirdName('');
+        setPhoneNumber('');
+        setEmail('');
+        setGender('');
+        setAddress('');
+        setCountryCode('');
+        setAdministrativeArea('');
+        setCustomerGroup([]);
+        setKraPin('');
+        setIdentificationCardId('');
+        setInsuranceCompanyId(-1);
+        setPolicyId('');
+        setStartDate('');
+        setEndDate('');
+        setProposalDocuments([]);
+        setProposalNumber('');
+    }
 
     const creatNewImageFolder = (event) => {
 
