@@ -332,7 +332,7 @@ const Page = () => {
                                                         textColor: "#000",
                                                     }}
                                                 >
-                                                    {firstName} - {thirdName} - {phoneNumber}
+                                                    {firstName} {thirdName} - {phoneNumber}
                                                 </div>
                                             </div>
                                         )
