@@ -32,11 +32,11 @@ let dataFetch = async (url, dataName) => {
             if (typeof errorBody === 'string') {
                 errorMessage = errorBody;
             } else if (Array.isArray(errorBody)) {
-                errorMessage = errorBody.join('<br/>');
+                errorMessage = errorBody.join(' - ');
             } else if (typeof errorBody === 'object') {
                 errorMessage = Object.entries(errorBody)
                     .map(([field, msg]) => `${field}: ${msg}`)
-                    .join('<br/>');
+                    .join(' - ');
             } else {
                 errorMessage = 'An unknown error occurred.';
             }
@@ -83,11 +83,11 @@ let dataPost = async (url, data, dataName, method) => {
             if (typeof errorBody === 'string') {
                 errorMessage = errorBody;
             } else if (Array.isArray(errorBody)) {
-                errorMessage = errorBody.join('<br/>');
+                errorMessage = errorBody.join(' - ');
             } else if (typeof errorBody === 'object') {
                 errorMessage = Object.entries(errorBody)
                     .map(([field, msg]) => `${field}: ${msg}`)
-                    .join('<br/>');
+                    .join(' - ');
             } else {
                 errorMessage = 'An unknown error occurred.';
             }
@@ -133,11 +133,11 @@ let dataDeleteById = async (url, dataName) => {
             if (typeof errorBody === 'string') {
                 errorMessage = errorBody;
             } else if (Array.isArray(errorBody)) {
-                errorMessage = errorBody.join('<br/>');
+                errorMessage = errorBody.join(' - ');
             } else if (typeof errorBody === 'object') {
                 errorMessage = Object.entries(errorBody)
                     .map(([field, msg]) => `${field}: ${msg}`)
-                    .join('<br/>');
+                    .join(' - ');
             } else {
                 errorMessage = 'An unknown error occurred.';
             }
@@ -312,3 +312,7 @@ export const deleteContactGroupById = async (id) => {
 export const fetchSearchedContacts = async (keyword) => {
     return await dataPost(`${baseServerUrl}/contact-service/api/v1/contact/search?keyword=${keyword}`, [], "contact search", "POST");
 };
+
+export const saveProposalData = async (data) => {
+    return await dataPost(`${baseServerUrl}/proposal-service/api/v1/proposal/create`, data, "proposal save", "POST");
+}

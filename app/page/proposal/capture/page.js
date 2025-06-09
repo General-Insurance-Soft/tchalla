@@ -6,7 +6,7 @@ import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import ProposalForm from "../proposal-form";
 import ProposalStatusModal from '../proposal-status-message.js';
-import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact, fetchSearchedContacts } from "../../../lib/service/model";
+import { fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, saveProposalAndContact, fetchSearchedContacts, saveProposalData } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -42,62 +42,86 @@ const Page = () => {
 
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
+    const [searchedContactId, setSearchedContactId] = useState([]);
+
     const dropdownRef = useRef(null);
 
     const saveProposal = async (event) => {
         event.preventDefault();
         // Save the proposal data to the server or perform any other action 
-        console.log("Proposal data saved:", {
-            proposalNumber,
-            insuranceCompanyId,
-            policyId,
-            startDate,
-            endDate,
-        });
+        console.log("Customer state " + customerState);
 
-        let customerGroupData = [];
-
-
-        if (customerGroup.length != 0) {
-            customerGroup.forEach((group) => {
-                //  { value: 9, label: "sdsdsdsd" }
-                customerGroupData.push({ "id": group.value, "name": group.label });
-            });
-        }
-
-        let data = {
-            "proposal": {
+        if (customerState == "existing") {
+            let data = {
                 "policy_type_id": policyId,
                 "start_date": startDate,
                 "end_date": endDate,
                 "insurance_company_id": insuranceCompanyId,
                 "reference_number": proposalNumber,
-                "proposal_documents": proposalDocuments
-            },
-            "contact": {
-                "first_name": firstName,
-                "last_name": thirdName,
-                "second_name": secondName,
-                "gender": gender,
-                "email": email,
-                "phone": phoneNumber,
-                "id_number": identificationCardId,
-                "address": {
-                    "administrative_area": administrativeArea,
-                    "country_code": countryCode,
-                    "address": address
-                },
-                "contact_group": customerGroupData
+                "proposal_documents": proposalDocuments,
+                "contact_id": searchedContactId
             }
-        }
-        let saveRes = await saveProposalAndContact(data);
-        setMessageStatus(saveRes.message);
+            let saveRes = await saveProposalData(data);
+            //return proposalId:1 if successful
+            if (saveRes.proposalId) {
+                setMessageStatus("Proposal saved successfully");
+                resetState();
+            } else {
+                setMessageStatus(saveRes.message);
+            }
 
-        // Show the ProposalStatusModal
+        } else {
+            let customerGroupData = [];
+
+
+            if (customerGroup.length != 0) {
+                customerGroup.forEach((group) => {
+                    //  { value: 9, label: "sdsdsdsd" }
+                    customerGroupData.push({ "id": group.value, "name": group.label });
+                });
+            }
+
+            let data = {
+                "proposal": {
+                    "policy_type_id": policyId,
+                    "start_date": startDate,
+                    "end_date": endDate,
+                    "insurance_company_id": insuranceCompanyId,
+                    "reference_number": proposalNumber,
+                    "proposal_documents": proposalDocuments
+                },
+                "contact": {
+                    "first_name": firstName,
+                    "last_name": thirdName,
+                    "second_name": secondName,
+                    "gender": gender,
+                    "email": email,
+                    "phone": phoneNumber,
+                    "id_number": identificationCardId,
+                    "address": {
+                        "administrative_area": administrativeArea,
+                        "country_code": countryCode,
+                        "address": address
+                    },
+                    "contact_group": customerGroupData
+                }
+            }
+            let saveRes = await saveProposalAndContact(data);
+            //  if saveRes.message does not contain "Could not post data", reset state
+            setMessageStatus(saveRes.message);
+
+            if (!saveRes.message.includes("Could not post data")) {
+                resetState();
+            }
+
+            // Show the ProposalStatusModal
+
+        }
         if (proposalCaptureStatusModalRef.current) {
             const modal = new window.bootstrap.Modal(proposalCaptureStatusModalRef.current);
             modal.show();
         }
+
     };
 
     useEffect(() => { }, [customerState]);
@@ -167,6 +191,27 @@ const Page = () => {
         setCutomerState(value);
     };
 
+    const resetState = () => {
+        setFirstName('');
+        setSecondName('');
+        setThirdName('');
+        setPhoneNumber('');
+        setEmail('');
+        setGender('');
+        setAddress('');
+        setCountryCode('');
+        setAdministrativeArea('');
+        setCustomerGroup([]);
+        setKraPin('');
+        setIdentificationCardId('');
+        setInsuranceCompanyId(-1);
+        setPolicyId('');
+        setStartDate('');
+        setEndDate('');
+        setProposalDocuments([]);
+        setProposalNumber('');
+    }
+
     const creatNewImageFolder = (event) => {
 
         if (typeof window !== "undefined" && bootstrap) {
@@ -197,53 +242,115 @@ const Page = () => {
                 <div className="card-body">
                     <h5 className="card-title">Capture Proposal Details</h5>
 
-                    <div className="d-flex justify-content-start align-items-center mb-3">
-
-                        <div className="me-3">
-                            <select onChange={(e) => handleCustomerState(e.target.value)} id="inputState" className="form-select">
-                                <option value="existing">Existing Customer</option>
-                                <option value="new">New Customer</option>
-                            </select>
-                        </div>
-
-                        {
-                            customerState === "new" ? ""
-                                :
-                                <div className="flex-grow-1 me-5" style={{ maxWidth: "500px" }}>
-                                    {/* <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" /> */}
 
 
-                                    <div className="input-group">
-                                        <span className="input-group-text" id="search-icon">
-                                            <i className="bi bi-search"></i>
-                                        </span>
-                                        <input
-                                            id="search" type="text" className="form-control"
-                                            placeholder="Search by Name, ID/Passport, Phone,email"
-                                            aria-label="Search" aria-describedby="search-icon"
-                                            onChange={(e) => setSearchText(e.target.value)}
-                                        />
-                                    </div>
 
-                                    <div ref={dropdownRef}>
-                                        {searchedContacts && searchedContacts.length > 0 && (
-                                            <ul className="list-group mt-2" style={{ position: "absolute", zIndex: 1000 }}>
+                    <div className="mb-3">
+                        <div className="row align-items-start gx-3 gy-2">
+
+                            {/* State Select — always shown */}
+                            <div className="col-12 col-md-2">
+                                <select
+                                    onChange={(e) => handleCustomerState(e.target.value)}
+                                    id="inputState"
+                                    className="form-select"
+                                >
+                                    <option value="existing">Existing Customer</option>
+                                    <option value="new">New Customer</option>
+                                </select>
+                            </div>
+
+                            {/* Conditional section for "existing" customer */}
+                            {customerState !== "new" && (
+                                <>
+                                    {/* Search Input */}
+                                    <div className="col-12 col-md-5 position-relative">
+                                        <div className="input-group">
+                                            <span className="input-group-text" id="search-icon">
+                                                <i className="bi bi-search"></i>
+                                            </span>
+                                            <input
+                                                id="search"
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Search by Name, ID/Passport, Phone, Email"
+                                                aria-label="Search"
+                                                aria-describedby="search-icon"
+                                                onChange={(e) => setSearchText(e.target.value)}
+                                            />
+                                        </div>
+
+                                        {/* Suggestion Dropdown */}
+                                        {searchedContacts?.length > 0 && (
+                                            <ul
+                                                className="list-group mt-1 position-absolute w-100"
+                                                style={{
+                                                    zIndex: 1000,
+                                                    maxHeight: "200px",
+                                                    overflowY: "auto",
+                                                    backgroundColor: "#fff",
+                                                    border: "1px solid #ccc",
+                                                    borderRadius: "4px",
+                                                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                                                }}
+                                                ref={dropdownRef}
+                                            >
                                                 {searchedContacts.map((c) => (
-                                                    <li key={c.id} className="list-group-item">
+                                                    <li
+                                                        key={c.id}
+                                                        className="list-group-item"
+                                                        style={{
+                                                            cursor: "pointer",
+                                                            transition: "background-color 0.2s",
+                                                        }}
+                                                        onClick={() => {
+                                                            setFirstName(c.first_name);
+                                                            setThirdName(c.last_name);
+                                                            setPhoneNumber(c.phone);
+                                                            setSearchedContactId(c.id);
+                                                        }}
+                                                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f5f5f5"}
+                                                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#fff"}
+                                                    >
                                                         {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
                                                     </li>
                                                 ))}
                                             </ul>
                                         )}
                                     </div>
-                                </div>
-                        }
 
-                        <div className="ms-auto">
-                            <button onClick={(e) => saveProposal(e)} className="btn btn-primary me-2">Save</button>
-                            <button className="btn btn-secondary">Reset</button>
+                                    {/* Selected Contact Preview */}
+                                    {
+                                        firstName && thirdName && phoneNumber && (
+                                            <div className="col-12 col-md-5">
+                                                <div
+                                                    className="p-2 border rounded text-dark"
+                                                    style={{
+                                                        fontWeight: "500",
+                                                        overflowX: "auto",
+                                                        whiteSpace: "nowrap",
+                                                        textColor: "#000",
+                                                    }}
+                                                >
+                                                    {firstName} - {thirdName} - {phoneNumber}
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+
+                                </>
+                            )}
+
+                            {/* Action Buttons */}
+                            <div className="col-12 d-flex mt-5">
+                                <button onClick={saveProposal} className="btn btn-primary me-2">
+                                    Save
+                                </button>
+                                <button className="btn btn-secondary">Reset</button>
+                            </div>
                         </div>
                     </div>
+
 
                     <hr />
                     <ProposalForm
