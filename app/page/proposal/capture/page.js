@@ -42,6 +42,8 @@ const Page = () => {
 
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
+    const [searchedContactId, setSearchedContactId] = useState([]);
+
     const dropdownRef = useRef(null);
 
     const saveProposal = async (event) => {
@@ -197,53 +199,115 @@ const Page = () => {
                 <div className="card-body">
                     <h5 className="card-title">Capture Proposal Details</h5>
 
-                    <div className="d-flex justify-content-start align-items-center mb-3">
-
-                        <div className="me-3">
-                            <select onChange={(e) => handleCustomerState(e.target.value)} id="inputState" className="form-select">
-                                <option value="existing">Existing Customer</option>
-                                <option value="new">New Customer</option>
-                            </select>
-                        </div>
-
-                        {
-                            customerState === "new" ? ""
-                                :
-                                <div className="flex-grow-1 me-5" style={{ maxWidth: "500px" }}>
-                                    {/* <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" /> */}
 
 
-                                    <div className="input-group">
-                                        <span className="input-group-text" id="search-icon">
-                                            <i className="bi bi-search"></i>
-                                        </span>
-                                        <input
-                                            id="search" type="text" className="form-control"
-                                            placeholder="Search by Name, ID/Passport, Phone,email"
-                                            aria-label="Search" aria-describedby="search-icon"
-                                            onChange={(e) => setSearchText(e.target.value)}
-                                        />
-                                    </div>
 
-                                    <div ref={dropdownRef}>
-                                        {searchedContacts && searchedContacts.length > 0 && (
-                                            <ul className="list-group mt-2" style={{ position: "absolute", zIndex: 1000 }}>
+                    <div className="mb-3">
+                        <div className="row align-items-start gx-3 gy-2">
+
+                            {/* State Select — always shown */}
+                            <div className="col-12 col-md-2">
+                                <select
+                                    onChange={(e) => handleCustomerState(e.target.value)}
+                                    id="inputState"
+                                    className="form-select"
+                                >
+                                    <option value="existing">Existing Customer</option>
+                                    <option value="new">New Customer</option>
+                                </select>
+                            </div>
+
+                            {/* Conditional section for "existing" customer */}
+                            {customerState !== "new" && (
+                                <>
+                                    {/* Search Input */}
+                                    <div className="col-12 col-md-5 position-relative">
+                                        <div className="input-group">
+                                            <span className="input-group-text" id="search-icon">
+                                                <i className="bi bi-search"></i>
+                                            </span>
+                                            <input
+                                                id="search"
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Search by Name, ID/Passport, Phone, Email"
+                                                aria-label="Search"
+                                                aria-describedby="search-icon"
+                                                onChange={(e) => setSearchText(e.target.value)}
+                                            />
+                                        </div>
+
+                                        {/* Suggestion Dropdown */}
+                                        {searchedContacts?.length > 0 && (
+                                            <ul
+                                                className="list-group mt-1 position-absolute w-100"
+                                                style={{
+                                                    zIndex: 1000,
+                                                    maxHeight: "200px",
+                                                    overflowY: "auto",
+                                                    backgroundColor: "#fff",
+                                                    border: "1px solid #ccc",
+                                                    borderRadius: "4px",
+                                                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                                                }}
+                                                ref={dropdownRef}
+                                            >
                                                 {searchedContacts.map((c) => (
-                                                    <li key={c.id} className="list-group-item">
+                                                    <li
+                                                        key={c.id}
+                                                        className="list-group-item"
+                                                        style={{
+                                                            cursor: "pointer",
+                                                            transition: "background-color 0.2s",
+                                                        }}
+                                                        onClick={() => {
+                                                            setFirstName(c.first_name);
+                                                            setThirdName(c.last_name);
+                                                            setPhoneNumber(c.phone);
+                                                            setSearchedContactId(c.id);
+                                                        }}
+                                                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f5f5f5"}
+                                                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#fff"}
+                                                    >
                                                         {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
                                                     </li>
                                                 ))}
                                             </ul>
                                         )}
                                     </div>
-                                </div>
-                        }
 
-                        <div className="ms-auto">
-                            <button onClick={(e) => saveProposal(e)} className="btn btn-primary me-2">Save</button>
-                            <button className="btn btn-secondary">Reset</button>
+                                    {/* Selected Contact Preview */}
+                                    {
+                                        firstName && thirdName && phoneNumber && (
+                                            <div className="col-12 col-md-5">
+                                                <div
+                                                    className="p-2 border rounded text-dark"
+                                                    style={{
+                                                        fontWeight: "500",
+                                                        overflowX: "auto",
+                                                        whiteSpace: "nowrap",
+                                                        textColor: "#000",
+                                                    }}
+                                                >
+                                                    {firstName} - {thirdName} - {phoneNumber}
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+
+                                </>
+                            )}
+
+                            {/* Action Buttons */}
+                            <div className="col-12 d-flex mt-5">
+                                <button onClick={saveProposal} className="btn btn-primary me-2">
+                                    Save
+                                </button>
+                                <button className="btn btn-secondary">Reset</button>
+                            </div>
                         </div>
                     </div>
+
 
                     <hr />
                     <ProposalForm
