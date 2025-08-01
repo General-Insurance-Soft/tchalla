@@ -13,6 +13,7 @@ const Page = () => {
 
     const [searchText, setSearchText] = useState('');
     const [searchedContent, setSearchedContent] = useState([]);
+    const [selectedSearchContent, setSelectedSearchContent] = useState('');
 
     const dropdownRef = useRef(null);
 
@@ -27,6 +28,19 @@ const Page = () => {
 
         return () => clearTimeout(delayDebounce);
     }, [searchText]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setSearchedContent([]); // clear results
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [setSearchedContent]);
 
     const creatNewImageFolder = (event) => {
 
@@ -55,9 +69,8 @@ const Page = () => {
                 <div className="card-body">
                     <h5 className="card-title">Capture policy Details</h5>
 
-                    <div className="d-flex justify-content-start align-items-center mb-3">
-
-                        <div className="flex-grow-1 me-5" style={{ maxWidth: "600px" }}>
+                    <div className="mb-3">
+                        <div className="row align-items-start gx-3 gy-2">
                             {/* <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" /> */}
 
 
@@ -110,10 +123,16 @@ const Page = () => {
                                                     }}
                                                     onClick={() => {
                                                         console.log(c);
+
                                                         // setFirstName(c.first_name);
                                                         // setThirdName(c.last_name);
                                                         // setPhoneNumber(c.phone);
                                                         // setSearchedContactId(c.id);
+                                                        setSelectedSearchContent(
+                                                            [c.reference_number, c.contact_name, c.contact_id_number]
+                                                                .filter(Boolean)
+                                                                .join(' - ')
+                                                        );
                                                     }}
                                                     onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f5f5f5"}
                                                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#fff"}
@@ -138,8 +157,8 @@ const Page = () => {
                                 </div>
 
                                 {/* Selected Contact Preview */}
-                                {/* {
-                                    firstName && thirdName && phoneNumber && (
+                                {
+                                    selectedSearchContent && (
                                         <div className="col-12 col-md-5">
                                             <div
                                                 className="p-2 border rounded text-dark"
@@ -150,11 +169,11 @@ const Page = () => {
                                                     textColor: "#000",
                                                 }}
                                             >
-                                                {firstName} {thirdName} - {phoneNumber}
+                                                {selectedSearchContent}
                                             </div>
                                         </div>
                                     )
-                                } */}
+                                }
 
                             </>
 
@@ -162,7 +181,7 @@ const Page = () => {
                             {/* </div> */}
                         </div>
 
-                        <div className="ms-auto">
+                        <div className="col-12 d-flex mt-3">
                             <button className="btn btn-primary me-2">Save</button>
                             <button className="btn btn-secondary">Reset</button>
                         </div>
