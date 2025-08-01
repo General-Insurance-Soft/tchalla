@@ -316,3 +316,7 @@ export const fetchSearchedContacts = async (keyword) => {
 export const saveProposalData = async (data) => {
     return await dataPost(`${baseServerUrl}/proposal-service/api/v1/proposal/create`, data, "proposal save", "POST");
 }
+
+export const fetchSearchedProposals = async (keyword) => {
+    return await dataPost(`${baseServerUrl}/proposal-service/api/v1/proposal/search?keyword=${keyword}`, [], "proposal search", "POST");
+};
