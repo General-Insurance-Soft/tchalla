@@ -320,3 +320,8 @@ export const saveProposalData = async (data) => {
 export const fetchSearchedProposals = async (keyword) => {
     return await dataPost(`${baseServerUrl}/proposal-service/api/v1/proposal/search?keyword=${keyword}`, [], "proposal search", "POST");
 };
+
+export const savePolicyData = async (data) => {
+    return await dataPost(`${baseServerUrl}/policy-service/api/v1/policy/create`, data, "policy save", "POST");
+}
+

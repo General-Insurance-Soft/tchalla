@@ -5,17 +5,29 @@ import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 
-import { fetchSearchedProposals } from "../../../lib/service/model";
+import { fetchSearchedProposals, savePolicyData } from "../../../lib/service/model";
+// PolicyStatusModal
+import PolicyStatusModal from '../policy-status-message';
 
 const Page = () => {
 
     const modalRef = useRef(null);
+    const policyStatusModalRef = useRef(null);
 
     const [searchText, setSearchText] = useState('');
     const [searchedContent, setSearchedContent] = useState([]);
     const [selectedSearchContent, setSelectedSearchContent] = useState('');
     //setReferenceNumber
-    const [referenceNumber, setReferenceNumber] = useState('policy reference number');
+    const [proposalReferenceNumber, setProposalReferenceNumber] = useState('policy reference number');
+    const [proposalId, setProposalId] = useState();
+    const [policyNumber, setPolicyNumber] = useState();
+    const [certificateNumber, setCertificateNumber] = useState();
+    const [messageStatus, setMessageStatus] = useState('');
+    const [contactId, setContactId] = useState();
+    const [insuranceCompanyId, setInsuranceCompanyId] = useState();
+    const [policyTypeId, setPolicyTypeId] = useState();
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
 
     const dropdownRef = useRef(null);
 
@@ -44,6 +56,52 @@ const Page = () => {
         };
     }, [setSearchedContent]);
 
+    const resetState = () => {
+        setSearchText('');
+        setSearchedContent([]);
+        setSelectedSearchContent('');
+        setProposalReferenceNumber('policy reference number');
+        setProposalReferenceId();
+        setPolicyNumber();
+        setCertificateNumber();
+        setStartDate('');
+        setEndDate('');
+        setContactId();
+        setInsuranceCompanyId();
+        setPolicyTypeId();
+
+    };
+
+    const savePolicy = async (event) => {
+
+        event.preventDefault();
+
+        let data = {
+            "policy_number": policyNumber,
+            "certificate_number": certificateNumber,
+            "proposal_id": proposalId,
+            "contact_id": contactId,
+            "start_date": startDate,
+            "end_date": endDate,
+            "insurance_company_id": insuranceCompanyId,
+            "policy_type_id": policyTypeId
+        }
+
+        let saveRes = await savePolicyData(data);
+
+        if ('message' in saveRes) {
+            setMessageStatus(saveRes.message);
+
+            if (policyStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+                modal.show();
+            }
+
+            return;
+        }
+
+    };
+
     const creatNewImageFolder = (event) => {
 
         if (typeof window !== "undefined" && bootstrap) {
@@ -57,7 +115,7 @@ const Page = () => {
     return (
         <>
             <div className="pagetitle">
-                <h1>CRM</h1>
+                <h1>Policy</h1>
                 <nav>
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -124,12 +182,12 @@ const Page = () => {
                                                         transition: "background-color 0.2s",
                                                     }}
                                                     onClick={() => {
-                                                        console.log(c);
 
-                                                        setReferenceNumber(c.reference_number);
-                                                        // setThirdName(c.last_name);
-                                                        // setPhoneNumber(c.phone);
-                                                        // setSearchedContactId(c.id);
+                                                        setProposalReferenceNumber(c.reference_number);
+                                                        setProposalId(c.id);
+                                                        setContactId(c.contact_id);
+                                                        setInsuranceCompanyId(c.insurance_company_id);
+                                                        setPolicyTypeId(c.policy_type_id);
                                                         setSelectedSearchContent(
                                                             [c.reference_number, c.contact_name, c.contact_id_number]
                                                                 .filter(Boolean)
@@ -184,7 +242,10 @@ const Page = () => {
                         </div>
 
                         <div className="col-12 d-flex mt-3">
-                            <button className="btn btn-primary me-2">Save</button>
+                            <button
+                                className="btn btn-primary me-2"
+                                onClick={(e) => savePolicy(e)}
+                            >Save</button>
                             <button className="btn btn-secondary">Reset</button>
                         </div>
                     </div>
@@ -197,7 +258,7 @@ const Page = () => {
                         </div>
 
                         <div className="">
-                            <label id="policy_tag" className="form-control">{referenceNumber}</label>
+                            <label id="policy_tag" className="form-control">{proposalReferenceNumber === 'policy reference number' ? 'policy ref #' : `policy ref number: ${proposalReferenceNumber}`}</label>
                         </div>
                     </div>
 
@@ -206,12 +267,39 @@ const Page = () => {
                         <div className="col-sm-12">
                             <div className="row">
                                 <div className="col-md-3">
-                                    <label htmlFor="name">Policy No:</label>
-                                    <input id="name" type="text" className="form-control" />
+                                    <label htmlFor="policy_no">Policy No:</label>
+                                    <input
+                                        id="policy_no"
+                                        type="text"
+                                        className="form-control"
+                                        onChange={(e) => setPolicyNumber(e.target.value)}
+                                    />
                                 </div>
                                 <div className="col-md-3">
-                                    <label htmlFor="phone">Certificate No:</label>
-                                    <input id="phone" type="text" className="form-control" />
+                                    <label htmlFor="certificate_no">Certificate No:</label>
+                                    <input
+                                        id="certificate_no"
+                                        type="text"
+                                        className="form-control"
+                                        onChange={(e) => setCertificateNumber(e.target.value)}
+                                    />
+                                </div>
+                                <div className="col-md-3">
+                                    <label htmlFor="start_date">Start date:</label>
+                                    <input value={startDate}
+                                        onChange={(e) => setStartDate(e.target.value)}
+                                        id="start_date" type="date"
+                                        className="form-control"
+                                        placeholder="Start date" />
+                                </div>
+
+                                <div className="col-md-3">
+                                    <label htmlFor="end_date">End date:</label>
+                                    <input value={endDate}
+                                        onChange={(e) => setEndDate(e.target.value)}
+                                        id="end_date" type="date"
+                                        className="form-control"
+                                        placeholder="End date" />
                                 </div>
                             </div>
                         </div>
@@ -340,6 +428,7 @@ const Page = () => {
                 </div>
             </div>
             <NewImageFolder modalRefVar={modalRef} />
+            <PolicyStatusModal ref={policyStatusModalRef} messageStatus={messageStatus} />
         </>
     );
 }
