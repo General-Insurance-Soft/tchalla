@@ -384,6 +384,7 @@ const Page = () => {
                                                     <button type="button" data-bs-toggle="modal"
                                                         onClick={
                                                             () => {
+                                                                setShowEditForm(false)
                                                                 setSelectedProposal(proposal)
                                                                 getProposalByContact(proposal.contact_id).then((res) => {
                                                                     setSelectedContactProposals(res)
