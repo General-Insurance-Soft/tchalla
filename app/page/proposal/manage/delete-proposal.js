@@ -1,5 +1,12 @@
+import React from 'react';
+import ProposalLoader from './proposal-loader';
 
-export default function DeleteProposal({ deleteProposal, resetSelectedProposal }) {
+export default function DeleteProposal({
+    deleteProposal, resetSelectedProposal, selectedContactProposals,
+    setShowOptionalProposalSelectSpinner,
+    fetchSubproposal,
+    showOptionalProposalSelectSpinner, selectedProposal
+}) {
 
     return (
 
@@ -14,7 +21,19 @@ export default function DeleteProposal({ deleteProposal, resetSelectedProposal }
 
                     </div>
                     <div className="modal-body">
-                        <p>Are you sure you want to delete selected proposal?</p>
+
+                        {
+                            selectedProposal &&
+                            <ProposalLoader action={"delete"}
+                                selectedContactProposals={selectedContactProposals}
+                                setShowOptionalProposalSelectSpinner={setShowOptionalProposalSelectSpinner}
+                                fetchSubproposal={fetchSubproposal}
+                                showOptionalProposalSelectSpinner={showOptionalProposalSelectSpinner}
+                                selectedProposal={selectedProposal}
+                            />
+                        }
+
+
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" onClick={() => resetSelectedProposal()} data-bs-dismiss="modal">Cancel</button>
@@ -26,7 +45,7 @@ export default function DeleteProposal({ deleteProposal, resetSelectedProposal }
                                     resetSelectedProposal();
                                 }}
                         >
-                            Yes
+                            Delete
                         </button>
                     </div>
                 </div>
