@@ -382,7 +382,14 @@ const Page = () => {
                                                         }
                                                     ><i className="bi bi-pencil-square"></i></button>
                                                     <button type="button" data-bs-toggle="modal"
-                                                        onClick={() => setSelectedProposal(proposal)}
+                                                        onClick={
+                                                            () => {
+                                                                setSelectedProposal(proposal)
+                                                                getProposalByContact(proposal.contact_id).then((res) => {
+                                                                    setSelectedContactProposals(res)
+                                                                })
+                                                            }
+                                                        }
                                                         data-bs-target="#deleteProposalModal"
                                                         className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                 </td>
