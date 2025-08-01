@@ -1,14 +1,32 @@
 'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 
+import { fetchSearchedProposals } from "../../../lib/service/model";
 
 const Page = () => {
 
     const modalRef = useRef(null);
+
+    const [searchText, setSearchText] = useState('');
+    const [searchedContent, setSearchedContent] = useState([]);
+
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        const delayDebounce = setTimeout(() => {
+            const fetchSearchContent = async () => {
+                let res = await fetchSearchedProposals(searchText);
+                setSearchedContent(res);
+            };
+            fetchSearchContent();
+        }, 500); // Wait 500ms after user stops typing
+
+        return () => clearTimeout(delayDebounce);
+    }, [searchText]);
 
     const creatNewImageFolder = (event) => {
 
@@ -43,13 +61,105 @@ const Page = () => {
                             {/* <input id="search" type="text" className="form-control" placeholder="Search by Name, car, policy, certificate, ID/Passport" /> */}
 
 
-                            <div className="input-group">
-                                <span className="input-group-text" id="search-icon">
+                            {/* <div className="input-group"> */}
+                            {/* <span className="input-group-text" id="search-icon">
                                     <i className="bi bi-search"></i>
                                 </span>
-                                <input id="search" type="text" className="form-control" placeholder="Search proposal by Name, car, ref no, phone no, certificate, ID/Passport" aria-label="Search" aria-describedby="search-icon" />
+                                <input id="search" type="text" className="form-control" placeholder="Search proposal by ref no, phone no, ID/Passport" aria-label="Search" aria-describedby="search-icon" /> */}
 
-                            </div>
+                            <>
+                                {/* Search Input */}
+                                <div className="col-12 col-md-5 position-relative">
+                                    <div className="input-group">
+                                        <span className="input-group-text" id="search-icon">
+                                            <i className="bi bi-search"></i>
+                                        </span>
+                                        <input
+                                            id="search"
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Search by Ref No, ID/Passport, Phone, Email"
+                                            aria-label="Search"
+                                            aria-describedby="search-icon"
+                                            onChange={(e) => setSearchText(e.target.value)}
+                                        />
+                                    </div>
+
+                                    {/* Suggestion Dropdown */}
+                                    {searchedContent?.length > 0 && (
+                                        <ul
+                                            className="list-group mt-1 position-absolute w-100"
+                                            style={{
+                                                zIndex: 1000,
+                                                maxHeight: "200px",
+                                                overflowY: "auto",
+                                                backgroundColor: "#fff",
+                                                border: "1px solid #ccc",
+                                                borderRadius: "4px",
+                                                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                                            }}
+                                            ref={dropdownRef}
+                                        >
+                                            {searchedContent.map((c) => (
+                                                <li
+                                                    key={c.id}
+                                                    className="list-group-item"
+                                                    style={{
+                                                        cursor: "pointer",
+                                                        transition: "background-color 0.2s",
+                                                    }}
+                                                    onClick={() => {
+                                                        console.log(c);
+                                                        // setFirstName(c.first_name);
+                                                        // setThirdName(c.last_name);
+                                                        // setPhoneNumber(c.phone);
+                                                        // setSearchedContactId(c.id);
+                                                    }}
+                                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f5f5f5"}
+                                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#fff"}
+                                                >
+                                                    {/* {c.reference_number} {c.contact_name} - {c.phone} - {c.contact_id_number} */}
+                                                    <span>
+                                                        {c.reference_number}
+                                                        {[
+                                                            c.contact_name,
+                                                            c.phone,
+                                                            c.contact_id_number
+                                                        ].filter(Boolean).length > 0 && ' - '}
+                                                        {[c.contact_name, c.phone, c.contact_id_number]
+                                                            .filter(Boolean)
+                                                            .join(' - ')}
+                                                    </span>
+
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+
+                                {/* Selected Contact Preview */}
+                                {/* {
+                                    firstName && thirdName && phoneNumber && (
+                                        <div className="col-12 col-md-5">
+                                            <div
+                                                className="p-2 border rounded text-dark"
+                                                style={{
+                                                    fontWeight: "500",
+                                                    overflowX: "auto",
+                                                    whiteSpace: "nowrap",
+                                                    textColor: "#000",
+                                                }}
+                                            >
+                                                {firstName} {thirdName} - {phoneNumber}
+                                            </div>
+                                        </div>
+                                    )
+                                } */}
+
+                            </>
+
+
+                            {/* </div> */}
                         </div>
 
                         <div className="ms-auto">
