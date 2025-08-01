@@ -14,6 +14,8 @@ const Page = () => {
     const [searchText, setSearchText] = useState('');
     const [searchedContent, setSearchedContent] = useState([]);
     const [selectedSearchContent, setSelectedSearchContent] = useState('');
+    //setReferenceNumber
+    const [referenceNumber, setReferenceNumber] = useState('policy reference number');
 
     const dropdownRef = useRef(null);
 
@@ -124,7 +126,7 @@ const Page = () => {
                                                     onClick={() => {
                                                         console.log(c);
 
-                                                        // setFirstName(c.first_name);
+                                                        setReferenceNumber(c.reference_number);
                                                         // setThirdName(c.last_name);
                                                         // setPhoneNumber(c.phone);
                                                         // setSearchedContactId(c.id);
@@ -195,7 +197,7 @@ const Page = () => {
                         </div>
 
                         <div className="">
-                            <input id="policy_tag" type="text" className="form-control" placeholder="policy reference" />
+                            <label id="policy_tag" className="form-control">{referenceNumber}</label>
                         </div>
                     </div>
 
