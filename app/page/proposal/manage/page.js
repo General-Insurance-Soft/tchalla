@@ -9,6 +9,7 @@ import DeleteProposal from './delete-proposal.js';
 import ProposalStatusModal from '../proposal-status-message.js';
 import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getProposal, getProposalByContact, updateProposal } from "../../../lib/service/model";
 import ProposalForm from "../proposal-form";
+import ProposalLoader from "./proposal-loader";
 
 
 const Page = () => {
@@ -99,12 +100,12 @@ const Page = () => {
 
 
     const deleteProposal = async () => {
-        if (selectedProposalId == null) return
+        if (selectedProposal == null) return
 
-        let res = await daleteProposal(selectedProposalId);
+        let res = await daleteProposal(selectedProposal.id);
         console.log("delete proposal res", res);
         setMessageStatus(res.message);
-
+        fetchAllProposalData();
         // Show the ProposalStatusModal
         if (proposalStatusModalRef.current) {
             const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
@@ -143,7 +144,7 @@ const Page = () => {
 
     const fetchAllProposalData = async () => {
         let res = await fetchProposalData(0, 15);
- 
+
         if ('message' in res) {
             setMessageStatus(res.message);
 
@@ -381,7 +382,15 @@ const Page = () => {
                                                         }
                                                     ><i className="bi bi-pencil-square"></i></button>
                                                     <button type="button" data-bs-toggle="modal"
-                                                        onClick={() => setSelectedProposalId(proposal.id)}
+                                                        onClick={
+                                                            () => {
+                                                                setShowEditForm(false)
+                                                                setSelectedProposal(proposal)
+                                                                getProposalByContact(proposal.contact_id).then((res) => {
+                                                                    setSelectedContactProposals(res)
+                                                                })
+                                                            }
+                                                        }
                                                         data-bs-target="#deleteProposalModal"
                                                         className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                 </td>
@@ -403,53 +412,14 @@ const Page = () => {
                                     <h5 className="card-title">{editFormContactDetails}</h5>
 
                                     <div className="d-flex justify-content-between align-items-center mb-3">
-                                        <div>
-                                            <label htmlFor="insurance">Select proposal to edit:</label>
-                                            <div>
-                                                <div style={{ display: "inline-block" }}>
-                                                    {/* selectedContactProposals */}
 
-                                                    {
-                                                        selectedContactProposals.length > 0 &&
-                                                        <select id="insurance" value={selectedProposal.id} className="form-select"
-                                                            onChange={(event) => {
-                                                                setShowOptionalProposalSelectSpinner(true);
-                                                                fetchSubproposal(event.target.value);
-                                                            }
-                                                            }>
-                                                            {
-                                                                selectedContactProposals.map((proposal, index) => {
-                                                                    return (
-                                                                        <option key={index} value={proposal.id}>"Ref: " {proposal.reference_number} " date: " {proposal.start_date}</option>
-                                                                    );
-                                                                })
-                                                            }
-                                                        </select>
-                                                    }
-
-                                                </div>
-
-                                                {
-                                                    showOptionalProposalSelectSpinner &&
-                                                    <div
-                                                        className="spinner-border text-primary"
-                                                        style={{
-                                                            display: "inline-block",
-                                                            verticalAlign: "middle",
-                                                            marginLeft: "8px",
-                                                            width: "25px",
-                                                            height: "25px",
-                                                            borderWidth: "0.25rem",
-                                                            borderRadius: "50%"
-                                                        }}
-                                                        role="status"
-                                                    >
-                                                        <span className="visually-hidden">Loading...</span>
-                                                    </div>
-                                                }
-
-                                            </div>
-                                        </div>
+                                        <ProposalLoader action={"edit"}
+                                            selectedContactProposals={selectedContactProposals}
+                                            setShowOptionalProposalSelectSpinner={setShowOptionalProposalSelectSpinner}
+                                            fetchSubproposal={fetchSubproposal}
+                                            showOptionalProposalSelectSpinner={showOptionalProposalSelectSpinner}
+                                            selectedProposal={selectedProposal}
+                                        />
 
                                         <div>
                                             <button className="btn btn-primary me-2"
@@ -490,7 +460,15 @@ const Page = () => {
                 </div>
             </div >
             <NewImageFolder modalRefVar={modalRef} />
-            <DeleteProposal deleteProposal={deleteProposal} resetSelectedProposal={resetSelectedProposal} />
+            <DeleteProposal
+                deleteProposal={deleteProposal}
+                resetSelectedProposal={resetSelectedProposal}
+                selectedContactProposals={selectedContactProposals}
+                setShowOptionalProposalSelectSpinner={setShowOptionalProposalSelectSpinner}
+                fetchSubproposal={fetchSubproposal}
+                showOptionalProposalSelectSpinner={showOptionalProposalSelectSpinner}
+                selectedProposal={selectedProposal}
+            />
             <ProposalStatusModal ref={proposalStatusModalRef} messageStatus={messageStatus} />
         </>
 
