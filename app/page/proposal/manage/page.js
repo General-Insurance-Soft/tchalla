@@ -100,12 +100,12 @@ const Page = () => {
 
 
     const deleteProposal = async () => {
-        if (selectedProposalId == null) return
+        if (selectedProposal == null) return
 
         let res = await daleteProposal(selectedProposal.id);
         console.log("delete proposal res", res);
         setMessageStatus(res.message);
-
+        fetchAllProposalData();
         // Show the ProposalStatusModal
         if (proposalStatusModalRef.current) {
             const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
