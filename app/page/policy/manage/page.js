@@ -5,8 +5,9 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies } from "../../../lib/service/model";
+import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact } from "../../../lib/service/model";
 import PolicyStatusModal from "../policy-status-message";
+import PolicylForm from "../policy-form";
 
 const Page = () => {
 
@@ -22,6 +23,14 @@ const Page = () => {
     const [contacts, setContacts] = useState({});
     const [policyStatusModalRef] = useState(useRef(null));
     const [selectedPolicy, setSelectedPolicy] = useState(null);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+
+    //editFormContactDetails
+    const [editFormContactDetails, setEditFormContactDetails] = useState("");
+    const [selectedContactPolicy, setSelectedContactPolicy] = useState([]);
+    const [policyNumber, setPolicyNumber] = useState("");
+    const [certificateNumber, setCertificateNumber] = useState("");
 
     const createNewImageFolder = (event) => {
 
@@ -250,7 +259,7 @@ const Page = () => {
                                                 <td>{val["county"]}</td>
                                                 <td>{val["address"]}</td>
                                                 <td>{val.start_date}</td>
-                                                <td>{val.proposal_count}</td>
+                                                <td>{val.policy_count}</td>
                                                 <td>{val["updateByName"]}</td>
                                                 <td>{val.updated_at}</td>
                                                 <td>
@@ -260,11 +269,12 @@ const Page = () => {
                                                                 setShowEditForm(true, val)
                                                                 setSelectedPolicy(val)
                                                                 // setInsuranceCompanyId(val.insurance_company_id)
-                                                                setPolicyId(val.policy_type_id)
+                                                                // setPolicyId(val.policy_type_id)
                                                                 setStartDate(val.start_date)
                                                                 setEndDate(val.end_date)
-                                                                setProposalNumber(val.reference_number)
-                                                                setEditFormContactDetails("Edit " + val["contactName"] + " proposal from: " + val["start_date"])
+                                                                setCertificateNumber(val.certificate_number)
+                                                                setPolicyNumber(val.policy_number)
+                                                                setEditFormContactDetails("Edit " + val["contactName"] + " policy from: " + val["start_date"])
                                                                 getPolicyByContact(val.contact_id).then((res) => {
                                                                     setSelectedContactPolicy(res)
                                                                 })
@@ -299,7 +309,7 @@ const Page = () => {
                         showEditForm && (
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="card-title">Edit Tom Lee policy from date: 2024-08-11</h5>
+                                    <h5 className="card-title">{editFormContactDetails}</h5>
 
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <div>
@@ -323,6 +333,7 @@ const Page = () => {
                                         setEndDate={setEndDate}
                                         setShowEditForm={setShowEditForm}
                                         showEditForm={showEditForm}
+                                        selectedContactPolicy={selectedContactPolicy}
                                     // insuranceCompanies={insuranceCompanies}
                                     // setInsuranceCompanies={setInsuranceCompanies}
                                     />
