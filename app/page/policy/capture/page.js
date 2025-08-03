@@ -8,6 +8,7 @@ import withAuth from "../../../lib/service/with_auth";
 import { fetchSearchedProposals, savePolicyData } from "../../../lib/service/model";
 // PolicyStatusModal
 import PolicyStatusModal from '../policy-status-message';
+import PolicylForm from "../policy-form";
 
 const Page = () => {
 
@@ -28,6 +29,10 @@ const Page = () => {
     const [policyTypeId, setPolicyTypeId] = useState();
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [showEditForm, setShowEditForm] = useState(true);
+    const [documentTypes, setDocumentTypes] = useState([]);
+    const [policies, setPolicies] = useState([]);
+    const [insuranceCompanies, setInsuranceCompanies] = useState([]);
 
     const dropdownRef = useRef(null);
 
@@ -61,14 +66,14 @@ const Page = () => {
         setSearchedContent([]);
         setSelectedSearchContent('');
         setProposalReferenceNumber('policy reference number');
-        setProposalReferenceId();
-        setPolicyNumber();
-        setCertificateNumber();
+        setProposalId('');
+        setPolicyNumber('');
+        setCertificateNumber('');
         setStartDate('');
         setEndDate('');
-        setContactId();
-        setInsuranceCompanyId();
-        setPolicyTypeId();
+        setContactId('');
+        setInsuranceCompanyId('');
+        setPolicyTypeId('');
 
     };
 
@@ -151,9 +156,10 @@ const Page = () => {
                                             id="search"
                                             type="text"
                                             className="form-control"
-                                            placeholder="Search by Ref No, ID/Passport, Phone, Email"
+                                            placeholder="Search by Proposal Ref No, ID/Passport, Phone, Email"
                                             aria-label="Search"
                                             aria-describedby="search-icon"
+                                            value={searchText}
                                             onChange={(e) => setSearchText(e.target.value)}
                                         />
                                     </div>
@@ -241,12 +247,15 @@ const Page = () => {
                             {/* </div> */}
                         </div>
 
-                        <div className="col-12 d-flex mt-3">
+                        <div className="col-12 d-flex mt-5">
                             <button
                                 className="btn btn-primary me-2"
                                 onClick={(e) => savePolicy(e)}
                             >Save</button>
-                            <button className="btn btn-secondary">Reset</button>
+                            <button
+                                className="btn btn-secondary"
+                                onClick={() => resetState()}
+                            >Reset</button>
                         </div>
                     </div>
 
@@ -258,166 +267,39 @@ const Page = () => {
                         </div>
 
                         <div className="">
-                            <label id="policy_tag" className="form-control">{proposalReferenceNumber === 'policy reference number' ? 'policy ref #' : `policy ref number: ${proposalReferenceNumber}`}</label>
+                            <label id="policy_tag" className="form-control">{proposalReferenceNumber === 'proposal reference number' ? 'policy ref #' : `proposal ref number: ${proposalReferenceNumber}`}</label>
                         </div>
                     </div>
 
-                    <form className="row g-3">
 
-                        <div className="col-sm-12">
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <label htmlFor="policy_no">Policy No:</label>
-                                    <input
-                                        id="policy_no"
-                                        type="text"
-                                        className="form-control"
-                                        onChange={(e) => setPolicyNumber(e.target.value)}
-                                    />
-                                </div>
-                                <div className="col-md-3">
-                                    <label htmlFor="certificate_no">Certificate No:</label>
-                                    <input
-                                        id="certificate_no"
-                                        type="text"
-                                        className="form-control"
-                                        onChange={(e) => setCertificateNumber(e.target.value)}
-                                    />
-                                </div>
-                                <div className="col-md-3">
-                                    <label htmlFor="start_date">Start date:</label>
-                                    <input value={startDate}
-                                        onChange={(e) => setStartDate(e.target.value)}
-                                        id="start_date" type="date"
-                                        className="form-control"
-                                        placeholder="Start date" />
-                                </div>
+                    {/*  form goes here  ======================>*/}
+                    <PolicylForm
+                        policyNumber={policyNumber}
+                        setPolicyNumber={setPolicyNumber}
+                        certificateNumber={certificateNumber}
+                        setCertificateNumber={setCertificateNumber}
+                        startDate={startDate}
+                        setStartDate={setStartDate}
+                        endDate={endDate}
+                        setEndDate={setEndDate}
+                        setShowEditForm={setShowEditForm}
+                        showEditForm={showEditForm}
+                        insuranceCompanies={insuranceCompanies}
+                        setInsuranceCompanies={setInsuranceCompanies}
+                    />
 
-                                <div className="col-md-3">
-                                    <label htmlFor="end_date">End date:</label>
-                                    <input value={endDate}
-                                        onChange={(e) => setEndDate(e.target.value)}
-                                        id="end_date" type="date"
-                                        className="form-control"
-                                        placeholder="End date" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-12">
-                            <div className="row d-flex align-items-end">
-                                <div className="col-md-3">
-                                    <label htmlFor="img">Select Scanned copies:</label>
-                                    <input type="file" id="img" name="img" accept="image/*" className="form-control" />
-                                </div>
-                                <div className="col-md-3">
-                                    <label htmlFor="copyName">Document type:</label>
-                                    <select id="policy" className="form-select">
-                                        <option defaultValue>None...</option>
-                                        <option>ID/Passort</option>
-                                        <option>Proposal</option>
-                                        <option>Accident form</option>
-                                        <option>Policy</option>
-                                        <option>Insurance Certificate</option>
-                                        <option>Insurance Policy</option>
-                                        <option>Medical Report</option>
-                                        <option>Birth Certificate</option>
-                                        <option>Police Abstract</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-3">
-                                    <label htmlFor="copyName">Select folder:</label>
-                                    <select onChange={(event) => creatNewImageFolder(event)} id="policy" className="form-select">
-                                        <option>Default</option>
-                                        <option role="separator" disabled="disabled">─────────────────────────</option>
-                                        <option value="new folder">Create New</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-3">
-                                    <label htmlFor="documentName">Document name:</label>
-                                    <input id="documentName" type="text" className="form-control" />
-                                </div>
-
-                            </div>
-                        </div>
-                        <div className="col-sm-12">
-                            <div className="col-md-3">
-                                <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
-                            </div>
-                        </div>
-
-                    </form>
-
-                    <hr />
-
-                    <div className="row">
-
-                        <div className="col-sm-12">
-
-                            <h6 className="tc-card-header">All added scanned copies</h6>
-
-                            <div className='row'>
-                                {/* Template */}
-                                <div className="col-sm-6">
-
-                                    <div className="card">
-                                        <div className="card-body">
-
-                                            <h6 className="card-subtitle mt-2 text-muted">Policy</h6>
-                                            <Image
-                                                src="/img/receipt_template.jpg"
-                                                // layout="responsive"
-                                                width={200}  // Aspect ratio width
-                                                height={400}  // Aspect ratio height
-                                                className="card-img-top"
-                                                alt="receipt template"
-                                            />
-                                            <hr />
-                                            <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
-                                            <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
-                                            <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Template */}
-
-
-                                {/* Template */}
-                                <div className="col-sm-6">
-
-                                    <div className="card">
-                                        <div className="card-body">
-
-                                            <h6 className="card-subtitle mt-2 text-muted">Cetificate</h6>
-                                            <Image
-                                                src="/img/receipt_template.jpg"
-                                                // layout="responsive"
-                                                width={200}  // Aspect ratio width
-                                                height={400}  // Aspect ratio height
-                                                className="card-img-top"
-                                                alt="receipt template"
-                                            />
-                                            <hr />
-
-                                            <div className="d-flex">
-                                                <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
-                                                <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
-                                                <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Template */}
-
-                            </div>
-
-                        </div>
-                    </div>
 
                     <div className="row">
                         <div className="text-center mb-3">
                             <div className="d-flex justify-content-center">
-                                <button className="btn btn-primary me-2">Save</button>
-                                <button className="btn btn-secondary">Cancel</button>
+                                <button
+                                    className="btn btn-primary me-2"
+                                    onClick={(e) => savePolicy(e)}
+                                >Save</button>
+                                <button
+                                    className="btn btn-secondary"
+                                    onClick={() => resetState()}
+                                >Reset</button>
                             </div>
                         </div>
                     </div>

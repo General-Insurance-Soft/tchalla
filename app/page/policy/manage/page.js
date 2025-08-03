@@ -1,18 +1,29 @@
 'use client'
 
-import { useRef, useState } from 'react';
+import { useRef, useState,useEffect } from 'react';
 
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-
+import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies } from "../../../lib/service/model";
+import PolicyStatusModal from "../policy-status-message";
 
 const Page = () => {
 
     const [showEditForm, setShowEditForm] = useState(false);
     const modalRef = useRef(null);
 
-    const creatNewImageFolder = (event) => {
+    const [messageStatus, setMessageStatus] = useState("");
+    const [res, setRes] = useState({});
+    const [insuranceCompanies, setInsuranceCompanies] = useState([]);
+    const [documentTypes, setDocumentTypes] = useState([]);
+    const [policies, setPolicies] = useState([]);
+    const [policyList, setPolicyList] = useState([]);
+    const [contacts, setContacts] = useState({});
+    const [policyStatusModalRef] = useState(useRef(null));
+    const [selectedPolicy, setSelectedPolicy] = useState(null);
+
+    const createNewImageFolder = (event) => {
 
         if (typeof window !== "undefined" && bootstrap) {
             if (event.target.value === "new folder") {
@@ -21,6 +32,167 @@ const Page = () => {
             }
         }
     }
+
+
+const fetchAllPolicyData = async () => {
+        let res = await fetchPolicyData(0, 15);
+
+        if ('message' in res) {
+            setMessageStatus(res.message);
+
+            if (policyStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+                modal.show();
+            }
+            return;
+        }
+
+        setRes(res);
+    };
+
+
+    useEffect(() => {
+        fetchAllPolicyData();
+    }, []);
+
+    //initialize fieds with server data
+    useEffect(() => {
+
+        const fetchInsuranceCompaniesData = async () => {
+            let res = await fetchInsuranceCopanies();
+            if ('error' in res) {
+                return;
+            }
+            setInsuranceCompanies(res);
+        };
+
+        const fetchDocumentTypesData = async () => {
+            let res = await fetchDocumentTypes();
+            if ('error' in res) {
+                return;
+            }
+            setDocumentTypes(res);
+        };
+
+        const fetchPoliciesData = async () => {
+            let res = await fetchPolicies();
+            if ('error' in res) {
+                return;
+            }
+            setPolicies(res);
+        };
+
+        fetchPoliciesData();
+        fetchDocumentTypesData();
+        fetchInsuranceCompaniesData();
+
+    }, []);
+
+    useEffect(() => {
+
+        if (!res || Object.keys(res).length === 0) {
+            console.log("res is empty");
+            return
+        }
+
+        let adminAreas = {};
+        try {
+            res.administrative_areas.forEach((area) => {
+                adminAreas[area.id] = area;
+            });
+        } catch (error) {
+            console.log("Error in res.administrative_areas =========>>>" + error);
+        }
+
+        //setAdministrativeAreas(adminAreas);
+
+        let contactMap = {};
+
+        try {
+            res.contact.forEach((contc) => {
+                contactMap[contc.id] = contc;
+
+            });
+        } catch (error) {
+            console.log("Error in res.contact =========>>>" + error);
+        }
+
+        let updatedByMap = {};
+
+        try {
+            res.updatedBy.forEach((val) => {
+                updatedByMap[val.id] = val;
+
+            });
+        } catch (error) {
+            console.log("Error in res.updatedBy =========>>>" + error);
+        }
+
+
+        setContacts(contactMap);
+
+        let policyLst = [];
+
+        res.policies.forEach((policy) => {
+
+            try {
+                policy["updateByName"] = updatedByMap[policy.updated_by].first_name + " " + updatedByMap[policy.updated_by].third_name;
+            } catch (error) {
+                console.log("Error in refresh policy table =========>>>" + error);
+                policy["updateByName"] = "";
+            }
+
+            try {
+                policy["contactName"] = contactMap[policy.contact_id].first_name + " " + contactMap[policy.contact_id].last_name;
+            } catch (error) {
+                console.log("Error in refresh policy table =========>>>" + error);
+
+                policy["contactName"] = "";
+            }
+
+            try {
+                policy["address"] = contactMap[policy.contact_id].address.address;
+            } catch (error) {
+                console.log("Error in refresh policy table =========>>>" + error);
+                policy["address"] = "";
+            }
+
+            try {
+                policy["country"] = adminAreas[contactMap[policy.contact_id].address.country_code].name;
+            } catch (error) {
+                console.log("Error in refresh policy table =========>>>" + error);
+                policy["country"] = "";
+            }
+
+            try {
+                policy["county"] = adminAreas[contactMap[policy.contact_id].address.administrative_area].name;
+            } catch (error) {
+                console.log("Error in refresh policy table =========>>>" + error);
+                policy["county"] = "";
+            }
+
+            try {
+                policy["phone"] = contactMap[policy.contact_id].phone;
+            } catch (error) {
+                console.log("Error in refresh policy table =========>>>" + error);
+
+                policy["phone"] = "";
+            }
+
+            try {
+                policy["email"] = contactMap[policy.contact_id].email;
+            } catch (error) {
+                console.log("Error in refresh policy table =========>>>" + error);
+                policy["email"] = "";
+            }
+
+            policyLst.push(policy);
+
+        });
+
+        setPolicyList(policyLst);
+
+    }, [res]);
 
 
     return (
@@ -57,7 +229,7 @@ const Page = () => {
                                     <th scope="col">Country</th>
                                     <th scope="col">County</th>
                                     <th scope="col">Address</th>
-                                    <th scope="col">Lastest Policy Date</th>
+                                    <th scope="col">Latest Policy Date</th>
                                     <th scope="col">Total number of policies</th>
                                     <th scope="col">Last Editor</th>
                                     <th scope="col">Last Edited</th>
@@ -227,7 +399,7 @@ const Page = () => {
                                     <select id="policy" className="form-select">
                                         <option defaultValue>None...</option>
                                         <option>ID/Passort</option>
-                                        <option>Proposal</option>
+                                        <option>policy</option>
                                         <option>Accident form</option>
                                         <option>Policy</option>
                                         <option>Insurance Certificate</option>
@@ -239,7 +411,7 @@ const Page = () => {
                                 </div>
                                 <div className="col-md-3">
                                     <label htmlFor="copyName">Select folder:</label>
-                                    <select onChange={(event) => creatNewImageFolder(event)} id="policy" className="form-select">
+                                    <select onChange={(event) => createNewImageFolder(event)} id="policy" className="form-select">
                                         <option>Default</option>
                                         <option role="separator" disabled="disabled">─────────────────────────</option>
                                         <option value="new folder">Create New</option>
@@ -354,6 +526,7 @@ const Page = () => {
                 </div>
             </div>
             <NewImageFolder modalRefVar={modalRef} />
+            <PolicyStatusModal ref={policyStatusModalRef} messageStatus={messageStatus} />
         </>
     );
 }
