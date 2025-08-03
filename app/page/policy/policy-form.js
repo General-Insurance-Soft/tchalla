@@ -11,10 +11,11 @@ const Page = (
         startDate, endDate,
         policyDocuments, setPolicyDocuments,
         setStartDate, setEndDate,
-        insuranceCompanies, setInsuranceCompanies,
-        documentTypes, setDocumentTypes,
-        policies, setPolicies,
+        insuranceCompanies,
+        documentTypes,
+        policies,
         policyNumber, setPolicyNumber,
+        policyTypeId, setPolicyTypeId,
         setShowEditForm
     }
 ) => {
@@ -43,6 +44,25 @@ const Page = (
                                 value={certificateNumber}
                                 onChange={(e) => setCertificateNumber(e.target.value)}
                             />
+                        </div>
+                        <div className="col-md-3">
+                            <label htmlFor="copyName">Policy type:</label>
+                            <select id="document-type" value={policyTypeId} className="form-select"
+                                onChange={
+                                    (e) => {
+                                        setPolicyTypeId(e.target.value);
+                                    }
+                                }
+                            >
+                                {policyAction != "edit" ?
+                                    <option defaultValue>None...</option> : ""
+                                }
+                                {Array.isArray(policies) && policies.map((policy) => (
+                                    <option key={policy.id} value={policy.id}>
+                                        {policy.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div className="col-md-3">
                             <label htmlFor="start_date">Start date:</label>

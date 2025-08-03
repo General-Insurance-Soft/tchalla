@@ -25,6 +25,7 @@ const Page = () => {
     const [selectedPolicy, setSelectedPolicy] = useState(null);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
+    const [policyTypeId, setPolicyTypeId] = useState();
 
     //editFormContactDetails
     const [editFormContactDetails, setEditFormContactDetails] = useState("");
@@ -269,7 +270,7 @@ const Page = () => {
                                                                 setShowEditForm(true, val)
                                                                 setSelectedPolicy(val)
                                                                 // setInsuranceCompanyId(val.insurance_company_id)
-                                                                // setPolicyId(val.policy_type_id)
+                                                                setPolicyTypeId(val.policy_type_id)
                                                                 setStartDate(val.start_date)
                                                                 setEndDate(val.end_date)
                                                                 setCertificateNumber(val.certificate_number)
@@ -334,6 +335,9 @@ const Page = () => {
                                         setShowEditForm={setShowEditForm}
                                         showEditForm={showEditForm}
                                         selectedContactPolicy={selectedContactPolicy}
+                                        policyTypeId={policyTypeId}
+                                        setPolicyTypeId={setPolicyTypeId}
+                                        policies={policies}
                                     // insuranceCompanies={insuranceCompanies}
                                     // setInsuranceCompanies={setInsuranceCompanies}
                                     />
