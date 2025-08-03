@@ -325,3 +325,6 @@ export const savePolicyData = async (data) => {
     return await dataPost(`${baseServerUrl}/policy-service/api/v1/policy/create`, data, "policy save", "POST");
 }
 
+export const fetchPolicyData = async (page, size) => {
+    return await dataFetch(`${baseServerUrl}/policy-service/api/v1/policy/get-policies?page=${page}&size=${size}`, "policy list");
+}
