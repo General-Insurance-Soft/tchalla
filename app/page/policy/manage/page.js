@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact } from "../../../lib/service/model";
+import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, getProposal } from "../../../lib/service/model";
 import PolicyStatusModal from "../policy-status-message";
 import PolicylForm from "../policy-form";
 
@@ -26,6 +26,8 @@ const Page = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [policyTypeId, setPolicyTypeId] = useState();
+    //setInsuranceCompanyId
+    const [insuranceCompanyId, setInsuranceCompanyId] = useState();
 
     //editFormContactDetails
     const [editFormContactDetails, setEditFormContactDetails] = useState("");
@@ -60,6 +62,23 @@ const Page = () => {
         setRes(res);
     };
 
+    const fetchProposal = async (val) => {
+        let proposal = await getProposal(val.proposal_id);
+        setInsuranceCompanyId(proposal.insurance_company_id)
+        setPolicyTypeId(proposal.policy_type_id)
+
+        Array.isArray(policies) && policies.map((policy) => (
+            <option key={policy.id} value={policy.id}>
+                {policy.name}
+            </option>
+        ))
+
+        let policyTypeName = policies.find(p => Number(p.id) === Number(proposal.policy_type_id));
+
+        let insuranceCompanyName = insuranceCompanies.find(ic => ic.id == proposal.insurance_company_id).name;
+
+        setEditFormContactDetails("Edit " + val["contactName"] +" " +" policy from: " + val["start_date"] + " ( Policy Type: " + policyTypeName.name + " - Insurance Company: " + insuranceCompanyName + " )");
+    }
 
     useEffect(() => {
         fetchAllPolicyData();
@@ -269,17 +288,16 @@ const Page = () => {
                                                             () => {
                                                                 setShowEditForm(true, val)
                                                                 setSelectedPolicy(val)
-                                                                // setInsuranceCompanyId(val.insurance_company_id)
-                                                                setPolicyTypeId(val.policy_type_id)
+                                                                fetchProposal(val);
                                                                 setStartDate(val.start_date)
                                                                 setEndDate(val.end_date)
                                                                 setCertificateNumber(val.certificate_number)
                                                                 setPolicyNumber(val.policy_number)
-                                                                setEditFormContactDetails("Edit " + val["contactName"] + " policy from: " + val["start_date"])
+
+
                                                                 getPolicyByContact(val.contact_id).then((res) => {
                                                                     setSelectedContactPolicy(res)
                                                                 })
-                                                                console.log("selectedPolicy", selectedPolicy)
                                                             }
                                                         }
                                                     ><i className="bi bi-pencil-square"></i></button>
