@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, getProposal, getPolicy } from "../../../lib/service/model";
+import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, getProposal, getPolicy, updatePolicyData } from "../../../lib/service/model";
 import PolicyStatusModal from "../policy-status-message";
 import PolicylForm from "../policy-form";
 //PolicyLoader
@@ -105,6 +105,35 @@ const Page = () => {
 
         setShowOptionalPolicySelectSpinner(false);
     }
+
+    const updatePolicy = async (event) => {
+
+        event.preventDefault();
+
+        let data = {
+            "policy_number": policyNumber,
+            "certificate_number": certificateNumber,
+            "start_date": startDate,
+            "end_date": endDate,
+            "proposal_id": selectedPolicy.proposal_id,
+            "contact_id": selectedPolicy.contact_id,
+            "start_date": startDate,
+        }
+
+        let saveRes = await updatePolicyData(selectedPolicy.id, data);
+
+        if ('message' in saveRes) {
+            setMessageStatus(saveRes.message);
+            fetchAllPolicyData();
+            if (policyStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+                modal.show();
+            }
+
+            return;
+        }
+
+    };
 
     useEffect(() => {
         fetchAllPolicyData();
@@ -326,7 +355,7 @@ const Page = () => {
                                                                     setSelectedContactPolicies(res)
                                                                 })
                                                                 setPolicyAction("edit");
-                                                               
+
 
                                                             }
                                                         }
@@ -377,7 +406,17 @@ const Page = () => {
                                         </div>
 
                                         <div>
-                                            <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
+                                            <button
+                                                className="btn btn-primary me-2"
+                                                onClick={
+                                                    (event) => {
+                                                        setShowEditForm(false)
+                                                        updatePolicy(event);
+                                                    }
+                                                }
+
+
+                                            >Update</button>
                                             <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                                         </div>
                                     </div>
@@ -403,7 +442,15 @@ const Page = () => {
 
                                     <div className="text-center mb-3">
                                         <div className="d-flex justify-content-center">
-                                            <button className="btn btn-primary me-2">Update</button>
+                                            <button
+                                                className="btn btn-primary me-2"
+                                                onClick={
+                                                    (event) => {
+                                                        setShowEditForm(false)
+                                                        updatePolicy(event);
+                                                    }
+                                                }
+                                            >Update</button>
                                             <button className="btn btn-secondary">Cancel</button>
                                         </div>
                                     </div>
