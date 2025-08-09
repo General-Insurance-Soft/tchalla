@@ -5,9 +5,10 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, getProposal, getPolicy } from "../../../lib/service/model";
+import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, getProposal, getPolicy, updatePolicyData, deletePolicyById } from "../../../lib/service/model";
 import PolicyStatusModal from "../policy-status-message";
 import PolicylForm from "../policy-form";
+import DeletePolicy from "./delete-policy";
 //PolicyLoader
 import PolicyLoader from "./policy-loader";
 
@@ -28,7 +29,7 @@ const Page = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [policyTypeId, setPolicyTypeId] = useState();
-
+    const [contactName, setContactName] = useState("");
     //setInsuranceCompanyId
     const [insuranceCompanyId, setInsuranceCompanyId] = useState();
     //policyAction
@@ -69,7 +70,7 @@ const Page = () => {
         setRes(res);
     };
 
-    const fetchProposal = async (val) => {
+    const fetchProposal = async (val, cName) => {
         let proposal = await getProposal(val.proposal_id);
         setInsuranceCompanyId(proposal.insurance_company_id);
         setPolicyTypeId(proposal.policy_type_id);
@@ -78,7 +79,7 @@ const Page = () => {
 
         let insuranceCompanyName = insuranceCompanies.find(ic => ic.id == proposal.insurance_company_id).name;
 
-        setEditFormContactDetails("Edit " + val["contactName"] + " " + " policy from: " + val["start_date"] + " ( Policy Type: " + policyTypeName.name + " - Insurance Company: " + insuranceCompanyName + " )");
+        setEditFormContactDetails("Edit " + cName + " " + " policy from: " + val["start_date"] + " ( Policy Type: " + policyTypeName.name + " - Insurance Company: " + insuranceCompanyName + " )");
     }
 
     const fetchSubPolicy = async (policyId) => {
@@ -100,11 +101,69 @@ const Page = () => {
         setPolicyNumber(policy.policy_number);
         setCertificateNumber(policy.certificate_number);
 
-        fetchProposal(policy);
+        fetchProposal(policy, contactName);
 
 
         setShowOptionalPolicySelectSpinner(false);
     }
+
+    const updatePolicy = async (event) => {
+
+        event.preventDefault();
+
+        let data = {
+            "policy_number": policyNumber,
+            "certificate_number": certificateNumber,
+            "start_date": startDate,
+            "end_date": endDate,
+            "proposal_id": selectedPolicy.proposal_id,
+            "contact_id": selectedPolicy.contact_id,
+            "start_date": startDate,
+        }
+
+        let saveRes = await updatePolicyData(selectedPolicy.id, data);
+
+        if ('message' in saveRes) {
+            setMessageStatus(saveRes.message);
+            fetchAllPolicyData();
+            if (policyStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+                modal.show();
+            }
+
+            return;
+        }
+
+    };
+
+    const resetSelectedPolicy = () => {
+        setSelectedPolicy(null);
+        setShowEditForm(false);
+        setStartDate("");
+        setEndDate("");
+        setPolicyTypeId("");
+        setInsuranceCompanyId("");
+        setContactName("");
+        setPolicyNumber("");
+        setCertificateNumber("");
+        setSelectedContactPolicies([]);
+        setShowOptionalPolicySelectSpinner(false);
+        setEditFormContactDetails("");
+    }
+
+    const deletePolicy = async () => {
+            if (selectedPolicy == null) return
+
+            let res = await deletePolicyById(selectedPolicy.id);
+            console.log("delete policy res", res);
+            setMessageStatus(res.message);
+            fetchAllPolicyData();
+            // Show the PolicyStatusModal
+            if (policyStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+                modal.show();
+            }
+        }
 
     useEffect(() => {
         fetchAllPolicyData();
@@ -199,10 +258,12 @@ const Page = () => {
 
             try {
                 policy["contactName"] = contactMap[policy.contact_id].first_name + " " + contactMap[policy.contact_id].last_name;
+                setContactName(policy["contactName"]);
             } catch (error) {
                 console.log("Error in refresh policy table =========>>>" + error);
 
                 policy["contactName"] = "";
+                setContactName("");
             }
 
             try {
@@ -314,7 +375,8 @@ const Page = () => {
                                                             () => {
                                                                 setShowEditForm(true, val)
                                                                 setSelectedPolicy(val)
-                                                                fetchProposal(val);
+                                                                setContactName(val["contactName"]);
+                                                                fetchProposal(val, val["contactName"]);
                                                                 setStartDate(val.start_date)
                                                                 setEndDate(val.end_date)
                                                                 setCertificateNumber(val.certificate_number)
@@ -323,6 +385,8 @@ const Page = () => {
                                                                     setSelectedContactPolicies(res)
                                                                 })
                                                                 setPolicyAction("edit");
+
+
                                                             }
                                                         }
                                                     ><i className="bi bi-pencil-square"></i></button>
@@ -332,12 +396,12 @@ const Page = () => {
                                                                 setShowEditForm(false)
                                                                 setSelectedPolicy(val)
                                                                 getPolicyByContact(val.contact_id).then((res) => {
-                                                                    setSelectedContactProposals(res)
+                                                                    setSelectedContactPolicies(res)
                                                                 })
                                                                 setPolicyAction("delete");
                                                             }
                                                         }
-                                                        data-bs-target="#deleteProposalModal"
+                                                        data-bs-target="#deletePolicyModal"
                                                         className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                 </td>
                                             </tr>
@@ -372,7 +436,17 @@ const Page = () => {
                                         </div>
 
                                         <div>
-                                            <button className="btn btn-primary me-2" onClick={() => setShowEditForm(false)}>Update</button>
+                                            <button
+                                                className="btn btn-primary me-2"
+                                                onClick={
+                                                    (event) => {
+                                                        setShowEditForm(false)
+                                                        updatePolicy(event);
+                                                    }
+                                                }
+
+
+                                            >Update</button>
                                             <button className="btn btn-secondary" onClick={() => setShowEditForm(false)}>Cancel</button>
                                         </div>
                                     </div>
@@ -398,7 +472,15 @@ const Page = () => {
 
                                     <div className="text-center mb-3">
                                         <div className="d-flex justify-content-center">
-                                            <button className="btn btn-primary me-2">Update</button>
+                                            <button
+                                                className="btn btn-primary me-2"
+                                                onClick={
+                                                    (event) => {
+                                                        setShowEditForm(false)
+                                                        updatePolicy(event);
+                                                    }
+                                                }
+                                            >Update</button>
                                             <button className="btn btn-secondary">Cancel</button>
                                         </div>
                                     </div>
@@ -418,6 +500,16 @@ const Page = () => {
             </div >
             <NewImageFolder modalRefVar={modalRef} />
             <PolicyStatusModal ref={policyStatusModalRef} messageStatus={messageStatus} />
+            <DeletePolicy
+                deletePolicy={deletePolicy}
+                resetSelectedPolicy={resetSelectedPolicy}
+                selectedContactPolicies={selectedContactPolicies}
+                setShowOptionalPolicySelectSpinner={setShowOptionalPolicySelectSpinner}
+                fetchSubPolicy={fetchSubPolicy}
+                showOptionalPolicySelectSpinner={showOptionalPolicySelectSpinner}
+                selectedPolicy={selectedPolicy}
+            />
+            
         </>
     );
 }

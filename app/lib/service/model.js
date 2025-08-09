@@ -336,3 +336,12 @@ export const getPolicyByContact = async (id) => {
 export const getPolicy = async (id) => {
     return await dataFetch(`${baseServerUrl}/policy-service/api/v1/policy/get?id=${id}`, "policy get");
 }
+
+export const updatePolicyData = async (id, data) => {
+    return await dataPost(`${baseServerUrl}/policy-service/api/v1/policy/update?id=${id}`, data, "policy update", "PUT");
+}
+
+//delete policy
+export const deletePolicyById = async (id) => {
+    return await dataDeleteById(`${baseServerUrl}/policy-service/api/v1/policy/delete?id=${id}`, "policy delete");
+}
