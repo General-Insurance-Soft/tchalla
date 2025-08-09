@@ -86,9 +86,8 @@ const Page = (
 
                                 }
                             >
-                                {policyAction != "edit" ?
-                                    <option defaultValue>None...</option> : ""
-                                }
+                                {policyAction != "edit"  || policyAction != "delete"?
+                                    <option defaultValue>None...</option> : ""}
                                 {Array.isArray(documentTypes) && documentTypes.map((doc) => (
                                     <option key={doc.id} value={doc.id}>
                                         {doc.name}

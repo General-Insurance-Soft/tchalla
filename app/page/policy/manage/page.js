@@ -5,9 +5,11 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, getProposal } from "../../../lib/service/model";
+import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, getProposal, getPolicy } from "../../../lib/service/model";
 import PolicyStatusModal from "../policy-status-message";
 import PolicylForm from "../policy-form";
+//PolicyLoader
+import PolicyLoader from "./policy-loader";
 
 const Page = () => {
 
@@ -26,14 +28,19 @@ const Page = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [policyTypeId, setPolicyTypeId] = useState();
+
     //setInsuranceCompanyId
     const [insuranceCompanyId, setInsuranceCompanyId] = useState();
+    //policyAction
+    const [policyAction, setPolicyAction] = useState();
 
     //editFormContactDetails
     const [editFormContactDetails, setEditFormContactDetails] = useState("");
-    const [selectedContactPolicy, setSelectedContactPolicy] = useState([]);
+    const [selectedContactPolicies, setSelectedContactPolicies] = useState([]);
     const [policyNumber, setPolicyNumber] = useState("");
     const [certificateNumber, setCertificateNumber] = useState("");
+
+    const [showOptionalPolicySelectSpinner, setShowOptionalPolicySelectSpinner] = useState(false);
 
     const createNewImageFolder = (event) => {
 
@@ -64,20 +71,39 @@ const Page = () => {
 
     const fetchProposal = async (val) => {
         let proposal = await getProposal(val.proposal_id);
-        setInsuranceCompanyId(proposal.insurance_company_id)
-        setPolicyTypeId(proposal.policy_type_id)
-
-        Array.isArray(policies) && policies.map((policy) => (
-            <option key={policy.id} value={policy.id}>
-                {policy.name}
-            </option>
-        ))
+        setInsuranceCompanyId(proposal.insurance_company_id);
+        setPolicyTypeId(proposal.policy_type_id);
 
         let policyTypeName = policies.find(p => Number(p.id) === Number(proposal.policy_type_id));
 
         let insuranceCompanyName = insuranceCompanies.find(ic => ic.id == proposal.insurance_company_id).name;
 
-        setEditFormContactDetails("Edit " + val["contactName"] +" " +" policy from: " + val["start_date"] + " ( Policy Type: " + policyTypeName.name + " - Insurance Company: " + insuranceCompanyName + " )");
+        setEditFormContactDetails("Edit " + val["contactName"] + " " + " policy from: " + val["start_date"] + " ( Policy Type: " + policyTypeName.name + " - Insurance Company: " + insuranceCompanyName + " )");
+    }
+
+    const fetchSubPolicy = async (policyId) => {
+        let policy = await getPolicy(policyId);
+        if ('message' in res) {
+            setMessageStatus(res.message);
+
+            if (policyStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+                modal.show();
+            }
+            return;
+        }
+
+        setSelectedPolicy(policy)
+        setInsuranceCompanyId(policy.insurance_company_id)
+        setStartDate(policy.start_date)
+        setEndDate(policy.end_date)
+        setPolicyNumber(policy.policy_number);
+        setCertificateNumber(policy.certificate_number);
+
+        fetchProposal(policy);
+
+
+        setShowOptionalPolicySelectSpinner(false);
     }
 
     useEffect(() => {
@@ -293,11 +319,10 @@ const Page = () => {
                                                                 setEndDate(val.end_date)
                                                                 setCertificateNumber(val.certificate_number)
                                                                 setPolicyNumber(val.policy_number)
-
-
                                                                 getPolicyByContact(val.contact_id).then((res) => {
-                                                                    setSelectedContactPolicy(res)
+                                                                    setSelectedContactPolicies(res)
                                                                 })
+                                                                setPolicyAction("edit");
                                                             }
                                                         }
                                                     ><i className="bi bi-pencil-square"></i></button>
@@ -309,6 +334,7 @@ const Page = () => {
                                                                 getPolicyByContact(val.contact_id).then((res) => {
                                                                     setSelectedContactProposals(res)
                                                                 })
+                                                                setPolicyAction("delete");
                                                             }
                                                         }
                                                         data-bs-target="#deleteProposalModal"
@@ -330,8 +356,18 @@ const Page = () => {
                                 <div className="card-body">
                                     <h5 className="card-title">{editFormContactDetails}</h5>
 
+
+
                                     <div className="d-flex justify-content-between align-items-center mb-3">
                                         <div>
+
+                                            <PolicyLoader action={"edit"}
+                                                selectedContactPolicies={selectedContactPolicies}
+                                                setShowOptionalPolicySelectSpinner={setShowOptionalPolicySelectSpinner}
+                                                fetchSubPolicy={fetchSubPolicy}
+                                                showOptionalPolicySelectSpinner={showOptionalPolicySelectSpinner}
+                                                selectedPolicy={selectedPolicy}
+                                            />
 
                                         </div>
 
@@ -352,7 +388,7 @@ const Page = () => {
                                         setEndDate={setEndDate}
                                         setShowEditForm={setShowEditForm}
                                         showEditForm={showEditForm}
-                                        selectedContactPolicy={selectedContactPolicy}
+                                        selectedContactPolicies={selectedContactPolicies}
                                         policyTypeId={policyTypeId}
                                         setPolicyTypeId={setPolicyTypeId}
                                         policies={policies}
