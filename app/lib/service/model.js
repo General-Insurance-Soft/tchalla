@@ -332,3 +332,7 @@ export const fetchPolicyData = async (page, size) => {
 export const getPolicyByContact = async (id) => {
     return await dataFetch(`${baseServerUrl}/policy-service/api/v1/policy/get-by-contact?id=${id}`, "policy get by contact");
 }
+
+export const getPolicy = async (id) => {
+    return await dataFetch(`${baseServerUrl}/policy-service/api/v1/policy/get?id=${id}`, "policy get");
+}

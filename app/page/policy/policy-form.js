@@ -46,25 +46,6 @@ const Page = (
                             />
                         </div>
                         <div className="col-md-3">
-                            <label htmlFor="copyName">Policy type:</label>
-                            <select id="document-type" value={policyTypeId} className="form-select"
-                                onChange={
-                                    (e) => {
-                                        setPolicyTypeId(e.target.value);
-                                    }
-                                }
-                            >
-                                {policyAction != "edit" ?
-                                    <option defaultValue>None...</option> : ""
-                                }
-                                {Array.isArray(policies) && policies.map((policy) => (
-                                    <option key={policy.id} value={policy.id}>
-                                        {policy.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="col-md-3">
                             <label htmlFor="start_date">Start date:</label>
                             <input value={startDate}
                                 onChange={(e) => setStartDate(e.target.value)}
@@ -105,9 +86,8 @@ const Page = (
 
                                 }
                             >
-                                {policyAction != "edit" ?
-                                    <option defaultValue>None...</option> : ""
-                                }
+                                {policyAction != "edit"  || policyAction != "delete"?
+                                    <option defaultValue>None...</option> : ""}
                                 {Array.isArray(documentTypes) && documentTypes.map((doc) => (
                                     <option key={doc.id} value={doc.id}>
                                         {doc.name}
