@@ -5,9 +5,10 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, getProposal, getPolicy, updatePolicyData } from "../../../lib/service/model";
+import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, getProposal, getPolicy, updatePolicyData, deletePolicyById } from "../../../lib/service/model";
 import PolicyStatusModal from "../policy-status-message";
 import PolicylForm from "../policy-form";
+import DeletePolicy from "./delete-policy";
 //PolicyLoader
 import PolicyLoader from "./policy-loader";
 
@@ -134,6 +135,35 @@ const Page = () => {
         }
 
     };
+
+    const resetSelectedPolicy = () => {
+        setSelectedPolicy(null);
+        setShowEditForm(false);
+        setStartDate("");
+        setEndDate("");
+        setPolicyTypeId("");
+        setInsuranceCompanyId("");
+        setContactName("");
+        setPolicyNumber("");
+        setCertificateNumber("");
+        setSelectedContactPolicies([]);
+        setShowOptionalPolicySelectSpinner(false);
+        setEditFormContactDetails("");
+    }
+
+    const deletePolicy = async () => {
+            if (selectedPolicy == null) return
+
+            let res = await deletePolicyById(selectedPolicy.id);
+            console.log("delete policy res", res);
+            setMessageStatus(res.message);
+            fetchAllPolicyData();
+            // Show the PolicyStatusModal
+            if (policyStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+                modal.show();
+            }
+        }
 
     useEffect(() => {
         fetchAllPolicyData();
@@ -366,12 +396,12 @@ const Page = () => {
                                                                 setShowEditForm(false)
                                                                 setSelectedPolicy(val)
                                                                 getPolicyByContact(val.contact_id).then((res) => {
-                                                                    setSelectedContactProposals(res)
+                                                                    setSelectedContactPolicies(res)
                                                                 })
                                                                 setPolicyAction("delete");
                                                             }
                                                         }
-                                                        data-bs-target="#deleteProposalModal"
+                                                        data-bs-target="#deletePolicyModal"
                                                         className="btn btn-danger"><i className="bi bi-trash3"></i></button>
                                                 </td>
                                             </tr>
@@ -470,6 +500,16 @@ const Page = () => {
             </div >
             <NewImageFolder modalRefVar={modalRef} />
             <PolicyStatusModal ref={policyStatusModalRef} messageStatus={messageStatus} />
+            <DeletePolicy
+                deletePolicy={deletePolicy}
+                resetSelectedPolicy={resetSelectedPolicy}
+                selectedContactPolicies={selectedContactPolicies}
+                setShowOptionalPolicySelectSpinner={setShowOptionalPolicySelectSpinner}
+                fetchSubPolicy={fetchSubPolicy}
+                showOptionalPolicySelectSpinner={showOptionalPolicySelectSpinner}
+                selectedPolicy={selectedPolicy}
+            />
+            
         </>
     );
 }
