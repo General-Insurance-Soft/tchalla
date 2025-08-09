@@ -28,7 +28,7 @@ const Page = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [policyTypeId, setPolicyTypeId] = useState();
-
+    const [contactName, setContactName] = useState("");
     //setInsuranceCompanyId
     const [insuranceCompanyId, setInsuranceCompanyId] = useState();
     //policyAction
@@ -69,7 +69,7 @@ const Page = () => {
         setRes(res);
     };
 
-    const fetchProposal = async (val) => {
+    const fetchProposal = async (val, cName) => {
         let proposal = await getProposal(val.proposal_id);
         setInsuranceCompanyId(proposal.insurance_company_id);
         setPolicyTypeId(proposal.policy_type_id);
@@ -78,7 +78,7 @@ const Page = () => {
 
         let insuranceCompanyName = insuranceCompanies.find(ic => ic.id == proposal.insurance_company_id).name;
 
-        setEditFormContactDetails("Edit " + val["contactName"] + " " + " policy from: " + val["start_date"] + " ( Policy Type: " + policyTypeName.name + " - Insurance Company: " + insuranceCompanyName + " )");
+        setEditFormContactDetails("Edit " + cName + " " + " policy from: " + val["start_date"] + " ( Policy Type: " + policyTypeName.name + " - Insurance Company: " + insuranceCompanyName + " )");
     }
 
     const fetchSubPolicy = async (policyId) => {
@@ -100,7 +100,7 @@ const Page = () => {
         setPolicyNumber(policy.policy_number);
         setCertificateNumber(policy.certificate_number);
 
-        fetchProposal(policy);
+        fetchProposal(policy, contactName);
 
 
         setShowOptionalPolicySelectSpinner(false);
@@ -199,10 +199,12 @@ const Page = () => {
 
             try {
                 policy["contactName"] = contactMap[policy.contact_id].first_name + " " + contactMap[policy.contact_id].last_name;
+                setContactName(policy["contactName"]);
             } catch (error) {
                 console.log("Error in refresh policy table =========>>>" + error);
 
                 policy["contactName"] = "";
+                setContactName("");
             }
 
             try {
@@ -314,7 +316,8 @@ const Page = () => {
                                                             () => {
                                                                 setShowEditForm(true, val)
                                                                 setSelectedPolicy(val)
-                                                                fetchProposal(val);
+                                                                setContactName(val["contactName"]);
+                                                                fetchProposal(val, val["contactName"]);
                                                                 setStartDate(val.start_date)
                                                                 setEndDate(val.end_date)
                                                                 setCertificateNumber(val.certificate_number)
@@ -323,6 +326,8 @@ const Page = () => {
                                                                     setSelectedContactPolicies(res)
                                                                 })
                                                                 setPolicyAction("edit");
+                                                               
+
                                                             }
                                                         }
                                                     ><i className="bi bi-pencil-square"></i></button>
