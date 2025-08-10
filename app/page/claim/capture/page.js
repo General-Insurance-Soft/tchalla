@@ -5,8 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchSearchedPolicies, fetchPaymentMethods } from "../../../lib/service/model";
-
+import { fetchSearchedPolicies, fetchPaymentMethods, saveClaimData } from "../../../lib/service/model";
+// ClaimStatusModal 
+import ClaimStatusModal from "../claim-status-message";
 const Page = () => {
 
     const [searchText, setSearchText] = useState('');
@@ -21,7 +22,12 @@ const Page = () => {
     const [paymentModes, setPaymentModes] = useState([]);
     const [claimAction, setClaimAction] = useState("create"); // or "edit"
 
-
+    const [claimId, setClaimId] = useState(null); // For editing an existing claim
+    const [messageStatus, setMessageStatus] = useState('');
+    const [claimDate, setClaimDate] = useState(new Date().toISOString().split('T')[0]); // Default to today's date
+    const [claimReference, setClaimReference] = useState('');
+    const [claimCertificate, setClaimCertificate] = useState('');
+    const claimStatusModalRef = useRef(null);
     const dropdownRef = useRef(null);
     const [modalRef, setModalRef] = useState(null);
 
@@ -64,6 +70,29 @@ const Page = () => {
 
         fetchPaymentMethodsData();
     }, []);
+
+    const handleSaveClaim = async () => {
+        const claimData = {
+            "policy_number": policyNumber,
+            "contact_id": contactId,
+            "payment_method": paymentModeId,
+            "claim_number": claimReference,
+            "claim_date": claimDate
+        };
+
+        let saveRes = await saveClaimData(claimData);
+
+        if ('message' in saveRes) {
+            setMessageStatus(saveRes.message);
+
+            if (claimStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(claimStatusModalRef.current);
+                modal.show();
+            }
+
+            return;
+        }
+    };
 
     const resetState = () => {
         setSearchText('');
@@ -199,7 +228,7 @@ const Page = () => {
                         <div className="col-12 d-flex mt-5">
                             <button
                                 className="btn btn-primary me-2"
-                            // onClick={(e) => saveClaim(e)}
+                                onClick={(e) => handleSaveClaim(e)}
                             >Save</button>
                             <button
                                 className="btn btn-secondary"
@@ -224,10 +253,13 @@ const Page = () => {
 
                         <div className="row mb-3">
                             <div className="col-md-4">
-                                Claim Reference: <input id="claim_ref" type="text" className="form-control" placeholder="claim reference" />
-                            </div>
-                            <div className="col-md-4">
-                                Claim Certificate: <input id="claim_cert" type="text" className="form-control" placeholder="claim certificate" />
+                                Claim Reference: <input
+                                    id="claim_ref" type="text"
+                                    className="form-control"
+                                    placeholder="claim reference"
+                                    value={claimReference}
+                                    onChange={(e) => setClaimReference(e.target.value)}
+                                />
                             </div>
 
                             <div className="col-md-4">
@@ -250,17 +282,23 @@ const Page = () => {
 
                             </div>
 
+                            <div className="col-md-4">
+                                        Claim date: <input type="date" className="form-control"
+                                            placeholder="Claim date"
+                                            value={claimDate}
+                                            onChange={(e) => setClaimDate(e.target.value)}
+                                        />
+                                    </div>
+
                         </div>
 
                         <div className="row">
 
-                            <div className="col-md-12 mb-3">
+                            {/* <div className="col-md-12 mb-3">
                                 <div className="row">
-                                    <div className="col-md-4">
-                                        Claim date: <input type="date" className="form-control" placeholder="Claim date" />
-                                    </div>
+                                    
                                 </div>
-                            </div>
+                            </div> */}
 
                             {/* <div className="col-md-4">
                                 <select id="inputState" className="form-select">
@@ -498,7 +536,7 @@ const Page = () => {
             </div>
 
             <NewImageFolder modalRefVar={modalRef} />
-
+            <ClaimStatusModal ref={claimStatusModalRef} messageStatus={messageStatus} />
         </>
     );
 }
