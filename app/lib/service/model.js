@@ -193,7 +193,7 @@ export const fetchPaymentMethods = async () => {
         cachedData &&
         Array.isArray(cachedData) &&
         cachedData.length > 0 &&
-        !cachedData.some(item => item.message) 
+        !cachedData.some(item => item.message)
     ) {
         console.log(`Cache hit for ${cacheKey}`);
         return cachedData;
@@ -372,4 +372,8 @@ export const fetchSearchedPolicies = async (keyword) => {
 
 export const saveClaimData = async (data) => {
     return await dataPost(`${baseServerUrl}/claim-service/api/v1/claim/create`, data, "claim save", "POST");
+}
+
+export const fetchClaimData = async (page, size) => {
+    return await dataFetch(`${baseServerUrl}/claim-service/api/v1/claim/get-claims?page=${page}&size=${size}`, "claim list");
 }
