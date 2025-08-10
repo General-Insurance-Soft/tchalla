@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchSearchedPolicies } from "../../../lib/service/model";
+import { fetchSearchedPolicies, fetchPaymentMethods } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -16,6 +16,11 @@ const Page = () => {
     const [policyNumber, setPolicyNumber] = useState('policy reference number');
     const [certificateNumber, setCertificateNumber] = useState();
     const [contactId, setContactId] = useState();
+
+    const [paymentModeId, setPaymentModeId] = useState(-1);
+    const [paymentModes, setPaymentModes] = useState([]);
+    const [claimAction, setClaimAction] = useState("create"); // or "edit"
+
 
     const dropdownRef = useRef(null);
     const [modalRef, setModalRef] = useState(null);
@@ -44,6 +49,21 @@ const Page = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [setSearchedContent]);
+
+    //fetchPaymentMethods
+    useEffect(() => {
+        const fetchPaymentMethodsData = async () => {
+            try {
+                const paymentMethods = await fetchPaymentMethods();
+                setPaymentModes(paymentMethods);
+                // Handle payment methods data as needed
+            } catch (error) {
+                console.error("Error fetching payment methods:", error);
+            }
+        };
+
+        fetchPaymentMethodsData();
+    }, []);
 
     const resetState = () => {
         setSearchText('');
@@ -211,12 +231,23 @@ const Page = () => {
                             </div>
 
                             <div className="col-md-4">
-                                Payment options: <select id="inputState" className="form-select">
-                                    <option defaultValue>Payment options...</option>
-                                    <option>Cash in Lieu</option>
-                                    <option>Company repair</option>
-
+                                Payment options: <select id="payment-modes" className="form-select"
+                                    value={paymentModeId}
+                                    onChange={(e) => setPaymentModeId(e.target.value)}
+                                >
+                                    {claimAction != "edit" ?
+                                        <option value={-1}>Payment options...</option> : ""
+                                    }
+                                    {
+                                        Array.isArray(paymentModes) && paymentModes.map((mode) => (
+                                            <option key={mode.id} value={mode.id}>
+                                                {mode.name}
+                                            </option>
+                                        ))
+                                    }
+                                    {/* <option defaultValue>{selectedProposal.insurance_company_name}</option> */}
                                 </select>
+
                             </div>
 
                         </div>

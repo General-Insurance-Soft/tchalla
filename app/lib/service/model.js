@@ -185,6 +185,26 @@ function getFromCache(key) {
     }
 }
 
+export const fetchPaymentMethods = async () => {
+    const cacheKey = `payment-methods`;
+    const cachedData = getFromCache(cacheKey);
+
+    if (
+        cachedData &&
+        Array.isArray(cachedData) &&
+        cachedData.length > 0 &&
+        !cachedData.some(item => item.message) 
+    ) {
+        console.log(`Cache hit for ${cacheKey}`);
+        return cachedData;
+    }
+
+    const jsonData = await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/payment-method-mode/get-payment-method-modes`, "payment methods");
+    setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+    console.log(`Payment methods fetched from server and cached.` + JSON.stringify(jsonData));
+    return jsonData;
+}
+
 export const fetchInsuranceCopanies = async () => {
 
     const cacheKey = `insutance-companies`;
