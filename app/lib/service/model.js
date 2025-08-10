@@ -345,3 +345,7 @@ export const updatePolicyData = async (id, data) => {
 export const deletePolicyById = async (id) => {
     return await dataDeleteById(`${baseServerUrl}/policy-service/api/v1/policy/delete?id=${id}`, "policy delete");
 }
+
+export const fetchSearchedPolicies = async (keyword) => {
+    return await dataFetch(`${baseServerUrl}/policy-service/api/v1/policy/search?keyword=${keyword}`, [], "policy search");
+};
