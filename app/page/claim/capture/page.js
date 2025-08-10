@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchSearchedPolicies } from "../../../lib/service/model";
+import { fetchSearchedPolicies, fetchPaymentMethods } from "../../../lib/service/model";
 
 const Page = () => {
 
@@ -44,6 +44,20 @@ const Page = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [setSearchedContent]);
+
+    //fetchPaymentMethods
+    useEffect(() => {
+        const fetchPaymentMethodsData = async () => {
+            try {
+                const paymentMethods = await fetchPaymentMethods();
+                // Handle payment methods data as needed
+            } catch (error) {
+                console.error("Error fetching payment methods:", error);
+            }
+        };
+
+        fetchPaymentMethodsData();
+    }, []);
 
     const resetState = () => {
         setSearchText('');
