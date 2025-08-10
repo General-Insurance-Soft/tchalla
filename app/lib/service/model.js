@@ -369,3 +369,7 @@ export const deletePolicyById = async (id) => {
 export const fetchSearchedPolicies = async (keyword) => {
     return await dataFetch(`${baseServerUrl}/policy-service/api/v1/policy/search?keyword=${keyword}`, [], "policy search");
 };
+
+export const saveClaimData = async (data) => {
+    return await dataPost(`${baseServerUrl}/claim-service/api/v1/claim/create`, data, "claim save", "POST");
+}
