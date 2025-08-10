@@ -1,10 +1,14 @@
 'use client'
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
+import ClaimStatusModal from '../claim-status-message';
+
+//fetchClaimData
+import { fetchClaimData } from "../../../lib/service/model";
 
 
 const Page = () => {
@@ -12,6 +16,10 @@ const Page = () => {
     const [showEditForm, setShowEditForm] = useState(false);
 
     const modalRef = useRef(null);
+    const claimStatusModalRef = useRef(null);
+    const [res, setRes] = useState([]);
+    const [messageStatus, setMessageStatus] = useState("");
+
 
     const creatNewImageFolder = (event) => {
 
@@ -22,6 +30,26 @@ const Page = () => {
             }
         }
     }
+
+    const fetchAllClaimData = async () => {
+        let res = await fetchClaimData(0, 15);
+
+        if ('message' in res) {
+            setMessageStatus(res.message);
+
+            if (claimStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(claimStatusModalRef.current);
+                modal.show();
+            }
+            return;
+        }
+
+        setRes(res);
+    };
+
+    useEffect(() => {
+        fetchAllClaimData();
+    }, []);
 
     return (
 
@@ -502,6 +530,7 @@ const Page = () => {
                     {/* Modal */}
 
                     <NewImageFolder modalRefVar={modalRef} />
+                    <ClaimStatusModal ref={claimStatusModalRef} messageStatus={messageStatus} />
                 </div>
             </div>
         </>
