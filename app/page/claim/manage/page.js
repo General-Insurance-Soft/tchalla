@@ -19,7 +19,12 @@ const Page = () => {
     const claimStatusModalRef = useRef(null);
     const [res, setRes] = useState([]);
     const [messageStatus, setMessageStatus] = useState("");
-    //initialize all missing states
+    const [selectedClaim, setSelectedClaim] = useState({});
+    const [claimAction, setClaimAction] = useState("edit");
+    const [claimDate, setClaimDate] = useState("");
+    const [claimNumber, setClaimNumber] = useState("");
+    const [selectedContactClaims, setSelectedContactClaims] = useState([]);
+
     const [paymentModes, setPaymentModes] = useState([]);
     const [documentTypes, setDocumentTypes] = useState([]);
 
@@ -239,114 +244,66 @@ const Page = () => {
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td><span className="badge bg-info">New</span></td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td><span className="badge bg-secondary">In progress</span></td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td><span className="badge bg-warning">Review</span></td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td><span className="badge bg-danger">Cancelled</span></td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td><span className="badge bg-danger">Cancelled</span></td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Tom Lee</td>
-                                    <td>0700123789</td>
-                                    <td>tmlee@gmail.com</td>
-                                    <td>Kenya</td>
-                                    <td>Nakuru</td>
-                                    <td>First avenue shababa</td>
-                                    <td>2024-08-11</td>
-                                    <td>3</td>
-                                    <td>Lucy</td>
-                                    <td>2024-09-11</td>
-                                    <td><span className="badge bg-success">Paid</span></td>
-                                    <td>
-                                        <button type="button" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setShowEditForm(true)}><i className="bi bi-pencil-square"></i></button>
-                                        <button type="button" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                    </td>
-                                </tr>
+                                {
+                                    claimList.map((val, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td>{val["contactName"]}</td>
+                                                <td>{val["phone"]}</td>
+                                                <td>{val["email"]}</td>
+                                                <td>{val["country"]}</td>
+                                                <td>{val["county"]}</td>
+                                                <td>{val["address"]}</td>
+                                                <td>{val.claim_date}</td>
+                                                <td>{val.claim_count}</td>
+                                                <td>{val["updateByName"]}</td>
+                                                <td>{val.updated_at}</td>
+                                                <td><span className="badge bg-info">New</span></td>
+                                                {/* <td><span className="badge bg-danger">Cancelled</span></td>
+                                                <td><span className="badge bg-success">Paid</span></td>
+                                                <td><span className="badge bg-warning">Review</span></td>
+                                                <td><span className="badge bg-secondary">In progress</span></td> */}
+
+                                                <td>
+                                                    <button type="button" style={{ marginRight: "10px" }} className="btn btn-info"
+                                                        onClick={
+                                                            () => {
+                                                                setShowEditForm(true, val)
+                                                                setSelectedClaim(val)
+                                                                setContactName(val["contactName"]);
+                                                                // fetchProposal(val, val["contactName"]);
+                                                                setClaimDate(val.claim_date)
+                                                                setClaimNumber(val.claim_number)
+                                                                getClaimByContact(val.contact_id).then((res) => {
+                                                                    setSelectedContactClaims(res)
+                                                                })
+                                                                setClaimAction("edit");
+
+
+                                                            }
+                                                        }
+                                                    ><i className="bi bi-pencil-square"></i></button>
+                                                    <button type="button" data-bs-toggle="modal"
+                                                        onClick={
+                                                            () => {
+                                                                setShowEditForm(false)
+                                                                setSelectedClaim(val)
+                                                                getClaimByContact(val.contact_id).then((res) => {
+                                                                    setSelectedContactPolicies(res)
+                                                                })
+                                                                setClaimAction("delete");
+                                                            }
+                                                        }
+                                                        data-bs-target="#deleteClaimModal"
+                                                        className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })
+                                }
+
+
 
                             </tbody>
                         </table>
