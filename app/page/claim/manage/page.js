@@ -8,7 +8,7 @@ import withAuth from "../../../lib/service/with_auth";
 import ClaimStatusModal from '../claim-status-message';
 
 //fetchClaimData
-import { fetchClaimData } from "../../../lib/service/model";
+import { fetchClaimData, fetchDocumentTypes } from "../../../lib/service/model";
 
 
 const Page = () => {
@@ -19,7 +19,15 @@ const Page = () => {
     const claimStatusModalRef = useRef(null);
     const [res, setRes] = useState([]);
     const [messageStatus, setMessageStatus] = useState("");
+    //initialize all missing states
+    const [paymentModes, setPaymentModes] = useState([]);
+    const [documentTypes, setDocumentTypes] = useState([]);
 
+    const [contacts, setContacts] = useState({});
+    const [claimList, setClaimList] = useState([]);
+    const [contactName, setContactName] = useState("");
+    const [bootstrap, setBootstrap] = useState(false);
+    const [showOptionalClaimSelectSpinner, setShowOptionalClaimSelectSpinner] = useState(false);
 
     const creatNewImageFolder = (event) => {
 
@@ -47,9 +55,141 @@ const Page = () => {
         setRes(res);
     };
 
+
     useEffect(() => {
+
+        const fetchPaymentMethodsData = async () => {
+            try {
+                const paymentMethods = await fetchPaymentMethods();
+                setPaymentModes(paymentMethods);
+                // Handle payment methods data as needed
+            } catch (error) {
+                console.error("Error fetching payment methods:", error);
+            }
+        };
+
+        const fetchDocumentTypesData = async () => {
+            let res = await fetchDocumentTypes();
+            if ('error' in res) {
+                return;
+            }
+            setDocumentTypes(res);
+        };
+
         fetchAllClaimData();
+        fetchDocumentTypesData();
+        fetchPaymentMethodsData();
     }, []);
+
+
+    useEffect(() => {
+
+        if (!res || Object.keys(res).length === 0) {
+            console.log("res is empty");
+            return
+        }
+
+        let adminAreas = {};
+        try {
+            res.administrative_areas.forEach((area) => {
+                adminAreas[area.id] = area;
+            });
+        } catch (error) {
+            console.log("Error in res.administrative_areas =========>>>" + error);
+        }
+
+        //setAdministrativeAreas(adminAreas);
+
+        let contactMap = {};
+
+        try {
+            res.contact.forEach((contc) => {
+                contactMap[contc.id] = contc;
+
+            });
+        } catch (error) {
+            console.log("Error in res.contact =========>>>" + error);
+        }
+
+        let updatedByMap = {};
+
+        try {
+            res.updatedBy.forEach((val) => {
+                updatedByMap[val.id] = val;
+
+            });
+        } catch (error) {
+            console.log("Error in res.updatedBy =========>>>" + error);
+        }
+
+
+        setContacts(contactMap);
+
+        let claimLst = [];
+
+        res.claims.forEach((claim) => {
+
+            try {
+                claim["updateByName"] = updatedByMap[claim.updated_by].first_name + " " + updatedByMap[claim.updated_by].third_name;
+            } catch (error) {
+                console.log("Error in refresh claim table =========>>>" + error);
+                claim["updateByName"] = "";
+            }
+
+            try {
+                claim["contactName"] = contactMap[claim.contact_id].first_name + " " + contactMap[claim.contact_id].last_name;
+                setContactName(claim["contactName"]);
+            } catch (error) {
+                console.log("Error in refresh claim table =========>>>" + error);
+
+                claim["contactName"] = "";
+                setContactName("");
+            }
+
+            try {
+                claim["address"] = contactMap[claim.contact_id].address.address;
+            } catch (error) {
+                console.log("Error in refresh claim table =========>>>" + error);
+                claim["address"] = "";
+            }
+
+            try {
+                claim["country"] = adminAreas[contactMap[claim.contact_id].address.country_code].name;
+            } catch (error) {
+                console.log("Error in refresh claim table =========>>>" + error);
+                claim["country"] = "";
+            }
+
+            try {
+                claim["county"] = adminAreas[contactMap[claim.contact_id].address.administrative_area].name;
+            } catch (error) {
+                console.log("Error in refresh claim table =========>>>" + error);
+                claim["county"] = "";
+            }
+
+            try {
+                claim["phone"] = contactMap[claim.contact_id].phone;
+            } catch (error) {
+                console.log("Error in refresh claim table =========>>>" + error);
+
+                claim["phone"] = "";
+            }
+
+            try {
+                claim["email"] = contactMap[claim.contact_id].email;
+            } catch (error) {
+                console.log("Error in refresh claim table =========>>>" + error);
+                claim["email"] = "";
+            }
+
+            claimLst.push(claim);
+
+        });
+
+        setClaimList(claimLst);
+
+    }, [res]);
+
 
     return (
 
@@ -89,7 +229,7 @@ const Page = () => {
                                     <th scope="col">Country</th>
                                     <th scope="col">County</th>
                                     <th scope="col">Address</th>
-                                    <th scope="col">Lastest Policy Date</th>
+                                    <th scope="col">Lastest Claim Date</th>
                                     <th scope="col">Total number of claims</th>
                                     <th scope="col">Last Editor</th>
                                     <th scope="col">Last Edited</th>
@@ -301,14 +441,14 @@ const Page = () => {
                                                 </div>
                                                 <div className="col-md-3">
                                                     <label htmlFor="copyName">Document type:</label>
-                                                    <select id="policy" className="form-select">
+                                                    <select id="claim" className="form-select">
                                                         <option defaultValue>None...</option>
                                                         <option>ID/Passort</option>
                                                         <option>Proposal</option>
                                                         <option>Accident form</option>
-                                                        <option>Policy</option>
+                                                        <option>Claim</option>
                                                         <option>Insurance Certificate</option>
-                                                        <option>Insurance Policy</option>
+                                                        <option>Insurance Claim</option>
                                                         <option>Medical Report</option>
                                                         <option>Birth Certificate</option>
                                                         <option>Police Abstract</option>
@@ -316,7 +456,7 @@ const Page = () => {
                                                 </div>
                                                 <div className="col-md-3">
                                                     <label htmlFor="copyName">Select folder:</label>
-                                                    <select onChange={(event) => creatNewImageFolder(event)} id="policy" className="form-select">
+                                                    <select onChange={(event) => creatNewImageFolder(event)} id="claim" className="form-select">
                                                         <option>Default</option>
                                                         <option role="separator" disabled="disabled">─────────────────────────</option>
                                                         <option value="new folder">Create New</option>
