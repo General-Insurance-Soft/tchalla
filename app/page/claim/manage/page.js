@@ -10,7 +10,7 @@ import ClaimForm from "../claim-form";
 import ClaimLoader from "./claim-loader";
 
 //fetchClaimData
-import { fetchClaimData, fetchDocumentTypes, fetchPaymentMethods, getClaimByContact } from "../../../lib/service/model";
+import { fetchClaimData, fetchDocumentTypes, fetchPaymentMethods, getClaimByContact, getClaim } from "../../../lib/service/model";
 
 
 const Page = () => {
@@ -68,6 +68,27 @@ const Page = () => {
         setRes(res);
     };
 
+    const fetchSubClaim = async (claimId) => {
+        let claim = await getClaim(claimId);
+        if ('message' in claim) {
+            setMessageStatus(claim.message);
+
+            if (claimStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(claimStatusModalRef.current);
+                modal.show();
+            }
+            return;
+        }
+
+        setSelectedClaim(claim)
+        setEditFormDetails(
+            "Edit claim: " + claim["claim_number"] + " " + " of policy no.: " + claim["policy_number"]
+        );
+        setClaimDate(claim.claim_date)
+        setClaimNumber(claim.claim_number)
+        setPaymentModeId(claim.payment_method);
+        setShowOptionalClaimSelectSpinner(false);
+    }
 
     useEffect(() => {
 
@@ -281,7 +302,7 @@ const Page = () => {
                                                                 setSelectedClaim(val)
                                                                 setContactName(val["contactName"]);
                                                                 setEditFormDetails(
-                                                                    "Edit claim: " + val[claim_number] + " " + " of policy no.: " + val["policy_number"]
+                                                                    "Edit claim: " + val["claim_number"] + " " + " of policy no.: " + val["policy_number"]
                                                                 );
                                                                 setClaimDate(val.claim_date)
                                                                 setClaimNumber(val.claim_number)
