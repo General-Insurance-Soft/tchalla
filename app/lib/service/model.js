@@ -377,3 +377,7 @@ export const saveClaimData = async (data) => {
 export const fetchClaimData = async (page, size) => {
     return await dataFetch(`${baseServerUrl}/claim-service/api/v1/claim/get-claims?page=${page}&size=${size}`, "claim list");
 }
+
+export const getClaimByContact = async (id) => {
+    return await dataFetch(`${baseServerUrl}/claim-service/api/v1/claim/get-by-contact?id=${id}`, "claim get by contact");
+}
