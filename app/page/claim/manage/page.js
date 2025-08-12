@@ -109,7 +109,7 @@ const Page = () => {
 
         if ('message' in saveRes) {
             setMessageStatus(saveRes.message);
-
+            fetchAllClaimData();
             if (claimStatusModalRef.current) {
                 const modal = new window.bootstrap.Modal(claimStatusModalRef.current);
                 modal.show();
@@ -383,10 +383,11 @@ const Page = () => {
 
                                         <ClaimLoader action={"edit"}
                                             selectedContactClaims={selectedContactClaims}
-                                            setShowOptionalPolicySelectSpinner={setShowOptionalPolicySelectSpinner}
                                             fetchSubClaim={fetchSubClaim}
                                             showOptionalPolicySelectSpinner={showOptionalPolicySelectSpinner}
                                             selectedClaim={selectedClaim}
+                                            setShowOptionalClaimSelectSpinner={setShowOptionalClaimSelectSpinner}
+                                            showOptionalClaimSelectSpinner={showOptionalClaimSelectSpinner}
                                         />
 
                                     </div>
