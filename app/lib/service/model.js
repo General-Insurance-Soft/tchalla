@@ -387,3 +387,13 @@ export const getClaimByContact = async (id) => {
 export const getClaim = async (id) => {
     return await dataFetch(`${baseServerUrl}/claim-service/api/v1/claim/get?id=${id}`, "claim get");
 }
+
+//updateClaimData
+
+export const updateClaimData = async (data, id) => {
+    return await dataPost(`${baseServerUrl}/claim-service/api/v1/claim/update?id=${id}`, data, "claim update", "PUT");
+}
+
+export const deleteClaimById = async (id) => {
+    return await dataDeleteById(`${baseServerUrl}/claim-service/api/v1/claim/delete?id=${id}`, "claim delete");
+}

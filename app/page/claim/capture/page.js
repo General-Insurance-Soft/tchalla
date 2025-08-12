@@ -31,6 +31,8 @@ const Page = () => {
     const claimStatusModalRef = useRef(null);
     const dropdownRef = useRef(null);
     const [modalRef, setModalRef] = useState(null);
+    //claimStatus
+    const [claimStatus, setClaimStatus] = useState(null);
 
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
@@ -78,7 +80,8 @@ const Page = () => {
             "contact_id": contactId,
             "payment_method": paymentModeId,
             "claim_number": claimReference,
-            "claim_date": claimDate
+            "claim_date": claimDate,
+            "claim_status": claimStatus
         };
 
         let saveRes = await saveClaimData(claimData);
@@ -102,6 +105,7 @@ const Page = () => {
         setPolicyNumber('policy reference number');
         setCertificateNumber('');
         setContactId('');
+        setClaimStatus(null);
     }
 
 
@@ -260,6 +264,8 @@ const Page = () => {
                         paymentModes={paymentModes}
                         claimAction ={claimAction}
                         setClaimAction={setClaimAction}
+                        claimStatus={claimStatus}
+                        setClaimStatus={setClaimStatus}
                     />
 
                 </div>

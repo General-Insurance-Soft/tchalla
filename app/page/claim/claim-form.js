@@ -16,9 +16,19 @@ const Page = (
         setClaimDate,
         paymentModes,
         claimAction,
-        setClaimAction
+        setClaimAction,
+        claimStatus,
+        setClaimStatus
     }
+
 ) => {
+
+    let claimStatuses = [
+        { id: "New", name: "New" },
+        { id: "Approved", name: "Approved" },
+        { id: "Rejected", name: "Rejected" }
+    ];
+
     return (
         <>
             <form className="g-3">
@@ -60,6 +70,28 @@ const Page = (
                             value={claimDate}
                             onChange={(e) => setClaimDate(e.target.value)}
                         />
+                    </div>
+
+                </div>
+
+                <div className="row mb-3">
+                    <div className="col-md-4">
+                        Claim status: <select id="claim-status" className="form-select"
+                            value={claimStatus}
+                            onChange={(e) => setClaimStatus(e.target.value)}
+                        >
+
+                            {claimAction != "edit" ?
+                                <option value="">Select status...</option> : ""
+                            }
+                            {
+                                Array.isArray(claimStatuses) && claimStatuses.map((status) => (
+                                    <option key={status.id} value={status.id}>
+                                        {status.name}
+                                    </option>
+                                ))
+                            }
+                        </select>
                     </div>
 
                 </div>

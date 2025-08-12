@@ -8,9 +8,10 @@ import withAuth from "../../../lib/service/with_auth";
 import ClaimStatusModal from '../claim-status-message';
 import ClaimForm from "../claim-form";
 import ClaimLoader from "./claim-loader";
+import DeleteClaim from "./delete-claim";
 
 //fetchClaimData
-import { fetchClaimData, fetchDocumentTypes, fetchPaymentMethods, getClaimByContact, getClaim } from "../../../lib/service/model";
+import { fetchClaimData, fetchDocumentTypes, fetchPaymentMethods, getClaimByContact, getClaim, updateClaimData, deleteClaimById } from "../../../lib/service/model";
 
 
 const Page = () => {
@@ -26,6 +27,8 @@ const Page = () => {
     const [claimDate, setClaimDate] = useState("");
     const [claimNumber, setClaimNumber] = useState("");
     const [selectedContactClaims, setSelectedContactClaims] = useState([]);
+    //contact_id
+    const [contactId, setContactId] = useState(0);
 
     const [paymentModes, setPaymentModes] = useState([]);
     const [documentTypes, setDocumentTypes] = useState([]);
@@ -37,10 +40,10 @@ const Page = () => {
     const [showOptionalClaimSelectSpinner, setShowOptionalClaimSelectSpinner] = useState(false);
     const [editFormDetails, setEditFormDetails] = useState("");
 
-    const [claimReference, setClaimReference] = useState("");
     const [paymentModeId, setPaymentModeId] = useState("");
     const [showOptionalPolicySelectSpinner, setShowOptionalPolicySelectSpinner] = useState(false);
-    const [selectedPolicy, setSelectedPolicy] = useState({});
+    const [claimStatus, setClaimStatus] = useState("");
+    const [policyNumber, setPolicyNumber] = useState("");
 
     const creatNewImageFolder = (event) => {
 
@@ -84,11 +87,76 @@ const Page = () => {
         setEditFormDetails(
             "Edit claim: " + claim["claim_number"] + " " + " of policy no.: " + claim["policy_number"]
         );
-        setClaimDate(claim.claim_date)
-        setClaimNumber(claim.claim_number)
+        setPolicyNumber(claim.policy_number);
+        setClaimDate(claim.claim_date);
+        setClaimNumber(claim.claim_number);
         setPaymentModeId(claim.payment_method);
+        setContactId(claim.contact_id);
+        setClaimStatus(claim.claim_status);
         setShowOptionalClaimSelectSpinner(false);
     }
+
+    const handleUpdateClaim = async () => {
+        const claimData = {
+            "policy_number": policyNumber,
+            "contact_id": contactId,
+            "payment_method": paymentModeId,
+            "claim_number": claimNumber,
+            "claim_date": claimDate,
+            "claim_status": claimStatus
+        };
+
+        let saveRes = await updateClaimData(claimData, selectedClaim.id);
+
+        if ('message' in saveRes) {
+            setMessageStatus(saveRes.message);
+            fetchAllClaimData();
+            if (claimStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(claimStatusModalRef.current);
+                modal.show();
+            }
+
+            return;
+        }
+    };
+
+    const deleteClaim = async () => {
+        if (selectedClaim == null) return
+
+        let res = await deleteClaimById(selectedClaim.id);
+        console.log("delete claim res", res);
+        setMessageStatus(res.message);
+        fetchAllClaimData();
+        // Show the ClaimStatusModal
+        if (claimStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(claimStatusModalRef.current);
+            modal.show();
+        }
+    }
+
+    const resetSelectedClaim = () => {
+        setSelectedClaim({});
+        setShowOptionalClaimSelectSpinner(false);
+        setShowOptionalPolicySelectSpinner(false);
+        setShowOptionalClaimSelectSpinner(false);
+        setShowOptionalPolicySelectSpinner(false);
+        setShowEditForm(false);
+        setClaimAction("edit");
+        setClaimDate("");
+        setClaimNumber("");
+        setPolicyNumber("");
+        setPaymentModeId("");
+        setContactId(0);
+        setClaimStatus("");
+        setEditFormDetails("");
+        setContactName("");
+        setSelectedContactClaims([]);
+        setClaimNumber("");
+        setClaimDate("");
+        setClaimStatus("");
+        setPolicyNumber("");
+    }
+
 
     useEffect(() => {
 
@@ -288,7 +356,7 @@ const Page = () => {
                                                 <td>{val.claim_count}</td>
                                                 <td>{val["updateByName"]}</td>
                                                 <td>{val.updated_at}</td>
-                                                <td><span className="badge bg-info">New</span></td>
+                                                <td><span className="badge bg-info">{val.claim_status}</span></td>
                                                 {/* <td><span className="badge bg-danger">Cancelled</span></td>
                                                 <td><span className="badge bg-success">Paid</span></td>
                                                 <td><span className="badge bg-warning">Review</span></td>
@@ -305,7 +373,10 @@ const Page = () => {
                                                                     "Edit claim: " + val["claim_number"] + " " + " of policy no.: " + val["policy_number"]
                                                                 );
                                                                 setClaimDate(val.claim_date)
-                                                                setClaimNumber(val.claim_number)
+                                                                setClaimNumber(val.claim_number);
+                                                                setClaimStatus(val.claim_status);
+                                                                setContactId(val.contact_id);
+                                                                setPolicyNumber(val.policy_number);
                                                                 getClaimByContact(val.contact_id).then((res) => {
                                                                     setSelectedContactClaims(res)
                                                                 })
@@ -351,10 +422,12 @@ const Page = () => {
 
                                         <ClaimLoader action={"edit"}
                                             selectedContactClaims={selectedContactClaims}
-                                            setShowOptionalPolicySelectSpinner={setShowOptionalPolicySelectSpinner}
                                             fetchSubClaim={fetchSubClaim}
                                             showOptionalPolicySelectSpinner={showOptionalPolicySelectSpinner}
                                             selectedClaim={selectedClaim}
+                                            setShowOptionalClaimSelectSpinner={setShowOptionalClaimSelectSpinner}
+                                            showOptionalClaimSelectSpinner={showOptionalClaimSelectSpinner}
+
                                         />
 
                                     </div>
@@ -365,7 +438,7 @@ const Page = () => {
                                             onClick={
                                                 (event) => {
                                                     setShowEditForm(false)
-                                                    updatePolicy(event);
+                                                    handleUpdateClaim(event);
                                                 }
                                             }
 
@@ -385,6 +458,8 @@ const Page = () => {
                                     paymentModes={paymentModes}
                                     claimAction={claimAction}
                                     setClaimAction={setClaimAction}
+                                    claimStatus={claimStatus}
+                                    setClaimStatus={setClaimStatus}
                                 />
 
                             </div>
@@ -397,6 +472,15 @@ const Page = () => {
 
                     <NewImageFolder modalRefVar={modalRef} />
                     <ClaimStatusModal ref={claimStatusModalRef} messageStatus={messageStatus} />
+                    <DeleteClaim
+                        selectedContactClaims={selectedContactClaims}
+                        fetchSubClaim={fetchSubClaim}
+                        showOptionalPolicySelectSpinner={showOptionalPolicySelectSpinner}
+                        selectedClaim={selectedClaim}
+                        setShowOptionalClaimSelectSpinner={setShowOptionalClaimSelectSpinner}
+                        showOptionalClaimSelectSpinner={showOptionalClaimSelectSpinner}
+                        deleteClaim={deleteClaim}
+                        resetSelectedClaim={resetSelectedClaim} />
                 </div>
             </div >
         </>
