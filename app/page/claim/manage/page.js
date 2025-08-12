@@ -41,6 +41,7 @@ const Page = () => {
     const [paymentModeId, setPaymentModeId] = useState("");
     const [showOptionalPolicySelectSpinner, setShowOptionalPolicySelectSpinner] = useState(false);
     const [selectedPolicy, setSelectedPolicy] = useState({});
+    const [claimStatus, setClaimStatus] = useState("");
 
     const creatNewImageFolder = (event) => {
 
@@ -89,6 +90,30 @@ const Page = () => {
         setPaymentModeId(claim.payment_method);
         setShowOptionalClaimSelectSpinner(false);
     }
+
+    const handleUpdateClaim = async () => {
+            const claimData = {
+                "policy_number": policyNumber,
+                "contact_id": contactId,
+                "payment_method": paymentModeId,
+                "claim_number": claimReference,
+                "claim_date": claimDate,
+                "claim_status": claimStatus
+            };
+    
+            let saveRes = await saveClaimData(claimData);
+    
+            if ('message' in saveRes) {
+                setMessageStatus(saveRes.message);
+    
+                if (claimStatusModalRef.current) {
+                    const modal = new window.bootstrap.Modal(claimStatusModalRef.current);
+                    modal.show();
+                }
+    
+                return;
+            }
+        };
 
     useEffect(() => {
 
@@ -306,6 +331,7 @@ const Page = () => {
                                                                 );
                                                                 setClaimDate(val.claim_date)
                                                                 setClaimNumber(val.claim_number)
+                                                                setClaimStatus(val.claim_status);
                                                                 getClaimByContact(val.contact_id).then((res) => {
                                                                     setSelectedContactClaims(res)
                                                                 })
@@ -385,6 +411,8 @@ const Page = () => {
                                     paymentModes={paymentModes}
                                     claimAction={claimAction}
                                     setClaimAction={setClaimAction}
+                                    claimStatus={claimStatus}
+                                    setClaimStatus={setClaimStatus}
                                 />
 
                             </div>
