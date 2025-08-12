@@ -1,5 +1,5 @@
 
-export default function ClaimLoader({ action, selectedContactClaims, fetchSubClaim, showOptionalPolicySelectSpinner, selectedClaim, setShowOptionalPolicySelectSpinner }) {
+export default function ClaimLoader({ action, selectedContactClaims, fetchSubClaim, showOptionalClaimSelectSpinner, selectedClaim, setShowOptionalClaimSelectSpinner }) {
 
     return (
 
@@ -11,16 +11,16 @@ export default function ClaimLoader({ action, selectedContactClaims, fetchSubCla
 
                     {
                         selectedContactClaims.length > 0 &&
-                        <select id="insurance" value={selectedClaim.id} className="form-select"
+                        <select id="claim" value={selectedClaim.id} className="form-select"
                             onChange={(event) => {
-                                setShowOptionalPolicySelectSpinner(true);
+                                setShowOptionalClaimSelectSpinner(true);
                                 fetchSubClaim(event.target.value);
                             }
                             }>
                             {
-                                selectedContactClaims.map((policy, index) => {
+                                selectedContactClaims.map((claim, index) => {
                                     return (
-                                        <option key={index} value={policy.id}>"Ref: " {policy.policy_number} " date: " {policy.start_date}</option>
+                                        <option key={index} value={claim.id}>"Ref: " {claim.claim_number} " date: " {claim.claim_date}</option>
                                     );
                                 })
                             }
@@ -30,7 +30,7 @@ export default function ClaimLoader({ action, selectedContactClaims, fetchSubCla
                 </div>
 
                 {
-                    showOptionalPolicySelectSpinner &&
+                    showOptionalClaimSelectSpinner &&
                     <div
                         className="spinner-border text-primary"
                         style={{
