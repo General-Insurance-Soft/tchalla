@@ -1,6 +1,19 @@
 import { useEffect } from "react";
 
-export default function PaymentForm({ paymentAction }) {
+export default function PaymentForm({
+    paymentAction,
+    referenceNumber,
+    paymentMode,
+    amount,
+    paymentDate,
+    smsSent,
+    setReferenceNumber,
+    setPaymentMode,
+    setAmount,
+    setPaymentDate,
+    setSmsSent,
+    savePayment
+}) {
 
     useEffect(() => {
         console.log("changing options " + paymentAction);
@@ -90,81 +103,42 @@ export default function PaymentForm({ paymentAction }) {
 
                             <div className="col-md-4">
                                 <label htmlFor="Passport">Ref No:</label>
-                                {paymentAction === "add" ?
-                                    <input id="refNo" type="text" className="form-control" />
-                                    :
-                                    <input id="refNo" type="text" className="form-control" placeholder="#AJFJD201H" />
-                                }
+
+                                <input
+                                    id="refNo" type="text"
+                                    value={referenceNumber} className="form-control"
+                                    placeholder={paymentAction === "add" ? "#AJFJD201H" : ""}
+                                    onChange={(e) => setReferenceNumber(e.target.value)}
+                                />
 
                             </div>
 
                             <div className="col-md-4">
                                 <label htmlFor="Passport">Payment Mode:</label>
 
-                                <select id="inputState" className="form-select" key={paymentAction}>
-                                    {
-
-                                        paymentAction === "add" ?
-
-                                            [
-                                                <option key="0" value="0">...</option>,
-                                                <option key="2" value="2">Bank</option>,
-                                                <option key="1" value="1">Mpesa</option>
-                                            ]
-                                            :
-
-                                            [
-                                                <option key="2" value="2">Bank</option>,
-                                                <option key="1" value="1">Mpesa</option>
-                                            ]
-
-                                    }
-
+                                <select id="inputState" className="form-select"  value={paymentMode} onChange={(e) => setPaymentMode(e.target.value)}>
+                                    {paymentAction === "add" ? <option key="0" value="">...</option> : ''}
+                                    <option key="2" value="Bank">Bank</option>
+                                    <option key="1" value="Mpesa">Mpesa</option>
                                 </select>
 
                             </div>
                             <div className="col-md-4">
                                 <label htmlFor="Passport">Amount:</label>
-                                {paymentAction === "add" ?
-                                    <input id="amount" type="text" className="form-control" />
-                                    :
-                                    <input id="amount" type="text" className="form-control" placeholder="30,000" />
-                                }
-
+                                <input id="amount" type="text" className="form-control" value={amount} onChange={(e) => setAmount(e.target.value)} />
                             </div>
                             <div className="col-md-4">
                                 <label htmlFor="Passport">Payment Date:</label>
-                                {paymentAction === "add" ?
-                                    <input type="date"  key={paymentAction} className="form-control" />
-                                    :
-                                    <input type="date"  key={paymentAction} className="form-control" value="2024-10-22" />
-                                }
+                                <input type="date"  className="form-control" value={paymentDate} onChange={(e) => setPaymentDate(e.target.value)} />
 
                             </div>
                             <div className="col-md-4">
                                 <label htmlFor="Passport">SMS Sent:</label>
-
-                                <select id="inputState" className="form-select" key={paymentAction}>
-
-                                    {
-                                        paymentAction === "add" ?
-
-                                            [
-                                                <option key="0" value="0">...</option>,
-                                                <option key="2" value="2">No</option>,
-                                                <option key="1" value="1">Yes</option>
-                                            ]
-                                            :
-
-                                            [
-                                                <option key="2" value="2">No</option>,
-                                                <option key="1" value="1">Yes</option>
-                                            ]
-                                    }
-
-
+                                <select id="inputState" className="form-select" onChange={(e) => setSmsSent(e.target.value)}>
+                                    {paymentAction === "add" ? <option key="0">...</option> : ''}
+                                    <option key="2" value="No">No</option>,
+                                    <option key="1" value="yes">Yes</option>
                                 </select>
-
                             </div>
 
 
@@ -172,7 +146,10 @@ export default function PaymentForm({ paymentAction }) {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary">Save</button>
+                        <button
+                            type="button" className="btn btn-primary"
+                            onClick={(event) => savePayment(event)}
+                        >Save</button>
                     </div>
                 </div>
             </div>
