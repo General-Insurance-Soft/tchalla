@@ -1,16 +1,76 @@
 "use client";
 
-import { useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import DeletePayment from './delete-payment.js';
 import PaymentDetails from './payment-details.js';
 import PaymentForm from './payment-form.js';
 import withAuth from "../../../lib/service/with_auth";
-
+import { fetchPaymentData, savePaymentData } from "../../../lib/service/model";
+import PaymentStatusModal from "../payment-status-message";
 
 const Page = () => {
 
     const [paymentAction, setPaymentAction] = useState("add");
+    const [res, setRes] = useState([]);
+    const [messageStatus, setMessageStatus] = useState("");
+    const paymentStatusModalRef =useRef(null);
+
+
+    const [referenceNumber, setReferenceNumber] = useState("");
+    const [paymentMode, setPaymentMode] = useState("");
+    const [amount, setAmount] = useState(0);
+    const [paymentDate, setPaymentDate] = useState(new Date());
+    const [smsSent, setSmsSent] = useState(false);
+
+
+
+    const fetchAllPaymentData = async () => {
+        let res = await fetchPaymentData(0, 15);
+
+        if ('message' in res) {
+            setMessageStatus(res.message);
+
+            if (paymentStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(paymentStatusModalRef.current);
+                modal.show();
+            }
+            return;
+        }
+
+        setRes(res);
+    };
+
+    useEffect(() => {
+        fetchAllPaymentData();
+    }, []);
+
+    const savePayment = async (event) => {
+
+        event.preventDefault();
+
+        let data = {
+            reference_number: referenceNumber,
+            payment_mode: paymentMode,
+            amount: amount,
+            payment_date: paymentDate,
+            sms_sent: smsSent
+        }
+
+        let saveRes = await savePaymentData(data);
+
+        if ('message' in saveRes) {
+            setMessageStatus(saveRes.message);
+            fetchAllPaymentData();
+            if (paymentStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(paymentStatusModalRef.current);
+                modal.show();
+            }
+
+            return;
+        }
+
+    };
 
     return (
         <>
@@ -237,9 +297,23 @@ const Page = () => {
                 </div>
             </div>
 
-            <PaymentForm paymentAction={paymentAction} />
+            <PaymentForm
+                paymentAction={paymentAction}
+                referenceNumber={referenceNumber}
+                setReferenceNumber={setReferenceNumber}
+                paymentMode={paymentMode}
+                setPaymentMode={setPaymentMode}
+                amount={amount}
+                setAmount={setAmount}
+                paymentDate={paymentDate}
+                setPaymentDate={setPaymentDate}
+                smsSent={smsSent}
+                setSmsSent={setSmsSent}
+                savePayment={savePayment}
+            />
             <DeletePayment />
             <PaymentDetails />
+            <PaymentStatusModal ref={paymentStatusModalRef} messageStatus={messageStatus} />
         </>
 
     );
