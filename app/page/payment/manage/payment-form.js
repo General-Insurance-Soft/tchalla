@@ -1,4 +1,9 @@
-import { useEffect } from "react";
+"use client"
+
+import { useEffect, useState, useRef } from "react";
+
+import { fetchSearchedContacts } from "../../../lib/service/model";
+
 
 export default function PaymentForm({
     paymentAction,
@@ -15,10 +20,34 @@ export default function PaymentForm({
     savePayment
 }) {
 
+    const [searchText, setSearchText] = useState('');
+    const [searchedContacts, setSearchedContacts] = useState([]);
+    const dropdownRef = useRef(null);
+    const [searchedContactId, setSearchedContactId] = useState([]);
+
+    let [firstName, setFirstName] = useState('');
+    let [secondName, setSecondName] = useState('');
+    let [thirdName, setThirdName] = useState('');
+    let [phoneNumber, setPhoneNumber] = useState('');
+    let [email, setEmail] = useState('');
+
     useEffect(() => {
         console.log("changing options " + paymentAction);
         // Update options based on the paymentAction prop
     }, [paymentAction]);
+
+
+    useEffect(() => {
+        const delayDebounce = setTimeout(() => {
+            const fetchContacts = async () => {
+                let res = await fetchSearchedContacts(searchText);
+                setSearchedContacts(res);
+            };
+            fetchContacts();
+        }, 500); // Wait 500ms after user stops typing
+
+        return () => clearTimeout(delayDebounce);
+    }, [searchText]);
 
     return (
 
@@ -41,7 +70,83 @@ export default function PaymentForm({
                             <div className="col-md-12">
 
                                 {paymentAction === "add" ?
-                                    <input id="secondName" type="text" className="form-control" placeholder="Search user by name, ID/Passort, Phone, Email etc" />
+                                    <>
+                                        {/* Search Input */}
+                                        <div className="col-12 col-md-5 position-relative">
+                                            <div className="input-group">
+                                                <span className="input-group-text" id="search-icon">
+                                                    <i className="bi bi-search"></i>
+                                                </span>
+                                                <input
+                                                    id="search"
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="Search by Name, ID/Passport, Phone, Email"
+                                                    aria-label="Search"
+                                                    aria-describedby="search-icon"
+                                                    onChange={(e) => setSearchText(e.target.value)}
+                                                />
+                                            </div>
+
+                                            {/* Suggestion Dropdown */}
+                                            {searchedContacts?.length > 0 && (
+                                                <ul
+                                                    className="list-group mt-1 position-absolute w-100"
+                                                    style={{
+                                                        zIndex: 1000,
+                                                        maxHeight: "200px",
+                                                        overflowY: "auto",
+                                                        backgroundColor: "#fff",
+                                                        border: "1px solid #ccc",
+                                                        borderRadius: "4px",
+                                                        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                                                    }}
+                                                    ref={dropdownRef}
+                                                >
+                                                    {searchedContacts.map((c) => (
+                                                        <li
+                                                            key={c.id}
+                                                            className="list-group-item"
+                                                            style={{
+                                                                cursor: "pointer",
+                                                                transition: "background-color 0.2s",
+                                                            }}
+                                                            onClick={() => {
+                                                                setFirstName(c.first_name);
+                                                                setThirdName(c.last_name);
+                                                                setPhoneNumber(c.phone);
+                                                                setSearchedContactId(c.id);
+                                                            }}
+                                                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f5f5f5"}
+                                                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#fff"}
+                                                        >
+                                                            {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </div>
+
+                                        {/* Selected Contact Preview */}
+                                        {
+                                            firstName && thirdName && phoneNumber && (
+                                                <div className="col-12 col-md-5">
+                                                    <div
+                                                        className="p-2 border rounded text-dark"
+                                                        style={{
+                                                            fontWeight: "500",
+                                                            overflowX: "auto",
+                                                            whiteSpace: "nowrap",
+                                                            textColor: "#000",
+                                                        }}
+                                                    >
+                                                        {firstName} {thirdName} - {phoneNumber}
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+
+                                    </>
                                     :
                                     ""
                                 }
@@ -116,7 +221,7 @@ export default function PaymentForm({
                             <div className="col-md-4">
                                 <label htmlFor="Passport">Payment Mode:</label>
 
-                                <select id="inputState" className="form-select"  value={paymentMode} onChange={(e) => setPaymentMode(e.target.value)}>
+                                <select id="inputState" className="form-select" value={paymentMode} onChange={(e) => setPaymentMode(e.target.value)}>
                                     {paymentAction === "add" ? <option key="0" value="">...</option> : ''}
                                     <option key="2" value="Bank">Bank</option>
                                     <option key="1" value="Mpesa">Mpesa</option>
@@ -129,7 +234,7 @@ export default function PaymentForm({
                             </div>
                             <div className="col-md-4">
                                 <label htmlFor="Passport">Payment Date:</label>
-                                <input type="date"  className="form-control" value={paymentDate} onChange={(e) => setPaymentDate(e.target.value)} />
+                                <input type="date" className="form-control" value={paymentDate} onChange={(e) => setPaymentDate(e.target.value)} />
 
                             </div>
                             <div className="col-md-4">
