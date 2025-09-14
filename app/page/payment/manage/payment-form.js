@@ -49,6 +49,19 @@ export default function PaymentForm({
         return () => clearTimeout(delayDebounce);
     }, [searchText]);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setSearchedContacts([]); // clear results
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [setSearchedContacts]);
+
     return (
 
         <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -71,82 +84,79 @@ export default function PaymentForm({
 
                                 {paymentAction === "add" ?
                                     <>
-                                        {/* Search Input */}
-                                        <div className="col-12 col-md-5 position-relative">
-                                            <div className="input-group">
-                                                <span className="input-group-text" id="search-icon">
-                                                    <i className="bi bi-search"></i>
-                                                </span>
-                                                <input
-                                                    id="search"
-                                                    type="text"
-                                                    className="form-control"
-                                                    placeholder="Search by Name, ID/Passport, Phone, Email"
-                                                    aria-label="Search"
-                                                    aria-describedby="search-icon"
-                                                    onChange={(e) => setSearchText(e.target.value)}
-                                                />
-                                            </div>
+                                        {/* Search + Selected Preview (side-by-side on md+, stacked on sm) */}
+                                        <div className="col-12">
+                                            <div className="d-flex flex-column flex-md-row align-items-stretch gap-2">
 
-                                            {/* Suggestion Dropdown */}
-                                            {searchedContacts?.length > 0 && (
-                                                <ul
-                                                    className="list-group mt-1 position-absolute w-100"
-                                                    style={{
-                                                        zIndex: 1000,
-                                                        maxHeight: "200px",
-                                                        overflowY: "auto",
-                                                        backgroundColor: "#fff",
-                                                        border: "1px solid #ccc",
-                                                        borderRadius: "4px",
-                                                        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
-                                                    }}
-                                                    ref={dropdownRef}
-                                                >
-                                                    {searchedContacts.map((c) => (
-                                                        <li
-                                                            key={c.id}
-                                                            className="list-group-item"
-                                                            style={{
-                                                                cursor: "pointer",
-                                                                transition: "background-color 0.2s",
-                                                            }}
-                                                            onClick={() => {
-                                                                setFirstName(c.first_name);
-                                                                setThirdName(c.last_name);
-                                                                setPhoneNumber(c.phone);
-                                                                setSearchedContactId(c.id);
-                                                            }}
-                                                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f5f5f5"}
-                                                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#fff"}
-                                                        >
-                                                            {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            )}
-                                        </div>
-
-                                        {/* Selected Contact Preview */}
-                                        {
-                                            firstName && thirdName && phoneNumber && (
-                                                <div className="col-12 col-md-5">
-                                                    <div
-                                                        className="p-2 border rounded text-dark"
-                                                        style={{
-                                                            fontWeight: "500",
-                                                            overflowX: "auto",
-                                                            whiteSpace: "nowrap",
-                                                            textColor: "#000",
-                                                        }}
-                                                    >
-                                                        {firstName} {thirdName} - {phoneNumber}
+                                                {/* Search Input (keeps dropdown anchored) */}
+                                                <div className="position-relative flex-grow-1">
+                                                    <div className="input-group">
+                                                        <span className="input-group-text" id="search-icon">
+                                                            <i className="bi bi-search"></i>
+                                                        </span>
+                                                        <input
+                                                            id="search"
+                                                            type="text"
+                                                            className="form-control"
+                                                            placeholder="Search by Name, ID/Passport, Phone, Email"
+                                                            aria-label="Search"
+                                                            aria-describedby="search-icon"
+                                                            onChange={(e) => setSearchText(e.target.value)}
+                                                        />
                                                     </div>
-                                                </div>
-                                            )
-                                        }
 
+                                                    {/* Suggestion Dropdown */}
+                                                    {searchedContacts?.length > 0 && (
+                                                        <ul
+                                                            className="list-group mt-1 position-absolute w-100"
+                                                            style={{
+                                                                zIndex: 1000,
+                                                                maxHeight: "200px",
+                                                                overflowY: "auto",
+                                                                backgroundColor: "#fff",
+                                                                border: "1px solid #ccc",
+                                                                borderRadius: "4px",
+                                                                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                                                            }}
+                                                            ref={dropdownRef}
+                                                        >
+                                                            {searchedContacts.map((c) => (
+                                                                <li
+                                                                    key={c.id}
+                                                                    className="list-group-item"
+                                                                    style={{ cursor: "pointer", transition: "background-color 0.2s" }}
+                                                                    onClick={() => {
+                                                                        setFirstName(c.first_name);
+                                                                        setThirdName(c.last_name);
+                                                                        setPhoneNumber(c.phone);
+                                                                        setSearchedContactId(c.id);
+                                                                    }}
+                                                                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f5f5f5")}
+                                                                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#fff")}
+                                                                >
+                                                                    {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    )}
+                                                </div>
+
+                                                {/* Selected Contact Preview (sits to the right on md+) */}
+                                                {firstName && thirdName && phoneNumber && (
+                                                    <div className="d-flex align-items-center">
+                                                        <span
+                                                            className="px-2 py-1 border rounded bg-light text-dark text-truncate d-inline-block"
+                                                            style={{ maxWidth: 320 }}
+                                                            title={`${firstName} ${thirdName} - ${phoneNumber}`} // full text on hover
+                                                        >
+                                                            {firstName} {thirdName} - {phoneNumber}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
                                     </>
+
                                     :
                                     ""
                                 }
