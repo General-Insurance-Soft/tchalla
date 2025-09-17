@@ -17,14 +17,14 @@ export default function PaymentForm({
     setAmount,
     setPaymentDate,
     setSmsSent,
-    savePayment
+    savePayment,
+    setContactId
 }) {
 
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
     const dropdownRef = useRef(null);
 
-    let [searchedContactId, setSearchedContactId] = useState([]);
     let [firstName, setFirstName] = useState('');
     let [secondName, setSecondName] = useState('');
     let [thirdName, setThirdName] = useState('');
@@ -67,7 +67,6 @@ export default function PaymentForm({
     let resetForm = () => {
         setSearchText('');
         setSearchedContacts([]);
-        setSearchedContactId('');
         setFirstName('');
         setSecondName('');
         setThirdName('');
@@ -79,6 +78,7 @@ export default function PaymentForm({
         setAmount('');
         setPaymentDate('');
         setSmsSent('');
+        setContactId('');
     }
 
     return (
@@ -155,7 +155,7 @@ export default function PaymentForm({
                                                                             setFirstName(c.first_name);
                                                                             setThirdName(c.last_name);
                                                                             setPhoneNumber(c.phone);
-                                                                            setSearchedContactId(c.id);
+                                                                            setContactId(c.id);
                                                                             setSecondName(c.second_name);
                                                                             setIdNumber(c.id_number);
                                                                         }}
@@ -303,7 +303,8 @@ export default function PaymentForm({
                         >Close</button>
                         <button
                             type="button" className="btn btn-primary"
-                            onClick={(event) => savePayment(event)}
+                            onClick={
+                                (event) => savePayment(event)}
                         >Save</button>
                     </div>
                 </div>
