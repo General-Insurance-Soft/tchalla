@@ -23,12 +23,13 @@ export default function PaymentForm({
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
     const dropdownRef = useRef(null);
-    const [searchedContactId, setSearchedContactId] = useState([]);
 
+    let [searchedContactId, setSearchedContactId] = useState([]);
     let [firstName, setFirstName] = useState('');
     let [secondName, setSecondName] = useState('');
     let [thirdName, setThirdName] = useState('');
     let [phoneNumber, setPhoneNumber] = useState('');
+    let [idNumber, setIdNumber] = useState('');
     let [email, setEmail] = useState('');
 
     useEffect(() => {
@@ -63,6 +64,23 @@ export default function PaymentForm({
         };
     }, [setSearchedContacts]);
 
+    let resetForm = () => {
+        setSearchText('');
+        setSearchedContacts([]);
+        setSearchedContactId('');
+        setFirstName('');
+        setSecondName('');
+        setThirdName('');
+        setPhoneNumber('');
+        setIdNumber('');
+        setEmail('');
+        setReferenceNumber('');
+        setPaymentMode('');
+        setAmount('');
+        setPaymentDate('');
+        setSmsSent('');
+    }
+
     return (
 
         <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -76,7 +94,11 @@ export default function PaymentForm({
                                 "Edit payment"
                             }
                         </h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button
+                            type="button" className="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"
+                            onClick={() => resetForm()}
+                        ></button>
                     </div>
                     <div className="modal-body">
                         <form className="row g-3">
@@ -103,6 +125,7 @@ export default function PaymentForm({
                                                             aria-label="Search"
                                                             aria-describedby="search-icon"
                                                             onChange={(e) => setSearchText(e.target.value)}
+                                                            value={searchText}
                                                         />
                                                     </div>
 
@@ -133,6 +156,8 @@ export default function PaymentForm({
                                                                             setThirdName(c.last_name);
                                                                             setPhoneNumber(c.phone);
                                                                             setSearchedContactId(c.id);
+                                                                            setSecondName(c.second_name);
+                                                                            setIdNumber(c.id_number);
                                                                         }}
                                                                         onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f5f5f5")}
                                                                         onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#fff")}
@@ -177,7 +202,7 @@ export default function PaymentForm({
                             <div className="col-md-4">
                                 <label htmlFor="firstName"> First name:</label>
                                 {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
+                                    <input className="form-control" type="text" value={firstName} aria-label="First Name" disabled ></input>
                                     :
                                     <>
                                         <input id="firstName" type="text" className="form-control" value="Tom" />
@@ -189,7 +214,7 @@ export default function PaymentForm({
                             <div className="col-md-4">
                                 <label htmlFor="phone"> Second name:</label>
                                 {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
+                                    <input className="form-control" type="text" value={secondName} aria-label="Second Name" disabled ></input>
                                     :
                                     <>
 
@@ -202,7 +227,7 @@ export default function PaymentForm({
                             <div className="col-md-4">
                                 <label htmlFor="thirdName"> Third Name:</label>
                                 {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
+                                    <input className="form-control" type="text" value={thirdName} aria-label="Third Name" disabled ></input>
                                     :
                                     <>
 
@@ -216,7 +241,7 @@ export default function PaymentForm({
                             <div className="col-md-4">
                                 <label htmlFor="Passport"> Id/Passport:</label>
                                 {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
+                                    <input className="form-control" type="text" value={idNumber} aria-label="ID/Passport Name" disabled ></input>
                                     :
                                     <>
 
@@ -271,7 +296,11 @@ export default function PaymentForm({
                         </form>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button
+                            type="button" className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                            onClick={() => resetForm()}
+                        >Close</button>
                         <button
                             type="button" className="btn btn-primary"
                             onClick={(event) => savePayment(event)}
