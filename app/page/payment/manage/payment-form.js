@@ -24,6 +24,7 @@ export default function PaymentForm({
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
     const dropdownRef = useRef(null);
+    const searchInputRef = useRef(null);
 
     let [firstName, setFirstName] = useState('');
     let [secondName, setSecondName] = useState('');
@@ -52,7 +53,16 @@ export default function PaymentForm({
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            if (
+                (
+                    dropdownRef.current &&
+                    !dropdownRef.current.contains(event.target) &&
+                    searchInputRef.current &&
+                    !searchInputRef.current.contains(event.target)
+                )
+
+
+            ) {
                 setSearchedContacts([]); // clear results
                 setSearchText(''); // clear search text 
             }
@@ -126,6 +136,7 @@ export default function PaymentForm({
                                                             aria-describedby="search-icon"
                                                             onChange={(e) => setSearchText(e.target.value)}
                                                             value={searchText}
+                                                            ref={searchInputRef}
                                                         />
                                                     </div>
 
