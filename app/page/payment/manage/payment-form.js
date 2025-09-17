@@ -53,6 +53,7 @@ export default function PaymentForm({
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setSearchedContacts([]); // clear results
+                setSearchText(''); // clear search text 
             }
         };
 
@@ -106,7 +107,8 @@ export default function PaymentForm({
                                                     </div>
 
                                                     {/* Suggestion Dropdown */}
-                                                    {searchedContacts?.length > 0 && (
+
+                                                    {(Array.isArray(searchedContacts) && (searchedContacts.length > 0 || (searchText?.trim()?.length > 0))) && (
                                                         <ul
                                                             className="list-group mt-1 position-absolute w-100"
                                                             style={{
@@ -120,25 +122,34 @@ export default function PaymentForm({
                                                             }}
                                                             ref={dropdownRef}
                                                         >
-                                                            {searchedContacts.map((c) => (
-                                                                <li
-                                                                    key={c.id}
-                                                                    className="list-group-item"
-                                                                    style={{ cursor: "pointer", transition: "background-color 0.2s" }}
-                                                                    onClick={() => {
-                                                                        setFirstName(c.first_name);
-                                                                        setThirdName(c.last_name);
-                                                                        setPhoneNumber(c.phone);
-                                                                        setSearchedContactId(c.id);
-                                                                    }}
-                                                                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f5f5f5")}
-                                                                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#fff")}
-                                                                >
-                                                                    {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
+                                                            {searchedContacts.length > 0 ? (
+                                                                searchedContacts.map((c) => (
+                                                                    <li
+                                                                        key={c.id}
+                                                                        className="list-group-item"
+                                                                        style={{ cursor: "pointer", transition: "background-color 0.2s" }}
+                                                                        onClick={() => {
+                                                                            setFirstName(c.first_name);
+                                                                            setThirdName(c.last_name);
+                                                                            setPhoneNumber(c.phone);
+                                                                            setSearchedContactId(c.id);
+                                                                        }}
+                                                                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f5f5f5")}
+                                                                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#fff")}
+                                                                    >
+                                                                        {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
+                                                                    </li>
+                                                                ))
+                                                            ) :
+
+                                                                (searchText?.trim()?.length > 0) &&
+                                                                <li className="list-group-item text-muted" aria-live="polite">
+                                                                    No contact found
                                                                 </li>
-                                                            ))}
+                                                            }
                                                         </ul>
                                                     )}
+
                                                 </div>
 
                                                 {/* Selected Contact Preview (sits to the right on md+) */}
