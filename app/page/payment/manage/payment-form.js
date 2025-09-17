@@ -17,18 +17,19 @@ export default function PaymentForm({
     setAmount,
     setPaymentDate,
     setSmsSent,
-    savePayment
+    savePayment,
+    setContactId
 }) {
 
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
     const dropdownRef = useRef(null);
-    const [searchedContactId, setSearchedContactId] = useState([]);
 
     let [firstName, setFirstName] = useState('');
     let [secondName, setSecondName] = useState('');
     let [thirdName, setThirdName] = useState('');
     let [phoneNumber, setPhoneNumber] = useState('');
+    let [idNumber, setIdNumber] = useState('');
     let [email, setEmail] = useState('');
 
     useEffect(() => {
@@ -53,6 +54,7 @@ export default function PaymentForm({
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setSearchedContacts([]); // clear results
+                setSearchText(''); // clear search text 
             }
         };
 
@@ -61,6 +63,23 @@ export default function PaymentForm({
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [setSearchedContacts]);
+
+    let resetForm = () => {
+        setSearchText('');
+        setSearchedContacts([]);
+        setFirstName('');
+        setSecondName('');
+        setThirdName('');
+        setPhoneNumber('');
+        setIdNumber('');
+        setEmail('');
+        setReferenceNumber('');
+        setPaymentMode('');
+        setAmount('');
+        setPaymentDate('');
+        setSmsSent('');
+        setContactId('');
+    }
 
     return (
 
@@ -75,7 +94,11 @@ export default function PaymentForm({
                                 "Edit payment"
                             }
                         </h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button
+                            type="button" className="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"
+                            onClick={() => resetForm()}
+                        ></button>
                     </div>
                     <div className="modal-body">
                         <form className="row g-3">
@@ -102,11 +125,13 @@ export default function PaymentForm({
                                                             aria-label="Search"
                                                             aria-describedby="search-icon"
                                                             onChange={(e) => setSearchText(e.target.value)}
+                                                            value={searchText}
                                                         />
                                                     </div>
 
                                                     {/* Suggestion Dropdown */}
-                                                    {searchedContacts?.length > 0 && (
+
+                                                    {(Array.isArray(searchedContacts) && (searchedContacts.length > 0 || (searchText?.trim()?.length > 0))) && (
                                                         <ul
                                                             className="list-group mt-1 position-absolute w-100"
                                                             style={{
@@ -120,25 +145,36 @@ export default function PaymentForm({
                                                             }}
                                                             ref={dropdownRef}
                                                         >
-                                                            {searchedContacts.map((c) => (
-                                                                <li
-                                                                    key={c.id}
-                                                                    className="list-group-item"
-                                                                    style={{ cursor: "pointer", transition: "background-color 0.2s" }}
-                                                                    onClick={() => {
-                                                                        setFirstName(c.first_name);
-                                                                        setThirdName(c.last_name);
-                                                                        setPhoneNumber(c.phone);
-                                                                        setSearchedContactId(c.id);
-                                                                    }}
-                                                                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f5f5f5")}
-                                                                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#fff")}
-                                                                >
-                                                                    {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
+                                                            {searchedContacts.length > 0 ? (
+                                                                searchedContacts.map((c) => (
+                                                                    <li
+                                                                        key={c.id}
+                                                                        className="list-group-item"
+                                                                        style={{ cursor: "pointer", transition: "background-color 0.2s" }}
+                                                                        onClick={() => {
+                                                                            setFirstName(c.first_name);
+                                                                            setThirdName(c.last_name);
+                                                                            setPhoneNumber(c.phone);
+                                                                            setContactId(c.id);
+                                                                            setSecondName(c.second_name);
+                                                                            setIdNumber(c.id_number);
+                                                                        }}
+                                                                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f5f5f5")}
+                                                                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#fff")}
+                                                                    >
+                                                                        {c.first_name} {c.last_name} - {c.phone} - {c.id_number}
+                                                                    </li>
+                                                                ))
+                                                            ) :
+
+                                                                (searchText?.trim()?.length > 0) &&
+                                                                <li className="list-group-item text-muted" aria-live="polite">
+                                                                    No contact found
                                                                 </li>
-                                                            ))}
+                                                            }
                                                         </ul>
                                                     )}
+
                                                 </div>
 
                                                 {/* Selected Contact Preview (sits to the right on md+) */}
@@ -166,7 +202,7 @@ export default function PaymentForm({
                             <div className="col-md-4">
                                 <label htmlFor="firstName"> First name:</label>
                                 {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
+                                    <input className="form-control" type="text" value={firstName} aria-label="First Name" disabled ></input>
                                     :
                                     <>
                                         <input id="firstName" type="text" className="form-control" value="Tom" />
@@ -178,7 +214,7 @@ export default function PaymentForm({
                             <div className="col-md-4">
                                 <label htmlFor="phone"> Second name:</label>
                                 {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
+                                    <input className="form-control" type="text" value={secondName} aria-label="Second Name" disabled ></input>
                                     :
                                     <>
 
@@ -191,7 +227,7 @@ export default function PaymentForm({
                             <div className="col-md-4">
                                 <label htmlFor="thirdName"> Third Name:</label>
                                 {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
+                                    <input className="form-control" type="text" value={thirdName} aria-label="Third Name" disabled ></input>
                                     :
                                     <>
 
@@ -205,7 +241,7 @@ export default function PaymentForm({
                             <div className="col-md-4">
                                 <label htmlFor="Passport"> Id/Passport:</label>
                                 {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value="#" aria-label="First Name" disabled ></input>
+                                    <input className="form-control" type="text" value={idNumber} aria-label="ID/Passport Name" disabled ></input>
                                     :
                                     <>
 
@@ -260,10 +296,15 @@ export default function PaymentForm({
                         </form>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button
+                            type="button" className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                            onClick={() => resetForm()}
+                        >Close</button>
                         <button
                             type="button" className="btn btn-primary"
-                            onClick={(event) => savePayment(event)}
+                            onClick={
+                                (event) => savePayment(event)}
                         >Save</button>
                     </div>
                 </div>

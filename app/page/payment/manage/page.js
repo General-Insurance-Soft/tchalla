@@ -16,7 +16,7 @@ const Page = () => {
     const [messageStatus, setMessageStatus] = useState("");
     const paymentStatusModalRef =useRef(null);
 
-
+    const [contactId, setContactId] = useState(null);
     const [referenceNumber, setReferenceNumber] = useState("");
     const [paymentMode, setPaymentMode] = useState("");
     const [amount, setAmount] = useState(0);
@@ -54,7 +54,8 @@ const Page = () => {
             payment_mode: paymentMode,
             amount: amount,
             payment_date: paymentDate,
-            sms_sent: smsSent
+            sms_sent: smsSent,
+            contact_id: contactId
         }
 
         let saveRes = await savePaymentData(data);
@@ -310,6 +311,8 @@ const Page = () => {
                 smsSent={smsSent}
                 setSmsSent={setSmsSent}
                 savePayment={savePayment}
+                setContactId ={setContactId}
+                contactId={contactId}
             />
             <DeletePayment />
             <PaymentDetails />
