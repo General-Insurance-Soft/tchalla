@@ -18,19 +18,27 @@ export default function PaymentForm({
     setPaymentDate,
     setSmsSent,
     savePayment,
-    setContactId
+    setContactId,
+    firstName,
+    setFirstName,
+    secondName,
+    setSecondName,
+    thirdName,
+    setThirdName,
+    phoneNumber,
+    setPhoneNumber,
+    idNumber,
+    setIdNumber,
+    email,
+    setEmail
 }) {
 
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
     const dropdownRef = useRef(null);
+    const searchInputRef = useRef(null);
 
-    let [firstName, setFirstName] = useState('');
-    let [secondName, setSecondName] = useState('');
-    let [thirdName, setThirdName] = useState('');
-    let [phoneNumber, setPhoneNumber] = useState('');
-    let [idNumber, setIdNumber] = useState('');
-    let [email, setEmail] = useState('');
+
 
     useEffect(() => {
         console.log("changing options " + paymentAction);
@@ -52,7 +60,16 @@ export default function PaymentForm({
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            if (
+                (
+                    dropdownRef.current &&
+                    !dropdownRef.current.contains(event.target) &&
+                    searchInputRef.current &&
+                    !searchInputRef.current.contains(event.target)
+                )
+
+
+            ) {
                 setSearchedContacts([]); // clear results
                 setSearchText(''); // clear search text 
             }
@@ -126,6 +143,7 @@ export default function PaymentForm({
                                                             aria-describedby="search-icon"
                                                             onChange={(e) => setSearchText(e.target.value)}
                                                             value={searchText}
+                                                            ref={searchInputRef}
                                                         />
                                                     </div>
 
@@ -201,54 +219,28 @@ export default function PaymentForm({
 
                             <div className="col-md-4">
                                 <label htmlFor="firstName"> First name:</label>
-                                {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value={firstName} aria-label="First Name" disabled ></input>
-                                    :
-                                    <>
-                                        <input id="firstName" type="text" className="form-control" value="Tom" />
-                                    </>
 
-                                }
+                                <input className="form-control" type="text" value={firstName} aria-label="First Name" disabled ></input>
 
                             </div>
                             <div className="col-md-4">
                                 <label htmlFor="phone"> Second name:</label>
-                                {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value={secondName} aria-label="Second Name" disabled ></input>
-                                    :
-                                    <>
 
-                                        <input id="secondName" type="text" className="form-control" value="Lopy" />
-                                    </>
-
-                                }
+                                <input className="form-control" type="text" value={secondName} aria-label="Second Name" disabled ></input>
 
                             </div>
                             <div className="col-md-4">
                                 <label htmlFor="thirdName"> Third Name:</label>
-                                {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value={thirdName} aria-label="Third Name" disabled ></input>
-                                    :
-                                    <>
 
-                                        <input htmlFor="thirdName" type="text" className="form-control" value="Lee" />
-                                    </>
-
-                                }
+                                <input className="form-control" type="text" value={thirdName} aria-label="Third Name" disabled ></input>
 
                             </div>
 
                             <div className="col-md-4">
                                 <label htmlFor="Passport"> Id/Passport:</label>
-                                {paymentAction === "add" ?
-                                    <input className="form-control" type="text" value={idNumber} aria-label="ID/Passport Name" disabled ></input>
-                                    :
-                                    <>
 
-                                        <input id="Passport" type="text" className="form-control" value="28904783" />
-                                    </>
+                                <input className="form-control" type="text" value={idNumber} aria-label="ID/Passport Name" disabled ></input>
 
-                                }
 
                             </div>
 
@@ -285,7 +277,7 @@ export default function PaymentForm({
                             </div>
                             <div className="col-md-4">
                                 <label htmlFor="Passport">SMS Sent:</label>
-                                <select id="inputState" className="form-select" onChange={(e) => setSmsSent(e.target.value)}>
+                                <select id="inputState" value={smsSent} className="form-select" onChange={(e) => setSmsSent(e.target.value)}>
                                     {paymentAction === "add" ? <option key="0">...</option> : ''}
                                     <option key="2" value="No">No</option>,
                                     <option key="1" value="yes">Yes</option>
