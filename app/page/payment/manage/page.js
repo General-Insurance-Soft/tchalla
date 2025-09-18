@@ -6,7 +6,7 @@ import DeletePayment from './delete-payment.js';
 import PaymentDetails from './payment-details.js';
 import PaymentForm from './payment-form.js';
 import withAuth from "../../../lib/service/with_auth";
-import { fetchPaymentData, savePaymentData, updatePaymentData } from "../../../lib/service/model";
+import { fetchPaymentData, savePaymentData, updatePaymentData, deletePaymentById } from "../../../lib/service/model";
 import PaymentStatusModal from "../payment-status-message";
 
 const Page = () => {
@@ -193,7 +193,29 @@ const Page = () => {
             }
             fetchAllPaymentData();
         }
+    };
 
+    const deletePaymentByIdHandler = async () => {
+        if (!paymentId) {
+            setMessageStatus("No payment selected for deletion.");
+            if (paymentStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(paymentStatusModalRef.current);
+                modal.show();
+            }
+            return;
+        }
+
+        let deleteRes = await deletePaymentById(paymentId);
+
+        if ('message' in deleteRes) {
+            setMessageStatus(deleteRes.message);
+
+            if (paymentStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(paymentStatusModalRef.current);
+                modal.show();
+            }
+            fetchAllPaymentData();
+        }
     };
 
     return (
@@ -315,7 +337,7 @@ const Page = () => {
                                                                         setEmail(contacts[payment.contact_id]?.email || '');
                                                                         setPaymentId(payment.id);
                                                                     }}><i className="bi bi-pencil-square"></i></button>
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger" onClick={() => setContactId(payment.id)}><i className="bi bi-trash3"></i></button>
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger" onClick={() => setPaymentId(payment.id)}><i className="bi bi-trash3"></i></button>
                                                                 </td>
                                                             </tr>
                                                         ))
@@ -370,7 +392,7 @@ const Page = () => {
                 email={email}
                 setEmail={setEmail}
             />
-            <DeletePayment />
+            <DeletePayment deletePaymentByIdHandler ={deletePaymentByIdHandler} />
             <PaymentDetails />
             <PaymentStatusModal ref={paymentStatusModalRef} messageStatus={messageStatus} />
         </>

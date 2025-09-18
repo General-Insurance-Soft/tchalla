@@ -413,3 +413,7 @@ export const savePaymentData = async (data) => {
 export const updatePaymentData = async (data, id) => {
     return await dataPost(`${baseServerUrl}/payment-service/api/v1/payment/update?id=${id}`, data, "payment update", "PUT");
 }
+
+export const deletePaymentById = async (id) => {
+    return await dataDeleteById(`${baseServerUrl}/payment-service/api/v1/payment/delete?id=${id}`, "payment delete");
+}
