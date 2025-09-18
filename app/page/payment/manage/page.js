@@ -6,7 +6,7 @@ import DeletePayment from './delete-payment.js';
 import PaymentDetails from './payment-details.js';
 import PaymentForm from './payment-form.js';
 import withAuth from "../../../lib/service/with_auth";
-import { fetchPaymentData, savePaymentData } from "../../../lib/service/model";
+import { fetchPaymentData, savePaymentData, updatePaymentData, deletePaymentById } from "../../../lib/service/model";
 import PaymentStatusModal from "../payment-status-message";
 
 const Page = () => {
@@ -25,6 +25,7 @@ const Page = () => {
     const [contacts, setContacts] = useState({});
     const [contactName, setContactName] = useState("");
     const [paymentList, setPaymentList] = useState([]);
+    const [paymentId, setPaymentId] = useState(null);
 
     let [firstName, setFirstName] = useState('');
     let [secondName, setSecondName] = useState('');
@@ -175,19 +176,46 @@ const Page = () => {
             contact_id: contactId
         }
 
-        let saveRes = await savePaymentData(data);
+        let saveRes = {};
+
+        if (paymentAction === "add") {
+            saveRes = await savePaymentData(data);
+        } else {
+            saveRes = await updatePaymentData(data, paymentId)
+        } //&& contactId){
 
         if ('message' in saveRes) {
             setMessageStatus(saveRes.message);
-            fetchAllPaymentData();
+
             if (paymentStatusModalRef.current) {
                 const modal = new window.bootstrap.Modal(paymentStatusModalRef.current);
                 modal.show();
             }
+            fetchAllPaymentData();
+        }
+    };
 
+    const deletePaymentByIdHandler = async () => {
+        if (!paymentId) {
+            setMessageStatus("No payment selected for deletion.");
+            if (paymentStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(paymentStatusModalRef.current);
+                modal.show();
+            }
             return;
         }
 
+        let deleteRes = await deletePaymentById(paymentId);
+
+        if ('message' in deleteRes) {
+            setMessageStatus(deleteRes.message);
+
+            if (paymentStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(paymentStatusModalRef.current);
+                modal.show();
+            }
+            fetchAllPaymentData();
+        }
     };
 
     return (
@@ -307,8 +335,9 @@ const Page = () => {
                                                                         setPhoneNumber(contacts[payment.contact_id]?.phone || '');
                                                                         setIdNumber(contacts[payment.contact_id]?.id_number || '');
                                                                         setEmail(contacts[payment.contact_id]?.email || '');
+                                                                        setPaymentId(payment.id);
                                                                     }}><i className="bi bi-pencil-square"></i></button>
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger" onClick={() => setContactId(payment.id)}><i className="bi bi-trash3"></i></button>
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger" onClick={() => setPaymentId(payment.id)}><i className="bi bi-trash3"></i></button>
                                                                 </td>
                                                             </tr>
                                                         ))
@@ -363,7 +392,7 @@ const Page = () => {
                 email={email}
                 setEmail={setEmail}
             />
-            <DeletePayment />
+            <DeletePayment deletePaymentByIdHandler ={deletePaymentByIdHandler} />
             <PaymentDetails />
             <PaymentStatusModal ref={paymentStatusModalRef} messageStatus={messageStatus} />
         </>

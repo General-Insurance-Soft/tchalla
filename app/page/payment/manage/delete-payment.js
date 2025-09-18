@@ -1,5 +1,7 @@
 
-export default function DeletePayment() {
+export default function DeletePayment({
+    deletePaymentByIdHandler
+}) {
 
     return (
 
@@ -17,7 +19,14 @@ export default function DeletePayment() {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="btn btn-primary">Yes</button>
+                        <button
+                            type="button" className="btn btn-primary"
+                            data-bs-dismiss="modal"
+                            onClick={() => {
+                                deletePaymentByIdHandler();
+                            }
+                            }
+                        >Yes</button>
                     </div>
                 </div>
             </div>

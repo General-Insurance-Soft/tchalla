@@ -31,6 +31,7 @@ export default function PaymentForm({
     setIdNumber,
     email,
     setEmail
+    
 }) {
 
     const [searchText, setSearchText] = useState('');
