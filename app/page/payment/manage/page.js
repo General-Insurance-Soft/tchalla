@@ -20,12 +20,18 @@ const Page = () => {
     const [referenceNumber, setReferenceNumber] = useState("");
     const [paymentMode, setPaymentMode] = useState("");
     const [amount, setAmount] = useState(0);
-    const [paymentDate, setPaymentDate] = useState(new Date());
+    const [paymentDate, setPaymentDate] = useState();
     const [smsSent, setSmsSent] = useState(false);
     const [contacts, setContacts] = useState({});
     const [contactName, setContactName] = useState("");
     const [paymentList, setPaymentList] = useState([]);
 
+    let [firstName, setFirstName] = useState('');
+    let [secondName, setSecondName] = useState('');
+    let [thirdName, setThirdName] = useState('');
+    let [phoneNumber, setPhoneNumber] = useState('');
+    let [idNumber, setIdNumber] = useState('');
+    let [email, setEmail] = useState('');
 
     const fetchAllPaymentData = async () => {
         let res = await fetchPaymentData(0, 15);
@@ -293,8 +299,14 @@ const Page = () => {
                                                                         setReferenceNumber(payment.reference_number);
                                                                         setPaymentMode(payment.payment_mode);
                                                                         setAmount(payment.amount);
-                                                                        setPaymentDate(new Date(payment.payment_date));
+                                                                        setPaymentDate(payment.payment_date);
                                                                         setSmsSent(payment.sms_sent);
+                                                                        setFirstName(contacts[payment.contact_id]?.first_name || '');
+                                                                        setSecondName(contacts[payment.contact_id]?.second_name || '');
+                                                                        setThirdName(contacts[payment.contact_id]?.last_name || '');
+                                                                        setPhoneNumber(contacts[payment.contact_id]?.phone || '');
+                                                                        setIdNumber(contacts[payment.contact_id]?.id_number || '');
+                                                                        setEmail(contacts[payment.contact_id]?.email || '');
                                                                     }}><i className="bi bi-pencil-square"></i></button>
                                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger" onClick={() => setContactId(payment.id)}><i className="bi bi-trash3"></i></button>
                                                                 </td>
@@ -338,6 +350,18 @@ const Page = () => {
                 savePayment={savePayment}
                 setContactId={setContactId}
                 contactId={contactId}
+                firstName={firstName}
+                setFirstName={setFirstName}
+                secondName={secondName}
+                setSecondName={setSecondName}
+                thirdName={thirdName}
+                setThirdName={setThirdName}
+                phoneNumber={phoneNumber}
+                setPhoneNumber={setPhoneNumber}
+                idNumber={idNumber}
+                setIdNumber={setIdNumber}
+                email={email}
+                setEmail={setEmail}
             />
             <DeletePayment />
             <PaymentDetails />
