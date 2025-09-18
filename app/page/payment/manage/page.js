@@ -248,7 +248,7 @@ const Page = () => {
                                         </div>
 
                                         <div className="table-responsive">
-                                            <table className="table table-striped table-bordered">
+                                            <table className="table table-striped table-bordered" style={{ overflowX: 'auto', width: '100%' }}>
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Ref No.</th>
@@ -268,29 +268,6 @@ const Page = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
-                                                    {/* <tr>
-                                                        <td>#AMJR201HR</td>
-                                                        <td>Mpesa</td>
-                                                        <td>Tom Lee</td>
-                                                        <td>0700123789</td>
-                                                        <td>tmlee@gmail.com</td>
-                                                        <td>Kenya</td>
-                                                        <td>Nakuru</td>
-                                                        <td>River bed</td>
-                                                        <td>30,000</td>
-                                                        <td>2024-08-11</td>
-                                                        <td>Yes</td>
-                                                        <td>Lucy</td>
-                                                        <td>2024-08-11</td>
-                                                        <td>
-                                                            <button type="button" style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#paymentDetailsModal" className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}>
-                                                                <i className="bi bi-pencil-square"></i></button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                                        </td>
-                                                    </tr>
-                                                     */}
 
                                                     {
                                                         paymentList.map((payment, index) => (
