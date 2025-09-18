@@ -14,7 +14,7 @@ const Page = () => {
     const [paymentAction, setPaymentAction] = useState("add");
     const [res, setRes] = useState([]);
     const [messageStatus, setMessageStatus] = useState("");
-    const paymentStatusModalRef =useRef(null);
+    const paymentStatusModalRef = useRef(null);
 
     const [contactId, setContactId] = useState(null);
     const [referenceNumber, setReferenceNumber] = useState("");
@@ -22,7 +22,9 @@ const Page = () => {
     const [amount, setAmount] = useState(0);
     const [paymentDate, setPaymentDate] = useState(new Date());
     const [smsSent, setSmsSent] = useState(false);
-
+    const [contacts, setContacts] = useState({});
+    const [contactName, setContactName] = useState("");
+    const [paymentList, setPaymentList] = useState([]);
 
 
     const fetchAllPaymentData = async () => {
@@ -44,6 +46,115 @@ const Page = () => {
     useEffect(() => {
         fetchAllPaymentData();
     }, []);
+
+
+    useEffect(() => {
+
+        if (!res || Object.keys(res).length === 0) {
+            console.log("res is empty");
+            return
+        }
+
+        let adminAreas = {};
+        try {
+            res.administrative_areas.forEach((area) => {
+                adminAreas[area.id] = area;
+            });
+        } catch (error) {
+            console.log("Error in res.administrative_areas =========>>>" + error);
+        }
+
+        //setAdministrativeAreas(adminAreas);
+
+        let contactMap = {};
+
+        try {
+            res.contact.forEach((contc) => {
+                contactMap[contc.id] = contc;
+
+            });
+        } catch (error) {
+            console.log("Error in res.contact =========>>>" + error);
+        }
+
+        let updatedByMap = {};
+
+        try {
+            res.updatedBy.forEach((val) => {
+                updatedByMap[val.id] = val;
+
+            });
+        } catch (error) {
+            console.log("Error in res.updatedBy =========>>>" + error);
+        }
+
+
+        setContacts(contactMap);
+
+        let paymentLst = [];
+
+        res.payments.forEach((payment) => {
+
+            try {
+                payment["updateByName"] = updatedByMap[payment.updated_by].first_name + " " + updatedByMap[payment.updated_by].third_name;
+            } catch (error) {
+                console.log("Error in refresh payment table =========>>>" + error);
+                payment["updateByName"] = "";
+            }
+
+            try {
+                payment["contactName"] = contactMap[payment.contact_id].first_name + " " + contactMap[payment.contact_id].last_name;
+                setContactName(payment["contactName"]);
+            } catch (error) {
+                console.log("Error in refresh payment table =========>>>" + error);
+
+                payment["contactName"] = "";
+                setContactName("");
+            }
+
+            try {
+                payment["address"] = contactMap[payment.contact_id].address.address;
+            } catch (error) {
+                console.log("Error in refresh payment table =========>>>" + error);
+                payment["address"] = "";
+            }
+
+            try {
+                payment["country"] = adminAreas[contactMap[payment.contact_id].address.country_code].name;
+            } catch (error) {
+                console.log("Error in refresh payment table =========>>>" + error);
+                payment["country"] = "";
+            }
+
+            try {
+                payment["county"] = adminAreas[contactMap[payment.contact_id].address.administrative_area].name;
+            } catch (error) {
+                console.log("Error in refresh payment table =========>>>" + error);
+                payment["county"] = "";
+            }
+
+            try {
+                payment["phone"] = contactMap[payment.contact_id].phone;
+            } catch (error) {
+                console.log("Error in refresh payment table =========>>>" + error);
+
+                payment["phone"] = "";
+            }
+
+            try {
+                payment["email"] = contactMap[payment.contact_id].email;
+            } catch (error) {
+                console.log("Error in refresh payment table =========>>>" + error);
+                payment["email"] = "";
+            }
+
+            paymentLst.push(payment);
+
+        });
+
+        setPaymentList(paymentLst);
+
+    }, [res]);
 
     const savePayment = async (event) => {
 
@@ -117,11 +228,12 @@ const Page = () => {
 
 
                                         {/* <div className="">
-                                            <input id="claim_tag" type="text" className="form-control" placeholder="claim reference" />
+                                            <input id="claim_tag" type="text" className="form-control" placeholder="payment reference" />
                                         </div> */}
                                     </div>
 
                                     <div>
+
                                         <div className="row mb-2  mt-2">
 
                                             <div className="col-md-6">
@@ -135,151 +247,87 @@ const Page = () => {
 
                                         </div>
 
-                                        <table className="table table-striped table-bordere">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Ref No.</th>
-                                                    <th scope="col">Mode</th>
-                                                    <th scope="col">Paid by</th>
-                                                    <th scope="col">Phone</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Country</th>
-                                                    <th scope="col">County</th>
-                                                    <th scope="col">Address</th>
-                                                    <th scope="col">Amount</th>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">SMS Sent</th>
-                                                    <th scope="col">Last Editor</th>
-                                                    <th scope="col">Last Edited</th>
-                                                    <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                        <div className="table-responsive">
+                                            <table className="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Ref No.</th>
+                                                        <th scope="col">Mode</th>
+                                                        <th scope="col">Paid by</th>
+                                                        <th scope="col">Phone</th>
+                                                        <th scope="col">Email</th>
+                                                        <th scope="col">Country</th>
+                                                        <th scope="col">County</th>
+                                                        <th scope="col">Address</th>
+                                                        <th scope="col">Amount</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">SMS Sent</th>
+                                                        <th scope="col">Last Editor</th>
+                                                        <th scope="col">Last Edited</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                                <tr>
-                                                    <td>#AMJR201HR</td>
-                                                    <td>Mpesa</td>
-                                                    <td>Tom Lee</td>
-                                                    <td>0700123789</td>
-                                                    <td>tmlee@gmail.com</td>
-                                                    <td>Kenya</td>
-                                                    <td>Nakuru</td>
-                                                    <td>River bed</td>
-                                                    <td>30,000</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>Yes</td>
-                                                    <td>Lucy</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>
-                                                        <button type="button" style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#paymentDetailsModal" className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}>
-                                                            <i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>#AMRR79801HR</td>
-                                                    <td>Bank</td>
-                                                    <td>Caroling Kate</td>
-                                                    <td>0700123789</td>
-                                                    <td>jhnlee@gmail.com</td>
-                                                    <td>Kenya</td>
-                                                    <td>Nakuru</td>
-                                                    <td>First avenue shababa</td>
-                                                    <td>40,000</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>No</td>
-                                                    <td>Tony</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>
-                                                        <button type="button" style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#paymentDetailsModal" className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>#ADDD201HR</td>
-                                                    <td>Mpesa</td>
-                                                    <td>Martinf H</td>
-                                                    <td>0700123789</td>
-                                                    <td>tmlee@gmail.com</td>
-                                                    <td>Kenya</td>
-                                                    <td>Nakuru</td>
-                                                    <td>First avenue shababa</td>
-                                                    <td>30,000</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>Yes</td>
-                                                    <td>Lucy</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>
-                                                        <button type="button" style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#paymentDetailsModal" className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>#RGES201HR</td>
-                                                    <td>Mpesa</td>
-                                                    <td>Dan tO</td>
-                                                    <td>0700123789</td>
-                                                    <td>tmlee@gmail.com</td>
-                                                    <td>Kenya</td>
-                                                    <td>Nakuru</td>
-                                                    <td>Nong</td>
-                                                    <td>30,000</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>Yes</td>
-                                                    <td>Lucy</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>
-                                                        <button type="button" style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#paymentDetailsModal" className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>#RFEDS1HR</td>
-                                                    <td>Mpesa</td>
-                                                    <td>Paul Kil</td>
-                                                    <td>0700123789</td>
-                                                    <td>tmlee@gmail.com</td>
-                                                    <td>Kenya</td>
-                                                    <td>Nakuru</td>
-                                                    <td>Lavington</td>
-                                                    <td>30,000</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>Yes</td>
-                                                    <td>Lucy</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>
-                                                        <button type="button" style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#paymentDetailsModal" className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>#DDSDS01HR</td>
-                                                    <td>Bank</td>
-                                                    <td>Joe D Lee</td>
-                                                    <td>0700123789</td>
-                                                    <td>tmlee@gmail.com</td>
-                                                    <td>Kenya</td>
-                                                    <td>Nakuru</td>
-                                                    <td>River side</td>
-                                                    <td>30,000</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>Yes</td>
-                                                    <td>Lucy</td>
-                                                    <td>2024-08-11</td>
-                                                    <td>
-                                                        <button type="button" style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#paymentDetailsModal" className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}><i className="bi bi-pencil-square"></i></button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
-                                                    </td>
-                                                </tr>
+                                                    {/* <tr>
+                                                        <td>#AMJR201HR</td>
+                                                        <td>Mpesa</td>
+                                                        <td>Tom Lee</td>
+                                                        <td>0700123789</td>
+                                                        <td>tmlee@gmail.com</td>
+                                                        <td>Kenya</td>
+                                                        <td>Nakuru</td>
+                                                        <td>River bed</td>
+                                                        <td>30,000</td>
+                                                        <td>2024-08-11</td>
+                                                        <td>Yes</td>
+                                                        <td>Lucy</td>
+                                                        <td>2024-08-11</td>
+                                                        <td>
+                                                            <button type="button" style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#paymentDetailsModal" className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => setPaymentAction("edit")}>
+                                                                <i className="bi bi-pencil-square"></i></button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                     */}
 
-                                            </tbody>
-                                        </table>
+                                                    {
+                                                        paymentList.map((payment, index) => (
+                                                            <tr key={index}>
+                                                                <td>{payment.reference_number}</td>
+                                                                <td>{payment.payment_mode}</td>
+                                                                <td>{payment.contactName}</td>
+                                                                <td>{payment.phone}</td>
+                                                                <td>{payment.email}</td>
+                                                                <td>{payment.country}</td>
+                                                                <td>{payment.county}</td>
+                                                                <td>{payment.address}</td>
+                                                                <td>{payment.amount.toLocaleString()}</td>
+                                                                <td>{new Date(payment.payment_date).toISOString().split('T')[0]}</td>
+                                                                <td>{payment.sms_sent}</td>
+                                                                <td>{payment.updateByName}</td>
+                                                                <td>{new Date(payment.updated_at).toISOString().split('T')[0]}</td>
+                                                                <td>
+                                                                    <button type="button" style={{ marginRight: "10px" }} data-bs-toggle="modal" data-bs-target="#paymentDetailsModal" className="btn btn-success" ><i className="bi bi-binoculars-fill"></i></button>
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ marginRight: "10px" }} className="btn btn-info" onClick={() => {
+                                                                        setPaymentAction("edit");
+                                                                        setContactId(payment.contact_id);
+                                                                        setReferenceNumber(payment.reference_number);
+                                                                        setPaymentMode(payment.payment_mode);
+                                                                        setAmount(payment.amount);
+                                                                        setPaymentDate(new Date(payment.payment_date));
+                                                                        setSmsSent(payment.sms_sent);
+                                                                    }}><i className="bi bi-pencil-square"></i></button>
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deletePaymentModal" className="btn btn-danger" onClick={() => setContactId(payment.id)}><i className="bi bi-trash3"></i></button>
+                                                                </td>
+                                                            </tr>
+                                                        ))
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -311,7 +359,7 @@ const Page = () => {
                 smsSent={smsSent}
                 setSmsSent={setSmsSent}
                 savePayment={savePayment}
-                setContactId ={setContactId}
+                setContactId={setContactId}
                 contactId={contactId}
             />
             <DeletePayment />
