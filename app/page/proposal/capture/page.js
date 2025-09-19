@@ -242,10 +242,7 @@ const Page = () => {
                 <div className="card-body">
                     <h5 className="card-title">Capture Proposal Details</h5>
 
-
-
-
-                    <div className="mb-3">
+                    <div className="mb-1">
                         <div className="row align-items-start gx-3 gy-2">
 
                             {/* State Select — always shown */}
@@ -342,7 +339,7 @@ const Page = () => {
                             )}
 
                             {/* Action Buttons */}
-                            <div className="col-12 d-flex mt-5">
+                            <div className="col-12 d-flex mt-3">
                                 <button onClick={saveProposal} className="btn btn-primary me-2">
                                     Save
                                 </button>
