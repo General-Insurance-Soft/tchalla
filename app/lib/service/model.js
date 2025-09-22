@@ -62,14 +62,19 @@ let dataPost = async (url, data, dataName, method) => {
 
     let token = getToken("access");
 
+    let headers = { 'Authorization': `Bearer ${token}` };
+
+    // Only set Content-Type if NOT FormData
+    if (!(data instanceof FormData)) {
+        headers['Content-Type'] = 'application/json';
+    }
+
     try {
         let response = await fetch(url, {
             method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(data)
+            headers: headers,
+            // if headers Content-Type' is 'application/json then stringify the body
+            body: (data instanceof FormData) ? data : JSON.stringify(data)
         });
 
         let res = await response;
