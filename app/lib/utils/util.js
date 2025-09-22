@@ -38,3 +38,19 @@ export const getToken = (type) => {
     }
 
 }
+
+export const handleFileRename = (originalFile, name) => {
+
+    // Get original file extension
+    let extension = originalFile.name.split('.').pop();
+    let randomNumber = Math.floor(100000 + Math.random() * 900000);
+    // Generate new name (you can customize this logic)
+    let newFileName = `${name}-${randomNumber}-${Date.now()}.${extension}`;
+    // Create renamed file
+    let renamedFile = new File([originalFile], newFileName, {
+        type: originalFile.type,
+        lastModified: originalFile.lastModified,
+    });
+
+    return renamedFile;
+}
