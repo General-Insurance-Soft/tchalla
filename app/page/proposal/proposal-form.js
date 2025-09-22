@@ -29,7 +29,7 @@ const Page = (
         policies, setPolicies,
         customerState, setCutomerState,
         saveProposal, proposalNumber, setProposalNumber, updateProposalData,
-        setShowEditForm
+        setShowEditForm, selectedFiles, setSelectedFiles
     }
 ) => {
     return (
@@ -82,6 +82,7 @@ const Page = (
                                 setKraPin={setKraPin}
                                 identificationCardId={identificationCardId}
                                 setIdentificationCardId={setIdentificationCardId}
+                                selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}
                             />
 
                             <hr />
@@ -154,7 +155,12 @@ const Page = (
                     <div className="row d-flex align-items-end">
                         <div className="col-md-3">
                             <label htmlFor="img">Select Scanned copies:</label>
-                            <input type="file" id="img" name="img" accept="image/*" className="form-control" />
+                            <input
+                                type="file"
+                                name="img"
+                                accept="image/*,application/pdf"
+                                className="form-control"
+                            />
                         </div>
                         <div className="col-md-3">
                             <label htmlFor="copyName">Document type:</label>
