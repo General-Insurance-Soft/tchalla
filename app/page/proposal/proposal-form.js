@@ -29,7 +29,7 @@ const Page = (
         policies, setPolicies,
         customerState, setCutomerState,
         saveProposal, proposalNumber, setProposalNumber, updateProposalData,
-        setShowEditForm
+        setShowEditForm, selectedFiles, setSelectedFiles
     }
 ) => {
     return (
@@ -82,6 +82,7 @@ const Page = (
                                 setKraPin={setKraPin}
                                 identificationCardId={identificationCardId}
                                 setIdentificationCardId={setIdentificationCardId}
+                                selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}
                             />
 
                             <hr />

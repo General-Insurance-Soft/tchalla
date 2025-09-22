@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Select from 'react-select'
 import { fetchAdministrativeAreas, getContactGroupList } from "../../../lib/service/model";
+import { handleFileRename } from "../../../lib/utils/util";
 
 export default function CustomerForm({
     action, setShowEditForm,
@@ -18,7 +19,8 @@ export default function CustomerForm({
     kraPin, setKraPin,
     identificationCardId, setIdentificationCardId,
     saveContactData, currentSelectedContact,
-    setAltAction, setAltActionName
+    setAltAction, setAltActionName,
+    selectedFiles, setSelectedFiles
 }) {
 
     let [administrativeAreas, setAdministrativeAreas] = useState([]);
@@ -230,6 +232,16 @@ export default function CustomerForm({
                                 name="img"
                                 accept="image/*,application/pdf"
                                 className="form-control"
+                                onChange={
+                                    (e) => {
+                                        let originalFile = e.target.files[0];
+                                        let newFile = handleFileRename(originalFile, "Passport/ID");
+                                        let filesArray = Array.from(selectedFiles);
+                                        filesArray.push(newFile);
+                                        // filesArray = filesArray.map((file) => handleFileRename(file, "Passport/ID"));
+                                        setSelectedFiles(filesArray);
+                                    }
+                                }
                             />
                         </div>
 

@@ -39,6 +39,7 @@ const Page = () => {
     let [customerGroup, setCustomerGroup] = useState(0);
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
+    let [selectedFiles, setSelectedFiles] = useState([]);
 
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
@@ -106,7 +107,20 @@ const Page = () => {
                     "contact_group": customerGroupData
                 }
             }
-            let saveRes = await saveProposalAndContact(data);
+
+            let formData = new FormData();
+
+            formData.append("data", new Blob([JSON.stringify(data)], {
+                type: "application/json"
+            }));
+
+
+            // append all files
+            for (let file of selectedFiles) {
+                formData.append("files", file); // key must match backend param
+            }
+
+            let saveRes = await saveProposalAndContact(formData);
             //  if saveRes.message does not contain "Could not post data", reset state
             setMessageStatus(saveRes.message);
 
@@ -211,6 +225,8 @@ const Page = () => {
         setProposalDocuments([]);
         setProposalNumber('');
     }
+
+    
 
     const creatNewImageFolder = (event) => {
 
@@ -375,6 +391,7 @@ const Page = () => {
                         policies={policies} setPolicies={setPolicies}
                         customerState={customerState} setCutomerState={setCutomerState}
                         saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber}
+                        selectedFiles = {selectedFiles} setSelectedFiles = {setSelectedFiles}
                     />
 
                     {/* Modal */}
