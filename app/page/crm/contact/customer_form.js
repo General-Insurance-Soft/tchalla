@@ -225,12 +225,25 @@ export default function CustomerForm({
                     <div className="row">
                         <div className="col-md-4">
                             <label htmlFor="img">Select passport/ID image:</label>
-                            <input type="file" id="img" name="img" accept="image/*" className="form-control" />
+                            <input
+                                type="file"
+                                id="img"
+                                name="img"
+                                accept="image/*,application/pdf"
+                                className="form-control"
+                            />
                         </div>
 
                         <div className="col-md-4">
                             <label htmlFor="img2">Select KRA pin:</label>
-                            <input type="file" id="img2" name="img" accept="image/*" className="form-control" />
+                            <input
+                                type="file"
+                                id="img"
+                                name="img"
+                                accept="image/*,application/pdf"
+                                className="form-control"
+                            />
+
                         </div>
                     </div>
                 </div>
