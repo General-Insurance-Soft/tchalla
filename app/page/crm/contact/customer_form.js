@@ -227,7 +227,6 @@ export default function CustomerForm({
                             <label htmlFor="img">Select passport/ID image:</label>
                             <input
                                 type="file"
-                                id="img"
                                 name="img"
                                 accept="image/*,application/pdf"
                                 className="form-control"
@@ -238,7 +237,6 @@ export default function CustomerForm({
                             <label htmlFor="img2">Select KRA pin:</label>
                             <input
                                 type="file"
-                                id="img"
                                 name="img"
                                 accept="image/*,application/pdf"
                                 className="form-control"

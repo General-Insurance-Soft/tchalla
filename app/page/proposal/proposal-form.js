@@ -154,7 +154,12 @@ const Page = (
                     <div className="row d-flex align-items-end">
                         <div className="col-md-3">
                             <label htmlFor="img">Select Scanned copies:</label>
-                            <input type="file" id="img" name="img" accept="image/*" className="form-control" />
+                            <input
+                                type="file"
+                                name="img"
+                                accept="image/*,application/pdf"
+                                className="form-control"
+                            />
                         </div>
                         <div className="col-md-3">
                             <label htmlFor="copyName">Document type:</label>
