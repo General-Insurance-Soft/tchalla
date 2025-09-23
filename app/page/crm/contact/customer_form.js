@@ -20,7 +20,8 @@ export default function CustomerForm({
     identificationCardId, setIdentificationCardId,
     saveContactData, currentSelectedContact,
     setAltAction, setAltActionName,
-    selectedFiles, setSelectedFiles
+    selectedFiles, setSelectedFiles,
+    passportIdFileInputKey
 }) {
 
     let [administrativeAreas, setAdministrativeAreas] = useState([]);
@@ -228,6 +229,7 @@ export default function CustomerForm({
                         <div className="col-md-4">
                             <label htmlFor="img">Select passport/ID image:</label>
                             <input
+                                key={passportIdFileInputKey}
                                 type="file"
                                 name="img"
                                 accept="image/*,application/pdf"
@@ -235,7 +237,7 @@ export default function CustomerForm({
                                 onChange={
                                     (e) => {
                                         let originalFile = e.target.files[0];
-                                        let newFile = handleFileRename(originalFile, "Passport/ID");
+                                        let newFile = handleFileRename(originalFile, "Passport-ID");
                                         let filesArray = Array.from(selectedFiles);
                                         filesArray.push(newFile);
                                         // filesArray = filesArray.map((file) => handleFileRename(file, "Passport/ID"));
