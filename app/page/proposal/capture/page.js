@@ -40,6 +40,9 @@ const Page = () => {
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
     let [selectedFiles, setSelectedFiles] = useState([]);
+    // setPassportIdFileInputKey = {setPassportIdFileInputKey} 
+    //                             passportIdFileInputKey = {passportIdFileInputKey}
+    let [passportIdFileInputKey, setPassportIdFileInputKey] = useState(0);
 
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
@@ -224,9 +227,11 @@ const Page = () => {
         setEndDate('');
         setProposalDocuments([]);
         setProposalNumber('');
+        setSelectedFiles([]);
+        setPassportIdFileInputKey(prev => prev + 1);
     }
 
-    
+
 
     const creatNewImageFolder = (event) => {
 
@@ -391,7 +396,8 @@ const Page = () => {
                         policies={policies} setPolicies={setPolicies}
                         customerState={customerState} setCutomerState={setCutomerState}
                         saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber}
-                        selectedFiles = {selectedFiles} setSelectedFiles = {setSelectedFiles}
+                        selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}
+                        passportIdFileInputKey={passportIdFileInputKey}
                     />
 
                     {/* Modal */}
