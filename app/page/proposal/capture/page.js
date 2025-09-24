@@ -117,10 +117,12 @@ const Page = () => {
                 type: "application/json"
             }));
 
-
-            // append all files
-            for (let file of selectedFiles) {
-                formData.append("files", file); // key must match backend param
+            if (selectedFiles.length === 0) {
+                formData.append("files", new Blob([])); // append empty file if none selected
+            } else {
+                for (let file of selectedFiles) {
+                    formData.append("files", file); // key must match backend param
+                }
             }
 
             let saveRes = await saveProposalAndContact(formData);
