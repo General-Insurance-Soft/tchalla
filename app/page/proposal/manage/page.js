@@ -319,7 +319,7 @@ const Page = () => {
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Manage Proposal Details</h5>
-                    <div>
+                    <div className="table-responsive">
                         <div className="row mb-2">
                             <div className="col-sm-6">Total Customers: 600</div>
                             <div className="col-sm-6">

@@ -313,7 +313,7 @@ const Page = () => {
 
 
 
-                    <div>
+                    <div className="table-responsive">
                         <div className="row mb-2">
                             <div className="col-sm-6">Total Customers: 20</div>
                             <div className="col-sm-6">
