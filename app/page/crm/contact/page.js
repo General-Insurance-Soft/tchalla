@@ -36,7 +36,7 @@ const Page = () => {
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
     let [currentSelectedElement, setCurrentSelectedElement] = useState({});
-
+    let [selectedFiles, setSelectedFiles] = useState([]);
 
 
     useEffect(() => {
@@ -298,6 +298,7 @@ const Page = () => {
                                 identificationCardId={identificationCardId}
                                 setIdentificationCardId={setIdentificationCardId}
                                 saveContactData={saveContactData}
+                                selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}
                             />
                             <DocumentHolder />
                             <div className="text-center mb-3">

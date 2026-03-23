@@ -43,6 +43,7 @@ const Page = () => {
     // setPassportIdFileInputKey = {setPassportIdFileInputKey} 
     //                             passportIdFileInputKey = {passportIdFileInputKey}
     let [passportIdFileInputKey, setPassportIdFileInputKey] = useState(0);
+    let [kraIdFileInputKey, setKraIdFileInputKey] = useState(0);
 
     const [searchText, setSearchText] = useState('');
     const [searchedContacts, setSearchedContacts] = useState([]);
@@ -231,6 +232,7 @@ const Page = () => {
         setProposalNumber('');
         setSelectedFiles([]);
         setPassportIdFileInputKey(prev => prev + 1);
+        setKraIdFileInputKey(prev => prev + 1);
     }
 
 
@@ -400,6 +402,7 @@ const Page = () => {
                         saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber}
                         selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}
                         passportIdFileInputKey={passportIdFileInputKey}
+                        kraIdFileInputKey={kraIdFileInputKey}
                     />
 
                     {/* Modal */}

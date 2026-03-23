@@ -21,7 +21,7 @@ export default function CustomerForm({
     saveContactData, currentSelectedContact,
     setAltAction, setAltActionName,
     selectedFiles, setSelectedFiles,
-    passportIdFileInputKey
+    passportIdFileInputKey, kraIdFileInputKey
 }) {
 
     let [administrativeAreas, setAdministrativeAreas] = useState([]);
@@ -249,11 +249,23 @@ export default function CustomerForm({
 
                         <div className="col-md-4">
                             <label htmlFor="img2">Select KRA pin:</label>
+
                             <input
+                                key={kraIdFileInputKey}
                                 type="file"
                                 name="img"
                                 accept="image/*,application/pdf"
                                 className="form-control"
+                                onChange={
+                                    (e) => {
+                                        let originalFile = e.target.files[0];
+                                        let newFile = handleFileRename(originalFile, "KRA-Pin");
+                                        let filesArray = Array.from(selectedFiles);
+                                        filesArray.push(newFile);
+                                        // filesArray = filesArray.map((file) => handleFileRename(file, "Passport/ID"));
+                                        setSelectedFiles(filesArray);
+                                    }
+                                }
                             />
 
                         </div>

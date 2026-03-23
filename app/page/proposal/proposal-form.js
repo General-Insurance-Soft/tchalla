@@ -30,7 +30,7 @@ const Page = (
         customerState, setCutomerState,
         saveProposal, proposalNumber, setProposalNumber, updateProposalData,
         setShowEditForm, selectedFiles, setSelectedFiles,
-        passportIdFileInputKey
+        passportIdFileInputKey, kraIdFileInputKey
     }
 ) => {
     return (
@@ -85,6 +85,7 @@ const Page = (
                                 setIdentificationCardId={setIdentificationCardId}
                                 selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}
                                 passportIdFileInputKey={passportIdFileInputKey}
+                                kraIdFileInputKey={kraIdFileInputKey}
                             />
 
                             <hr />
