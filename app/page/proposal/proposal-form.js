@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import CustomerForm from "../crm/contact/customer_form";
 import withAuth from "../../lib/service/with_auth";
+import { useState } from 'react';
+import { handleFileRename } from '../../lib/utils/util';
 
 const Page = (
     {
@@ -21,7 +23,6 @@ const Page = (
         identificationCardId, setIdentificationCardId,
         insuranceCompanyId, policyId,
         startDate, endDate,
-        proposalDocuments, setProposalDocuments,
         setInsuranceCompanyId, setPolicyId,
         setStartDate, setEndDate,
         insuranceCompanies, setInsuranceCompanies,
@@ -30,9 +31,23 @@ const Page = (
         customerState, setCutomerState,
         saveProposal, proposalNumber, setProposalNumber, updateProposalData,
         setShowEditForm, selectedFiles, setSelectedFiles,
-        passportIdFileInputKey, kraIdFileInputKey
+        passportIdFileInputKey, kraIdFileInputKey,
+        proposalFiles, setProposalFiles
     }
 ) => {
+
+    let [currentUploadedFile, setCurrentUploadedFile] = useState(null);
+    let [currentUploadedFileName, setCurrentUploadedFileName] = useState(null);
+    let [currentUploadedFileType, setCurrentUploadedFileType] = useState(null);
+
+    let addFileToProposalFilesArray = () => {
+        let filesArray = Array.from(proposalFiles);
+        let fName = "name:" + currentUploadedFileName + "-type:" + currentUploadedFileType;
+        let renamedFile = handleFileRename(currentUploadedFile, fName);
+        filesArray.push(renamedFile);
+        setProposalFiles(filesArray);
+    }
+
     return (
         <>
 
@@ -160,31 +175,43 @@ const Page = (
 
                     <div className="col-sm-12">
 
-                        <h6 className="tc-card-header">All added scanned copies</h6>
+                        <h6 className="tc-card-header">Scanned file copies</h6>
                         <hr />
 
                         <div className='row'>
                             <div className="col-sm-12 mb-3">
                                 <div className="row">
                                     <div className="col-md-3">
+
+
+
+
+
+
                                         <label htmlFor="img">Select Scanned copies:</label>
                                         <input
+                                            key={passportIdFileInputKey}
                                             type="file"
                                             name="img"
                                             accept="image/*,application/pdf"
                                             className="form-control"
+                                            onChange={
+                                                (e) => {
+                                                    setCurrentUploadedFile(e.target.files[0]);
+                                                }
+                                            }
                                         />
+
+
+
+
                                     </div>
                                     <div className="col-md-3">
                                         <label htmlFor="copyName">Document type:</label>
                                         <select id="document-type" className="form-select"
-                                            onChange={() => (
-                                                setProposalDocuments([
-                                                    {
-                                                        "folder_name": "folder_one",
-                                                        "document_name": "passport",
-                                                        "blob_url": "http://vvv.vvv.vvv.vvvvvvvvvvvvvvvvvvvvv"
-                                                    }
+                                            onChange={(e) => (
+                                                setCurrentUploadedFileType([
+                                                    e.target.value
                                                 ])
                                             )
 
@@ -200,7 +227,7 @@ const Page = (
                                             ))}
                                         </select>
                                     </div>
-                                        {/* <div className="col-md-3">
+                                    {/* <div className="col-md-3">
                                             <label htmlFor="copyName">Select folder:</label>
                                             <select onChange={(event) => creatNewImageFolder(event)} id="policy" className="form-select">
                                                 <option>Default</option>
@@ -210,14 +237,21 @@ const Page = (
                                             </div> */}
                                     <div className="col-md-3">
                                         <label htmlFor="documentName">Document name:</label>
-                                        <input id="documentName" type="text" className="form-control" />
+                                        <input id="documentName" type="text"
+                                            className="form-control"
+                                            onChange={(e) => setCurrentUploadedFileName(e.target.value)}
+                                        />
                                     </div>
                                 </div>
                             </div>
 
                             <div className="col-sm-12 mb-4">
                                 <div className="col-md-3">
-                                    <button type="button" className="btn btn-info mt-2 mt-md-0">Add image</button>
+                                    <button type="button" className="btn btn-info mt-2 mt-md-0"
+                                        onClick={() => addFileToProposalFilesArray()}
+                                    >
+                                        Add image
+                                    </button>
                                 </div>
                             </div>
                         </div>

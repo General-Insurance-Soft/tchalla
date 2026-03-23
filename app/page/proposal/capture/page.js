@@ -23,8 +23,6 @@ const Page = () => {
     let [policyId, setPolicyId] = useState('');
     let [startDate, setStartDate] = useState('');
     let [endDate, setEndDate] = useState('');
-    let [proposalDocuments, setProposalDocuments] = useState([]);
-
 
     //customer state (lifted from CustomerForm)
     let [firstName, setFirstName] = useState('');
@@ -63,7 +61,7 @@ const Page = () => {
                 "end_date": endDate,
                 "insurance_company_id": insuranceCompanyId,
                 "reference_number": proposalNumber,
-                "proposal_documents": proposalDocuments,
+                "proposal_documents": [{}],
                 "contact_id": searchedContactId
             }
             let saveRes = await saveProposalData(data);
@@ -93,7 +91,7 @@ const Page = () => {
                     "end_date": endDate,
                     "insurance_company_id": insuranceCompanyId,
                     "reference_number": proposalNumber,
-                    "proposal_documents": proposalDocuments
+                    "proposal_documents": [{}]
                 },
                 "contact": {
                     "first_name": firstName,
@@ -228,7 +226,6 @@ const Page = () => {
         setPolicyId('');
         setStartDate('');
         setEndDate('');
-        setProposalDocuments([]);
         setProposalNumber('');
         setSelectedFiles([]);
         setPassportIdFileInputKey(prev => prev + 1);
@@ -392,7 +389,6 @@ const Page = () => {
                         setIdentificationCardId={setIdentificationCardId}
                         insuranceCompanyId={insuranceCompanyId} policyId={policyId}
                         startDate={startDate} endDate={endDate}
-                        proposalDocuments={proposalDocuments} setProposalDocuments={setProposalDocuments}
                         setInsuranceCompanyId={setInsuranceCompanyId} setPolicyId={setPolicyId}
                         setStartDate={setStartDate} setEndDate={setEndDate}
                         insuranceCompanies={insuranceCompanies} setInsuranceCompanies={setInsuranceCompanies}
@@ -401,6 +397,7 @@ const Page = () => {
                         customerState={customerState} setCutomerState={setCutomerState}
                         saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber}
                         selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}
+                        proposalFiles={selectedFiles} setProposalFiles={setSelectedFiles}
                         passportIdFileInputKey={passportIdFileInputKey}
                         kraIdFileInputKey={kraIdFileInputKey}
                     />
@@ -410,7 +407,7 @@ const Page = () => {
 
                 </div >
             </div >
-            {/* <NewImageFolder modalRefVar={modalRef} /> */}
+            <NewImageFolder modalRefVar={modalRef} />
             <ProposalStatusModal ref={proposalCaptureStatusModalRef} messageStatus={messageStatus} />
         </>
 

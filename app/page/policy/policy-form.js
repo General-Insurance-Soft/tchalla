@@ -125,7 +125,7 @@ const Page = (
 
                     <div className="col-sm-12">
 
-                        <h6 className="tc-card-header">All added scanned copies</h6>
+                        <h6 className="tc-card-header">Scanned file copies</h6>
                         <hr />
 
                         <div className='row'>
@@ -166,7 +166,7 @@ const Page = (
 
                 <div className="col-sm-12">
 
-                    <h6 className="tc-card-header">All added scanned copies</h6>
+                    <h6 className="tc-card-header">Scanned file copies</h6>
 
                     <div className='row'>
                         {/* Template */}

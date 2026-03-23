@@ -35,7 +35,6 @@ const Page = () => {
     let [policyId, setPolicyId] = useState('');
     let [startDate, setStartDate] = useState('');
     let [endDate, setEndDate] = useState('');
-    let [proposalDocuments, setProposalDocuments] = useState([]);
     let [editFormContactDetails, setEditFormContactDetails] = useState("");
     let [selectedContactProposals, setSelectedContactProposals] = useState([]);
 
@@ -58,7 +57,7 @@ const Page = () => {
             "end_date": endDate,
             "insurance_company_id": insuranceCompanyId,
             "reference_number": proposalNumber,
-            "proposal_documents": proposalDocuments
+            "proposal_documents": [{}]
         }
 
         let response = await updateProposal(selectedProposal.id, data);
@@ -131,7 +130,7 @@ const Page = () => {
                 "end_date": endDate,
                 "insurance_company_id": insuranceCompanyId,
                 "reference_number": proposalNumber,
-                "proposal_documents": proposalDocuments
+                "proposal_documents": [{}]
             }
         }
         saveProposalAndContact(data);
@@ -438,7 +437,6 @@ const Page = () => {
                                         proposalAction={"edit"} selectedProposal={selectedProposal}
                                         insuranceCompanyId={insuranceCompanyId} policyId={policyId}
                                         startDate={startDate} endDate={endDate}
-                                        proposalDocuments={proposalDocuments} setProposalDocuments={setProposalDocuments}
                                         setInsuranceCompanyId={setInsuranceCompanyId} setPolicyId={setPolicyId}
                                         setStartDate={setStartDate} setEndDate={setEndDate}
                                         insuranceCompanies={insuranceCompanies} setInsuranceCompanies={setInsuranceCompanies}
