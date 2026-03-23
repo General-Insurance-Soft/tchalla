@@ -410,7 +410,7 @@ const Page = () => {
 
                 </div >
             </div >
-            <NewImageFolder modalRefVar={modalRef} />
+            {/* <NewImageFolder modalRefVar={modalRef} /> */}
             <ProposalStatusModal ref={proposalCaptureStatusModalRef} messageStatus={messageStatus} />
         </>
 
