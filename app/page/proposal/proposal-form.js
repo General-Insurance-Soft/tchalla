@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import CustomerForm from "../crm/contact/customer_form";
 import withAuth from "../../lib/service/with_auth";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { handleFileRename } from '../../lib/utils/util';
 
 const ProposalForm = (
@@ -41,6 +41,8 @@ const ProposalForm = (
     let [currentUploadedFileName, setCurrentUploadedFileName] = useState(null);
     let [currentUploadedFileType, setCurrentUploadedFileType] = useState(null);
 
+    const fileUploaderInputRef = useRef(null);
+
     useEffect(() => {
         return () => {
             previews.forEach(p => URL.revokeObjectURL(p.url));
@@ -74,9 +76,13 @@ const ProposalForm = (
 
         // Reset file input
         setCurrentUploadedFile(null);
-        setCurrentUploadedFileName(null);
-        setCurrentUploadedFileType(null);
-        document.querySelector('input[type="file"]').value = null;
+        setCurrentUploadedFileName("");
+        setCurrentUploadedFileType(1);
+        // document.querySelector('input[type="file"]').value = null;
+
+        if (fileUploaderInputRef.current) {
+            fileUploaderInputRef.current.value = null;
+        }
 
 
     };
@@ -227,6 +233,7 @@ const ProposalForm = (
                                             name="img"
                                             accept="image/*,application/pdf"
                                             className="form-control"
+                                            ref={fileUploaderInputRef}
                                             onChange={
                                                 (e) => {
                                                     setCurrentUploadedFile(e.target.files[0]);
@@ -238,17 +245,18 @@ const ProposalForm = (
                                     <div className="col-md-3">
                                         <label htmlFor="copyName">Document type:</label>
                                         <select id="document-type" className="form-select"
+                                            value={currentUploadedFileType}
                                             onChange={(e) => (
-                                                setCurrentUploadedFileType([
+                                                setCurrentUploadedFileType(
                                                     e.target.value
-                                                ])
+                                                )
                                             )
 
                                             }
                                         >
-                                            {proposalAction != "edit" ?
-                                                <option defaultValue>None...</option> : ""
-                                            }
+
+                                            {/* <option defaultValue>None...</option> */}
+
                                             {Array.isArray(documentTypes) && documentTypes.map((doc) => (
                                                 <option key={doc.id} value={doc.id}>
                                                     {doc.name}
@@ -269,6 +277,7 @@ const ProposalForm = (
                                         <input id="documentName" type="text"
                                             className="form-control"
                                             onChange={(e) => setCurrentUploadedFileName(e.target.value)}
+                                            value={currentUploadedFileName}
                                         />
                                     </div>
                                 </div>

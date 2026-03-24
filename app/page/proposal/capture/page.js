@@ -232,8 +232,15 @@ const Page = () => {
         setSelectedFiles([]);
         setPassportIdFileInputKey(prev => prev + 1);
         setKraIdFileInputKey(prev => prev + 1);
+
+        clearFiles();
     }
 
+    const clearFiles = () => {
+        previews.forEach(p => URL.revokeObjectURL(p.url));
+        setPreviews([]);
+        setProposalFiles([]);
+    };
 
 
     const creatNewImageFolder = (event) => {
