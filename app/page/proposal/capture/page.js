@@ -38,6 +38,8 @@ const Page = () => {
     let [kraPin, setKraPin] = useState('');
     let [identificationCardId, setIdentificationCardId] = useState('');
     let [selectedFiles, setSelectedFiles] = useState([]);
+    let [previews, setPreviews] = useState([]);
+
     // setPassportIdFileInputKey = {setPassportIdFileInputKey} 
     //                             passportIdFileInputKey = {passportIdFileInputKey}
     let [passportIdFileInputKey, setPassportIdFileInputKey] = useState(0);
@@ -400,6 +402,7 @@ const Page = () => {
                         proposalFiles={selectedFiles} setProposalFiles={setSelectedFiles}
                         passportIdFileInputKey={passportIdFileInputKey}
                         kraIdFileInputKey={kraIdFileInputKey}
+                        previews={previews} setPreviews={setPreviews}
                     />
 
                     {/* Modal */}

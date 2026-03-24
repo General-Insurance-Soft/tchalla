@@ -37,6 +37,7 @@ const Page = () => {
     let [endDate, setEndDate] = useState('');
     let [editFormContactDetails, setEditFormContactDetails] = useState("");
     let [selectedContactProposals, setSelectedContactProposals] = useState([]);
+    let [previews, setPreviews] = useState([]);
 
     const creatNewImageFolder = (event) => {
 
@@ -445,6 +446,7 @@ const Page = () => {
                                         customerState={customerState} setCutomerState={setCutomerState}
                                         saveProposal={saveProposal} proposalNumber={proposalNumber} setProposalNumber={setProposalNumber} updateProposalData={updateProposalData}
                                         setShowEditForm={setShowEditForm}
+                                        previews={previews} setPreviews={setPreviews}
                                     />
 
                                     {/* Modal */}

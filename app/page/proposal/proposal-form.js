@@ -32,14 +32,14 @@ const ProposalForm = (
         saveProposal, proposalNumber, setProposalNumber, updateProposalData,
         setShowEditForm, selectedFiles, setSelectedFiles,
         passportIdFileInputKey, kraIdFileInputKey,
-        proposalFiles, setProposalFiles
+        proposalFiles, setProposalFiles,
+        previews, setPreviews
     }
 ) => {
 
     let [currentUploadedFile, setCurrentUploadedFile] = useState(null);
     let [currentUploadedFileName, setCurrentUploadedFileName] = useState(null);
     let [currentUploadedFileType, setCurrentUploadedFileType] = useState(null);
-    let [previews, setPreviews] = useState([]);
 
     useEffect(() => {
         return () => {
@@ -71,6 +71,14 @@ const ProposalForm = (
                 name: currentUploadedFileName
             }
         ]);
+
+        // Reset file input
+        setCurrentUploadedFile(null);
+        setCurrentUploadedFileName(null);
+        setCurrentUploadedFileType(null);
+        document.querySelector('input[type="file"]').value = null;
+
+
     };
 
     const removePreview = (index) => {
