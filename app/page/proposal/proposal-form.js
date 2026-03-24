@@ -3,10 +3,10 @@
 import Image from 'next/image';
 import CustomerForm from "../crm/contact/customer_form";
 import withAuth from "../../lib/service/with_auth";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { handleFileRename } from '../../lib/utils/util';
 
-const Page = (
+const ProposalForm = (
     {
         proposalAction, selectedProposal,
         firstName, setFirstName,
@@ -39,14 +39,43 @@ const Page = (
     let [currentUploadedFile, setCurrentUploadedFile] = useState(null);
     let [currentUploadedFileName, setCurrentUploadedFileName] = useState(null);
     let [currentUploadedFileType, setCurrentUploadedFileType] = useState(null);
+    let [previews, setPreviews] = useState([]);
 
-    let addFileToProposalFilesArray = () => {
+    useEffect(() => {
+        return () => {
+            previews.forEach(p => URL.revokeObjectURL(p.url));
+        };
+    }, [previews]);
+
+    let addFileToProposalFilesArray = async () => {
+        if (!currentUploadedFile) return;
+
         let filesArray = Array.from(proposalFiles);
-        let fName = "name:" + currentUploadedFileName + "-type:" + currentUploadedFileType;
+
+        let fName =
+            "name:" + currentUploadedFileName +
+            "-type:" + currentUploadedFileType;
+
         let renamedFile = handleFileRename(currentUploadedFile, fName);
+
         filesArray.push(renamedFile);
         setProposalFiles(filesArray);
-    }
+
+        const fileUrl = URL.createObjectURL(currentUploadedFile);
+
+        setPreviews(prev => [
+            ...prev,
+            {
+                url: fileUrl,
+                type: currentUploadedFile.type,
+                name: currentUploadedFileName
+            }
+        ]);
+    };
+
+    const removePreview = (index) => {
+        setPreviews(prev => prev.filter((_, i) => i !== index));
+    };
 
     return (
         <>
@@ -183,12 +212,7 @@ const Page = (
                                 <div className="row">
                                     <div className="col-md-3">
 
-
-
-
-
-
-                                        <label htmlFor="img">Select Scanned copies:</label>
+                                        <label htmlFor="img">Select file/image:</label>
                                         <input
                                             key={passportIdFileInputKey}
                                             type="file"
@@ -201,9 +225,6 @@ const Page = (
                                                 }
                                             }
                                         />
-
-
-
 
                                     </div>
                                     <div className="col-md-3">
@@ -258,26 +279,52 @@ const Page = (
 
                         <div className='row'>
                             {/* Template */}
-                            <div className="col-sm-6">
+                            <div className="row">
+                                {previews && previews.map((file, index) => (
+                                    <div className="col-sm-6" key={index}>
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h6 className="card-subtitle mb-2 text-muted">
+                                                    {file.name}
+                                                </h6>
 
-                                <div className="card">
-                                    <div className="card-body">
+                                                {/* Image preview */}
+                                                {file.type.startsWith("image/") && (
+                                                    <img
+                                                        src={file.url}
+                                                        alt="preview"
+                                                        style={{ width: "100%", height: "300px", marginTop: 10 }}
+                                                    />
+                                                )}
 
-                                        <h6 className="card-subtitle mb-2 text-muted">Proposal</h6>
-                                        <Image
-                                            src="/img/receipt_template.jpg"
-                                            // layout="responsive"
-                                            width={200}  // Aspect ratio width
-                                            height={400}  // Aspect ratio height
-                                            className="card-img-top"
-                                            alt="receipt template"
-                                        />
-                                        <hr />
-                                        <button type="button" className="btn btn-primary me-2"><i className="bi bi-eye-fill"></i></button>
-                                        <button type="button" className="btn btn-info me-2"><i className="bi bi-download"></i></button>
-                                        <button type="button" className="btn btn-secondary"><i className="bi bi-trash3-fill"></i></button>
+                                                {/* PDF preview */}
+                                                {file.type === "application/pdf" && (
+                                                    <iframe
+                                                        src={`${file.url}#toolbar=0&navpanes=0&scrollbar=0`}
+                                                        width="100%"
+                                                        height="300px"
+                                                        title="pdf preview"
+                                                    />
+                                                )}
+
+                                                <hr />
+
+                                                <button className="btn btn-primary me-2">
+                                                    <i className="bi bi-eye-fill"></i>
+                                                </button>
+                                                <button className="btn btn-info me-2">
+                                                    <i className="bi bi-download"></i>
+                                                </button>
+                                                <button
+                                                    className="btn btn-secondary"
+                                                    onClick={() => removePreview(index)}
+                                                >
+                                                    <i className="bi bi-trash3-fill"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                ))}
                             </div>
                             {/* Template */}
 
@@ -305,4 +352,4 @@ const Page = (
     )
 };
 
-export default withAuth(Page);
+export default withAuth(ProposalForm);
