@@ -39,6 +39,7 @@ const Page = () => {
     let [identificationCardId, setIdentificationCardId] = useState('');
     let [selectedFiles, setSelectedFiles] = useState([]);
     let [previews, setPreviews] = useState([]);
+    let [proposalFiles, setProposalFiles] = useState([]);
 
     // setPassportIdFileInputKey = {setPassportIdFileInputKey} 
     //                             passportIdFileInputKey = {passportIdFileInputKey}
