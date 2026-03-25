@@ -260,20 +260,22 @@ export const fetchPolicies = async () => {
 export const fetchAdministrativeAreas = async () => {
     const cacheKey = `administrative-areas`;
     const cachedData = getFromCache(cacheKey);
-
     if (
         cachedData
         &&
         (Array.isArray(cachedData)
-            && (cachedData.length == 0)
+            && (cachedData.length != 0)
         )
     ) {
         console.log(`Cache hit for ${cacheKey}`);
         return cachedData;
     }
-
+    console.log(`Cache miss for ${cacheKey}`);
     const jsonData = await dataFetch(`${baseServerUrl}/reference-data-service/api/v1/administrative-area/get-administrative-areas`, "administrative areas");
-    setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+
+    if (Array.isArray(jsonData) && jsonData.length != 0) {
+        setCacheWithExpiry(cacheKey, jsonData); // Save to localStorage
+    }
 
     return jsonData
 }
