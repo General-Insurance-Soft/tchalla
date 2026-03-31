@@ -33,7 +33,7 @@ const ProposalForm = (
         setShowEditForm, selectedFiles, setSelectedFiles,
         passportIdFileInputKey, kraIdFileInputKey,
         proposalFiles, setProposalFiles,
-        previews, setPreviews
+        previews, setPreviews, deleteDocumentFile
     }
 ) => {
 
@@ -336,7 +336,7 @@ const ProposalForm = (
                                                         </button>
                                                         <button
                                                             className="btn btn-secondary"
-                                                            onClick={() => removePreview(index)}
+                                                            onClick={(e) => deleteDocumentFile(e,file.id)}
                                                         >
                                                             <i className="bi bi-trash3-fill"></i>
                                                         </button>

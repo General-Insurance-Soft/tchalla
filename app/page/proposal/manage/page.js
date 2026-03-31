@@ -7,7 +7,11 @@ import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 import DeleteProposal from './delete-proposal.js';
 import ProposalStatusModal from '../proposal-status-message.js';
-import { fetchProposalData, daleteProposal, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getProposal, getProposalByContact, updateProposal } from "../../../lib/service/model";
+import {
+    fetchProposalData, daleteProposal, fetchInsuranceCopanies,
+    fetchDocumentTypes, fetchPolicies, getProposal,
+    getProposalByContact, updateProposal, deleteProposalFile
+} from "../../../lib/service/model";
 import ProposalForm from "../proposal-form";
 import ProposalLoader from "./proposal-loader";
 
@@ -159,6 +163,17 @@ const Page = () => {
 
         setRes(res);
     };
+
+    const deleteDocumentFile = async (event, documentId) => {
+        event.preventDefault();
+        let res = await deleteProposalFile(documentId);
+        setMessageStatus(res.message);
+
+        if (proposalStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
+            modal.show();
+        }
+    }
 
 
     useEffect(() => {
@@ -380,7 +395,7 @@ const Page = () => {
                                                                     setSelectedContactProposals(res)
                                                                 })
                                                                 console.log("selectedProposal", selectedProposal)
-                                                                
+
                                                             }
                                                         }
                                                     ><i className="bi bi-pencil-square"></i></button>
@@ -451,7 +466,7 @@ const Page = () => {
                                         setShowEditForm={setShowEditForm}
                                         selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}
                                         proposalFiles={selectedFiles} setProposalFiles={setSelectedFiles}
-                                        previews={previews} setPreviews={setPreviews}
+                                        previews={previews} setPreviews={setPreviews} deleteDocumentFile={deleteDocumentFile}
                                     />
 
                                     {/* Modal */}

@@ -292,6 +292,10 @@ export const daleteProposal = async (id) => {
     return await dataDeleteById(`${baseServerUrl}/proposal-service/api/v1/proposal/delete?id=${id}`, "proposal delete");
 }
 
+export const deleteProposalFile = async (id) => {
+    return await dataDeleteById(`${baseServerUrl}/proposal-service/api/v1/proposal-document/delete-file?id=${id}`, "proposal file delete");
+}
+
 export const getProposal = async (id) => {
     return await dataFetch(`${baseServerUrl}/proposal-service/api/v1/proposal/get?id=${id}`, "proposal get");
 }
