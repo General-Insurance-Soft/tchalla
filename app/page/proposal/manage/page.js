@@ -380,6 +380,7 @@ const Page = () => {
                                                                     setSelectedContactProposals(res)
                                                                 })
                                                                 console.log("selectedProposal", selectedProposal)
+                                                                
                                                             }
                                                         }
                                                     ><i className="bi bi-pencil-square"></i></button>

@@ -297,6 +297,41 @@ const ProposalForm = (
                         <div className='row'>
                             {/* Template */}
                             <div className="row">
+
+
+                                {proposalAction === "edit" &&
+                                    selectedProposal.proposal_documents.map((file, index) => (
+                                        <div className="col-sm-6" key={file.id || index}>
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <h6 className="card-subtitle mb-2 text-muted">
+                                                        {file.document_name}
+                                                    </h6>
+                                                    {
+                                                        // if file.blob_url == pdf = url.split('.').pop().toLowerCase();
+                                                        file.blob_url.split('.').pop().toLowerCase() === "pdf" ?
+                                                            <Image
+                                                                src="/img/file_thum.webp"
+                                                                width={200}  // Aspect ratio width
+                                                                height={400}  // Aspect ratio height
+                                                                className="card-img-top"
+                                                                alt="pdf preview"
+                                                            /> :
+                                                            <Image
+                                                                src="/img/img_thumbnail.svg"
+                                                                width={200}  // Aspect ratio width
+                                                                height={400}  // Aspect ratio height
+                                                                className="card-img-top"
+                                                                alt="image preview"
+                                                            />
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+
                                 {previews && previews.map((file, index) => (
                                     <div className="col-sm-6" key={index}>
                                         <div className="card">
@@ -309,7 +344,7 @@ const ProposalForm = (
                                                 {file.type.startsWith("image/") && (
                                                     <img
                                                         src={file.url}
-                                                        alt="preview"
+                                                        alt="image preview"
                                                         style={{ width: "100%", height: "300px", marginTop: 10 }}
                                                     />
                                                 )}
