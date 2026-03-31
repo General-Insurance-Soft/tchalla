@@ -327,19 +327,20 @@ const ProposalForm = (
                                                     }
 
                                                     <hr />
-
-                                                    <button className="btn btn-primary me-2">
+                                                    <div className="d-flex justify-content-center gap-2">
+                                                        {/* <button className="btn btn-primary me-2">
                                                         <i className="bi bi-eye-fill"></i>
-                                                    </button>
-                                                    <button className="btn btn-info me-2">
-                                                        <i className="bi bi-download"></i>
-                                                    </button>
-                                                    <button
-                                                        className="btn btn-secondary"
-                                                        onClick={() => removePreview(index)}
-                                                    >
-                                                        <i className="bi bi-trash3-fill"></i>
-                                                    </button>
+                                                    </button> */}
+                                                        <button className="btn btn-info me-2">
+                                                            <i className="bi bi-download"></i>
+                                                        </button>
+                                                        <button
+                                                            className="btn btn-secondary"
+                                                            onClick={() => removePreview(index)}
+                                                        >
+                                                            <i className="bi bi-trash3-fill"></i>
+                                                        </button>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -376,18 +377,19 @@ const ProposalForm = (
 
                                                 <hr />
 
-                                                <button className="btn btn-primary me-2">
-                                                    <i className="bi bi-eye-fill"></i>
-                                                </button>
-                                                <button className="btn btn-info me-2">
-                                                    <i className="bi bi-download"></i>
-                                                </button>
-                                                <button
-                                                    className="btn btn-secondary"
-                                                    onClick={() => removePreview(index)}
-                                                >
-                                                    <i className="bi bi-trash3-fill"></i>
-                                                </button>
+                                                {/* Centered buttons */}
+                                                <div className="d-flex justify-content-center gap-2">
+                                                    <button className="btn btn-info">
+                                                        <i className="bi bi-download"></i>
+                                                    </button>
+
+                                                    <button
+                                                        className="btn btn-secondary"
+                                                        onClick={() => removePreview(index)}
+                                                    >
+                                                        <i className="bi bi-trash3-fill"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
