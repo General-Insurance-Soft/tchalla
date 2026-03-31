@@ -313,19 +313,19 @@ const ProposalForm = (
                                                             <Image
                                                                 src="/img/file_thum.webp"
                                                                 width={200}  // Aspect ratio width
-                                                                height={400}  // Aspect ratio height
+                                                                height={300}  // Aspect ratio height
                                                                 className="card-img-top"
                                                                 alt="pdf preview"
                                                             /> :
                                                             <Image
                                                                 src="/img/img_thumbnail.svg"
                                                                 width={200}  // Aspect ratio width
-                                                                height={400}  // Aspect ratio height
+                                                                height={300}  // Aspect ratio height
                                                                 className="card-img-top"
                                                                 alt="image preview"
                                                             />
                                                     }
-                                                    
+
                                                     <hr />
 
                                                     <button className="btn btn-primary me-2">
