@@ -67,7 +67,24 @@ const Page = () => {
                 "proposal_documents": [{}],
                 "contact_id": searchedContactId
             }
-            let saveRes = await saveProposalData(data);
+
+
+            let formData = new FormData();
+
+            formData.append("data", new Blob([JSON.stringify(data)], {
+                type: "application/json"
+            }));
+
+            if (selectedFiles.length === 0) {
+                formData.append("files", new Blob([])); // append empty file if none selected
+            } else {
+                for (let file of selectedFiles) {
+                    formData.append("files", file); // key must match backend param
+                }
+            }
+
+
+            let saveRes = await saveProposalData(formData);
             //return proposalId:1 if successful
             if (saveRes.proposalId) {
                 setMessageStatus("Proposal saved successfully");
