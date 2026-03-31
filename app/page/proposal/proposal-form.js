@@ -325,6 +325,21 @@ const ProposalForm = (
                                                                 alt="image preview"
                                                             />
                                                     }
+                                                    
+                                                    <hr />
+
+                                                    <button className="btn btn-primary me-2">
+                                                        <i className="bi bi-eye-fill"></i>
+                                                    </button>
+                                                    <button className="btn btn-info me-2">
+                                                        <i className="bi bi-download"></i>
+                                                    </button>
+                                                    <button
+                                                        className="btn btn-secondary"
+                                                        onClick={() => removePreview(index)}
+                                                    >
+                                                        <i className="bi bi-trash3-fill"></i>
+                                                    </button>
 
                                                 </div>
                                             </div>
