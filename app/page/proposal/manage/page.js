@@ -169,6 +169,17 @@ const Page = () => {
         let res = await deleteProposalFile(documentId);
         setMessageStatus(res.message);
 
+        if (res.message.toLowerCase().includes("successfully")) {
+            // Remove the deleted document from the selectedProposal state
+            console.log("Deleting document with ID:", documentId);
+            setSelectedProposal(prev => ({
+                ...prev,
+                proposal_documents: prev.proposal_documents.filter(
+                    doc => doc.id !== documentId
+                )
+            }));
+        }
+
         if (proposalStatusModalRef.current) {
             const modal = new window.bootstrap.Modal(proposalStatusModalRef.current);
             modal.show();
