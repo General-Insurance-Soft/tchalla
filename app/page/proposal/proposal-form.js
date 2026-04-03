@@ -87,8 +87,12 @@ const ProposalForm = (
 
     };
 
-    const removePreview = (index) => {
+    const removePreview = (e,index) => {
+        e.preventDefault();
+        console.log("To delete file with name:", previews[index].name);
+        setProposalFiles(prev => prev.filter((_, i) => i !== index));
         setPreviews(prev => prev.filter((_, i) => i !== index));
+        console.log("removing file, size now:", previews.length);
     };
 
     return (
@@ -385,7 +389,7 @@ const ProposalForm = (
 
                                                     <button
                                                         className="btn btn-secondary"
-                                                        onClick={() => removePreview(index)}
+                                                        onClick={(e) => removePreview(e,index)}
                                                     >
                                                         <i className="bi bi-trash3-fill"></i>
                                                     </button>
