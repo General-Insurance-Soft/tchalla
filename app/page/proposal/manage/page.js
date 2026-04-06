@@ -55,6 +55,7 @@ const Page = () => {
         }
     }
 
+
     const updateProposalData = async (event) => {
         event.preventDefault();
 
@@ -67,7 +68,22 @@ const Page = () => {
             "proposal_documents": [{}]
         }
 
-        let response = await updateProposal(selectedProposal.id, data);
+
+        let formData = new FormData();
+
+        formData.append("data", new Blob([JSON.stringify(data)], {
+            type: "application/json"
+        }));
+
+        if (selectedFiles.length === 0) {
+            formData.append("files", new Blob([])); // append empty file if none selected
+        } else {
+            for (let file of selectedFiles) {
+                formData.append("files", file); // key must match backend param
+            }
+        }
+
+        let response = await updateProposal(selectedProposal.id, formData);
 
         setMessageStatus(response.message);
         fetchAllProposalData();
@@ -79,6 +95,7 @@ const Page = () => {
         return;
 
     }
+
 
     const fetchSubproposal = async (proposalId) => {
         let proposal = await getProposal(proposalId);

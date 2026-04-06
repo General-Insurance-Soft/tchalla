@@ -308,7 +308,7 @@ const ProposalForm = (
                             <div className="row">
 
 
-                                {proposalAction === "edit" &&
+                                {proposalAction == "edit" &&
                                     selectedProposal.proposal_documents.map((file, index) => (
                                         <div className="col-sm-6" key={file.id || index}>
                                             <div className="card">
