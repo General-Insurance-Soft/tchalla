@@ -87,7 +87,7 @@ const ProposalForm = (
 
     };
 
-    const removePreview = (e,index) => {
+    const removePreview = (e, index) => {
         e.preventDefault();
         console.log("To delete file with name:", previews[index].name);
         setProposalFiles(prev => prev.filter((_, i) => i !== index));
@@ -95,6 +95,11 @@ const ProposalForm = (
         console.log("removing file, size now:", previews.length);
     };
 
+    const handleDownload = (e, url) => {
+        e.preventDefault();
+
+        window.open(url, "_blank", "noopener,noreferrer");
+    };
     return (
         <>
 
@@ -332,15 +337,13 @@ const ProposalForm = (
 
                                                     <hr />
                                                     <div className="d-flex justify-content-center gap-2">
-                                                        {/* <button className="btn btn-primary me-2">
-                                                        <i className="bi bi-eye-fill"></i>
-                                                    </button> */}
-                                                        <button className="btn btn-info me-2">
+                                                        <button className="btn btn-primary me-2"
+                                                            onClick={(e) => handleDownload(e, file.blob_url)}>
                                                             <i className="bi bi-download"></i>
                                                         </button>
                                                         <button
                                                             className="btn btn-secondary"
-                                                            onClick={(e) => deleteDocumentFile(e,file.id)}
+                                                            onClick={(e) => deleteDocumentFile(e, file.id)}
                                                         >
                                                             <i className="bi bi-trash3-fill"></i>
                                                         </button>
@@ -383,13 +386,9 @@ const ProposalForm = (
 
                                                 {/* Centered buttons */}
                                                 <div className="d-flex justify-content-center gap-2">
-                                                    <button className="btn btn-info">
-                                                        <i className="bi bi-download"></i>
-                                                    </button>
-
                                                     <button
                                                         className="btn btn-secondary"
-                                                        onClick={(e) => removePreview(e,index)}
+                                                        onClick={(e) => removePreview(e, index)}
                                                     >
                                                         <i className="bi bi-trash3-fill"></i>
                                                     </button>
