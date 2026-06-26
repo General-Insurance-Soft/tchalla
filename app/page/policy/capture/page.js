@@ -5,7 +5,7 @@ import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
 
-import { fetchSearchedProposals, savePolicyData } from "../../../lib/service/model";
+import { fetchSearchedProposals, savePolicyData, fetchDocumentTypes } from "../../../lib/service/model";
 // PolicyStatusModal
 import PolicyStatusModal from '../policy-status-message';
 import PolicylForm from "../policy-form";
@@ -33,6 +33,9 @@ const Page = () => {
     const [documentTypes, setDocumentTypes] = useState([]);
     const [policies, setPolicies] = useState([]);
     const [insuranceCompanies, setInsuranceCompanies] = useState([]);
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [previews, setPreviews] = useState([]);
+    const [policyFiles, setPolicyFiles] = useState([]);
 
     const dropdownRef = useRef(null);
 
@@ -61,6 +64,22 @@ const Page = () => {
         };
     }, [setSearchedContent]);
 
+    //initialize fieds with server data
+    useEffect(() => {
+
+        const fetchDocumentTypesData = async () => {
+            let res = await fetchDocumentTypes();
+            if ('error' in res) {
+                return;
+            }
+            setDocumentTypes(res);
+        };
+
+        fetchDocumentTypesData();
+
+    }, []);
+
+
     const resetState = () => {
         setSearchText('');
         setSearchedContent([]);
@@ -81,6 +100,7 @@ const Page = () => {
 
         event.preventDefault();
 
+
         let data = {
             "policy_number": policyNumber,
             "certificate_number": certificateNumber,
@@ -92,8 +112,22 @@ const Page = () => {
             "policy_type_id": policyTypeId
         }
 
-        let saveRes = await savePolicyData(data);
 
+        let formData = new FormData();
+
+        formData.append("data", new Blob([JSON.stringify(data)], {
+            type: "application/json"
+        }));
+
+        if (selectedFiles.length === 0) {
+            formData.append("files", new Blob([])); // append empty file if none selected
+        } else {
+            for (let file of selectedFiles) {
+                formData.append("files", file); // key must match backend param
+            }
+        }
+
+        let saveRes = await savePolicyData(formData);
         if ('message' in saveRes) {
             setMessageStatus(saveRes.message);
 
@@ -143,7 +177,7 @@ const Page = () => {
                             {/* <span className="input-group-text" id="search-icon">
                                     <i className="bi bi-search"></i>
                                 </span>
-                                <input id="search" type="text" className="form-control" placeholder="Search proposal by ref no, phone no, ID/Passport" aria-label="Search" aria-describedby="search-icon" /> */}
+                                <input id="search" type="text" className="form-control" placeholder="Search policy by ref no, phone no, ID/Passport" aria-label="Search" aria-describedby="search-icon" /> */}
 
                             <>
                                 {/* Search Input */}
@@ -247,7 +281,7 @@ const Page = () => {
                             {/* </div> */}
                         </div>
 
-                        <div className="col-12 d-flex mt-5">
+                        <div className="col-12 d-flex mt-3">
                             <button
                                 className="btn btn-primary me-2"
                                 onClick={(e) => savePolicy(e)}
@@ -260,6 +294,9 @@ const Page = () => {
                     </div>
 
                     <hr />
+
+
+
 
                     <div className="d-flex justify-content-start mb-3">
                         <div className="">
@@ -286,6 +323,12 @@ const Page = () => {
                         showEditForm={showEditForm}
                         insuranceCompanies={insuranceCompanies}
                         setInsuranceCompanies={setInsuranceCompanies}
+                        selectedFiles={selectedFiles}
+                        setSelectedFiles={setSelectedFiles}
+                        policyFiles={policyFiles}
+                        setPolicyFiles={setPolicyFiles}
+                        previews={previews}
+                        setPreviews={setPreviews}
                     />
 
 

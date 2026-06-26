@@ -100,6 +100,7 @@ const ProposalForm = (
 
         window.open(url, "_blank", "noopener,noreferrer");
     };
+    
     return (
         <>
 

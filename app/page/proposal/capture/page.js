@@ -271,8 +271,6 @@ const Page = () => {
         }
     }
 
-
-
     return (
 
         <>
