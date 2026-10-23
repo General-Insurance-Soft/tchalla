@@ -329,6 +329,7 @@ const Page = () => {
                         setPolicyFiles={setPolicyFiles}
                         previews={previews}
                         setPreviews={setPreviews}
+                        documentTypes={documentTypes} setDocumentTypes={setDocumentTypes}
                     />
 
 
