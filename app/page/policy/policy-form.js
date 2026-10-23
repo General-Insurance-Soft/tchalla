@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from 'next/image';
 import CustomerForm from "../crm/contact/customer_form";
 import withAuth from "../../lib/service/with_auth";
+import { handleFileRename } from '../../lib/utils/util';
 
 const Page = (
     {
