@@ -33,7 +33,6 @@ const Page = () => {
     const [documentTypes, setDocumentTypes] = useState([]);
     const [policies, setPolicies] = useState([]);
     const [insuranceCompanies, setInsuranceCompanies] = useState([]);
-    const [selectedFiles, setSelectedFiles] = useState([]);
     const [previews, setPreviews] = useState([]);
     const [policyFiles, setPolicyFiles] = useState([]);
 
@@ -93,6 +92,7 @@ const Page = () => {
         setContactId('');
         setInsuranceCompanyId('');
         setPolicyTypeId('');
+        setPolicyFiles([]);
 
     };
 
@@ -119,10 +119,11 @@ const Page = () => {
             type: "application/json"
         }));
 
-        if (selectedFiles.length === 0) {
+        if (policyFiles.length === 0) {
+            console.log("No files selected, appending empty file to FormData");
             formData.append("files", new Blob([])); // append empty file if none selected
         } else {
-            for (let file of selectedFiles) {
+            for (let file of policyFiles) {
                 formData.append("files", file); // key must match backend param
             }
         }
@@ -323,8 +324,6 @@ const Page = () => {
                         showEditForm={showEditForm}
                         insuranceCompanies={insuranceCompanies}
                         setInsuranceCompanies={setInsuranceCompanies}
-                        selectedFiles={selectedFiles}
-                        setSelectedFiles={setSelectedFiles}
                         policyFiles={policyFiles}
                         setPolicyFiles={setPolicyFiles}
                         previews={previews}
