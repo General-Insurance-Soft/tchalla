@@ -43,6 +43,10 @@ const Page = () => {
 
     const [showOptionalPolicySelectSpinner, setShowOptionalPolicySelectSpinner] = useState(false);
 
+    let [previews, setPreviews] = useState([]);
+    let [selectedFiles, setSelectedFiles] = useState([]);
+    let [policyFiles, setPolicyFiles] = useState([]);
+
     const createNewImageFolder = (event) => {
 
         if (typeof window !== "undefined" && bootstrap) {
@@ -66,11 +70,12 @@ const Page = () => {
             }
             return;
         }
-
+        console.log("fetchAllPolicyData =========>>>" + JSON.stringify(res));
         setRes(res);
     };
 
     const fetchProposal = async (val, cName) => {
+        console.log("fetchProposal val ========>", val);
         let proposal = await getProposal(val.proposal_id);
         setInsuranceCompanyId(proposal.insurance_company_id);
         setPolicyTypeId(proposal.policy_type_id);
@@ -152,18 +157,18 @@ const Page = () => {
     }
 
     const deletePolicy = async () => {
-            if (selectedPolicy == null) return
+        if (selectedPolicy == null) return
 
-            let res = await deletePolicyById(selectedPolicy.id);
-            console.log("delete policy res", res);
-            setMessageStatus(res.message);
-            fetchAllPolicyData();
-            // Show the PolicyStatusModal
-            if (policyStatusModalRef.current) {
-                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
-                modal.show();
-            }
+        let res = await deletePolicyById(selectedPolicy.id);
+        console.log("delete policy res", res);
+        setMessageStatus(res.message);
+        fetchAllPolicyData();
+        // Show the PolicyStatusModal
+        if (policyStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+            modal.show();
         }
+    }
 
     useEffect(() => {
         fetchAllPolicyData();
@@ -305,7 +310,7 @@ const Page = () => {
             policyLst.push(policy);
 
         });
-
+       
         setPolicyList(policyLst);
 
     }, [res]);
@@ -466,8 +471,12 @@ const Page = () => {
                                         policyTypeId={policyTypeId}
                                         setPolicyTypeId={setPolicyTypeId}
                                         policies={policies}
-                                    // insuranceCompanies={insuranceCompanies}
-                                    // setInsuranceCompanies={setInsuranceCompanies}
+                                        policyFiles={policyFiles}
+                                        setPolicyFiles={setPolicyFiles}
+                                        previews={previews}
+                                        setPreviews={setPreviews}
+                                        insuranceCompanies={insuranceCompanies}
+                                        setInsuranceCompanies={setInsuranceCompanies}
                                     />
 
                                     <div className="text-center mb-3">
@@ -509,7 +518,7 @@ const Page = () => {
                 showOptionalPolicySelectSpinner={showOptionalPolicySelectSpinner}
                 selectedPolicy={selectedPolicy}
             />
-            
+
         </>
     );
 }

@@ -19,7 +19,6 @@ const Page = (
         policyNumber, setPolicyNumber,
         policyTypeId, setPolicyTypeId,
         setShowEditForm,
-        selectedFiles, setSelectedFiles,
         policyFiles, setPolicyFiles,
         previews, setPreviews, deleteDocumentFile
     }
