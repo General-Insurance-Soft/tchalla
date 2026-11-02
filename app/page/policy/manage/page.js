@@ -477,6 +477,8 @@ const Page = () => {
                                         setPreviews={setPreviews}
                                         insuranceCompanies={insuranceCompanies}
                                         setInsuranceCompanies={setInsuranceCompanies}
+                                        policyAction={policyAction}
+                                        selectedPolicy={selectedPolicy}
                                     />
 
                                     <div className="text-center mb-3">

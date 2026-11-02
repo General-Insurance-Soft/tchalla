@@ -26,7 +26,7 @@ const Page = (
 
     let [currentUploadedFile, setCurrentUploadedFile] = useState(null);
     let [currentUploadedFileName, setCurrentUploadedFileName] = useState(null);
-    let [currentUploadedFileType, setCurrentUploadedFileType] = useState(null);
+    let [currentUploadedFileType, setCurrentUploadedFileType] = useState(1);
 
     const fileUploaderInputRef = useRef(null);
 
@@ -64,7 +64,7 @@ const Page = (
         // Reset file input
         setCurrentUploadedFile(null);
         setCurrentUploadedFileName("");
-        setCurrentUploadedFileType(1);
+        setCurrentUploadedFileType("");
         // document.querySelector('input[type="file"]').value = null;
 
         if (fileUploaderInputRef.current) {
@@ -165,7 +165,9 @@ const Page = (
                                     </div>
                                     <div className="col-md-3">
                                         <label htmlFor="copyName">Document type:</label>
-                                        <select id="document-type" className="form-select"
+                                        {/* value` prop on `select` */}
+
+                                        <select  id="document-type" className="form-select"
                                             value={currentUploadedFileType}
                                             onChange={(e) => (
                                                 setCurrentUploadedFileType(
@@ -218,10 +220,10 @@ const Page = (
                         <div className='row'>
                             {/* Template */}
                             <div className="row">
-
-
+                                    
                                 {policyAction == "edit" &&
                                     selectedPolicy.policy_documents.map((file, index) => (
+                                        
                                         <div className="col-sm-6" key={file.id || index}>
                                             <div className="card">
                                                 <div className="card-body">
@@ -230,7 +232,7 @@ const Page = (
                                                     </h6>
                                                     {
                                                         // if file.blob_url == pdf = url.split('.').pop().toLowerCase();
-                                                        file.extension.toLowerCase() === "pdf" ?
+                                                        file.blob_url.split('.').pop().toLowerCase() === "pdf" ?
                                                             <Image
                                                                 src="/img/file_thum.webp"
                                                                 width={200}  // Aspect ratio width
