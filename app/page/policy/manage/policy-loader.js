@@ -20,7 +20,7 @@ export default function PolicyLoader({action, selectedContactPolicies, fetchSubP
                             {
                                 selectedContactPolicies.map((policy, index) => {
                                     return (
-                                        <option key={index} value={policy.id}>"Ref: " {policy.policy_number} " date: " {policy.start_date}</option>
+                                        <option key={index} value={policy.id}>Ref: " {policy.policy_number} " date: " {policy.start_date}</option>
                                     );
                                 })
                             }
