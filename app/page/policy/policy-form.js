@@ -26,7 +26,7 @@ const Page = (
 
     let [currentUploadedFile, setCurrentUploadedFile] = useState(null);
     let [currentUploadedFileName, setCurrentUploadedFileName] = useState(null);
-    let [currentUploadedFileType, setCurrentUploadedFileType] = useState(1);
+    let [currentUploadedFileType, setCurrentUploadedFileType] = useState(null);
 
     const fileUploaderInputRef = useRef(null);
 
@@ -64,7 +64,7 @@ const Page = (
         // Reset file input
         setCurrentUploadedFile(null);
         setCurrentUploadedFileName("");
-        setCurrentUploadedFileType("");
+        setCurrentUploadedFileType(1);
         // document.querySelector('input[type="file"]').value = null;
 
         if (fileUploaderInputRef.current) {
@@ -166,8 +166,8 @@ const Page = (
                                     <div className="col-md-3">
                                         <label htmlFor="copyName">Document type:</label>
                                         {/* value` prop on `select` */}
-
-                                        <select  id="document-type" className="form-select"
+                                        
+                                        <select id="document-type" className="form-select"
                                             value={currentUploadedFileType}
                                             onChange={(e) => (
                                                 setCurrentUploadedFileType(

@@ -479,6 +479,7 @@ const Page = () => {
                                         setInsuranceCompanies={setInsuranceCompanies}
                                         policyAction={policyAction}
                                         selectedPolicy={selectedPolicy}
+                                        documentTypes={documentTypes}
                                     />
 
                                     <div className="text-center mb-3">
