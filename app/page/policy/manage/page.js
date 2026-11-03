@@ -5,7 +5,8 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, getProposal, getPolicy, updatePolicyData, deletePolicyById } from "../../../lib/service/model";
+import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, 
+    getProposal, getPolicy, updatePolicyData, deletePolicyById, deletePolicyFile } from "../../../lib/service/model";
 import PolicyStatusModal from "../policy-status-message";
 import PolicylForm from "../policy-form";
 import DeletePolicy from "./delete-policy";
@@ -140,6 +141,28 @@ const Page = () => {
         }
 
     };
+
+    const deleteDocumentFile = async (event, documentId) => {
+            event.preventDefault();
+            let res = await deletePolicyFile(documentId);
+            setMessageStatus(res.message);
+        
+            if (res.message.toLowerCase().includes("successfully")) {
+                // Remove the deleted document from the selectedPolicy state
+                console.log("Deleting document with ID:", documentId);
+                setSelectedPolicy(prev => ({
+                    ...prev,
+                    policy_documents: prev.policy_documents.filter(
+                        doc => doc.id !== documentId
+                    )
+                }));
+            }
+    
+            if (policyStatusModalRef.current) {
+                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+                modal.show();
+            }
+        }
 
     const resetSelectedPolicy = () => {
         setSelectedPolicy(null);
@@ -480,6 +503,7 @@ const Page = () => {
                                         policyAction={policyAction}
                                         selectedPolicy={selectedPolicy}
                                         documentTypes={documentTypes}
+                                        deleteDocumentFile={deleteDocumentFile}
                                     />
 
                                     <div className="text-center mb-3">

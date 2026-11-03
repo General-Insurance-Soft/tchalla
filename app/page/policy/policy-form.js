@@ -166,7 +166,7 @@ const Page = (
                                     <div className="col-md-3">
                                         <label htmlFor="copyName">Document type:</label>
                                         {/* value` prop on `select` */}
-                                        
+
                                         <select id="document-type" className="form-select"
                                             value={currentUploadedFileType}
                                             onChange={(e) => (
@@ -220,10 +220,10 @@ const Page = (
                         <div className='row'>
                             {/* Template */}
                             <div className="row">
-                                    
+
                                 {policyAction == "edit" &&
                                     selectedPolicy.policy_documents.map((file, index) => (
-                                        
+
                                         <div className="col-sm-6" key={file.id || index}>
                                             <div className="card">
                                                 <div className="card-body">
