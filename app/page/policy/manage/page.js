@@ -5,8 +5,10 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact, 
-    getProposal, getPolicy, updatePolicyData, deletePolicyById, deletePolicyFile } from "../../../lib/service/model";
+import {
+    fetchPolicyData, fetchInsuranceCopanies, fetchDocumentTypes, fetchPolicies, getPolicyByContact,
+    getProposal, getPolicy, updatePolicyData, deletePolicyById, deletePolicyFile
+} from "../../../lib/service/model";
 import PolicyStatusModal from "../policy-status-message";
 import PolicylForm from "../policy-form";
 import DeletePolicy from "./delete-policy";
@@ -120,49 +122,63 @@ const Page = () => {
         let data = {
             "policy_number": policyNumber,
             "certificate_number": certificateNumber,
-            "start_date": startDate,
-            "end_date": endDate,
             "proposal_id": selectedPolicy.proposal_id,
             "contact_id": selectedPolicy.contact_id,
             "start_date": startDate,
+            "end_date": endDate
         }
 
-        let saveRes = await updatePolicyData(selectedPolicy.id, data);
 
-        if ('message' in saveRes) {
-            setMessageStatus(saveRes.message);
-            fetchAllPolicyData();
-            if (policyStatusModalRef.current) {
-                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
-                modal.show();
+        let formData = new FormData();
+
+        formData.append("data", new Blob([JSON.stringify(data)], {
+            type: "application/json"
+        }));
+
+        if (policyFiles.length === 0) {
+            console.log("No files selected, appending empty file to FormData");
+            formData.append("files", new Blob([])); // append empty file if none selected
+        } else {
+            for (let file of policyFiles) {
+                formData.append("files", file); // key must match backend param
             }
-
-            return;
         }
+
+        let response = await updatePolicyData(selectedPolicy.id, formData);
+
+        setMessageStatus(response.message);
+        fetchAllPolicyData();
+
+        if (policyStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+            modal.show();
+        }
+        return;
 
     };
 
+
     const deleteDocumentFile = async (event, documentId) => {
-            event.preventDefault();
-            let res = await deletePolicyFile(documentId);
-            setMessageStatus(res.message);
-        
-            if (res.message.toLowerCase().includes("successfully")) {
-                // Remove the deleted document from the selectedPolicy state
-                console.log("Deleting document with ID:", documentId);
-                setSelectedPolicy(prev => ({
-                    ...prev,
-                    policy_documents: prev.policy_documents.filter(
-                        doc => doc.id !== documentId
-                    )
-                }));
-            }
-    
-            if (policyStatusModalRef.current) {
-                const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
-                modal.show();
-            }
+        event.preventDefault();
+        let res = await deletePolicyFile(documentId);
+        setMessageStatus(res.message);
+
+        if (res.message.toLowerCase().includes("successfully")) {
+            // Remove the deleted document from the selectedPolicy state
+            console.log("Deleting document with ID:", documentId);
+            setSelectedPolicy(prev => ({
+                ...prev,
+                policy_documents: prev.policy_documents.filter(
+                    doc => doc.id !== documentId
+                )
+            }));
         }
+
+        if (policyStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(policyStatusModalRef.current);
+            modal.show();
+        }
+    }
 
     const resetSelectedPolicy = () => {
         setSelectedPolicy(null);
@@ -333,7 +349,7 @@ const Page = () => {
             policyLst.push(policy);
 
         });
-       
+
         setPolicyList(policyLst);
 
     }, [res]);
