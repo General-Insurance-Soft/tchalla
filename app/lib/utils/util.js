@@ -1,14 +1,8 @@
 import Cookies from 'js-cookie';
 
 export const clearApiCache = () => {
-    if (typeof window === 'undefined') {
-        for (let key in localStorage) {
-            if (key.startsWith("cache:") || key.startsWith("userData") || key.startsWith("user-data")) {
-                localStorage.removeItem(key);
-            }
-        }
-        localStorage.clear();
-    }
+    localStorage.clear();
+    sessionStorage.clear();
 }
 
 export const getToken = (type) => {
