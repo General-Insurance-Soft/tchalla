@@ -413,6 +413,10 @@ export const deleteClaimById = async (id) => {
     return await dataDeleteById(`${baseServerUrl}/claim-service/api/v1/claim/delete?id=${id}`, "claim delete");
 }
 
+export const deleteClaimFile = async (id) => {
+    return await dataDeleteById(`${baseServerUrl}/claim-service/api/v1/claim-document/delete-file?id=${id}`, "claim file delete");
+}
+
 export const fetchSearchedPayments = async (keyword) => {
     return await dataFetch(`${baseServerUrl}/payment-service/api/v1/payment/search?keyword=${keyword}`, [], "payment search");
 };
