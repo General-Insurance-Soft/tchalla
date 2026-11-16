@@ -11,7 +11,10 @@ import ClaimLoader from "./claim-loader";
 import DeleteClaim from "./delete-claim";
 
 //fetchClaimData
-import { fetchClaimData, fetchDocumentTypes, fetchPaymentMethods, getClaimByContact, getClaim, updateClaimData, deleteClaimById } from "../../../lib/service/model";
+import {
+    fetchClaimData, fetchDocumentTypes, fetchPaymentMethods,
+    getClaimByContact, getClaim, updateClaimData, deleteClaimById, deleteClaimFile
+} from "../../../lib/service/model";
 
 
 const Page = () => {
@@ -26,6 +29,7 @@ const Page = () => {
     const [claimAction, setClaimAction] = useState("edit");
     const [claimDate, setClaimDate] = useState("");
     const [claimNumber, setClaimNumber] = useState("");
+
     const [selectedContactClaims, setSelectedContactClaims] = useState([]);
     //contact_id
     const [contactId, setContactId] = useState(0);
@@ -44,6 +48,10 @@ const Page = () => {
     const [showOptionalPolicySelectSpinner, setShowOptionalPolicySelectSpinner] = useState(false);
     const [claimStatus, setClaimStatus] = useState("");
     const [policyNumber, setPolicyNumber] = useState("");
+
+    let [previews, setPreviews] = useState([]);
+    let [selectedFiles, setSelectedFiles] = useState([]);
+    let [claimFiles, setClaimFiles] = useState([]);
 
     const creatNewImageFolder = (event) => {
 
@@ -96,21 +104,63 @@ const Page = () => {
         setShowOptionalClaimSelectSpinner(false);
     }
 
-    const handleUpdateClaim = async () => {
-        const claimData = {
+    // const handleUpdateClaim = async () => {
+    //     const claimData = {
+    //         "policy_number": policyNumber,
+    //         "contact_id": contactId,
+    //         "payment_method": paymentModeId,
+    //         "claim_number": claimNumber,
+    //         "claim_date": claimDate,
+    //         "claim_status": claimStatus
+    //     };
+
+    //     let saveRes = await updateClaimData(claimData, selectedClaim.id);
+
+    //     if ('message' in saveRes) {
+    //         setMessageStatus(saveRes.message);
+    //         fetchAllClaimData();
+    //         if (claimStatusModalRef.current) {
+    //             const modal = new window.bootstrap.Modal(claimStatusModalRef.current);
+    //             modal.show();
+    //         }
+
+    //         return;
+    //     }
+    // };
+
+    const handleUpdateClaim = async (event) => {
+
+        event.preventDefault();
+
+
+        let data = {
             "policy_number": policyNumber,
             "contact_id": contactId,
             "payment_method": paymentModeId,
             "claim_number": claimNumber,
             "claim_date": claimDate,
             "claim_status": claimStatus
-        };
+        }
 
-        let saveRes = await updateClaimData(claimData, selectedClaim.id);
+        let formData = new FormData();
 
+        formData.append("data", new Blob([JSON.stringify(data)], {
+            type: "application/json"
+        }));
+
+        if (claimFiles.length === 0) {
+            console.log("No files selected, appending empty file to FormData");
+            formData.append("files", new Blob([])); // append empty file if none selected
+        } else {
+            for (let file of claimFiles) {
+                formData.append("files", file); // key must match backend param
+            }
+        }
+
+        let saveRes = await updateClaimData(formData, selectedClaim.id);
         if ('message' in saveRes) {
             setMessageStatus(saveRes.message);
-            fetchAllClaimData();
+
             if (claimStatusModalRef.current) {
                 const modal = new window.bootstrap.Modal(claimStatusModalRef.current);
                 modal.show();
@@ -118,6 +168,7 @@ const Page = () => {
 
             return;
         }
+
     };
 
     const deleteClaim = async () => {
@@ -134,6 +185,28 @@ const Page = () => {
         }
     }
 
+    const deleteDocumentFile = async (event, documentId) => {
+        event.preventDefault();
+        let res = await deleteClaimFile(documentId);
+        setMessageStatus(res.message);
+
+        if (res.message.toLowerCase().includes("successfully")) {
+            // Remove the deleted document from the selectedClaim state
+            console.log("Deleting document with ID:", documentId);
+            setSelectedClaim(prev => ({
+                ...prev,
+                claim_documents: prev.claim_documents.filter(
+                    doc => doc.id !== documentId
+                )
+            }));
+        }
+
+        if (claimStatusModalRef.current) {
+            const modal = new window.bootstrap.Modal(claimStatusModalRef.current);
+            modal.show();
+        }
+    }
+
     const resetSelectedClaim = () => {
         setSelectedClaim({});
         setShowOptionalClaimSelectSpinner(false);
@@ -143,7 +216,6 @@ const Page = () => {
         setShowEditForm(false);
         setClaimAction("edit");
         setClaimDate("");
-        setClaimNumber("");
         setPolicyNumber("");
         setPaymentModeId("");
         setContactId(0);
@@ -367,6 +439,7 @@ const Page = () => {
                                                         onClick={
                                                             () => {
                                                                 setShowEditForm(true, val)
+                                                                console.log("selected claim", val)
                                                                 setSelectedClaim(val)
                                                                 setContactName(val["contactName"]);
                                                                 setEditFormDetails(
@@ -460,7 +533,33 @@ const Page = () => {
                                     setClaimAction={setClaimAction}
                                     claimStatus={claimStatus}
                                     setClaimStatus={setClaimStatus}
+                                    deleteDocumentFile={deleteDocumentFile}
+                                    claimFiles={claimFiles}
+                                    setClaimFiles={setClaimFiles}
+                                    previews={previews}
+                                    setPreviews={setPreviews}
+                                    documentTypes={documentTypes}
+                                    selectedClaim={selectedClaim}
                                 />
+
+                                <div className="col-sm-12 mb-3">
+                                    <div className="text-center mb-3">
+                                        <div className="d-flex justify-content-center">
+                                            <button className="btn btn-primary me-2"
+                                                onClick={
+                                                    (event) => {
+                                                        setShowEditForm(false)
+                                                        handleUpdateClaim(event);
+                                                    }
+                                                }
+                                            >Update</button>
+                                            <button className="btn btn-secondary"
+                                                onClick={() => setShowEditForm(false)}
+                                            >Cancel</button>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
 
                             </div>
 

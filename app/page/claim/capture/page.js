@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from 'next/image';
 import NewImageFolder from "../../../lib/utils/new_image_folder";
 import withAuth from "../../../lib/service/with_auth";
-import { fetchSearchedPolicies, fetchPaymentMethods, saveClaimData } from "../../../lib/service/model";
+import { fetchSearchedPolicies, fetchPaymentMethods, saveClaimData, fetchDocumentTypes } from "../../../lib/service/model";
 import ClaimForm from "../claim-form";
 // ClaimStatusModal 
 import ClaimStatusModal from "../claim-status-message";
@@ -18,6 +18,8 @@ const Page = () => {
     const [policyNumber, setPolicyNumber] = useState('policy reference number');
     const [certificateNumber, setCertificateNumber] = useState();
     const [contactId, setContactId] = useState();
+
+    const [documentTypes, setDocumentTypes] = useState([]);
 
     const [paymentModeId, setPaymentModeId] = useState(-1);
     const [paymentModes, setPaymentModes] = useState([]);
@@ -33,6 +35,8 @@ const Page = () => {
     const [modalRef, setModalRef] = useState(null);
     //claimStatus
     const [claimStatus, setClaimStatus] = useState(null);
+    const [previews, setPreviews] = useState([]);
+    const [claimFiles, setClaimFiles] = useState([]);
 
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
@@ -59,6 +63,19 @@ const Page = () => {
         };
     }, [setSearchedContent]);
 
+
+    useEffect(() => {
+        const fetchDocumentTypesData = async () => {
+            let res = await fetchDocumentTypes();
+            if ('error' in res) {
+                return;
+            }
+            setDocumentTypes(res);
+        };
+
+        fetchDocumentTypesData();
+    }, []);
+
     //fetchPaymentMethods
     useEffect(() => {
         const fetchPaymentMethodsData = async () => {
@@ -74,18 +91,38 @@ const Page = () => {
         fetchPaymentMethodsData();
     }, []);
 
-    const handleSaveClaim = async () => {
-        const claimData = {
+
+
+    const handleSaveClaim = async (event) => {
+
+        event.preventDefault();
+
+
+        let data = {
             "policy_number": policyNumber,
             "contact_id": contactId,
             "payment_method": paymentModeId,
             "claim_number": claimReference,
             "claim_date": claimDate,
             "claim_status": claimStatus
-        };
+        }
 
-        let saveRes = await saveClaimData(claimData);
+        let formData = new FormData();
 
+        formData.append("data", new Blob([JSON.stringify(data)], {
+            type: "application/json"
+        }));
+
+        if (claimFiles.length === 0) {
+            console.log("No files selected, appending empty file to FormData");
+            formData.append("files", new Blob([])); // append empty file if none selected
+        } else {
+            for (let file of claimFiles) {
+                formData.append("files", file); // key must match backend param
+            }
+        }
+
+        let saveRes = await saveClaimData(formData);
         if ('message' in saveRes) {
             setMessageStatus(saveRes.message);
 
@@ -96,7 +133,9 @@ const Page = () => {
 
             return;
         }
+
     };
+
 
     const resetState = () => {
         setSearchText('');
@@ -262,10 +301,15 @@ const Page = () => {
                         claimDate={claimDate}
                         setClaimDate={setClaimDate}
                         paymentModes={paymentModes}
-                        claimAction ={claimAction}
+                        claimAction={claimAction}
                         setClaimAction={setClaimAction}
                         claimStatus={claimStatus}
                         setClaimStatus={setClaimStatus}
+                        claimFiles={claimFiles}
+                        setClaimFiles={setClaimFiles}
+                        previews={previews}
+                        setPreviews={setPreviews}
+                        documentTypes={documentTypes} setDocumentTypes={setDocumentTypes}
                     />
 
                 </div>
